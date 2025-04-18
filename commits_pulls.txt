@@ -2,3 +2,8 @@ Versions:
     -0.000.01
         -0.0.0.0.0.0.0.0.001 (readme.md editing)
         -0.0.0.0.0.0.0.0.002 (Criacao da pasta de cronogramas e arquivo de imagem)
+        -0.0.0.0.0.0.0.0.002.1 (verificação de problemas)
+        -0.0.0.0.0.0.0.0.002.2 (verificação de problemas)
+        -0.0.0.0.0.0.0.0.002.3 (verificação de problemas)
+        -0.0.0.0.0.0.0.0.002.4 (verificação de problemas)
+        -0.0.0.0.0.0.0.0.003 (ideias.txt)
