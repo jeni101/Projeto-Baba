@@ -1,3 +1,4 @@
 Versions:
     -0.000.01
         -0.0.0.0.0.0.0.0.001 (readme.md editing)
+        -0.0.0.0.0.0.0.0.002 (Criacao da pasta de cronogramas e arquivo de imagem)
