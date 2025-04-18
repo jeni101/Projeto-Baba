@@ -1,0 +1,55 @@
+Discussão:
+Q: Como será o programa:
+A: Sistema de menus
+
+Q: Qual o objetivo?
+A: Ajudar a bater o baba com os amigos, ajudar em champions/libertadores de colégio, permitir um sistema de "apostas"
+
+Q: Vai quer login?
+A: Sim
+
+Q: Qual a diferença entre jogos e partidas?
+A: 
+    -Jogos = Técnico
+    -Partidas = Resultados
+
+Q: Códigos de usuário serão exibidos?
+A: Não
+
+Q: São necessários 2 DB para jogo e partida?
+A: *Sim
+
+Q: Quantos data base?
+A:
+    -Jogadores.json
+    -Times.json
+    -Jogos.json
+    -Partidas.json
+
+Q: Como será dividida a interface?
+A: blaze.bet e bet365.bet* (conversar com o Luis)
+
+Q: Quem altera as informações?
+A: 
+    -Jogadores:
+        -C: Todos
+        -R: Todos
+        -U: Todos
+        -D: adm
+    
+    -Jogos:
+        -C:
+        -R:
+        -U:
+        -D:
+
+    -Partidas:
+        -C:
+        -R:
+        -U: Técnico
+        -D:
+
+Descartadas:
+-Apenas administradores criarem jogadores
+-Cadastro de jogadores atravéz de perfil apenas
+-Sistema de verificação

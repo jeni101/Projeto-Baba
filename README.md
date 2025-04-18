@@ -30,8 +30,6 @@ Nenhuma das partes do projeto se responsabiliza por quaisquer erros que possam o
 <!-- Atributo opcional para limitar times e/ou jogadores -->
 <!-- Dois times completos para iniciar um jogo -->
 
-
-
 ### Gestão de Times
 - **Organização de Times**:
     - **Ordem de Chegada**: Times organizados com base na ordem em que os jogadores chegaram.
