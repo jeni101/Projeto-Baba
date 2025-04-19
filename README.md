@@ -1,20 +1,11 @@
-# Projeto-Baba
+<h1 aling="center">Projeto Baba</h1>
 
-Projeto desenvolvido no Terceiro Semestre de Engenharia da Computação na UNASP-EC. Este sistema foi criado para gerenciar informações relacionadas a jogadores, times, jogos e partidas, facilitando a organização de competições esportivas.
+<h4 aling="center">Projeto desenvolvido no Terceiro Semestre de Engenharia da Computação na UNASP-EC. Este sistema foi criado para gerenciar informações relacionadas a jogadores, times, jogos e partidas, facilitando a organização de competições esportivas.</h4>
 
 ![Imagem do Sistema](link-para-imagem.png)
 
-## Criadores e Colaboradores
-- Gustavo Vieira
-- Jenifer Gomes
-- Luís Gabriel
-
----
-
 ## Disclaimer
-Nenhuma das partes do projeto se responsabiliza por quaisquer erros que possam ocorrer em computadores de terceiros não previamente autorizados.
-
----
+- Nenhuma das partes do projeto se responsabiliza por quaisquer erros que possam ocorrer em computadores de terceiros não previamente autorizados.
 
 ## Funcionalidades
 
@@ -45,14 +36,16 @@ Nenhuma das partes do projeto se responsabiliza por quaisquer erros que possam o
     - **Dois jogos**: Cada time joga duas vezes, exceto a primeira partida que quem ganha continua jogando.
     <!-- Acho uma boa sistema suíço (com MD3 e MD5) -->
 
----
 
 ## Como Usar
 
 ### Pré-requisitos
 
----
 
 ### Instalação
 
----
+
+## Criadores e Colaboradores
+- Gustavo Vieira
+- Jenifer Gomes
+- Luís Gabriel
