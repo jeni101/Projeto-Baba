@@ -1,6 +1,6 @@
-<h1 aling="center">Projeto Baba</h1>
+<h1 align="center">Projeto Baba</h1>
 
-<h4 aling="center">Projeto desenvolvido no Terceiro Semestre de Engenharia da Computação na UNASP-EC. Este sistema foi criado para gerenciar informações relacionadas a jogadores, times, jogos e partidas, facilitando a organização de competições esportivas.</h4>
+<h4 align="center">Projeto desenvolvido no Terceiro Semestre de Engenharia da Computação na UNASP-EC. Este sistema foi criado para gerenciar informações relacionadas a jogadores, times, jogos e partidas, facilitando a organização de competições esportivas.</h4>
 
 ![Imagem do Sistema](link-para-imagem.png)
 
