@@ -1,12 +1,18 @@
 Discussão:
-Q: Como será o programa:
+Q: Como será o programa?
 A: Sistema de menus
 
 Q: Qual o objetivo?
 A: Ajudar a bater o baba com os amigos, ajudar em champions/libertadores de colégio, permitir um sistema de "apostas"
 
-Q: Vai quer login?
-A: Sim
+Q: Vai ter login?
+A: Sim (acessa o perfil)
+
+Q: Cadastro individual?
+A: Cadastro =/= Conta =/= perfil
+    -Conta:
+        -Cadastro: Dado para o database
+        -Perfil: Dado para o jogador
 
 Q: Qual a diferença entre jogos e partidas?
 A: 
@@ -38,18 +44,24 @@ A:
         -D: adm
     
     -Jogos:
-        -C:
-        -R:
-        -U:
-        -D:
+        -C: Todos
+        -R: Todos
+        -U: *criador
+        -D: *criador (votação)
 
     -Partidas:
-        -C:
-        -R:
+        -C: *Todos
+        -R: Todos
         -U: Técnico
-        -D:
+        -D: *Técnico
+
+    -Times:
+        -C: Técnico
+        -R: Técnico
+        -U: Técnico
+        -D: Técnico
 
 Descartadas:
 -Apenas administradores criarem jogadores
 -Cadastro de jogadores atravéz de perfil apenas
--Sistema de verificação
+-Sistema de verificação*

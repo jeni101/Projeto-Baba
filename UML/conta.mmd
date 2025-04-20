@@ -1,30 +1,63 @@
 classDiagram
-    Pessoa <|-- Aluno
-    Pessoa <|-- Professor
-    Pessoa : -Nome
-    Pessoa: -Idade 
-    Pessoa: ExibirInfo()
+    %%abstrata
+    Conta <|-- conta_adm
+    Conta <|-- conta_jogador
+    Conta : nome
+    Conta : idade
+    Conta : login()
+    Conta : logout()
 
-    Aluno <|-- Turma 
-    Aluno: -Matricula
-    Aluno: +Estudar()
-
-    Professor -- Escola
-    Professor: -Diciplina
-    Professor: +Ensinar()
-
-    Turma -- Diretoria
-    Turma: -Nome
-    Turma: +AdicionarAluno()
-
-
-    Escola --* Diretoria
-    Escola --o Turma
-    Escola: -Nome 
-    Escola: -Endereço
-    Escola: ExibirInfo()
-
-    Diretoria: -Diretor
+    conta_jogador -- cadastro
+    conta_jogador -- perfil
+    conta_jogador <|-- conta_tecnico
+    conta_jogador : Codigo
+    conta_jogador : cadastrarEmail()
+    conta_jogador : criarPerfil()
+    conta_jogador : exibirPerfil()
+    conta_jogador : atualizarPerfil()
+    conta_jogador : deletarPerfil()
+    conta_jogador : deletarPropriaConta()
+    conta_jogador : exibirCodigo()
     
+    conta_adm -- cadastro
+    conta_adm : criarConta()
+    conta_adm : deletarConta()
+    conta_adm : criarJogador()
+    conta_adm : exibirJogador()
+    conta_adm : atualizarJogador()
+    conta_adm : deletarJogador()
+    conta_adm : criarJogo()
+    conta_adm : exibirJogo()
+    conta_adm : atualizarJogo()
+    conta_adm : deletarJogo()
+    conta_adm : criarPartida()
+    conta_adm : exibirPartida()
+    conta_adm : atualizarPartida()
+    conta_adm : deletarPartida()
+
+    conta_tecnico -- perfil
+    conta_tecnico : criarJogador()
+    conta_tecnico : exibirJogador()
+    conta_tecnico : atualizarJogador()
+    conta_tecnico : deletarJogador()
+    conta_tecnico : criarJogo()
+    conta_tecnico : exibirJogo()
+    conta_tecnico : atualizarJogo()
+    conta_tecnico : deletarJogo()
+    conta_tecnico : criarPartida()
+    conta_tecnico : exibirPartida()
+    conta_tecnico : atualizarPartida()
+    conta_tecnico : deletarPartida()
+
+    %%Database
+    perfil : +Nome
+    perfil : +Idade
+    perfil : +Posicao
+    perfil : +Time*
+    perfil : +Jogos*
+    perfil : +Partidas*
+
+    cadastro : +Codigo
+
 
 
