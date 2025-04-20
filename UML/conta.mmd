@@ -1,4 +1,30 @@
 classDiagram
-    Pessoa <-- Aluno
-    Pessoa <-- Professor
+    Pessoa <|-- Aluno
+    Pessoa <|-- Professor
+    Pessoa : -Nome
+    Pessoa: -Idade 
+    Pessoa: ExibirInfo()
+
+    Aluno <|-- Turma 
+    Aluno: -Matricula
+    Aluno: +Estudar()
+
+    Professor -- Escola
+    Professor: -Diciplina
+    Professor: +Ensinar()
+
+    Turma -- Diretoria
+    Turma: -Nome
+    Turma: +AdicionarAluno()
+
+
+    Escola --* Diretoria
+    Escola --o Turma
+    Escola: -Nome 
+    Escola: -Endereço
+    Escola: ExibirInfo()
+
+    Diretoria: -Diretor
     
+
+
