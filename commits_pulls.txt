@@ -9,3 +9,4 @@ Versions:
         -0.0.0.0.0.0.0.0.003 (ideias.txt)
         -0.0.0.0.0.0.0.0.004 (readme.md formatation)
         -0.0.0.0.0.0.0.0.005 (uml bases)
+        -0.0.0.0.0.0.0.0.005.1 (uml discussion - conta)
