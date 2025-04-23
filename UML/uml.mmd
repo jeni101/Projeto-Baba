@@ -1,0 +1,106 @@
+classDiagram
+    %%Super-classes
+    Conta <|-- conta_usuario
+    Conta <|-- conta_adm
+    Conta : -nome
+    Conta : -idade
+    Conta : ~senha
+    Conta : login()
+    Conta : logout()
+    Conta : register()
+    Conta : mudarSenha()
+
+    %%Interfaces
+    IJogador : escolherPosicao()
+    IJogador : adicionarPosicao()
+    IJogador : removerPosicao()
+    IJogador : entrarNoTime()
+    IJogador : sairDoTime()
+    IJogador : exibirGols()
+    IJogador : ocultarGols()
+    IJogador : exibirAssistencias()
+    IJogador : ocultarAssistencias()
+    IJogador : exibirJogos()
+    IJogador : ocultarJogos()
+    IJogador : exibirPartidas()
+    IJogador : ocultarPartidas()
+
+
+    ITecnico <|-- time
+    ITecnico <|-- treino
+    ITecnico <|-- jogo
+    ITecnico : criarTime()
+    ITecnico : criarTreino()
+    ITecnico : criarJogo()
+
+
+    IJogador o-- time
+
+    
+    IArbitro <|-- jogo
+    IArbitro : criarJogo()
+
+
+    %%contas
+    conta_usuario <|-- apostas
+    conta_usuario : +nome
+    conta_usuario : +idade
+    conta_usuario : ~senha
+    conta_usuario : +interesses
+    conta_usuario : +inscricoes
+    conta_usuario : -apostas
+    conta_usuario : fazerAposta()
+
+
+    %%Enditades
+    time : +codigo
+    time : +nome
+    time : +tecnico
+    time : +jogadores
+    time : +partidas
+    time : +jogos
+    time : editarTime()
+    time : exibirTime()
+    time : ocultarTime()
+    time : adicionarJogador()
+    time : removerJogador()
+    time : deletarTime()
+
+
+    treino : ~data
+    treino : ~local
+    treino : ~time
+    treino : adicionarJogadores()
+    treino : removerJogadores()
+    treino : deletarTreino()
+
+
+    apostas : ~previsao
+    apostas : ~valorApostado
+    apostas : +resultado
+    apostas : fazerPrevisao()
+
+
+    jogo <|-- partida
+    jogo : +data
+    jogo : +local
+    jogo : +tipoDeCampo
+    jogo : +interessados
+    jogo : +quantidadeJogadores
+    jogo : +times
+    jogo : alterarData()
+    jogo : alterarLocal()
+    jogo : alterarTipoDeCampo()
+    jogo : alterarQuantidadeJogadores()
+    jogo : adicionarTimes()
+
+
+    partida : +resultado
+    partida : iniciarPartida()
+    partida : alterarResultado()
+    partida : encerrarPartida()
+
+
+    partida <|-- resultado
+    apostas --* resultado
+    resultado : +resultado
