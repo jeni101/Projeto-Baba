@@ -14,3 +14,5 @@ Versions:
         -0.0.0.0.0.0.0.0.006 (ideias discussion)
         -0.0.0.0.0.0.0.0.007 (conta uml ver 1)
         -0.0.0.0.0.0.0.0.008 (conta uml ver 2)
+        -0.0.0.0.0.0.0.0.009 (uml final, pt1)
+        -0.0.0.0.0.0.0.0.010 (UML for project)
