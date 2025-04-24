@@ -18,4 +18,5 @@ Versions:
         -0.0.0.0.0.0.0.0.010 (UML for project)
     
     -0.000.02
-       -0.0.0.0.0.0.0.0.001 (create App) 
+       -0.0.0.0.0.0.0.0.001 (create App)
+       -0.0.0.0.0.0.0.0.002 (Linkagem do Git) 
