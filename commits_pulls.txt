@@ -21,3 +21,4 @@ Versions:
        -0.0.0.0.0.0.0.0.001 (create App)
        -0.0.0.0.0.0.0.0.002 (Linkagem do Git)
        -0.0.0.0.0.0.0.0.002.1 (welcome Luis :D)
+       -0.0.0.0.0.0.0.0.003 (dirs: Models & Interfaces)
