@@ -31,3 +31,4 @@ Versions:
        -0.0.0.0.0.0.0.0.009 (Estrutura inicial da classe Conta_Arbitro)
        -0.0.0.0.0.0.0.0.009.1 (Resolvendo problemas de sincronizacao)
        -0.0.0.0.0.0.0.0.010 (Estrutura inicial da classe Amistoso e placar)
+       -0.0.0.0.0.0.0.0.010.1 (modificacao nos atributos da classe Amistoso)
