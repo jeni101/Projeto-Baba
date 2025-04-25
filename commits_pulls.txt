@@ -23,3 +23,4 @@ Versions:
        -0.0.0.0.0.0.0.0.002.1 (welcome Luis :D)
        -0.0.0.0.0.0.0.0.003 (dirs: Models & Interfaces)
        -0.0.0.0.0.0.0.0.004 (interfaces creation)
+       -0.0.0.0.0.0.0.0.004.1 (Adicionar .gitignore para ignorar arquivos de build)
