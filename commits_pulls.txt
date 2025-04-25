@@ -33,3 +33,5 @@ Versions:
        -0.0.0.0.0.0.0.0.010 (Estrutura inicial da classe Amistoso e placar)
        -0.0.0.0.0.0.0.0.010.1 (modificacao nos atributos da classe Amistoso)
        -0.0.0.0.0.0.0.0.010.2 (Ajustes finais e revisao rapida das classes)
+       -0.0.0.0.0.0.0.0.010.3 (Resolvendo problemas de sincronizacao)
+
