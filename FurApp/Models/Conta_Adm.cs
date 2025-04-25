@@ -9,7 +9,7 @@ namespace ContaAdmApp
         public ContaAdm(string nome, string senha, int idade)
             : base (nome, senha, idade )
             {
-                
+
             }
         //conta
         public void CriarConta(){}
@@ -39,7 +39,7 @@ namespace ContaAdmApp
         public void EditarTime(){}
         public void DeletarTime(){}
 
-        //jogado
+        //jogo
         public void CriarJogo(){}
         public void EditarJogo(){}
         public void DeletarJogo(){}
