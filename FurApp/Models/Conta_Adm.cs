@@ -32,7 +32,7 @@ namespace ContaAdmApp
         public void DeletarArbitro(){}
 
         //saldo
-        public void EditaraSaldo(){}
+        public void EditarSaldo(){}
         
         //Time
         public void CriarTime(){}

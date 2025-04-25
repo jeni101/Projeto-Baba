@@ -9,8 +9,13 @@ namespace PlacarApp
         public string TimeB { get; set; }
         public int GolsB { get; set; }
 
+
+
         public Placar(string timeA, int golsA, string timeB, int golsB)
         {
+            if (golsA < 0 || golsB < 0)
+                throw new ArgumentException("Gols não podem ser negativos");
+
             TimeA = timeA;
             TimeB = timeB;
             GolsA = golsA;
