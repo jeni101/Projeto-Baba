@@ -27,3 +27,4 @@ Versions:
        -0.0.0.0.0.0.0.0.005.1 (verificação de problemas)
        -0.0.0.0.0.0.0.0.006 (Estrutura inicial da classe Conta_Adm)
        -0.0.0.0.0.0.0.0.007 (Estrutura inicial da classe Conta_Jogador)
+       -0.0.0.0.0.0.0.0.008 (Estrutura inicial da classe Conta_Tecnico)
