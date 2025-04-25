@@ -23,6 +23,7 @@ Versions:
        -0.0.0.0.0.0.0.0.002.1 (welcome Luis :D)
        -0.0.0.0.0.0.0.0.003 (dirs: Models & Interfaces)
        -0.0.0.0.0.0.0.0.004 (Estrutura inicial da classe Conta)
+       -0.0.0.0.0.0.0.0.004.1 (Adicionar .gitignore para ignorar arquivos de build)
        -0.0.0.0.0.0.0.0.005 (Estrutura inicial da classe ContaUsuario)
        -0.0.0.0.0.0.0.0.005.1 (verificação de problemas)
        -0.0.0.0.0.0.0.0.006 (Estrutura inicial da classe Conta_Adm)
@@ -37,5 +38,11 @@ Versions:
        -0.0.0.0.0.0.0.0.010.4 (Adicionando arquivos de build ao .gitignore)
        -0.0.0.0.0.0.0.0.010.5 (Removendo pastas de build do controle de versão q ja foram rastreadas)
        -0.0.0.0.0.0.0.0.010.6 (Resolvendo problemas de sincronizacao)
+       -0.0.0.0.0.0.0.0.011 (Resolvendo conflitos)
 
+
+
+
+       
+       
 

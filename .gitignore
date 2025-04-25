@@ -1,3 +1,6 @@
+
 # Ignorar arquivos de build do .NET
+
+
 **/bin/
 **/obj/

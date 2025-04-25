@@ -1,0 +1,4 @@
+interface IArbitro
+{
+    void criarJogo();
+}
