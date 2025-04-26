@@ -3,6 +3,8 @@ using ContaApp;
 using ContaJogadorApp;
 using ContaTecnicoApp;
 using ContaArbitroApp;
+using PersistenciaApp;
+
 
 
 namespace GerenciadorApp
@@ -84,8 +86,14 @@ namespace GerenciadorApp
                 novaConta = CriarContaArbitro(nome ?? "", idade, senha ?? "");
             }
 
-        }
 
+            if (novaConta != null)
+            {
+                contas.Add(novaConta);
+                PersistenciaDeContas.SalvarContas(contas); // salva no json 
+                Console.WriteLine("Conta criada com sucesso!");
+            }
+        }
         public ContaTecnico CriarContaTecnico(string nome, int idade, string senha)
         {
             Console.Clear();
