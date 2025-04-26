@@ -1,1 +1,107 @@
-{"$type":"System.Collections.Generic.List`1[[ContaApp.Conta, FurApp]], System.Private.CoreLib","$values":[{"$type":"ContaJogadorApp.ContaJogador, FurApp","Posicao":"Goleiro","Time":"","Codigo":"","Gols":0,"Assistencias":0,"Eventos":{"$type":"System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib","$values":[]},"Jogos":{"$type":"System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib","$values":[]},"Partidas":{"$type":"System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib","$values":[]},"Saldo":0.0,"Interesses":"","Amistosos":""}]}
+{
+  "$type": "System.Collections.Generic.List`1[[ContaApp.Conta, FurApp]], System.Private.CoreLib",
+  "$values": [
+    {
+      "$type": "ContaJogadorApp.ContaJogador, FurApp",
+      "Posicao": "Goleiro",
+      "Time": "",
+      "Codigo": "",
+      "Gols": 0,
+      "Assistencias": 0,
+      "Eventos": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Jogos": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Partidas": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Saldo": 0.0,
+      "Interesses": "",
+      "Amistosos": "",
+      "Nome": null,
+      "Senha": null,
+      "Idade": 0
+    },
+    {
+      "$type": "ContaJogadorApp.ContaJogador, FurApp",
+      "Posicao": "Defesa",
+      "Time": "",
+      "Codigo": "",
+      "Gols": 0,
+      "Assistencias": 0,
+      "Eventos": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Jogos": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Partidas": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Saldo": 0.0,
+      "Interesses": "",
+      "Amistosos": "",
+      "Nome": null,
+      "Senha": null,
+      "Idade": 0
+    },
+    {
+      "$type": "ContaTecnicoApp.ContaTecnico, FurApp",
+      "Time": "",
+      "Eventos": "",
+      "Jogos": "",
+      "Partidas": "",
+      "Saldo": 0.0,
+      "Interesses": "",
+      "Amistosos": "",
+      "Nome": null,
+      "Senha": null,
+      "Idade": 0
+    },
+    {
+      "$type": "ContaJogadorApp.ContaJogador, FurApp",
+      "Posicao": "Ataque",
+      "Time": "",
+      "Codigo": "",
+      "Gols": 0,
+      "Assistencias": 0,
+      "Eventos": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Jogos": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Partidas": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Saldo": 0.0,
+      "Interesses": "",
+      "Amistosos": "",
+      "Nome": "fununcia?",
+      "Senha": "sera?",
+      "Idade": 88
+    },
+    {
+      "$type": "ContaArbitroApp.ContaArbitro, FurApp",
+      "Jogos": "",
+      "Partidas": "",
+      "Saldo": 0.0,
+      "Interesses": "",
+      "Amistosos": "",
+      "Nome": "eu",
+      "Senha": "31313wscsd",
+      "Idade": 424
+    }
+  ]
+}
