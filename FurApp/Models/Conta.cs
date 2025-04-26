@@ -1,4 +1,5 @@
 using System;
+using PersistenciaApp;
 
 namespace ContaApp
 {
@@ -18,7 +19,8 @@ namespace ContaApp
     } 
 
     public void Register() {}
-    public void Login() {}
+    public virtual void Login(string tipoConta, string nome, string senha)
+    {}
     public void Logout() {}
 
     

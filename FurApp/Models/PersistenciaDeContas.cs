@@ -3,53 +3,81 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ContaJogadorApp;
+using ContaTecnicoApp;
+using ContaArbitroApp;
 
 namespace PersistenciaApp
 {
     public static class PersistenciaDeContas
     {
-        // Caminho pro arquivo onde vai salvar os dados
         private static string caminhoArquivo = "../Database/dados.json";
-
-        // Modo debug: se true, deixa o JSON identado bonitinho
         private static bool modoDebug = true;
 
-        // Salva novas contas, mantendo as antigas
+        // Salva as contas agrupadas por tipo
         public static void SalvarContas(List<Conta> novasContas)
         {
-            // Carrega as contas existentes (se houver)
-            var contasAtuais = CarregarContas();
+            var contasPorTipo = CarregarContasAgrupadas(); // Dicionário: tipo -> contas
 
-            // Junta as novas com as antigas
-            contasAtuais.AddRange(novasContas);
+            foreach (var conta in novasContas)
+            {
+                var tipo = ObterTipoDaConta(conta);
 
-            // Configurações pra serialização do JSON
+                if (!contasPorTipo.ContainsKey(tipo))
+                    contasPorTipo[tipo] = new List<Conta>();
+
+                contasPorTipo[tipo].Add(conta);
+            }
+
             var configuracoes = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
-                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple, // aqui ja deixa um pouco menos poluido
-                Formatting = modoDebug ? Formatting.Indented : Formatting.None // identa se tiver no debug se n manda poluido mesmo
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+                Formatting = modoDebug ? Formatting.Indented : Formatting.None
             };
 
-            // Converte pra JSON com as configuracoes
-            var json = JsonConvert.SerializeObject(contasAtuais, configuracoes);
-
-            // Salva no arquivo
+            var json = JsonConvert.SerializeObject(contasPorTipo, configuracoes);
             File.WriteAllText(caminhoArquivo, json);
         }
 
-        // Carrega as contas do arquivo
+        // Carrega todas as contas em uma lista única (útil pra cadastro)
         public static List<Conta> CarregarContas()
         {
+            var contasAgrupadas = CarregarContasAgrupadas();
+            var todasContas = new List<Conta>();
+
+            foreach (var lista in contasAgrupadas.Values)
+                todasContas.AddRange(lista);
+
+            return todasContas;
+        }
+
+        // Carrega contas agrupadas por tipo (útil pro login otimizado)
+        public static Dictionary<string, List<Conta>> CarregarContasAgrupadas()
+        {
             if (!File.Exists(caminhoArquivo))
-                return new List<Conta>(); // Se não tiver nada, começa vazio
+                return new Dictionary<string, List<Conta>>();
 
             var json = File.ReadAllText(caminhoArquivo);
 
-            return JsonConvert.DeserializeObject<List<Conta>>(json, new JsonSerializerSettings
+            return JsonConvert.DeserializeObject<Dictionary<string, List<Conta>>>(json, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
-            }) ?? new List<Conta>();
+            }) ?? new Dictionary<string, List<Conta>>();
         }
+
+        // Identifica o tipo da conta com base no nome da classe
+        private static string ObterTipoDaConta(Conta conta)
+        {
+            if (conta == null) return "Desconhecido";
+            
+            if (conta is ContaJogador) return "Jogador";
+            if (conta is ContaTecnico) return "Tecnico";
+            if (conta is ContaArbitro) return "Arbitro";
+            
+
+            return "Desconhecido";
+        }
+
     }
 }

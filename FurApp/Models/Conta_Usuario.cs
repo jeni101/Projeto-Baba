@@ -1,5 +1,7 @@
 using System;
 using ContaApp;
+using System.Linq;
+using PersistenciaApp;
 
 namespace ContaUsuarioApp
 {
@@ -17,6 +19,48 @@ namespace ContaUsuarioApp
             Interesses = interesses;
             Amistosos = amistosos;
         }
+        
+
+        public override void Login(string tipoConta, string nome, string senha)
+        {
+
+            string tipo =  tipoConta switch
+            {
+                // converte a escolha
+                "1" => "Jogador",
+                "2" => "Tecnico",
+                "3" => "Arbitro",
+                _ => ""
+            };
+            var contas = PersistenciaDeContas.CarregarContasAgrupadas(); // le oq tem no json
+
+            if (contas.TryGetValue(tipo, out var listaContas)) // procura pelo tipo de conta no caso seria as proprias chaves do json, se n achar a chave ele vai p else pq sem chave n tem conta
+            {
+                var contaEncontrada = listaContas.FirstOrDefault(c => c.Nome == nome && c.Senha == senha); // vai voltar a primeira conta q bater nome e senha dentro do tipo se n volta null
+                if (contaEncontrada != null)
+                {
+                    Console.WriteLine($"loguin bem sucedido, Bem vindo! {contaEncontrada.Nome}");
+                    Console.ReadLine(); // ver a mensagem
+
+                }
+                else
+                {
+
+                    Console.WriteLine("Login falhou, verifique seu nome e senha.");
+                }
+            }
+
+            else
+            {
+
+                Console.WriteLine("Tipo de conta inválido.");
+            }
+
+        }
+
+
+
+
 
         //amistoso
         public void CriarAmistosos() { }
