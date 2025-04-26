@@ -14,15 +14,15 @@ namespace ContaJogadorApp
         public List<string> Jogos { get; set; } 
         public List<string> Partidas { get; set; } 
 
-        public ContaJogador(string nome, string senha, int idade, float saldo, string interesses, string amistosos,
-                            string posicao, string time, string codigo, int gols, int assistencias)
-            : base(nome, senha, idade, saldo, interesses, amistosos)
+        public ContaJogador(string nome, string senha, int idade, string posicao, float? saldo = null, string? interesses = null, string? amistosos = null,
+                            string? time = null, string? codigo = null, int? gols = null, int? assistencias = null)
+            : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty) // variaveis nulas p criacao de conta 
         {
             Posicao = posicao;
-            Time = time;
-            Codigo = codigo;
-            Gols = gols;
-            Assistencias = assistencias;
+            Time = time ?? string.Empty;
+            Codigo = codigo ?? string.Empty;
+            Gols = gols ?? 0;
+            Assistencias = assistencias ?? 0;
             Eventos = new List<string>();  // Inicializando a lista
             Jogos = new List<string>();    // Inicializando a lista
             Partidas = new List<string>(); 

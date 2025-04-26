@@ -39,6 +39,7 @@ Versions:
        -0.0.0.0.0.0.0.0.010.5 (Removendo pastas de build do controle de versão q ja foram rastreadas)
        -0.0.0.0.0.0.0.0.010.6 (Resolvendo problemas de sincronizacao)
        -0.0.0.0.0.0.0.0.011 (Resolvendo conflitos)
+       -0.0.0.0.0.0.0.0.012 (Implementacao do esboço do sistema de cadastro, ainda nao salva)
 
 
 

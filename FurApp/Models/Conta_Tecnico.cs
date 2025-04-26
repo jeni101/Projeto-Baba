@@ -13,13 +13,13 @@ namespace ContaTecnicoApp
         public string Partidas {get; set;}
 
     
-        public ContaTecnico(string nome, string senha, int idade, float saldo, string interesses, string amistosos, string time, string eventos, string jogos, string partidas)
-            : base (nome, senha, idade, saldo, interesses, amistosos)
+        public ContaTecnico(string nome, string senha, int idade, float? saldo = null, string? interesses = null, string? amistosos = null, string? time = null, string? eventos = null, string? jogos = null, string? partidas = null)
+            : base (nome, senha, idade, saldo ?? 0, interesses ?? string.Empty, amistosos ?? string.Empty)
             {
-                Time = time;
-                Eventos = eventos;
-                Jogos = jogos;
-                Partidas = partidas;
+                Time = time ?? string.Empty;
+                Eventos = eventos ?? string.Empty;
+                Jogos = jogos ?? string.Empty;
+                Partidas = partidas ?? string.Empty;
             }
         
         // eventos
