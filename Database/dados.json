@@ -6,7 +6,7 @@
       {
         "$type": "ContaJogadorApp.ContaJogador, FurApp",
         "Posicao": "Goleiro",
-        "Time": "",
+        "Time": "o my good",
         "Codigo": "",
         "Gols": 0,
         "Assistencias": 0,

@@ -45,6 +45,7 @@ Versions:
        -0.0.0.0.0.0.0.0.015 (Alterecao no formato json, e implementacao do metoto login)
        -0.0.0.0.0.0.0.0.016 (Ajuste visual nos menus principais e implementacao da opcao 'sair' no mesmo)
        -0.0.0.0.0.0.0.0.017 (Implementacao do esqueleto sub Menu Perfil/Jogos para jogadores)
+       -0.0.0.0.0.0.0.0.018 (Implementacao da clase listar times para jogadores)
 
 
 

@@ -1,6 +1,6 @@
 using System;
 using ContaJogadorApp;
-
+using TimesApp;
 
 namespace MenuPerfilApp
 {
@@ -40,6 +40,8 @@ namespace MenuPerfilApp
                     {
                         case "1":
                             // chamar funcao p times
+                            Times times = new Times();
+                            times.ListarTimes(contaLogada.Nome);
 
                             break;
                         
@@ -54,6 +56,7 @@ namespace MenuPerfilApp
                         case "4":
 
                             Console.WriteLine("Voltando ao menu principal...");
+                            DisplayMenu();
                             return;
                     }
 
