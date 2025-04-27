@@ -42,7 +42,8 @@ Versions:
        -0.0.0.0.0.0.0.0.012 (Implementacao do esboço do sistema de cadastro, ainda nao salva)
        -0.0.0.0.0.0.0.0.013 (Implementacao do database funcional, porem muito poluido)
        -0.0.0.0.0.0.0.0.014 (Correcao da sobreescrita do database e ajuste visual no mesmo)
-       -0.0.0.0.0.0.0.0.015 (alterecao no formato json, e implementacao do metoto login)
+       -0.0.0.0.0.0.0.0.015 (Alterecao no formato json, e implementacao do metoto login)
+       -0.0.0.0.0.0.0.0.016 (Ajuste visual nos menus principais e implementacao da opcao 'sair' no mesmo)
 
 
 

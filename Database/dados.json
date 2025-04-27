@@ -28,6 +28,32 @@
         "Nome": "Teste",
         "Senha": "12344",
         "Idade": 23
+      },
+      {
+        "$type": "ContaJogadorApp.ContaJogador, FurApp",
+        "Posicao": "Defesa",
+        "Time": "",
+        "Codigo": "",
+        "Gols": 0,
+        "Assistencias": 0,
+        "Eventos": {
+          "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+          "$values": []
+        },
+        "Jogos": {
+          "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+          "$values": []
+        },
+        "Partidas": {
+          "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+          "$values": []
+        },
+        "Saldo": 0.0,
+        "Interesses": "",
+        "Amistosos": "",
+        "Nome": "é meurmo é",
+        "Senha": "num é n",
+        "Idade": 4
       }
     ]
   },
