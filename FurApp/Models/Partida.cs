@@ -1,4 +1,4 @@
-public class Partida : Jogo
-{
+// public class Partida : Jogo
+// {
     
-}
+// }

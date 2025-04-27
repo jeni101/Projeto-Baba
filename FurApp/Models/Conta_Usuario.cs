@@ -2,6 +2,9 @@ using System;
 using ContaApp;
 using System.Linq;
 using PersistenciaApp;
+using MenuPerfilApp;
+using ContaJogadorApp;
+
 
 namespace ContaUsuarioApp
 {
@@ -39,9 +42,22 @@ namespace ContaUsuarioApp
                 var contaEncontrada = listaContas.FirstOrDefault(c => c.Nome == nome && c.Senha == senha); // vai voltar a primeira conta q bater nome e senha dentro do tipo se n volta null
                 if (contaEncontrada != null)
                 {
+                    Console.Clear();
                     Console.WriteLine($"loguin bem sucedido, Bem vindo! {contaEncontrada.Nome}");
                     Console.ReadLine(); // ver a mensagem
-                    // aqui chamar o outro menu
+                    
+                   if (contaEncontrada is ContaJogador contaJogador)
+                    {   
+                        // Agora contaJogador é do tipo correto p menu de jogador
+                        MenuPerfilJogador menu = new MenuPerfilJogador(contaJogador);
+                        menu.DisplayMenu();
+                    }
+                    else
+                    {
+                       Console.Write("em construcao p esse tipo de conta.");
+                       Console.ReadLine();
+                        // aqui chamar o outro menu generico p outras contas 
+                    }
 
                 }
                 else
