@@ -47,6 +47,7 @@ Versions:
        -0.0.0.0.0.0.0.0.017 (Implementacao do esqueleto sub Menu Perfil/Jogos para jogadores)
        -0.0.0.0.0.0.0.0.018 (Implementacao da clase listar times para jogadores)
        -0.0.0.0.0.0.0.0.019 (Conta_Tecnico recreation & coments clearing)
+       -0.0.0.0.0.0.0.0.020 (Conta[_Usuario] recreation)
 
 
 
