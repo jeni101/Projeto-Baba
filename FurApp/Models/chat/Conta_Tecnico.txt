@@ -1,0 +1,6 @@
+// rever atibutos como eventos ou jogos, pois falta informacao por si so, como: local, horario, dia etc. a menos q trasforme em uma lista
+Revisto, checar UML/uml.mmd
+
+
+//partidas vai continuar como string? 
+Nope, lista

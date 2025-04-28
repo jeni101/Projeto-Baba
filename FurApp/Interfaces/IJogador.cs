@@ -1,3 +1,5 @@
+namespace ContaJogadorApp;
+
 interface IJogador
 {
     void escolherPosicao();

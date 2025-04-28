@@ -1,48 +1,69 @@
 using System;
 using ContaUsuarioApp;
+using TimesApp;
 
-// rever atibutos como eventos ou jogos, pois falta informacao por si so, como: local, horario, dia etc. a menos q trasforme em uma lista
+
 namespace ContaTecnicoApp
 {
-    public class ContaTecnico : ContaUsuario
+    public class ContaTecnico : ContaUsuario, ITecnico
     {
+        //sobre o tecnico
         public string Time {get; set;}
-        public string Eventos {get; set;}
-        public string Jogos {get; set;}
-        //partidas vai continuar como string? 
-        public string Partidas {get; set;}
+        public List<string> Eventos {get; set;}
+        public List<string> Jogos {get; set;}
+        public List<string> Partidas {get; set;}
 
     
-        public ContaTecnico(string nome, string senha, int idade, float? saldo = null, string? interesses = null, string? amistosos = null, string? time = null, string? eventos = null, string? jogos = null, string? partidas = null)
-            : base (nome, senha, idade, saldo ?? 0, interesses ?? string.Empty, amistosos ?? string.Empty)
+        //Construtor
+        public ContaTecnico(string nome, 
+                            string senha, 
+                            int idade, 
+                            float? saldo = null, 
+                            string? interesses = null, 
+                            string? amistosos = null, 
+                            string? time = null, 
+                            List<string>? eventos = null, 
+                            List<string>? jogos = null, 
+                            List<string>? partidas = null)
+                            : base (nome, senha, idade, saldo ?? 0, interesses ?? string.Empty, amistosos ?? string.Empty)
             {
                 Time = time ?? string.Empty;
-                Eventos = eventos ?? string.Empty;
-                Jogos = jogos ?? string.Empty;
-                Partidas = partidas ?? string.Empty;
+                Eventos = eventos ?? new List<string>();
+                Jogos = jogos ?? new List<string>();
+                Partidas = partidas ?? new List<string>();
             }
-        
-        // eventos
-        public void CriarEventos(){}
-        public void ExibirEventos(){}
-        public void EditarEventos(){}
-        public void DeletarEventos(){}
-
-        public void EntrarJogo(){}
-        public void SairJoga(){}
 
         //time
-        public void CriarTime(){}
-        public void ExibirTime(){}
-        public void EditarTime(){}
-        public void DeletarTime(){}
-        public void AdicionarJogadorDoTime(){}
-        public void RemoverJogadorDoTime(){}
+        void ITecnico.criarTime()
+        {
+            Console.WriteLine("Nome do Time: ");
+            string? nomeTime = Console.ReadLine();
 
-        //partidas
-        public void  EntrarEmPartidas(){}
-        public void ExibirPartidas(){}
-        public void SairPartidas(){}
+            if (string.IsNullOrWhiteSpace(nomeTime))
+            {
+                Console.WriteLine("Nome vazio");
+                return;
+            }
+
+            Times.CriarTime(nomeTime, this);
+            Time = nomeTime;
+        }
+
+        //jogos
+        void ITecnico.criarJogo()
+        {
+            throw new NotImplementedException();
+        }
+        void ITecnico.entrarJogo()
+        {
+            throw new NotImplementedException();
+        }
+
+        //treino
+        void ITecnico.criarTreino()
+        {
+            throw new NotImplementedException();
+        }
 
 
     }
