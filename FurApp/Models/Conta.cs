@@ -1,5 +1,5 @@
 using System;
-using PersistenciaApp;
+using ContaUsuarioApp;
 
 namespace ContaApp
 {
@@ -32,7 +32,7 @@ namespace ContaApp
         Idade = idade;
     } 
 
-    public void Register() 
+    public virtual void Register() 
     {}
     public virtual bool Login(string nome, string senha)
     {

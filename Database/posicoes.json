@@ -1,0 +1,76 @@
+{
+    "posicoes_jogadores_futebol": {
+      "goleiros": [
+        {
+          "nome": "Goleiro",
+          "abreviacao": "GOL"
+        }
+      ],
+      "defensores": [
+        {
+          "nome": "Zagueiro",
+          "abreviacao": "ZAG"
+        },
+        {
+          "nome": "Lateral Direito",
+          "abreviacao": "LD"
+        },
+        {
+          "nome": "Lateral Esquerdo",
+          "abreviacao": "LE"
+        },
+        {
+          "nome": "Lateral Invertido",
+          "abreviacao": "LI"
+        },
+        {
+          "nome": "Zagueiro Líbero",
+          "abreviacao": "LIB"
+        }
+      ],
+      "meio_campistas": [
+        {
+          "nome": "Volante",
+          "abreviacao": "VOL"
+        },
+        {
+          "nome": "Meio-Campista Central",
+          "abreviacao": "MC"
+        },
+        {
+          "nome": "Meio-Campista Ofensivo",
+          "abreviacao": "MO"
+        },
+        {
+          "nome": "Meio-Campista Armador",
+          "abreviacao": "MA"
+        },
+        {
+          "nome": "Ponta Direita",
+          "abreviacao": "PD"
+        },
+        {
+          "nome": "Ponta Esquerda",
+          "abreviacao": "PE"
+        }
+      ],
+      "atacantes": [
+        {
+          "nome": "Atacante Centroavante",
+          "abreviacao": "CA"
+        },
+        {
+          "nome": "Segundo Atacante",
+          "abreviacao": "SA"
+        },
+        {
+          "nome": "Atacante de Suporte",
+          "abreviacao": "AS"
+        },
+        {
+          "nome": "Falso Nove",
+          "abreviacao": "FN"
+        }
+      ]
+    }
+  }

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using ContaApp;
 using System.Linq;
-using PersistenciaApp;
+using System.Text.Json;
 using MenuPerfilApp;
 using ContaJogadorApp;
 
@@ -32,6 +34,30 @@ namespace ContaUsuarioApp
         public override bool Login(string nome, string senha)
         {
             return base.Login(nome, senha);
+        }
+
+        public override void Register()
+        {
+            try
+            {
+                List<ContaUsuario> contas = PersistenciaDeContas.CarregarContas();
+
+                if (contas.Any(c=>c.Nome == Nome))
+                {
+                    Console.WriteLine("Erro: Nome de usuário já registrado");
+                    return;
+                }
+
+                contas.Add(this);
+
+                PersistenciaDeContas.SalvarContas(contas);
+
+                Console.WriteLine("Conta registrada com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro {ex.Message}");
+            }
         }
 
 
