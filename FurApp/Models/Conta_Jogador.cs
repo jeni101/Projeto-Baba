@@ -14,8 +14,17 @@ namespace ContaJogadorApp
         public List<string> Jogos { get; set; } 
         public List<string> Partidas { get; set; } 
 
-        public ContaJogador(string nome, string senha, int idade, string posicao, float? saldo = null, string? interesses = null, string? amistosos = null,
-                            string? time = null, string? codigo = null, int? gols = null, int? assistencias = null)
+        public ContaJogador(string nome, 
+                            string senha, 
+                            int idade, 
+                            string posicao, 
+                            float? saldo = null, 
+                            string? interesses = null, 
+                            string? amistosos = null,
+                            string? time = null, 
+                            string? codigo = null, 
+                            int? gols = null, 
+                            int? assistencias = null)
             : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty) // variaveis nulas p criacao de conta 
         {
             Posicao = posicao;
@@ -28,9 +37,18 @@ namespace ContaJogadorApp
             Partidas = new List<string>(); 
         }
 
-        public void ExibirTime(){}
+        public void ExibirTime()
+        {
+            if (!string.IsNullOrEmpty(Time))
+            {
+                Console.WriteLine(Time);
+            }
+            else
+            {
+                Console.WriteLine("Sem time");
+            }
+        }
         public void SairTime(){}
-
         public void ExibirCodigo(){}
         public void ExibirGols(){}
         public void ExibirAssistencias(){}
