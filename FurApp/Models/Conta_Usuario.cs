@@ -54,8 +54,13 @@ namespace ContaUsuarioApp
 
                 string senhaValida = DefinirSenha();
 
-                TournouSeJogador = true;
+                var jogadoresExistentes = contas
+                    .OfType<ContaJogador>()
+                    .ToList();
 
+                var codigosExistentes = new HashSet<string>(jogadoresExistentes.Select(j => j.Codigo));
+
+                TournouSeJogador = true;
 
                 var contaJogador = new ContaJogador(
                     Nome,
@@ -64,11 +69,13 @@ namespace ContaUsuarioApp
                     posicao: "Não definida",
                     saldo : Saldo,
                     interesses : Interesses,
-                    amistosos : Amistosos
+                    amistosos : Amistosos,
+                    jogadores : codigosExistentes
                 );
                 
                 contas.Add(contaJogador);
-                
+                Console.WriteLine(contaJogador.Codigo);
+
                 PersistenciaDeContas.SalvarContas(contas);
 
                 Console.WriteLine("Conta registrada com sucesso");
@@ -84,8 +91,14 @@ namespace ContaUsuarioApp
         {
             while (true)
             {
-                Console.WriteLine("Defina sua senha: ");
+                Console.WriteLine("Defina sua senha (min. 6 char.): ");
                 string senha = Console.ReadLine();
+
+                if (senha.Length < 6)
+                {
+                    Console.WriteLine("Senha muito curta");
+                    continue;
+                }
 
                 Console.WriteLine("Confirme sua senha: ");
                 string confirmacaoSenha = Console.ReadLine();
