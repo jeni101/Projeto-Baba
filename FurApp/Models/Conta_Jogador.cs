@@ -15,6 +15,7 @@ namespace ContaJogadorApp
         public List<string> Jogos { get; private set; } 
         public List<string> Partidas { get; private set; } 
 
+        //Construtor padrão
         public ContaJogador(string nome, 
                             string senha, 
                             int idade, 
@@ -22,20 +23,35 @@ namespace ContaJogadorApp
                             float? saldo = null, 
                             string? interesses = null, 
                             string? amistosos = null,
-                            string? time = null, 
-                            string? codigo = null, 
+                            string? time = null,
                             int? gols = null, 
-                            int? assistencias = null)
+                            int? assistencias = null,
+                            HashSet<string>? jogadores = null)
             : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty) // variaveis nulas p criacao de conta 
         {
             Posicao = posicao;
             Time = time ?? string.Empty;
-            Codigo = codigo ?? string.Empty;
+            Codigo = GerarCodigo(jogadores ?? new HashSet<string>());
             Gols = gols ?? 0;
             Assistencias = assistencias ?? 0;
             Eventos = new List<string>();  // Inicializando a lista
             Jogos = new List<string>();    // Inicializando a lista
             Partidas = new List<string>(); 
+        }
+
+        //Código
+        private string GerarCodigo(HashSet<string> codigosExistentes)
+        {
+            Random random = new Random();
+            string codigo;
+
+            do
+            {
+                int numeroAleatorio = random.Next(100000, 999999);
+                codigo = numeroAleatorio.ToString();
+
+            } while (codigosExistentes.Contains(codigo));
+            return codigo;
         }
 
         public void ExibirTime()
