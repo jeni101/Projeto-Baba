@@ -4,38 +4,42 @@ using System.IO;
 using ContaApp;
 using System.Linq;
 using System.Text.Json;
-using MenuPerfilApp;
 using ContaJogadorApp;
+using PosicoesApp;
 
 
 namespace ContaUsuarioApp
 {
     public class ContaUsuario : Conta
     {
-        // rever se os atibutos e metodos continuarao publicos
         public float Saldo { get; private set; }
         public string Interesses { get; set; }
         public string Amistosos { get; set; }
+        public bool TournouSeJogador { get; private set; }
 
+        //Construtor
         public ContaUsuario(string nome, 
                             string senha, 
                             int idade, 
                             float saldo, 
                             string interesses, 
-                            string amistosos)
+                            string amistosos,
+                            bool tournouSeJogador = false)
                             : base(nome, senha, idade)
         {
             Saldo = saldo;
             Interesses = interesses;
             Amistosos = amistosos;
+            TournouSeJogador = tournouSeJogador;
         }
         
-
+        //Login
         public override bool Login(string nome, string senha)
         {
             return base.Login(nome, senha);
         }
 
+        //Register
         public override void Register()
         {
             try
@@ -48,7 +52,32 @@ namespace ContaUsuarioApp
                     return;
                 }
 
-                contas.Add(this);
+                string senhaValida = DefinirSenha();
+
+                var contaUsuario = new ContaUsuario(
+                    Nome,
+                    senhaValida,
+                    Idade,
+                    Saldo, 
+                    Interesses,
+                    Amistosos
+                );
+
+                contas.Add(contaUsuario);
+
+                TournouSeJogador = true;
+
+                var contaJogador = new ContaJogador(
+                    Nome,
+                    senhaValida,
+                    Idade,
+                    posicao: "Não definida",
+                    saldo : Saldo,
+                    interesses : Interesses,
+                    amistosos : Amistosos
+                );
+
+                contas.Add(contaJogador);
 
                 PersistenciaDeContas.SalvarContas(contas);
 
@@ -57,6 +86,26 @@ namespace ContaUsuarioApp
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro {ex.Message}");
+            }
+        }
+
+        //Senha
+        private string DefinirSenha()
+        {
+            while (true)
+            {
+                Console.WriteLine("Defina sua senha: ");
+                string senha = Console.ReadLine();
+
+                Console.WriteLine("Confirme sua senha: ");
+                string confirmacaoSenha = Console.ReadLine();
+
+                if (senha == confirmacaoSenha)
+                {
+                    return senha;
+                }
+
+                Console.WriteLine("Senhas não coicidem");
             }
         }
 
@@ -72,6 +121,7 @@ namespace ContaUsuarioApp
         public void Apostar() { }
 
         // perfil 
+        //Temos que rever coisas relacionadas ao perfil
         public void ExibirPerfil() { }
         public void EditarPerfil() { }
         public void DeletarConta() { }

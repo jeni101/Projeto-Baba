@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ContaUsuarioApp;
 
 namespace ContaJogadorApp
@@ -6,13 +7,13 @@ namespace ContaJogadorApp
     public class ContaJogador : ContaUsuario 
     {
         public string Posicao { get; set; }
-        public string Time { get; set; }
-        public string Codigo { get; set; }
-        public int Gols { get; set; }
-        public int Assistencias { get; set; }
-        public List<string> Eventos { get; set; } 
-        public List<string> Jogos { get; set; } 
-        public List<string> Partidas { get; set; } 
+        public string Time { get; private set; }
+        public string Codigo { get; private set; }
+        public int Gols { get; private set; }
+        public int Assistencias { get; private set; }
+        public List<string> Eventos { get; private set; } 
+        public List<string> Jogos { get; private set; } 
+        public List<string> Partidas { get; private set; } 
 
         public ContaJogador(string nome, 
                             string senha, 
@@ -48,11 +49,60 @@ namespace ContaJogadorApp
                 Console.WriteLine("Sem time");
             }
         }
+        //SairTime será parte das funcoes de time
         public void SairTime(){}
-        public void ExibirCodigo(){}
-        public void ExibirGols(){}
-        public void ExibirAssistencias(){}
-        public void ExibirJogos(){}
-        public void ExibirPartidas(){}
+
+        public void ExibirCodigo()
+        {
+            Console.WriteLine(!string.IsNullOrEmpty(Codigo) ? $"Código do Jogador: {Codigo}" : "Código não definido");
+        }
+        public void ExibirGols()
+        {
+            Console.WriteLine($"Gols: {Gols}");
+        }
+        public void ExibirAssistencias()
+        {
+            Console.WriteLine($"Assistencias: {Assistencias}");
+        }
+        public void ExibirJogos()
+        {
+            if (Jogos.Count > 0)
+            {
+                Console.WriteLine("Jogos:");
+                foreach (var jogo in Jogos)
+                {
+                    Console.WriteLine(jogo);
+                }
+            }
+            
+            else
+            {
+                Console.WriteLine("Nenhum jogo registrado");
+            }
+        }
+        public void ExibirPartidas()
+        {
+            if (Partidas.Count > 0)
+            {
+                Console.WriteLine("Partidas:");
+                foreach (var partida in Partidas)
+                {
+                    Console.WriteLine(partida);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("Nenhuma partida registrada");
+            }
+        }
+        public void AdicionarGols()
+        {
+            Gols++;
+        }
+        public void AdicionarAssistencia()
+        {
+            Assistencias++;
+        }
     }
 }

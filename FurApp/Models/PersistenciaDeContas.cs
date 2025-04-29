@@ -6,8 +6,9 @@ using System.IO;
 using ContaJogadorApp;
 using ContaTecnicoApp;
 using ContaArbitroApp;
-using ContaUsuarioApp;
 
+
+//Isso vai salvar contas de usuario, depois dividiremos mais corretamente
 namespace ContaUsuarioApp
 {
     public static class PersistenciaDeContas
@@ -26,8 +27,6 @@ namespace ContaUsuarioApp
             return JsonSerializer.Deserialize<List<ContaUsuario>>(json) ?? new List<ContaUsuario>();
         }
 
-
-        // Salva as contas agrupadas por tipo
         public static void SalvarContas(List<ContaUsuario> contas)
         {
             string json = JsonSerializer.Serialize(contas, new JsonSerializerOptions { WriteIndented = true });

@@ -49,6 +49,7 @@ Versions:
        -0.0.0.0.0.0.0.0.019 (Conta_Tecnico recreation & coments clearing)
        -0.0.0.0.0.0.0.0.020 (Conta[_Usuario] recreation)
        -0.0.0.0.0.0.0.0.021.1 (Services & Controllers)
+       -0.0.0.0.0.0.0.0.022 (recreation aller)
 
 
 

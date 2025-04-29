@@ -32,8 +32,8 @@ namespace ContaApp
         Idade = idade;
     } 
 
-    public virtual void Register() 
-    {}
+    //funcoes
+    public virtual void Register() {}
     public virtual bool Login(string nome, string senha)
     {
         if (nome == Nome && VerifyPassword(senha, SenhaHash))
@@ -45,7 +45,6 @@ namespace ContaApp
         return false;
     }
     public void Logout() {}
-
 
     //Censura senha
     private string HashPassword(string senha)

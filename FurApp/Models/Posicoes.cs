@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.Json;
 
@@ -21,7 +20,7 @@ namespace PosicoesApp
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"Erro ao carregar posições: {ex.Message}");
             }
         }
 
@@ -43,7 +42,83 @@ namespace PosicoesApp
                 }
             }
 
-            throw new KeyNotFoundException(nome);
+            throw new KeyNotFoundException($"Posição '{nome}' não encontrada.");
+        }
+
+        public void ListarPosicoes()
+        {
+            var categorias = PegarPosicoes();
+
+            Console.WriteLine("Posições disponíveis:");
+            foreach (var categoria in categorias)
+            {
+                Console.WriteLine($"\nCategoria: {categoria.Key}");
+                foreach (var posicao in categoria.Value)
+                {
+                    Console.WriteLine($"- Nome: {posicao["nome"]}, Abreviação: {posicao["abreviacao"]}");
+                }
+            }
+        }
+
+        public Dictionary<string, string> EscolherPosicao()
+        {
+            var categorias = PegarPosicoes();
+
+            ListarPosicoes();
+
+            Console.Write("\nDigite o nome ou abreviação da posição desejada: ");
+            string escolha = Console.ReadLine()?.Trim();
+
+            if (string.IsNullOrWhiteSpace(escolha))
+            {
+                throw new ArgumentException("Entrada inválida. Por favor, digite o nome ou abreviação da posição.");
+            }
+
+            foreach (var categoria in categorias.Values)
+            {
+                var posicao = categoria.FirstOrDefault(p =>
+                    p.ContainsKey("nome") && p["nome"].Equals(escolha, StringComparison.OrdinalIgnoreCase) ||
+                    p.ContainsKey("abreviacao") && p["abreviacao"].Equals(escolha, StringComparison.OrdinalIgnoreCase));
+
+                if (posicao != null)
+                {
+                    Console.WriteLine($"\nPosição selecionada: {posicao["nome"]} ({posicao["abreviacao"]})");
+                    return posicao; 
+                }
+            }
+
+            throw new KeyNotFoundException($"Posição '{escolha}' não encontrada. Tente novamente.");
         }
     }
 }
+
+
+//Abaixo exemplo de uso no Programa
+/*
+using System;
+
+namespace PosicoesApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                var posicaoManager = new Posicao();
+
+                Console.WriteLine("Bem-vindo ao sistema de seleção de posições!");
+                var posicaoEscolhida = posicaoManager.EscolherPosicao();
+
+                Console.WriteLine("\nDetalhes da posição escolhida:");
+                Console.WriteLine($"Nome: {posicaoEscolhida["nome"]}");
+                Console.WriteLine($"Abreviação: {posicaoEscolhida["abreviacao"]}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+            }
+        }
+    }
+}
+*/
