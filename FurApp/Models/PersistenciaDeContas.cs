@@ -8,7 +8,6 @@ using ContaTecnicoApp;
 using ContaArbitroApp;
 
 
-//Isso vai salvar contas de usuario, depois dividiremos mais corretamente
 namespace ContaUsuarioApp
 {
     public static class PersistenciaDeContas
@@ -22,16 +21,36 @@ namespace ContaUsuarioApp
             {
                 return new List<ContaUsuario>();
             }
-
-            string json = File.ReadAllText(caminhoArquivo);
-            return JsonSerializer.Deserialize<List<ContaUsuario>>(json) ?? new List<ContaUsuario>();
+            
+            try
+            {
+                string json = File.ReadAllText(caminhoArquivo);
+                return JsonSerializer.Deserialize<List<ContaUsuario>>(json) ?? new List<ContaUsuario>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<ContaUsuario>();
+            }
         }
 
         public static void SalvarContas(List<ContaUsuario> contas)
         {
-            string json = JsonSerializer.Serialize(contas, new JsonSerializerOptions { WriteIndented = true });
+            try
+            {
+                string diretorio = Path.GetDirectoryName(caminhoArquivo);
+                if (!Directory.Exists(diretorio))
+                {
+                    Directory.CreateDirectory(diretorio);
+                }
 
-            File.WriteAllText(caminhoArquivo, json);
+                string json = JsonSerializer.Serialize(contas, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(caminhoArquivo, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
     }

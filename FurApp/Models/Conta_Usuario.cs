@@ -54,18 +54,8 @@ namespace ContaUsuarioApp
 
                 string senhaValida = DefinirSenha();
 
-                var contaUsuario = new ContaUsuario(
-                    Nome,
-                    senhaValida,
-                    Idade,
-                    Saldo, 
-                    Interesses,
-                    Amistosos
-                );
-
-                contas.Add(contaUsuario);
-
                 TournouSeJogador = true;
+
 
                 var contaJogador = new ContaJogador(
                     Nome,
@@ -76,9 +66,9 @@ namespace ContaUsuarioApp
                     interesses : Interesses,
                     amistosos : Amistosos
                 );
-
+                
                 contas.Add(contaJogador);
-
+                
                 PersistenciaDeContas.SalvarContas(contas);
 
                 Console.WriteLine("Conta registrada com sucesso");
