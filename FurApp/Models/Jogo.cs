@@ -1,51 +1,65 @@
-// using System;
-// public class Jogo
-// {
-//     //Atributos
-//     protected DateTime Data { get; set;}
-//     protected string Local { get; set; }
-//     protected string TipoDeCampo { get; set;}
-//     protected List<string> Interessados { get; set; }
-//     protected int QuantidadeDeJogadores { get; set;}
-//     protected string Times { get; set; }
+using System;
 
 
-//     //Funções
-//     protected void alterarData() 
-//     {
-//         string entrada = Console.ReadLine();
+namespace JogosApp
+{
+    public class Jogos
+    {
+        public DateOnly Data { get; private set; }
+        public TimeOnly Hora { get; private set; }
+        public string Local { get; private set;}
+        public string TipoDeCampo { get; private set; }
+        public List<string> Interessados { get; private set; }
+        public int QuantidadeDeJogadores { get; private set; }
 
-//         if (DateTime.TryParseExact(entrada, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime novaData))
-//         {
-//             Data = novaData;
-//         }
-//         else 
-//         {
+        //construtores
+        public Jogos(DateOnly data,
+                    TimeOnly hora,
+                    string local,
+                    string tipoDeCampo,
+                    int quantidadeDeJogadores)
+        {
+            Data = data;
+            Hora = hora;
+            Local = local;
+            Interessados = new List<string>();
+            TipoDeCampo = tipoDeCampo;
+            QuantidadeDeJogadores = quantidadeDeJogadores;
+        }
 
-//         }
-//     }
-//     protected void alterarLocal()
-//     {
-//         string novoLocal = Console.ReadLine();
-//         Local = novoLocal;
-//     }
-//     protected void alterarTipoDeCampo()
-//     {
-//         string novoTipoDeCampo = Console.ReadLine();
-//         TipoDeCampo = novoTipoDeCampo;
-//     }
-//     protected void alterarQuantidadeDeJogadores()
-//     {
-//         int novaQuantidadeDeJogadores = Int32.Parse(Console.ReadLine());
-//         QuantidadeDeJogadores = novaQuantidadeDeJogadores;
-//     }
-//     protected void adicionarTimes()
-//     {
+        //funcionalidades
+        public void AlterarData()
+        {
+            string entrada = Console.ReadLine();
 
-//     }
-//     //Construtores
-//     public void ExibirData() 
-//     {
+            if (DateOnly.TryParseExact(entrada, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateOnly novaData))
+            {
+                Data = novaData;
+            }
+        }
+        public void AlterarHora()
+        {
+            string entrada = Console.ReadLine();
 
-//     }
-// }
+            if (TimeOnly.TryParseExact(entrada, "hh:mm", null, System.Globalization.DateTimeStyles.None, out TimeOnly novaHora))
+            {
+                Hora = novaHora;
+            }
+        }
+        public void AlterarLocal()
+        {
+            string novoLocal = Console.ReadLine();
+            Local = novoLocal;
+        }
+        public void AlterarTipoDeCampo()
+        {
+            string novoTipoDeCampo = Console.ReadLine();
+            TipoDeCampo = novoTipoDeCampo;
+        }
+        public void AlterarQUantidadeDeJogadores()
+        {
+            int novaQuantidadeDeJogadores = Int32.Parse(Console.ReadLine());
+            QuantidadeDeJogadores = novaQuantidadeDeJogadores;
+        }
+    }
+}
