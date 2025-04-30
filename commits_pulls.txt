@@ -57,3 +57,4 @@ Versions:
         -00.3.0.0.0.0.0.002.1 (main commit) *
         -00.3.0.0.0.0.0.002.2 (main commit 2) *
         -00.3.0.0.0.0.0.003 (Jogos recreation)
+        -00.3.0.0.0.0.0.004 (Partidas recreation)

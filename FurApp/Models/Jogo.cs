@@ -1,23 +1,26 @@
 using System;
 
 
-namespace ContaJogadorApp
+namespace JogosApp
 {
     public class Jogos
     {
-        public DateTime Data { get; private set; }
+        public DateOnly Data { get; private set; }
+        public TimeOnly Hora { get; private set; }
         public string Local { get; private set;}
         public string TipoDeCampo { get; private set; }
         public List<string> Interessados { get; private set; }
         public int QuantidadeDeJogadores { get; private set; }
 
         //construtores
-        public Jogos(DateTime data,
+        public Jogos(DateOnly data,
+                    TimeOnly hora,
                     string local,
                     string tipoDeCampo,
                     int quantidadeDeJogadores)
         {
             Data = data;
+            Hora = hora;
             Local = local;
             Interessados = new List<string>();
             TipoDeCampo = tipoDeCampo;
@@ -29,9 +32,18 @@ namespace ContaJogadorApp
         {
             string entrada = Console.ReadLine();
 
-            if (DateTime.TryParseExact(entrada, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime novaData))
+            if (DateOnly.TryParseExact(entrada, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateOnly novaData))
             {
                 Data = novaData;
+            }
+        }
+        public void AlterarHora()
+        {
+            string entrada = Console.ReadLine();
+
+            if (TimeOnly.TryParseExact(entrada, "hh:mm", null, System.Globalization.DateTimeStyles.None, out TimeOnly novaHora))
+            {
+                Hora = novaHora;
             }
         }
         public void AlterarLocal()
