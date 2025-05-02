@@ -1,9 +1,8 @@
-using System;
 using PlacarApp;
 
 namespace AmistosoApp
 {
-    public class Amistoso
+    public class Jogo_Amistoso
     {
         //esta lista poderia estar linkada diretamente com os jogadores cadastrados, 
         // dependendo do quanto de jogadores tiver da p fazer um random p completar time.
@@ -13,7 +12,7 @@ namespace AmistosoApp
         public string Local { get; set; }
         public Placar Placar { get; set; }
 
-        public Amistoso(List<string> participantes, DateTime data , string local, Placar placar)
+        public Jogo_Amistoso(List<string> participantes, DateTime data , string local, Placar placar)
         {
             Participantes = participantes;
             Data = data;
@@ -21,8 +20,8 @@ namespace AmistosoApp
             Placar = placar;
         }
 
-        public void ExibirAmistoso(){}
-        public void EditarAmistoso(){}
-        public void ConvidarParticipante(){}
+        public void Exibir_Jogo_Amistoso(){}
+        public void Editar_Jogo_Amistoso(){}
+        public void Convidar_Participante(){}
     }
 }
