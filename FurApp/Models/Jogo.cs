@@ -19,9 +19,9 @@ namespace JogosApp
             Data = data;
             Hora = hora;
             Local = local;
-            Interessados = new List<string>();
             TipoDeCampo = tipoDeCampo;
             QuantidadeDeJogadores = quantidadeDeJogadores;
+            Interessados = new List<string>();
         }
 
         //funcionalidades
@@ -47,6 +47,13 @@ namespace JogosApp
         {
             string novoLocal = Console.ReadLine() ?? "0";
             Local = novoLocal;
+        }
+
+        public void Escolher_Tipo_De_Campo()
+        {
+            string escolhaDecampo = Console.ReadLine() ?? "0";
+            
+
         }
         public void Alterar_Tipo_De_Campo()
         {
