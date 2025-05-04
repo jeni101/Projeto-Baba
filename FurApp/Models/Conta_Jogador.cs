@@ -6,7 +6,7 @@ namespace ContaJogadorApp
     {
         public string Posicao { get; set; }
         public string Time { get; private set; }
-        public string Codigo { get; private set; }
+        public string Codigo_RA { get; private set; }
         public int Gols { get; private set; }
         public int Assistencias { get; private set; }
         public List<string> Eventos { get; private set; } 
@@ -29,7 +29,7 @@ namespace ContaJogadorApp
         {
             Posicao = posicao;
             Time = time ?? string.Empty;
-            Codigo = GerarCodigo(jogadores ?? new HashSet<string>());
+            Codigo_RA = GerarCodigo(jogadores ?? new HashSet<string>());
             Gols = gols ?? 0;
             Assistencias = assistencias ?? 0;
             Eventos = new List<string>();  // Inicializando a lista
@@ -68,7 +68,7 @@ namespace ContaJogadorApp
 
         public void Exibir_Codigo()
         {
-            Console.WriteLine(!string.IsNullOrEmpty(Codigo) ? $"Código do Jogador: {Codigo}" : "Código não definido");
+            Console.WriteLine(!string.IsNullOrEmpty(Codigo_RA) ? $"Código do Jogador: {Codigo_RA}" : "Código não definido");
         }
         public void Exibir_Gols()
         {
