@@ -8,7 +8,8 @@ namespace ContaUsuarioApp
         public float Saldo { get; private set; }
         public string Interesses { get; set; }
         public string Amistosos { get; set; }
-        public bool TournouSeJogador { get; private set; }
+        public bool TornouSeJogador { get; private set; }
+        public DateTime DataCriacao { get; private set; }
 
         //Construtor
         public Conta_Usuario(string nome, 
@@ -17,13 +18,14 @@ namespace ContaUsuarioApp
                             float saldo, 
                             string interesses, 
                             string amistosos,
-                            bool tournouSeJogador = false)
+                            bool tornouSeJogador = false)
                             : base(nome, senha, idade)
         {
             Saldo = saldo;
             Interesses = interesses;
             Amistosos = amistosos;
-            TournouSeJogador = tournouSeJogador;
+            TornouSeJogador = tornouSeJogador;
+            DataCriacao = DateTime.Now;
         }
         
         //Login
@@ -51,9 +53,9 @@ namespace ContaUsuarioApp
                     .OfType<Conta_Jogador>()
                     .ToList();
 
-                var codigosExistentes = new HashSet<string>(jogadoresExistentes.Select(j => j.Codigo));
+                var codigosExistentes = new HashSet<string>(jogadoresExistentes.Select(j => j.Codigo_RA));
 
-                TournouSeJogador = true;
+                TornouSeJogador = true;
 
                 var contaJogador = new Conta_Jogador(
                     Nome,
@@ -67,7 +69,7 @@ namespace ContaUsuarioApp
                 );
                 
                 contas.Add(contaJogador);
-                Console.WriteLine(contaJogador.Codigo);
+                Console.WriteLine(contaJogador.Codigo_RA);
 
                 Persistencia_De_Contas.Salvar_Contas(contas);
 
