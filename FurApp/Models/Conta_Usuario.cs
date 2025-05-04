@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using ContaApp;
-using System.Linq;
-using System.Text.Json;
 using ContaJogadorApp;
-using PosicoesApp;
-
 
 namespace ContaUsuarioApp
 {
-    public class ContaUsuario : Conta
+    public class Conta_Usuario : Conta
     {
         public float Saldo { get; private set; }
         public string Interesses { get; set; }
@@ -18,7 +11,7 @@ namespace ContaUsuarioApp
         public bool TournouSeJogador { get; private set; }
 
         //Construtor
-        public ContaUsuario(string nome, 
+        public Conta_Usuario(string nome, 
                             string senha, 
                             int idade, 
                             float saldo, 
@@ -44,7 +37,7 @@ namespace ContaUsuarioApp
         {
             try
             {
-                List<ContaUsuario> contas = PersistenciaDeContas.CarregarContas();
+                List<Conta_Usuario> contas = Persistencia_De_Contas.Carregar_Contas();
 
                 if (contas.Any(c=>c.Nome == Nome))
                 {
@@ -52,17 +45,17 @@ namespace ContaUsuarioApp
                     return;
                 }
 
-                string senhaValida = DefinirSenha();
+                string senhaValida = Definir_Senha();
 
                 var jogadoresExistentes = contas
-                    .OfType<ContaJogador>()
+                    .OfType<Conta_Jogador>()
                     .ToList();
 
                 var codigosExistentes = new HashSet<string>(jogadoresExistentes.Select(j => j.Codigo));
 
                 TournouSeJogador = true;
 
-                var contaJogador = new ContaJogador(
+                var contaJogador = new Conta_Jogador(
                     Nome,
                     senhaValida,
                     Idade,
@@ -76,7 +69,7 @@ namespace ContaUsuarioApp
                 contas.Add(contaJogador);
                 Console.WriteLine(contaJogador.Codigo);
 
-                PersistenciaDeContas.SalvarContas(contas);
+                Persistencia_De_Contas.Salvar_Contas(contas);
 
                 Console.WriteLine("Conta registrada com sucesso");
             }
@@ -87,12 +80,12 @@ namespace ContaUsuarioApp
         }
 
         //Senha
-        private string DefinirSenha()
+        private string Definir_Senha()
         {
             while (true)
             {
                 Console.WriteLine("Defina sua senha (min. 6 char.): ");
-                string senha = Console.ReadLine();
+                string senha = Console.ReadLine() ?? "0";
 
                 if (senha.Length < 6)
                 {
@@ -101,7 +94,7 @@ namespace ContaUsuarioApp
                 }
 
                 Console.WriteLine("Confirme sua senha: ");
-                string confirmacaoSenha = Console.ReadLine();
+                string confirmacaoSenha = Console.ReadLine() ?? "0";
 
                 if (senha == confirmacaoSenha)
                 {
@@ -111,7 +104,6 @@ namespace ContaUsuarioApp
                 Console.WriteLine("Senhas não coicidem");
             }
         }
-
 
         //amistoso
         public void CriarAmistosos() { }
@@ -125,21 +117,17 @@ namespace ContaUsuarioApp
 
         // perfil 
         //Temos que rever coisas relacionadas ao perfil
-        public void ExibirPerfil() { }
-        public void EditarPerfil() { }
-        public void DeletarConta() { }
-        public void AdicionarInteresses() { }
-        public void ExibirInteresses() { }
-        public void DeletarInteresses() { }
+        public void Exibir_Perfil() { }
+        public void Editar_Perfil() { }
+        public void Deletar_Conta() { }
+        public void Adicionar_Interesses() { }
+        public void Exibir_Interesses() { }
+        public void Deletar_Interesses() { }
 
         // funcionalidade
-        public void InscreverEmEventos() { }
-        public void ParticiparDeEventos() { }
-        public void SairDeEventos() { }
-
-
-
-
+        public void Inscrever_Em_Eventos() { }
+        public void Participar_De_Eventos() { }
+        public void Sair_De_Eventos() { }
     }
 }
 

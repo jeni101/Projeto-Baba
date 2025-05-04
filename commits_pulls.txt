@@ -59,3 +59,4 @@ Versions:
         -00.3.0.0.0.0.0.003 (Jogos recreation)
         -00.3.0.0.0.0.0.004 (Partidas recreation)
         -00.3.0.0.0.0.0.005 (Correcao inicial de Sintax em Alguns Modelos)
+        -00.3.0.0.0.0.0.005.1 (Correcao Geral de Sintaxes nos Modelos)

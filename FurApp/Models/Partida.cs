@@ -1,4 +1,3 @@
-using System; 
 using JogosApp;
 using PlacarApp;
 using TimesApp;
@@ -21,6 +20,5 @@ namespace PartidasApp
                 {
 
                 }
-
     }
 }

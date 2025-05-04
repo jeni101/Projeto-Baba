@@ -1,6 +1,3 @@
-using System;
-using ContaUsuarioApp;
-
 namespace ContaApp
 {
     public abstract class Conta
@@ -8,7 +5,6 @@ namespace ContaApp
         public string Nome {get; private set;}
         public string SenhaHash {get; private set;}
         public int Idade {get; private set;}
-
 
     //Conta protegida
     protected Conta(string nome, string senha, int idade)

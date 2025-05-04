@@ -1,6 +1,3 @@
-using System;
-using PersistenciaApp;
-using System.Linq;
 using ContaJogadorApp;
 using ContaTecnicoApp;
 using ContaUsuarioApp;
@@ -10,18 +7,18 @@ namespace TimesApp
     public class Times
     {
         public string NomeTime { get; set; }
-        public ContaTecnico Criador { get; set; }
+        public Conta_Tecnico Criador { get; set; }
         //Lista dos times
         private static readonly List<Times> listaDeTimes = new List<Times>();
         //Construtor privado
-        private Times(string nomeTime, ContaTecnico criador)
+        private Times(string nomeTime, Conta_Tecnico criador)
         {
             NomeTime = nomeTime;
             Criador = criador;
         }
         
         //construtor
-        public static void CriarTime(string nomeTime, ContaTecnico tecnico)
+        public static void CriarTime(string nomeTime, Conta_Tecnico tecnico)
         {
             if (tecnico == null)
             {
@@ -58,7 +55,7 @@ namespace TimesApp
         //Temos que recriar tal função abaixo
         public void ListarTimes(string nomeJogador)
         {
-            var contas = PersistenciaDeContas.CarregarContasAgrupadas();
+            var contas = Persistencia_De_Contas.Carregar_Contas_Agrupadas();
 
             // Verifica se tem jogadores
             if (contas.TryGetValue("Jogador", out var listaContas))
@@ -67,7 +64,7 @@ namespace TimesApp
                 var jogadorBase = listaContas.FirstOrDefault(c => c.Nome == nomeJogador);
 
                 // Faz o cast para ContaJogador - ou seja converter o objeto de conta p contaJOgador p acesar oq tem la, no caso a variavel time q so existe em contaJOgador
-                if (jogadorBase is ContaJogador jogador)
+                if (jogadorBase is Conta_Jogador jogador)
                 {
                     Console.WriteLine($"{jogador.Nome} está inscrito nos seguintes times:");
 
