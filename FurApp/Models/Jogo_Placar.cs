@@ -1,5 +1,7 @@
 namespace PlacarApp
 {
+
+
     public class Placar
     {
         public string TimeA { get; set; }
@@ -62,6 +64,40 @@ namespace PlacarApp
             {
                 return "Empate";
             }
+        
+        }
+
+        public void pontuacao(int golsA, int golsB)
+        {
+            // como fariamos partidas equilibradas  - puntucao de serie A, B e C 
+            //randon entre dimes da mesma patente 
+
+            int pontos_golsA = golsA * 5;
+            int pontos_golsB = golsB * 5;
+            if (golsA> golsB)
+            {
+                // se cada gol vc ganha 5 pontos o time perdedor sera descontado esses pontos ao perder
+                //obs ele perdera menos pontos se tiver feito gols
+                int pontuacao_atualizada_golsB = golsB - golsA;
+            }
+            
+            else if (golsB > golsA) 
+            {
+
+                int pontuacao_atualizada_golsA = golsA - golsB;
+            }
+            
+            // else 
+            // {
+            //     int pontuacao_atualizada_golsA = 0;
+            //     int pontuacao_atualizada_golsB = 0;
+            // }
         } 
     }   
 }
+
+// 50 = c
+// 50 -100 = b
+// 100+ = a
+
+// posso criar um database txt simples p junto com o da mensagem q tenha um campo para pontuacao geral/rank 
