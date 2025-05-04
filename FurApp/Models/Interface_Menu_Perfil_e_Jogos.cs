@@ -1,7 +1,8 @@
-/*
+
 using System;
 using ContaJogadorApp;
 using TimesApp;
+
 
 namespace MenuPerfilApp
 {
@@ -40,9 +41,47 @@ namespace MenuPerfilApp
                     switch (subEscolha1)
                     {
                         case "1":
-                            // chamar funcao p times
-                            Times times = new Times();
-                            times.ListarTimes(contaLogada.Nome);
+                            
+                            // opcoes: criar time ou entrar em um time
+
+                            // criar time: vc pode adicionar seus amigos ate bater a quantidade maxima
+                            //porem vai ter uma verivicacao na conta da pessoa chamada perguntando 
+                            // se ela aceita ou n participar - parte de mensagens (txt simples com 200 caracteres p mensagem de convite)
+                            // caso n bata a quantidade maxima vc pode ver a lista de jogadores disponiveis e invita los
+                            // criar uma variavel de disponibilidade q se torna indisponivel a partir do momento q  vc entra em um time?
+                            Console.WriteLine("====== MENU Times =========");
+                            Console.WriteLine("|Criar Time..............|1|");
+                            Console.WriteLine("|ENTRAR EM TIME..........|2|");
+                            Console.WriteLine("|SAIR....................|3|");
+                            Console.WriteLine("===========================");
+                            string? escolha_time = Console.ReadLine();
+                            switch (escolha_time)
+                            {
+                                case "1":
+
+                                    // Times times = new Times();
+                                    // times.ListarTimes(contaLogada.Nome);
+
+
+                                break;
+
+                                case "2":
+                                // jogador pode receber uma mensagem de convite na sua conta
+
+                                break;
+
+                                case "3":
+                                // estatisticas suas - gols assistencias etc
+                                // estatisticas do time/geral - rank/ pontuacao geral
+
+                                return;
+
+
+                            }
+
+                            
+                            
+
 
                             break;
                         
@@ -106,4 +145,3 @@ namespace MenuPerfilApp
         }
     }
 }
-*/
