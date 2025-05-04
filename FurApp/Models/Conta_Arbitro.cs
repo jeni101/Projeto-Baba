@@ -2,7 +2,7 @@ using ContaUsuarioApp;
 
 namespace ContaArbitroApp
 {
-    public class Conta_Arbitro : ContaUsuario
+    public class Conta_Arbitro : Conta_Usuario
     {
         // mesma observacao da conta tecnico.
         public string Jogos {get; set;}

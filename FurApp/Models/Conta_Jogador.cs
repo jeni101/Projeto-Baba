@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 using ContaUsuarioApp;
 
 namespace ContaJogadorApp
 {
-    public class ContaJogador : ContaUsuario 
+    public class Conta_Jogador : Conta_Usuario 
     {
         public string Posicao { get; set; }
         public string Time { get; private set; }
@@ -16,7 +14,7 @@ namespace ContaJogadorApp
         public List<string> Partidas { get; private set; } 
 
         //Construtor padrão
-        public ContaJogador(string nome, 
+        public Conta_Jogador(string nome, 
                             string senha, 
                             int idade, 
                             string posicao, 
@@ -54,7 +52,7 @@ namespace ContaJogadorApp
             return codigo;
         }
 
-        public void ExibirTime()
+        public void Exibir_Time()
         {
             if (!string.IsNullOrEmpty(Time))
             {
@@ -66,21 +64,21 @@ namespace ContaJogadorApp
             }
         }
         //SairTime será parte das funcoes de time
-        public void SairTime(){}
+        public void Sair_Time(){}
 
-        public void ExibirCodigo()
+        public void Exibir_Codigo()
         {
             Console.WriteLine(!string.IsNullOrEmpty(Codigo) ? $"Código do Jogador: {Codigo}" : "Código não definido");
         }
-        public void ExibirGols()
+        public void Exibir_Gols()
         {
             Console.WriteLine($"Gols: {Gols}");
         }
-        public void ExibirAssistencias()
+        public void Exibir_Assistencias()
         {
             Console.WriteLine($"Assistencias: {Assistencias}");
         }
-        public void ExibirJogos()
+        public void Exibir_Jogos()
         {
             if (Jogos.Count > 0)
             {
@@ -96,7 +94,7 @@ namespace ContaJogadorApp
                 Console.WriteLine("Nenhum jogo registrado");
             }
         }
-        public void ExibirPartidas()
+        public void Exibir_Partidas()
         {
             if (Partidas.Count > 0)
             {
@@ -112,11 +110,11 @@ namespace ContaJogadorApp
                 Console.WriteLine("Nenhuma partida registrada");
             }
         }
-        public void AdicionarGols()
+        public void Adicionar_Gols()
         {
             Gols++;
         }
-        public void AdicionarAssistencia()
+        public void Adicionar_Assistencia()
         {
             Assistencias++;
         }

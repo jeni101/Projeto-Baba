@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 
 namespace PosicoesApp
@@ -67,7 +64,7 @@ namespace PosicoesApp
             ListarPosicoes();
 
             Console.Write("\nDigite o nome ou abreviação da posição desejada: ");
-            string escolha = Console.ReadLine()?.Trim();
+            string escolha = Console.ReadLine()?.Trim() ?? "0";
 
             if (string.IsNullOrWhiteSpace(escolha))
             {

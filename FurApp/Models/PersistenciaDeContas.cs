@@ -1,44 +1,36 @@
-using ContaApp;
 using System.Text.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using ContaJogadorApp;
-using ContaTecnicoApp;
-using ContaArbitroApp;
-
 
 namespace ContaUsuarioApp
 {
-    public static class PersistenciaDeContas
+    public static class Persistencia_De_Contas
     {
         private const string caminhoArquivo = "../Database/contas_usuarios.json";
         private static bool modoDebug = true;
         
-        public static List<ContaUsuario> CarregarContas()
+        public static List<Conta_Usuario> Carregar_Contas()
         {
             if (!File.Exists(caminhoArquivo))
             {
-                return new List<ContaUsuario>();
+                return new List<Conta_Usuario>();
             }
             
             try
             {
                 string json = File.ReadAllText(caminhoArquivo);
-                return JsonSerializer.Deserialize<List<ContaUsuario>>(json) ?? new List<ContaUsuario>();
+                return JsonSerializer.Deserialize<List<Conta_Usuario>>(json) ?? new List<Conta_Usuario>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return new List<ContaUsuario>();
+                return new List<Conta_Usuario>();
             }
         }
 
-        public static void SalvarContas(List<ContaUsuario> contas)
+        public static void Salvar_Contas(List<Conta_Usuario> contas)
         {
             try
             {
-                string diretorio = Path.GetDirectoryName(caminhoArquivo);
+                string diretorio = Path.GetDirectoryName(caminhoArquivo) ?? "0";
                 if (!Directory.Exists(diretorio))
                 {
                     Directory.CreateDirectory(diretorio);
@@ -52,6 +44,5 @@ namespace ContaUsuarioApp
                 Console.WriteLine(ex.Message);
             }
         }
-
     }
 }

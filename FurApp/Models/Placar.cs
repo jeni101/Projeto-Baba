@@ -1,5 +1,3 @@
-using System;
-
 namespace PlacarApp
 {
     public class Placar

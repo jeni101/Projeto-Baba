@@ -1,6 +1,3 @@
-using System;
-
-
 namespace JogosApp
 {
     public class Jogos
@@ -28,37 +25,37 @@ namespace JogosApp
         }
 
         //funcionalidades
-        public void AlterarData()
+        public void Alterar_Data()
         {
-            string entrada = Console.ReadLine();
+            string entrada = Console.ReadLine() ?? "0";
 
             if (DateOnly.TryParseExact(entrada, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateOnly novaData))
             {
                 Data = novaData;
             }
         }
-        public void AlterarHora()
+        public void Alterar_Hora()
         {
-            string entrada = Console.ReadLine();
+            string entrada = Console.ReadLine() ?? "0";
 
             if (TimeOnly.TryParseExact(entrada, "hh:mm", null, System.Globalization.DateTimeStyles.None, out TimeOnly novaHora))
             {
                 Hora = novaHora;
             }
         }
-        public void AlterarLocal()
+        public void Alterar_Local()
         {
-            string novoLocal = Console.ReadLine();
+            string novoLocal = Console.ReadLine() ?? "0";
             Local = novoLocal;
         }
-        public void AlterarTipoDeCampo()
+        public void Alterar_Tipo_De_Campo()
         {
-            string novoTipoDeCampo = Console.ReadLine();
+            string novoTipoDeCampo = Console.ReadLine() ?? "0";
             TipoDeCampo = novoTipoDeCampo;
         }
-        public void AlterarQUantidadeDeJogadores()
+        public void Alterar_Quantidade_De_Jogadores()
         {
-            int novaQuantidadeDeJogadores = Int32.Parse(Console.ReadLine());
+            int novaQuantidadeDeJogadores = Int32.Parse(Console.ReadLine() ?? "0");
             QuantidadeDeJogadores = novaQuantidadeDeJogadores;
         }
     }

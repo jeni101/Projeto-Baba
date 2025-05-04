@@ -1,11 +1,9 @@
-using System;
 using ContaUsuarioApp;
 using TimesApp;
 
-
 namespace ContaTecnicoApp
 {
-    public class ContaTecnico : ContaUsuario, ITecnico
+    public class Conta_Tecnico : Conta_Usuario, ITecnico
     {
         //sobre o tecnico
         public string Time {get; set;}
@@ -13,9 +11,8 @@ namespace ContaTecnicoApp
         public List<string> Jogos {get; set;}
         public List<string> Partidas {get; set;}
 
-    
         //Construtor
-        public ContaTecnico(string nome, 
+        public Conta_Tecnico(string nome, 
                             string senha, 
                             int idade, 
                             float? saldo = null, 
@@ -64,7 +61,5 @@ namespace ContaTecnicoApp
         {
             throw new NotImplementedException();
         }
-
-
     }
 }
