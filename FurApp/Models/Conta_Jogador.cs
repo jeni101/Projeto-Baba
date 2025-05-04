@@ -2,7 +2,7 @@ using ContaUsuarioApp;
 
 namespace ContaJogadorApp
 {
-    public class Conta_Jogador : Conta_Usuario 
+    public class Conta_Jogador : Conta_Usuario, IJogador
     {
         public string Posicao { get; set; }
         public string Time { get; private set; }
@@ -51,8 +51,25 @@ namespace ContaJogadorApp
             } while (codigosExistentes.Contains(codigo));
             return codigo;
         }
+        public void Exibir_Codigo()
+        {
+            Console.WriteLine(!string.IsNullOrEmpty(Codigo_RA) ? $"Código do Jogador: {Codigo_RA}" : "Código não definido");
+        }
+        void IJogador.Exibir_Gols()
+        {
+            Console.WriteLine($"Gols: {Gols}");
+        }
+        void IJogador.Exibir_Assistencias()
+        {
+            Console.WriteLine($"Assistencias: {Assistencias}");
+        }
 
-        public void Exibir_Time()
+        //Interface
+        void IJogador.Escolher_Posicao()
+        {
+
+        }
+        void IJogador.Exibir_Time()
         {
             if (!string.IsNullOrEmpty(Time))
             {
@@ -63,22 +80,7 @@ namespace ContaJogadorApp
                 Console.WriteLine("Sem time");
             }
         }
-        //SairTime será parte das funcoes de time
-        public void Sair_Time(){}
-
-        public void Exibir_Codigo()
-        {
-            Console.WriteLine(!string.IsNullOrEmpty(Codigo_RA) ? $"Código do Jogador: {Codigo_RA}" : "Código não definido");
-        }
-        public void Exibir_Gols()
-        {
-            Console.WriteLine($"Gols: {Gols}");
-        }
-        public void Exibir_Assistencias()
-        {
-            Console.WriteLine($"Assistencias: {Assistencias}");
-        }
-        public void Exibir_Jogos()
+        void IJogador.Exibir_Jogos()
         {
             if (Jogos.Count > 0)
             {
@@ -94,7 +96,7 @@ namespace ContaJogadorApp
                 Console.WriteLine("Nenhum jogo registrado");
             }
         }
-        public void Exibir_Partidas()
+        void IJogador.Exibir_Partidas()
         {
             if (Partidas.Count > 0)
             {
@@ -110,6 +112,11 @@ namespace ContaJogadorApp
                 Console.WriteLine("Nenhuma partida registrada");
             }
         }
+        void IJogador.Entrar_Time()
+        {
+        }
+
+        //Adicionar
         public void Adicionar_Gols()
         {
             Gols++;

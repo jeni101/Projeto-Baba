@@ -2,17 +2,11 @@ namespace ContaJogadorApp;
 
 interface IJogador
 {
-    void escolherPosicao();
-    void adicionarPosicao();
-    void removerPosicao();
-    void entrarEmTime();
-    void sairDoTime();
-    void exibirGols();
-    void ocultarGols();
-    void exibirAssistencias();
-    void ocuktarAssistencias();
-    void exibirJogos();
-    void ocultarJogos();
-    void exibirPartidas();
-    void ocultarPartidas();
+    void Escolher_Posicao();
+    void Entrar_Time();
+    void Exibir_Time();
+    void Exibir_Gols();
+    void Exibir_Assistencias();
+    void Exibir_Jogos();
+    void Exibir_Partidas();
 }
