@@ -1,0 +1,72 @@
+LastSessions<|||>1<|||>MariaDB
+LastActiveSession<|||>1<|||>MariaDB
+ColWidths_connform.ListSessions<|||>1<|||>163,50,50,50,50,50,10
+ColsVisible_connform.ListSessions<|||>1<|||>0,1,4,6
+ColPositions_connform.ListSessions<|||>1<|||>0,1,2,3,4,5,6
+ColSort_connform.ListSessions<|||>1<|||>0,0
+CreateDbCollation<|||>1<|||>utf8mb4_0900_ai_ci
+ColWidths_frmTableEditor.listColumns<|||>1<|||>23,100,152,90,60,65,50,117,130,139,100,100,50,50
+ColsVisible_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11,12,13
+ColPositions_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11,12,13
+ColSort_frmTableEditor.listColumns<|||>1<|||>-1,0
+ColWidths_frmTableEditor.treeIndexes<|||>1<|||>10,100,80,120,80
+ColsVisible_frmTableEditor.treeIndexes<|||>1<|||>0,1,2,3,4
+ColPositions_frmTableEditor.treeIndexes<|||>1<|||>0,1,2,3,4
+ColSort_frmTableEditor.treeIndexes<|||>1<|||>-1,0
+ColWidths_frmTableEditor.listForeignKeys<|||>1<|||>196,80,100,80,80,55
+ColsVisible_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColPositions_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColSort_frmTableEditor.listForeignKeys<|||>1<|||>-1,0
+ColWidths_frmTableEditor.listCheckConstraints<|||>1<|||>200,391
+ColsVisible_frmTableEditor.listCheckConstraints<|||>1<|||>0,1
+ColPositions_frmTableEditor.listCheckConstraints<|||>1<|||>0,1
+ColSort_frmTableEditor.listCheckConstraints<|||>1<|||>-1,0
+Servers\MariaDB\SessionCreated<|||>1<|||>2025-05-11 16:21:17
+Servers\MariaDB\Host<|||>1<|||>127.0.0.1
+Servers\MariaDB\WindowsAuth<|||>3<|||>0
+Servers\MariaDB\CleartextPluginEnabled<|||>3<|||>0
+Servers\MariaDB\User<|||>1<|||>root
+Servers\MariaDB\Password<|||>1<|||>7
+Servers\MariaDB\LoginPrompt<|||>3<|||>0
+Servers\MariaDB\Port<|||>1<|||>3306
+Servers\MariaDB\NetType<|||>3<|||>0
+Servers\MariaDB\Compressed<|||>3<|||>0
+Servers\MariaDB\LocalTimeZone<|||>3<|||>0
+Servers\MariaDB\QueryTimeout<|||>3<|||>30
+Servers\MariaDB\KeepAlive<|||>3<|||>20
+Servers\MariaDB\FullTableStatus<|||>3<|||>1
+Servers\MariaDB\Databases<|||>1<|||>
+Servers\MariaDB\Library<|||>1<|||>libmariadb.dll
+Servers\MariaDB\Comment<|||>1<|||>
+Servers\MariaDB\StartupScriptFilename<|||>1<|||>
+Servers\MariaDB\TreeBackground<|||>3<|||>536870911
+Servers\MariaDB\SSHtunnelActive<|||>3<|||>0
+Servers\MariaDB\SshExecutable<|||>1<|||>
+Servers\MariaDB\SSHtunnelHost<|||>1<|||>
+Servers\MariaDB\SSHtunnelHostPort<|||>3<|||>22
+Servers\MariaDB\SSHtunnelUser<|||>1<|||>
+Servers\MariaDB\SSHtunnelPassword<|||>1<|||>8
+Servers\MariaDB\SSHtunnelTimeout<|||>3<|||>4
+Servers\MariaDB\SSHtunnelPrivateKey<|||>1<|||>
+Servers\MariaDB\SSHtunnelPort<|||>3<|||>3307
+Servers\MariaDB\SSL_Active<|||>3<|||>0
+Servers\MariaDB\SSL_Key<|||>1<|||>
+Servers\MariaDB\SSL_Cert<|||>1<|||>
+Servers\MariaDB\SSL_CA<|||>1<|||>
+Servers\MariaDB\SSL_Cipher<|||>1<|||>
+Servers\MariaDB\SSL_Verification<|||>3<|||>2
+Servers\MariaDB\IgnoreDatabasePattern<|||>1<|||>
+Servers\MariaDB\LogFileDdl<|||>3<|||>0
+Servers\MariaDB\LogFileDml<|||>3<|||>0
+Servers\MariaDB\LogFilePath<|||>1<|||>C:\Users\gusta\AppData\Roaming\HeidiSQL\Logs\%session\%db\%y%m%d.sql
+Servers\MariaDB\ServerVersionFull<|||>1<|||>8.0.42 - MySQL Community Server - GPL
+Servers\MariaDB\ConnectCount<|||>3<|||>1
+Servers\MariaDB\ServerVersion<|||>3<|||>80042
+Servers\MariaDB\LastConnect<|||>1<|||>2025-05-11 16:21:46
+Servers\MariaDB\lastUsedDB<|||>1<|||>dados_furapp
+Servers\MariaDB\QueryHistory\2<|||>1<|||>2025-05-11 16:33:50|dados_furapp|15|DESC posicoes_jogadores;
+Servers\MariaDB\QueryHistory\3<|||>1<|||>2025-05-11 16:35:14|dados_furapp|15|INSERT INTO posicoes_jogadores(<{{{><}}}>	abreviacao, categoria)<{{{><}}}>VALUES ('GOL', 'goleiro')
+Servers\MariaDB\QueryHistory\1<|||>1<|||>2025-05-11 16:35:57|dados_furapp|16|INSERT INTO posicoes_jogadores(<{{{><}}}>	abreviacao, categoria)<{{{><}}}>VALUES ('DEF', 'defensor')
+Servers\MariaDB\QueryHistory\5<|||>1<|||>2025-05-11 16:36:12|dados_furapp|31|INSERT INTO posicoes_jogadores(<{{{><}}}>	abreviacao, categoria)<{{{><}}}>VALUES ('MC', 'meio_campista')
+Servers\MariaDB\QueryHistory\6<|||>1<|||>2025-05-11 16:36:26|dados_furapp|16|INSERT INTO posicoes_jogadores(<{{{><}}}>	abreviacao, categoria)<{{{><}}}>VALUES ('ATQ', 'atacante')
+Servers\MariaDB\QueryHistory\7<|||>1<|||>2025-05-11 16:36:40|dados_furapp|0|SELECT * FROM posicoes_jogadores;

@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 
 namespace ContaUsuarioApp
 {
-    public static class Persistencia_De_Contas
+    public static class Persistencia_De_Contas {}}/*
     {
         private const string MariaDB = "Server=localhost;Database=conta_usuario_db;User ID=root;Password=sua_senha;Port=3306;";
         
@@ -111,3 +110,4 @@ namespace ContaUsuarioApp
         }
     }
 }
+*/
