@@ -13,7 +13,11 @@ namespace PosicoesApp
                 var json = File.ReadAllText(CaminhoArquivo);
                 var posicoes = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<Dictionary<string, string>>>>>(json);
 
-                return posicoes["posicoes_jogadores_futebol"];
+                if (posicoes != null && posicoes.ContainsKey("posicoes_jogadores_futebol"))
+                {
+                    return posicoes["posicoes_jogadores_futebol"];
+                }
+                throw new KeyNotFoundException("A chave 'posicoes_jogadores_futebol' não foi encontrada no arquivo JSON.");
             }
             catch (Exception ex)
             {

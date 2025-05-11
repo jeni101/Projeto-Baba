@@ -4,7 +4,7 @@ using ContaJogadorApp;
 using ContaTecnicoApp;
 using ContaArbitroApp;
 using GerenciadorApp;
-using PersistenciaApp;
+
 using ContaUsuarioApp;
 
 namespace FuraoApp
@@ -49,8 +49,8 @@ namespace FuraoApp
                         Console.WriteLine("Por favor, informe sua senha: ");
                         string? senha = Console.ReadLine();
 
-                        ContaUsuario conta = new ContaUsuario(nome ?? "", senha ?? "", idade: 0, saldo: 0, interesses: "", amistosos: "");
-                        conta.Login(tipoConta ?? "", nome ?? "", senha ?? "");
+                        Conta_Usuario conta = new Conta_Usuario(nome ?? "", senha ?? "", idade: 0, saldo: 0, interesses: "", amistosos: "");
+                        conta.Login( nome ?? "", senha ?? "");
 
 
             
@@ -63,7 +63,7 @@ namespace FuraoApp
                         Console.Clear();
                         GerenciadorDeConta gerenciador = new GerenciadorDeConta();
                         
-                        var contasPorTipo = PersistenciaDeContas.CarregarContasAgrupadas(); // lendo o json 
+                        var contasPorTipo = Persistencia_De_Contas.Carregar_Contas(); // lendo o json 
 
                         gerenciador.CadastrarConta(); // Chama o método de cadastro de conta
                         

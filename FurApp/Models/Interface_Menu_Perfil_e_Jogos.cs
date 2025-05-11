@@ -8,9 +8,9 @@ namespace MenuPerfilApp
 {
     public class MenuPerfilJogador
     {
-        private ContaJogador contaLogada;
+        private Conta_Jogador contaLogada;
 
-        public MenuPerfilJogador(ContaJogador conta)
+        public MenuPerfilJogador(Conta_Jogador conta)
         {
             contaLogada = conta;
         }
