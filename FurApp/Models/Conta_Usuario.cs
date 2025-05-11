@@ -34,7 +34,8 @@ namespace ContaUsuarioApp
             return base.Login(nome, senha);
         }
 
-        //Register
+        //Register 
+        /*
         public override void Register()
         {
             try
@@ -80,6 +81,7 @@ namespace ContaUsuarioApp
                 Console.WriteLine($"Erro {ex.Message}");
             }
         }
+        */
 
         //Senha
         private string Definir_Senha()

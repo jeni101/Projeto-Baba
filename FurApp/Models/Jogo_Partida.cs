@@ -4,11 +4,12 @@ using TimesApp;
 
 namespace PartidasApp
 {
+    /*
     public class Partida : Jogos
     {
         public Placar Placar { get; set; }
-        public Times Times { get; set; }
-
+        public TimesApp.Times Times { get; set; }
+        
         public Partida(DateOnly data,
                     TimeOnly hora, 
                     string local, 
@@ -19,6 +20,5 @@ namespace PartidasApp
                 : base(data, hora, local, tipoDeCampo, quantidadeDeJogadores)
                 {
 
-                }
+                } */
     }
-}

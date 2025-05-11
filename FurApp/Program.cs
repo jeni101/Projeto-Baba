@@ -3,10 +3,52 @@ using ContaApp;
 using ContaJogadorApp;
 using ContaTecnicoApp;
 using ContaArbitroApp;
-using GerenciadorApp;
-using PersistenciaApp;
 using ContaUsuarioApp;
 
+using System;
+using MySqlConnector;
+
+namespace FurApp
+{
+    class Program
+    {
+        static void Main()
+        {
+            try
+            {
+                string connStr = "Server=127.0.0.1;Port=18046;User ID=root;Password=qhG171U4;Database=furapp;";
+
+                using var cn = new MySqlConnection(connStr);
+                cn.Open();
+                Console.WriteLine("Conectado com sucesso ao banco 'furapp'!\n");
+
+                string query = "SELECT abreviacao, categoria FROM posicoes_jogadores";
+
+                using var cmd = new MySqlCommand(query, cn);
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string abreviacao = reader["abreviacao"]?.ToString() ?? "N/A";
+                    string categoria = reader["categoria"]?.ToString() ?? "Sem Categoria";
+
+                    Console.WriteLine($"Abreviação: {abreviacao} - Categoria: {categoria}");
+                }
+
+                Console.WriteLine("\nPressione qualquer tecla para sair...");
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao conectar:");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("\nDetalhes completos:");
+                Console.WriteLine(ex.ToString());
+            }
+        }
+    }
+}
+/*
 namespace FuraoApp
 {
     class Program
@@ -97,3 +139,4 @@ namespace FuraoApp
         }
     }
 }
+*/
