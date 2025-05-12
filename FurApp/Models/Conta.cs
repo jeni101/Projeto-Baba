@@ -1,3 +1,7 @@
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace ContaApp
 {
     public abstract class Conta
@@ -12,18 +16,9 @@ namespace ContaApp
         //Conta protegida
         protected Conta(string nome, string senha, int idade)
         {
-            if (string.IsNullOrWhiteSpace(nome))
-            {
-                throw new ArgumentException("O nome não pode ser vazio", nameof(nome));
-            }
-            if (string.IsNullOrWhiteSpace(senha))
-            {
-                throw new ArgumentException("A senha não pode ser vazia", nameof(senha));
-            }
-            if (idade <= 0)
-            {
-                throw new ArgumentException("Idade não deve ser negativa", nameof(idade));
-            }
+            if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("O nome não pode ser vazio", nameof(nome));
+            if (string.IsNullOrWhiteSpace(senha)) throw new ArgumentException("A senha não pode ser vazia", nameof(senha));
+            if (idade <= 0) throw new ArgumentException("Idade não deve ser negativa", nameof(idade));
             //Gerando ID ao criar conta
             Id = Guid.NewGuid();
             Nome = nome;
@@ -35,7 +30,7 @@ namespace ContaApp
         public virtual void Register() {}
         public virtual bool Login(string nome, string senha)
         {
-            if (nome == Nome && VerifyPassword(senha, SenhaHash))
+            if (Autenticar(nome, senha))
             {
                 Console.WriteLine("Login bem sucedido");
                 return true;
@@ -43,21 +38,48 @@ namespace ContaApp
             Console.WriteLine("Falha login");
             return false;
         }
-        public void Logout() {}
+        public void Logout() 
+        {
+            Console.WriteLine("Logout realizado");
+        }
+
+        protected bool Autenticar(string nome, string senha)
+        {
+            return nome == Nome && VerificarSenha(senha, SenhaHash);
+        }
 
         //Censura senha
         private string HashPassword(string senha)
         {
-            using (var sha256 = System.Security.Cryptography.SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(senha));
-                return Convert.ToBase64String(bytes);
-            }
+            byte[] salt = new byte[16];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(salt);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(senha, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            return Convert.ToBase64String(hashBytes);
         }
         //Verifica senha
-        private bool VerifyPassword(string senha, string senhaHash)
+        private bool VerificarSenha(string senha, string senhaHash)
         {
-            return HashPassword(senha) == senhaHash;
+            byte[] hashBytes = Convert.FromBase64String(senhaHash);
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(senha, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            for (int i = 0; i < 20; i++)
+                if (hashBytes[i+16] != hash[i])
+                    return false;
+            
+            return true;
+
         }
 
     }

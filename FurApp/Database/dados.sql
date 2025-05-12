@@ -1,1 +1,0 @@
-CREATE DATABASE dados_projeto_baba;

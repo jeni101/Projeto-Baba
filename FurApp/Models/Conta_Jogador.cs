@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using ContaUsuarioApp;
 
 namespace ContaJogadorApp
@@ -6,7 +10,6 @@ namespace ContaJogadorApp
     {
         public string Posicao { get; set; }
         public string Time { get; private set; }
-        public string Codigo_RA { get; private set; }
         public int Gols { get; private set; }
         public int Assistencias { get; private set; }
         public List<string> Eventos { get; private set; } 
@@ -14,61 +17,42 @@ namespace ContaJogadorApp
         public List<string> Partidas { get; private set; } 
 
         //Construtor padrão
-        public Conta_Jogador(string nome, 
-                            string senha, 
-                            int idade, 
-                            string posicao, 
-                            float? saldo = null, 
-                            string? interesses = null, 
-                            string? amistosos = null,
-                            string? time = null,
-                            int? gols = null, 
-                            int? assistencias = null,
-                            HashSet<string>? jogadores = null)
-            : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty) // variaveis nulas p criacao de conta 
+        public Conta_Jogador(
+            string nome,
+            string senha,
+            int idade,
+            string posicao,
+            float? saldo = null,
+            string? interesses = null,
+            string? amistosos = null,
+            string? time = null,
+            int? gols = null,
+            int? assistencias = null)
+            : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty)
         {
             Posicao = posicao;
             Time = time ?? string.Empty;
-            Codigo_RA = GerarCodigo(jogadores ?? new HashSet<string>());
             Gols = gols ?? 0;
             Assistencias = assistencias ?? 0;
             Eventos = new List<string>();  // Inicializando a lista
             Jogos = new List<string>();    // Inicializando a lista
-            Partidas = new List<string>(); 
+            Partidas = new List<string>();
         }
 
-        //Código
-        private string GerarCodigo(HashSet<string> codigosExistentes)
-        {
-            Random random = new Random();
-            string codigo;
-
-            do
-            {
-                int numeroAleatorio = random.Next(100000, 999999);
-                codigo = numeroAleatorio.ToString();
-
-            } while (codigosExistentes.Contains(codigo));
-            return codigo;
-        }
-        public void Exibir_Codigo()
-        {
-            Console.WriteLine(!string.IsNullOrEmpty(Codigo_RA) ? $"Código do Jogador: {Codigo_RA}" : "Código não definido");
-        }
+        //Interface
         void IJogador.Exibir_Gols()
         {
             Console.WriteLine($"Gols: {Gols}");
         }
         void IJogador.Exibir_Assistencias()
         {
-            Console.WriteLine($"Assistencias: {Assistencias}");
+            Console.WriteLine($"Assistências: {Assistencias}");
         }
-
-        //Interface
         void IJogador.Escolher_Posicao()
         {
-
+            // Implementação futura
         }
+
         void IJogador.Exibir_Time()
         {
             if (!string.IsNullOrEmpty(Time))
@@ -90,12 +74,12 @@ namespace ContaJogadorApp
                     Console.WriteLine(jogo);
                 }
             }
-            
             else
             {
                 Console.WriteLine("Nenhum jogo registrado");
             }
         }
+
         void IJogador.Exibir_Partidas()
         {
             if (Partidas.Count > 0)
@@ -106,21 +90,23 @@ namespace ContaJogadorApp
                     Console.WriteLine(partida);
                 }
             }
-
             else
             {
                 Console.WriteLine("Nenhuma partida registrada");
             }
         }
+
         void IJogador.Entrar_Time()
         {
+            // Implementação futura
         }
 
-        //Adicionar
+        // Adicionar estatísticas
         public void Adicionar_Gols()
         {
             Gols++;
         }
+
         public void Adicionar_Assistencia()
         {
             Assistencias++;

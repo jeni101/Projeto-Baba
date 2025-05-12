@@ -1,4 +1,4 @@
-USE dados_projeto_baba;
+USE furapp;
 
 CREATE TABLE posicoes_jogadores (
     abreviacao VARCHAR(10) PRIMARY KEY,
