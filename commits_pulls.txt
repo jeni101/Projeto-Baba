@@ -67,4 +67,5 @@ Versions:
         -00.3.0.0.0.0.0.010 (Entrega 04/05)
         -00.3.0.0.0.0.0.011 (Database)
         -00.3.0.0.0.0.0.012 (Database correction 1)
+        -00.3.0.0.0.0.0.013 (gitignore restarted)
 
