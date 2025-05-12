@@ -55,8 +55,13 @@ namespace ContaApp
             using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(salt);
 
-            var pbkdf2 = new Rfc2898DeriveBytes(senha, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            var key = new Rfc2898DeriveBytes(
+            "senha",
+            salt,
+            10000,                   
+            HashAlgorithmName.SHA256 
+            );
+            byte[] hash = key.GetBytes(20);
 
             byte[] hashBytes = new byte[36];
             Array.Copy(salt, 0, hashBytes, 0, 16);
@@ -71,8 +76,13 @@ namespace ContaApp
             byte[] salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);
 
-            var pbkdf2 = new Rfc2898DeriveBytes(senha, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            var key = new Rfc2898DeriveBytes(
+            "senha",
+            salt,
+            10000,                   // Mais iterações = mais segurança
+            HashAlgorithmName.SHA256 // SHA-256 é mais seguro que SHA-1
+            );
+            byte[] hash = key.GetBytes(20);
 
             for (int i = 0; i < 20; i++)
                 if (hashBytes[i+16] != hash[i])
