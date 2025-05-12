@@ -51,8 +51,9 @@ namespace TimesApp
                 Console.WriteLine($"-{time.NomeTime} (criado por: {time.Criador.Nome})");
             }
         }
+    }}
 
-        //Temos que recriar tal função abaixo
+        /*Temos que recriar tal função abaixo
         public void ListarTimes(string nomeJogador)
         {
             var contas = Persistencia_De_Contas.Carregar_Contas();
@@ -89,3 +90,4 @@ namespace TimesApp
         }
     }
 }
+*/

@@ -1,5 +1,5 @@
 using System.Text.Json;
-
+/*
 namespace PosicoesApp
 {
     public class Posicao

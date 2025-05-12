@@ -1,13 +1,13 @@
 using ContaJogadorApp;
 using JogosApp;
 
-namespace Interface_Campos
+namespace Util_Campos
 {
-    public class Interfaces_De_Campos
+    public class Utils_De_Campos
     {
         private Conta_Jogador contaLogada;
 
-        public Interfaces_De_Campos(Conta_Jogador conta)
+        public Utils_De_Campos(Conta_Jogador conta)
         {
             contaLogada = conta;
         }

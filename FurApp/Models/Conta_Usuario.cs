@@ -1,5 +1,6 @@
 using ContaApp;
 using ContaJogadorApp;
+using PersistenciaApp;
 
 namespace ContaUsuarioApp
 {
@@ -17,21 +18,25 @@ namespace ContaUsuarioApp
                             int idade, 
                             float saldo, 
                             string interesses, 
-                            string amistosos,
-                            bool tornouSeJogador = false)
+                            string amistosos)
                             : base(nome, senha, idade)
         {
             Saldo = saldo;
             Interesses = interesses;
             Amistosos = amistosos;
-            TornouSeJogador = tornouSeJogador;
+            TornouSeJogador = false;
             DataCriacao = DateTime.Now;
         }
         
         //Login
         public override bool Login(string nome, string senha)
         {
-            return base.Login(nome, senha);
+            bool sucesso = base.Login(nome, senha);
+            if (sucesso)
+            {
+                Console.WriteLine($"Bem vindo(a), {Nome}!");
+            }
+            return sucesso;
         }
 
         //Register
@@ -39,7 +44,7 @@ namespace ContaUsuarioApp
         {
             try
             {
-                List<Conta_Usuario> contas = Persistencia_De_Contas.Carregar_Contas();
+                List<Conta_Jogador> contas = PersistenciaDeContas.CarregarJogadores();
 
                 if (contas.Any(c=>c.Nome == Nome))
                 {
@@ -47,31 +52,21 @@ namespace ContaUsuarioApp
                     return;
                 }
 
-                string senhaValida = Definir_Senha();
-
-                var jogadoresExistentes = contas
-                    .OfType<Conta_Jogador>()
-                    .ToList();
-
-                var codigosExistentes = new HashSet<string>(jogadoresExistentes.Select(j => j.Codigo_RA));
-
-                TornouSeJogador = true;
+                string senhaValida = Definir_Senha(3);
 
                 var contaJogador = new Conta_Jogador(
                     Nome,
                     senhaValida,
                     Idade,
-                    posicao: "Não definida",
-                    saldo : Saldo,
-                    interesses : Interesses,
-                    amistosos : Amistosos,
-                    jogadores : codigosExistentes
+                    "Não definida",
+                    Saldo,
+                    Interesses,
+                    Amistosos
                 );
                 
                 contas.Add(contaJogador);
-                Console.WriteLine(contaJogador.Codigo_RA);
 
-                Persistencia_De_Contas.Salvar_Contas(contas);
+                PersistenciaDeContas.SalvarJogador(contaJogador);
 
                 Console.WriteLine("Conta registrada com sucesso");
             }
@@ -82,12 +77,12 @@ namespace ContaUsuarioApp
         }
 
         //Senha
-        private string Definir_Senha()
+        private string Definir_Senha(int maxTentativas = 3)
         {
-            while (true)
+            for (int i = 0; i < maxTentativas; i++)
             {
                 Console.WriteLine("Defina sua senha (min. 6 char.): ");
-                string senha = Console.ReadLine() ?? "0";
+                string senha = Console.ReadLine() ?? "";
 
                 if (senha.Length < 6)
                 {
@@ -96,7 +91,7 @@ namespace ContaUsuarioApp
                 }
 
                 Console.WriteLine("Confirme sua senha: ");
-                string confirmacaoSenha = Console.ReadLine() ?? "0";
+                string confirmacaoSenha = Console.ReadLine() ?? "";
 
                 if (senha == confirmacaoSenha)
                 {
@@ -105,6 +100,7 @@ namespace ContaUsuarioApp
 
                 Console.WriteLine("Senhas não coicidem");
             }
+            throw new InvalidOperationException("Número máximo de tentativas atingido");
         }
 
         //amistoso
@@ -115,14 +111,32 @@ namespace ContaUsuarioApp
         {
             Console.WriteLine($"Saldo: {Saldo:F2}");
         }
-        public void Apostar() { }
+        public void Apostar(float valor) 
+        {
+            if (valor > Saldo)
+            {
+                Console.WriteLine("Saldo insuficiente para essa aposta");
+                return;
+            }
+            Saldo -= valor;
+            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso");
+        }
 
-        // perfil 
-        //Temos que rever coisas relacionadas ao perfil
-        public void Exibir_Perfil() { }
+        //perfil
+        public void Exibir_Perfil() 
+        {
+            Console.WriteLine($"""
+            === PERFIL DE {Nome} ===
+            ID: {Id}
+            Idade: {Idade}
+            Saldo: R$ {Saldo:F2}
+            Data de Criação: {DataCriacao:dd/MM/yyyy}
+            Interesses: {Interesses}
+            Amistosos: {Amistosos}
+            """);
+        }
         public void Editar_Perfil() { }
         public void Deletar_Conta() { }
-        public void Adicionar_Interesses() { }
         public void Exibir_Interesses() { }
         public void Deletar_Interesses() { }
 
