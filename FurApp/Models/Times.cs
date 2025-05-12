@@ -56,10 +56,11 @@ namespace TimesApp
         /*Temos que recriar tal função abaixo
         public void ListarTimes(string nomeJogador)
         {
-            var contas = Persistencia_De_Contas.Carregar_Contas_Agrupadas();
+            var contas = Persistencia_De_Contas.Carregar_Contas();
 
             // Verifica se tem jogadores
-            if (contas.TryGetValue("Jogador", out var listaContas))
+            var listaContas = contas.Where(c => c.Tipo == "Jogador").ToList();
+            if (listaContas.Any())
             {
                 // Procura o jogador pelo nome
                 var jogadorBase = listaContas.FirstOrDefault(c => c.Nome == nomeJogador);
