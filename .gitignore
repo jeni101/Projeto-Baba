@@ -1,6 +1,7 @@
-
-# Ignorar arquivos de build do .NET
-
-
+# Ignorar diretórios de build do .NET
 /FurApp/bin/
 /FurApp/obj/
+
+# Ignorar arquivos específicos do Visual Studio
+*.suo
+*.user
