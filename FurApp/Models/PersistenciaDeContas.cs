@@ -1,113 +1,64 @@
 using System;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using ContaApp;
+using ContaUsuarioApp;
+using ContaJogadorApp;
+using ContaTecnicoApp;
 
-namespace ContaUsuarioApp
+namespace PersistenciaApp
 {
-    public static class Persistencia_De_Contas {}}/*
+    public static class PersistenciaDeContas
     {
-        private const string MariaDB = "Server=localhost;Database=conta_usuario_db;User ID=root;Password=sua_senha;Port=3306;";
-        
-        public static List<Conta_Usuario> Carregar_Contas()
+        private const string MariaDB = "Server=127.0.0.1;Port=18046;User ID=root;Password=qhG171U4;Database=furapp;";
+
+        public static void SalvarJogador(Conta_Jogador jogador)
         {
-            var contas = new List<Conta_Usuario>();
-            
-            try
-            {
-                using (var conexao = new MySqlConnection(MariaDB))
-                {
-                    conexao.Open();
-                    string query = @"
-                        SELECT nome, senha, idade, saldo, interesses, amistosos, tornou_se_jogador, data_criacao 
-                        FROM contas_usuarios";
+            using var conn = new MySqlConnection(MariaDB);
+            conn.Open();
 
-                    using (var cmd = new MySqlCommand(query, conexao))
-                    {
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                contas.Add(new Conta_Usuario(
-                                    nome: reader.GetString("nome"),
-                                    senha: reader.GetString("senha"),
-                                    idade: reader.GetInt32("idade"),
-                                    saldo: reader.GetFloat("saldo"),
-                                    interesses: reader.IsDBNull(reader.GetOrdinal("interesses")) ? null : reader.GetString("interesses"),
-                                    amistosos: reader.IsDBNull(reader.GetOrdinal("amistosos")) ? null : reader.GetString("amistosos"),
-                                    tornouSeJogador: reader.GetBoolean("tornou_se_jogador")
-                                ));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao carregar contas: {ex.Message}");
-            }
+            var cmd = new MySqlCommand(@"
+                INSERT INTO Jogadores (Id, Nome, SenhaHash, Idade, Posicao, Time, Gols, Assistencias)
+                VALUES (@id, @nome, @senhaHash, @idade, @posicao, @time, @gols, @assistencias)", conn);
 
-            return contas;
+            cmd.Parameters.AddWithValue("@id", jogador.Id.ToString());
+            cmd.Parameters.AddWithValue("@nome", jogador.Nome);
+            cmd.Parameters.AddWithValue("@senhaHash", jogador.SenhaHash);
+            cmd.Parameters.AddWithValue("@idade", jogador.Idade);
+            cmd.Parameters.AddWithValue("@posicao", jogador.Posicao);
+            cmd.Parameters.AddWithValue("@time", jogador.Time);
+            cmd.Parameters.AddWithValue("@gols", jogador.Gols);
+            cmd.Parameters.AddWithValue("@assistencias", jogador.Assistencias);
+
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("Jogador Salvo");
         }
 
-        public static void Salvar_Contas(List<Conta_Usuario> contas)
+        public static List<Conta_Jogador> CarregarJogadores()
         {
-            if (contas == null || contas.Count == 0)
-            {
-                Console.WriteLine("Nenhuma conta para salvar.");
-                return;
-            }
+            var jogadores = new List<Conta_Jogador>();
+            
+            using var conn = new MySqlConnection(MariaDB);
+            conn.Open();
 
-            try
-            {
-                using (var conexao = new MySqlConnection(MariaDB))
-                {
-                    conexao.Open();
-                    using (var transaction = conexao.BeginTransaction())
-                    {
-                        foreach (var conta in contas)
-                        {
-                            string query = @"
-                                INSERT INTO contas_usuarios 
-                                    (nome, senha, idade, saldo, interesses, amistosos, tornou_se_jogador, data_criacao) 
-                                VALUES 
-                                    (@nome, @senha, @idade, @saldo, @interesses, @amistosos, @tornou_se_jogador, @data_criacao)
-                                ON DUPLICATE KEY UPDATE
-                                    senha = @senha, 
-                                    idade = @idade, 
-                                    saldo = @saldo, 
-                                    interesses = @interesses, 
-                                    amistosos = @amistosos, 
-                                    tornou_se_jogador = @tornou_se_jogador, 
-                                    data_criacao = @data_criacao";
+            var cmd = new MySqlCommand("SELECT * FROM jogadores", conn);
+            using var reader = cmd.ExecuteReader();
 
-                            using (var cmd = new MySqlCommand(query, conexao, transaction))
-                            {
-                                cmd.Parameters.AddWithValue("@nome", conta.Nome);
-                                cmd.Parameters.AddWithValue("@senha", conta.SenhaHash);
-                                cmd.Parameters.AddWithValue("@idade", conta.Idade);
-                                cmd.Parameters.AddWithValue("@saldo", conta.Saldo);
-                                cmd.Parameters.AddWithValue("@interesses", (object)conta.Interesses ?? DBNull.Value);
-                                cmd.Parameters.AddWithValue("@amistosos", (object)conta.Amistosos ?? DBNull.Value);
-                                cmd.Parameters.AddWithValue("@tornou_se_jogador", conta.TornouSeJogador);
-                                cmd.Parameters.AddWithValue("@data_criacao", conta.DataCriacao);
-
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        transaction.Commit();
-                        Console.WriteLine("Todas as contas foram salvas com sucesso.");
-                    }
-                }
-            }
-            catch (MySqlException sqlEx)
+            while (reader.Read())
             {
-                Console.WriteLine($"Erro no banco de dados: {sqlEx.Message}");
+                var jogador = new Conta_Jogador(
+                    reader.GetString("Nome"),
+                    reader.GetString("SenhaHash"),
+                    reader.GetInt32("Idade"),
+                    reader.GetString("Posicao"),
+                    time: reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time"),
+                    gols: reader.IsDBNull(reader.GetOrdinal("Gols")) ? (int?)null : reader.GetInt32("Gols"),
+                    assistencias: reader.IsDBNull(reader.GetOrdinal("Assistencias")) ? (int?)null : reader.GetInt32("Assistencias")
+                );
+
+                jogadores.Add(jogador);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao salvar contas: {ex.Message}");
-            }
+            return jogadores;
         }
     }
 }
-*/

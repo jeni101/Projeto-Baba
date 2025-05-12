@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <!-- Bibliotecas externas -->
+    <PackageReference Include="MySql.Data" Version="9.3.0" />
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
