@@ -1,4 +1,4 @@
-/*
+
 using System;
 using ContaApp;
 using ContaJogadorApp;
@@ -50,19 +50,19 @@ namespace GerenciadorApp
                 if (posicao == 1) // talvez colocar uma confirmacao final com todos os dados antes de salvar.
                 {
                     string posicao1 = "Goleiro";
-                    novaConta = new ContaJogador(nome ?? "", senha ?? "", idade, posicao1);
+                    novaConta = new Conta_Jogador(nome ?? "", senha ?? "", idade, posicao1);
                 }
 
                 else if (posicao == 2)
                 {
                     string posicao2 = "Defesa";
-                    novaConta = new ContaJogador(nome ?? "", senha ?? "", idade, posicao2);
+                    novaConta = new Conta_Jogador(nome ?? "", senha ?? "", idade, posicao2);
                 }
 
                 else if (posicao == 3)
                 {
                     string posicao3 = "Ataque";
-                    novaConta = new ContaJogador(nome ?? "", senha ?? "", idade, posicao3);
+                    novaConta = new Conta_Jogador(nome ?? "", senha ?? "", idade, posicao3);
                 }
 
                 else
@@ -95,20 +95,20 @@ namespace GerenciadorApp
                 Console.WriteLine("Conta criada com sucesso!");
             }
         }
-        public ContaTecnico CriarContaTecnico(string nome, int idade, string senha)
+        public Conta_Tecnico CriarContaTecnico(string nome, int idade, string senha)
         {
             Console.Clear();
             Console.WriteLine("Voce selecionou a conta 'Tecnico'.");
-            return new ContaTecnico(nome, senha, idade);
+            return new Conta_Tecnico(nome, senha, idade);
         }
 
 
 
-        public ContaArbitro CriarContaArbitro(string nome, int idade, string senha)
+        public Conta_Arbitro CriarContaArbitro(string nome, int idade, string senha)
         {
             Console.Clear();
             Console.WriteLine("Voce selecionou a conta 'Arbitro'.");
-            return new ContaArbitro(nome, senha, idade);
+            return new Conta_Arbitro(nome, senha, idade);
         }
 
 
@@ -116,4 +116,3 @@ namespace GerenciadorApp
     }
 
 }
-*/
