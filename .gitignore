@@ -1,6 +1,11 @@
 # Ignorar diretórios de build do .NET
-/FurApp/bin/
-/FurApp/obj/
+**bin/
+**obj/
+
+# Assegurança build do .NET
+**/FurApp/bin 
+**/FurApp/obj
+**/FurApp/obj/Debug/
 
 # Ignorar arquivos específicos do Visual Studio
 *.suo

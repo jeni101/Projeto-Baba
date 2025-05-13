@@ -44,7 +44,7 @@ namespace ContaUsuarioApp
         {
             try
             {
-                List<Conta_Jogador> contas = PersistenciaDeContas.CarregarJogadores();
+                List<Conta_Jogador> contas = PersistenciaDeJogador.CarregarJogadores();
 
                 if (contas.Any(c=>c.Nome == Nome))
                 {
@@ -66,7 +66,7 @@ namespace ContaUsuarioApp
                 
                 contas.Add(contaJogador);
 
-                PersistenciaDeContas.SalvarJogador(contaJogador);
+                PersistenciaDeJogador.SalvarJogador(contaJogador);
 
                 Console.WriteLine("Conta registrada com sucesso");
             }
@@ -134,6 +134,10 @@ namespace ContaUsuarioApp
             Interesses: {Interesses}
             Amistosos: {Amistosos}
             """);
+        }
+        protected void DefinirId(Guid id)
+        {
+            this.Id = Guid.NewGuid();
         }
         public void Editar_Perfil() { }
         public void Deletar_Conta() { }

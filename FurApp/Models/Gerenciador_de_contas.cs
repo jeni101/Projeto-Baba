@@ -1,10 +1,11 @@
-
+/*
 using System;
 using ContaApp;
 using ContaJogadorApp;
 using ContaTecnicoApp;
 using ContaArbitroApp;
 using ContaUsuarioApp;
+using PersistenciaApp;
 
 
 
@@ -91,7 +92,7 @@ namespace GerenciadorApp
             if (novaConta != null)
             {
                 contas.Add(novaConta);
-                PersistenciaDeContas.SalvarContas(contas); // salva no json 
+                PersistenciaDeContas.SalvarJogador(contas); // salva no json 
                 Console.WriteLine("Conta criada com sucesso!");
             }
         }
@@ -116,3 +117,4 @@ namespace GerenciadorApp
     }
 
 }
+*/

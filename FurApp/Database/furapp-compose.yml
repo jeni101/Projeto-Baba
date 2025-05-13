@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  furapp:
+    image: mariadb:latest
+    container_name: furapp
+    environment:
+      MYSQL_ROOT_PASSWORD: qhG171U4
+      MYSQL_DATABASE: furapp
+    ports:
+      - "18046:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:
