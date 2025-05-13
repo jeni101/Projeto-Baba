@@ -31,7 +31,7 @@ namespace ContaTecnicoApp
             }
 
         //time
-        void ITecnico.criarTime()
+        void ITecnico.CriarTime()
         {
             Console.WriteLine("Nome do Time: ");
             string? nomeTime = Console.ReadLine();
@@ -47,19 +47,34 @@ namespace ContaTecnicoApp
         }
 
         //jogos
-        void ITecnico.criarJogo()
+        void ITecnico.CriarJogo()
         {
             throw new NotImplementedException();
         }
-        void ITecnico.entrarJogo()
+        void ITecnico.EntrarJogo()
         {
             throw new NotImplementedException();
         }
 
         //treino
-        void ITecnico.criarTreino()
+        void ITecnico.CriarTreino()
         {
             throw new NotImplementedException();
+        }
+
+        //perfil
+        public void ExibirPerfil()
+        {
+            Console.WriteLine($"""
+            === PERFIL DO TÉCNICO ===
+            ID: {Id}
+            Nome: {Nome}
+            Idade: {Idade}
+            Saldo: R$ {Saldo:F2}
+            Interesses: {Interesses}
+            Amistosos: {Amistosos}
+            Time: {Time}
+            """);
         }
     }
 }
