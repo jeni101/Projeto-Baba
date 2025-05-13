@@ -7,7 +7,7 @@ namespace ContaApp
     public abstract class Conta
     {
         //sistema de ID
-        public Guid Id { get; }
+        public Guid Id { get; protected set; }
         //atributos
         public string Nome {get; private set;}
         public string SenhaHash {get; private set;}
@@ -56,7 +56,7 @@ namespace ContaApp
             rng.GetBytes(salt);
 
             var key = new Rfc2898DeriveBytes(
-            "senha",
+            senha,
             salt,
             10000,                   
             HashAlgorithmName.SHA256 
@@ -77,7 +77,7 @@ namespace ContaApp
             Array.Copy(hashBytes, 0, salt, 0, 16);
 
             var key = new Rfc2898DeriveBytes(
-            "senha",
+            senha,
             salt,
             10000,                   // Mais iterações = mais segurança
             HashAlgorithmName.SHA256 // SHA-256 é mais seguro que SHA-1
