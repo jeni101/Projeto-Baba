@@ -20,6 +20,7 @@ namespace Util_Contas
             Console.WriteLine("|________________________________|_____|");
             Console.WriteLine("|SAIR. . . . . . . . . . . . . . |  0  |");
             Console.WriteLine("|======================================|");
+            Console.WriteLine(" • Digite a Opção Desejada: ");
             string? escolha = Console.ReadLine();
 
             switch (escolha)
@@ -37,40 +38,38 @@ namespace Util_Contas
                     return;
             }
         }
-        // public void DisplayMenu_SelecaoContas()
-        // {   Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
-        //     Console.WriteLine(".______________________________________.");
-        //     Console.WriteLine("|  -=-       Login Inicial        -=-  |");
-        //     Console.WriteLine("|======================================|");
-        //     Console.WriteLine("|Conta Torcedor. . . . . . . . . |  1  |");
-        //     Console.WriteLine("|Conta Técnico . . . . . . . . . |  2  |");
-        //     Console.WriteLine("|________________________________|_____|");
-        //     Console.WriteLine("|VOLTAR. . . . . . . . . . . . . |  0  |");
-        //     Console.WriteLine("|======================================|");
-        //     string? escolha = Console.ReadLine();
+        public void DisplayMenu_Contas()
+        {   Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
+            Console.WriteLine(".______________________________________.");
+            Console.WriteLine("|  -=-       Menu de Contas       -=-  |");
+            Console.WriteLine("|======================================|");
+            Console.WriteLine("|Criar Nova Conta. . . . . . . . |  1  |");
+            Console.WriteLine("|Editar Conta Existente. . . . . |  2  |");
+            Console.WriteLine("|Deletar Conta Existente . . . . |  3  |");
+            Console.WriteLine("|________________________________|_____|");
+            Console.WriteLine("|VOLTAR. . . . . . . . . . . . . |  0  |");
+            Console.WriteLine("|======================================|");
+            Console.WriteLine(" • Digite a Opção Desejada: ");
+            string? escolha = Console.ReadLine();
 
-        //     switch (escolha)
-        //     {
-        //         case "1":
-        //             //Linkar Função de Acesso ao Login
-        //             break;
+            switch (escolha)
+            {
+                case "1":
+                    //Linkar Função de Criação de Conta
+                    break;
 
-        //         case "2":
-        //             break;
+                case "2":
+                    //Linkar Função de Edição de Conta
+                    break;
 
-        //         case "3":
-        //             break;
+                case "3":
+                    //Linkar Função de Remover Conta
+                    break;
 
-        //         case "4":
-        //             break;
-
-        //         case "5":
-        //             break;
-
-        //         case "0":
-        //             Console.WriteLine("Saindo .............");
-        //             return;
-        //     }
-        // }
+                case "0":
+                    Console.WriteLine("Saindo .............");
+                    return;
+            }
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace Util_OpcoesContas
             Console.WriteLine("|________________________________|_____|");
             Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
             Console.WriteLine("|======================================|");
+            Console.WriteLine(" • Digite a Opção Desejada: ");
             string? escolha = Console.ReadLine();
 
             switch (escolha)
@@ -74,6 +75,7 @@ namespace Util_OpcoesContas
             Console.WriteLine("|________________________________|_____|");
             Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
             Console.WriteLine("|======================================|");
+            Console.WriteLine(" • Digite a Opção Desejada: ");
             string? escolha = Console.ReadLine();
 
             switch (escolha)
