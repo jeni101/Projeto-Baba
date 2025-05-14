@@ -11,17 +11,14 @@
     <None Update="appsettings.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <!-- Bibliotecas externas -->
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
-    <PackageReference Include="MySql.Data" Version="9.3.0" />
-    <PackageReference Include="MySqlConnector" Version="2.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Arquivos do projeto -->
+    <!-- Bibliotecas externas -->
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
