@@ -81,3 +81,5 @@ Versions:
         -00.4.0.0.0.0.0.005.2 (resolvendo problemas do gitignore)
         -00.4.0.0.0.0.0.006 (Persistences fixation)
         -00.4.0.0.0.0.0.006.1 (Luisinho sloved)
+        -00.4.0.0.0.0.0.006.2 (MySql deletation)
+        -00.4.0.0.0.0.0.006.3 (docker restruturation)
