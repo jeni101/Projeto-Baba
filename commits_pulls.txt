@@ -83,3 +83,4 @@ Versions:
         -00.4.0.0.0.0.0.006.1 (Luisinho sloved)
         -00.4.0.0.0.0.0.006.2 (MySql deletation)
         -00.4.0.0.0.0.0.006.3 (docker restruturation)
+        -00.4.0.0.0.0.0.007 (Estrutura da Interface do Menu de Contas)
