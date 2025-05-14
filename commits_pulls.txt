@@ -88,3 +88,4 @@ Versions:
         -00.4.0.0.0.0.0.007.2 (Estrutura Interface Edição de Contas Adicionada)
         -00.4.0.0.0.0.0.008 (Estrutura Interface Jogador e confirmação de saida Adicionadas)
         -00.4.0.0.0.0.0.009 (Correção de Sintax e Organizacao do Código)
+        -00.4.0.0.0.0.0.010 (Estrutura Menu Tecnico e Correção de Códigos)
