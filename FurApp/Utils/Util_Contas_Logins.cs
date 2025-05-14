@@ -12,7 +12,10 @@ namespace Util_Contas
             contaLogada = conta;
         }
         public void DisplayMenu_LoginInicial()
-        {   Console.WriteLine(".______________________________________.");
+        {
+        while (true)
+            {    
+            Console.WriteLine(".______________________________________.");
             Console.WriteLine("|  -=-       Login Inicial        -=-  |");
             Console.WriteLine("|======================================|");
             Console.WriteLine("|Novo Usuário. . . . . . . . . . |  1  |");
@@ -34,12 +37,32 @@ namespace Util_Contas
                     break;
 
                 case "0":
-                    Console.WriteLine("Saindo .............");
+                Console.Write("Tem certeza que desejas sair? (S/N): ");
+                string? confirmacao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                {
+                    Console.WriteLine("Saindo...");
                     return;
-            }
+                }
+                else
+                {
+                    Console.WriteLine("Comando Errado, Tente Novamente: ");
+                    Console.ReadKey();
+                }
+                break;
+
+            default:
+                Console.WriteLine("Comando Errado, Tente Novamente: ");
+                Console.ReadKey();
+                break;
         }
+    }
+}
         public void DisplayMenu_Contas()
-        {   Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
+        {
+            while (true){
+            Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
             Console.WriteLine(".______________________________________.");
             Console.WriteLine("|  -=-       Menu de Contas       -=-  |");
             Console.WriteLine("|======================================|");
@@ -67,9 +90,26 @@ namespace Util_Contas
                     break;
 
                 case "0":
-                    Console.WriteLine("Saindo .............");
+                Console.Write("Tem certeza que desejas sair? (S/N): ");
+                string? confirmacao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                {
                     return;
-            }
+                }
+                else
+                {
+                    Console.WriteLine("Comando Errado, Tente Novamente: ");
+                    Console.ReadKey();
+                }
+                break;
+
+            default:
+                Console.WriteLine("Comando Errado, Tente Novamente: ");
+                Console.ReadKey();
+                break;
+            }    
         }
     }
+}
 }

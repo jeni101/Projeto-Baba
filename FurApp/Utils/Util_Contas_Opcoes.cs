@@ -12,7 +12,11 @@ namespace Util_OpcoesContas
             contaLogada = conta;
         }
         public void Display_MenuAdministrador()
-        {   Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+        { 
+            while (true)
+            {
+            Console.Clear();
+            Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
             Console.WriteLine(".______________________________________.");
             Console.WriteLine("|  -=-     Menu Administrador     -=-  |");
             Console.WriteLine("|======================================|");
@@ -60,13 +64,34 @@ namespace Util_OpcoesContas
                     break;
 
                 case "0":
-                    // Fazer uma confirmação antes de sair de fato
-                    Console.WriteLine("Saindo .............");
+                Console.Write("Tem certeza que desejas sair? (S/N): ");
+                string? confirmacao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                {
+                    Console.WriteLine("Saindo da Conta...");
                     return;
-            }
+                }
+                else
+                {
+                    Console.WriteLine("Comando Errado, Tente Novamente: ");
+                    Console.ReadKey();
+                }
+                break;
+
+            default:
+                Console.WriteLine("Comando Errado, Tente Novamente: ");
+                Console.ReadKey();
+                break;
         }
+    }
+}
         public void Display_MenuArbitro()
-        {   Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+        {   
+            while (true)
+            {
+            Console.Clear();
+            Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
             Console.WriteLine(".______________________________________.");
             Console.WriteLine("|  -=-        Menu Arbitro        -=-  |");
             Console.WriteLine("|======================================|");
@@ -89,10 +114,86 @@ namespace Util_OpcoesContas
                     break;
 
                 case "0":
-                    // Fazer uma confirmação antes de sair de fato
-                    Console.WriteLine("Saindo .............");
+                Console.Write("Tem certeza que desejas sair? (S/N): ");
+                string? confirmacao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                {
+                    Console.WriteLine("Saindo da Conta...");
                     return;
+                }
+                else
+                {
+                    Console.WriteLine("Comando Errado, Tente Novamente: ");
+                    Console.ReadKey();
+                }
+                break;
+
+            default:
+                Console.WriteLine("Comando Errado, Tente Novamente: ");
+                Console.ReadKey();
+                break;
+        }
+    }
+}
+        public void Display_MenuJogador()
+        { 
+            while (true)
+            {   
+            Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+            Console.WriteLine(".______________________________________.");
+            Console.WriteLine("|  -=-        Menu Jogador        -=-  |");
+            Console.WriteLine("|======================================|");
+            Console.WriteLine("|Informações do Jogador. . . . . |  1  |");
+            Console.WriteLine("|Entrar em um Time . . . . . . . |  2  |");
+            Console.WriteLine("|Jogos e Partidas  . . . . . . . |  3  |");
+            Console.WriteLine("|Opções Adicionais . . . . . . . |  4  |");
+            Console.WriteLine("|________________________________|_____|");
+            Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
+            Console.WriteLine("|======================================|");
+            Console.WriteLine(" • Digite a Opção Desejada: ");
+            string? escolha = Console.ReadLine();
+
+            switch (escolha)
+            {
+                case "1":
+                    // Vou linkar MENU de Informações do Jogador
+                    break;
+
+                case "2":
+                    // linkar Função de Entrar em um time
+                    break;
+
+                case "3":
+                    // Vou linkar MENU de Informações de Partidas
+                    break;
+
+                case "4":
+                    // Vou linkar MENU de Opções Adicionais
+                    break;
+
+                case "0":
+                Console.Write("Tem certeza que desejas sair? (S/N): ");
+                string? confirmacao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                {
+                    Console.WriteLine("Saindo da Conta...");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Comando Errado, Tente Novamente: ");
+                    Console.ReadKey();
+                }
+                break;
+
+            default:
+                Console.WriteLine("Comando Errado, Tente Novamente: ");
+                Console.ReadKey();
+                break;
             }
         }
     }
+}
 }

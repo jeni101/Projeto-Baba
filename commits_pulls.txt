@@ -86,3 +86,4 @@ Versions:
         -00.4.0.0.0.0.0.007 (Estrutura da Interface do Menu de Contas)
         -00.4.0.0.0.0.0.007.1 (Estrutura Interface Administrador e Arbitro Adicionada)
         -00.4.0.0.0.0.0.007.2 (Estrutura Interface Edição de Contas Adicionada)
+        -00.4.0.0.0.0.0.008 (Estrutura Interface Jogador e confirmação de saida Adicionadas)
