@@ -67,10 +67,22 @@ namespace PersistenciaApp
                 conn.Open();
 
                 var cmd = new MySqlCommand(@"
-                    INSERT INTO jogadores 
-                    (Id, Nome, SenhaHash, Idade, TipoConta, Posicao, Saldo, Time, Gols, Assistencias, Interesses, Amistosos)
-                    VALUES 
-                    (@id, @nome, @senhaHash, @idade, @tipoConta, @posicao, @saldo, @time, @gols, @assistencias, @interesses, @amistosos)", conn);
+                    INSERT INTO jogadores (
+                        Id, Nome, SenhaHash, Idade, TipoConta, Posicao, Saldo, Time, Gols, Assistencias, Interesses, Amistosos)
+                    VALUES (
+                        @id, @nome, @senhaHash, @idade, @tipoConta, @posicao, @saldo, @time, @gols, @assistencias, @interesses, @amistosos
+                    )
+                    ON DUBPLICATE KEY UPDATE
+                        Nome = @nome,
+                        SenhaHash = @senhaHash,
+                        Idade = @idade,
+                        Saldo = @saldo,
+                        Time = @time,
+                        Gols = @gols,
+                        Assistencias = @assistencias,
+                        Interesses = @amistosos,
+                        Amistosos = @amistosos"
+                    , conn);
 
                 cmd.Parameters.AddWithValue("@id", jogador.Id.ToString());
                 cmd.Parameters.AddWithValue("@nome", jogador.Nome);
