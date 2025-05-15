@@ -15,7 +15,7 @@ namespace PersistenciaApp
                                        "User ID=root;" +
                                        "Password=qhG171U4;" +
                                        "Connection Timeout=30;";
-
+        //Cria tabela tecnico
         public static void InicializarBancoTecnico()
         {
             try 
@@ -32,7 +32,12 @@ namespace PersistenciaApp
                         Saldo DECIMAL(18,2),
                         Interesses TEXT,
                         Amistosos TEXT,
-                        Time VARCHAR(100)
+                        Time VARCHAR(100),
+                        Deletado BIT DEFAULT 0,
+                        DataDelecao DATETIME NULL,
+                        QuemDeletou VARCHAR(100) NULL,
+                        TornouSeJogador BOOLEAN DEFAULT TRUE,
+                        TornouSeTecnico BOOLEAN DEFAULT TRUE
                     );";
                 
                 using var cmd = new MySqlCommand(sql, conn);
@@ -42,8 +47,13 @@ namespace PersistenciaApp
             {
                 Console.WriteLine(ex.Message);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado: {ex.Message}");
+            }
         }
 
+        //Salvar tecnico
         public static bool SalvarTecnico(Conta_Tecnico tecnico)
         {
             try
@@ -74,6 +84,8 @@ namespace PersistenciaApp
                 cmd.Parameters.AddWithValue("@interesses", tecnico.Interesses);
                 cmd.Parameters.AddWithValue("@amistosos", tecnico.Amistosos);
                 cmd.Parameters.AddWithValue("@time", tecnico.Time);
+                cmd.Parameters.AddWithValue("@tornouSeJogador", tecnico.TornouSeJogador);
+                cmd.Parameters.AddWithValue("@tornouSeTecnico", tecnico.TornouSeTecnico);
 
                 int linhasAfetadas = cmd.ExecuteNonQuery();
                 return linhasAfetadas > 0;
@@ -83,8 +95,14 @@ namespace PersistenciaApp
                 Console.WriteLine(ex.Message);
                 return false;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                return false;
+            }
         }
 
+        //Carregar Tecnico
         public static List<Conta_Tecnico> CarregarTecnicos()
         {
             var tecnicos = new List<Conta_Tecnico>();
@@ -133,6 +151,7 @@ namespace PersistenciaApp
             return tecnicos;
         }
 
+        //Procurar por ID
         public static Conta_Tecnico ObterTecnicoPorId(Guid id)
         {
             try
@@ -140,7 +159,7 @@ namespace PersistenciaApp
                 using var conn = new MySqlConnection(MariaDB);
                 conn.Open();
 
-                var cmd = new MySqlCommand("SELECT * FROM tecnicos WHERE Id = @id", conn);
+                var cmd = new MySqlCommand("SELECT * FROM tecnicos WHERE Id = @id AND Deletado = 0", conn);
                 cmd.Parameters.AddWithValue("@id", id.ToString());
 
                 using var reader = cmd.ExecuteReader();
@@ -171,6 +190,123 @@ namespace PersistenciaApp
             }
 
             return null;
+        }
+
+        //Atualizar tecnico
+        public static bool AtualizarTecnico(Conta_Tecnico tecnico)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(MariaDB);
+                conn.Open();
+
+                var cmd = new MySqlCommand(@"
+                    UPDATE tecnicos
+                    SET
+                        Nome = @nome,
+                        SenhaHash = @senhaHash,
+                        Idade = @idade,
+                        Saldo = @saldo,
+                        Interesses = @interesses,
+                        Amistosos = @amistosos,
+                        Time = @time
+                    WHERE
+                        Id = @id", conn);
+                    
+                cmd.Parameters.AddWithValue("@id", tecnico.Id.ToString());
+                cmd.Parameters.AddWithValue("@nome", tecnico.Nome);
+                cmd.Parameters.AddWithValue("@senhaHash", tecnico.SenhaHash);
+                cmd.Parameters.AddWithValue("@idade", tecnico.Idade);
+                cmd.Parameters.AddWithValue("@saldo", tecnico.Saldo);
+                cmd.Parameters.AddWithValue("@interesses", tecnico.Interesses);
+                cmd.Parameters.AddWithValue("@amistosos", tecnico.Amistosos);
+                cmd.Parameters.AddWithValue("tornouSeJogador", tecnico.TornouSeJogador);
+                cmd.Parameters.AddWithValue("tornouSeTecnico", tecnico.TornouSeTecnico);
+
+                int linhasAfetadas = cmd.ExecuteNonQuery();
+                return linhasAfetadas > 0;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        //Deletar
+        public static bool DeletarJogador(Guid idtecnico, string quemDeletou)
+        {
+            try 
+            {
+                using var conn = new MySqlConnection(MariaDB);
+                conn.Open();
+
+                var cmd = new MySqlCommand(@"
+                    UPDATE tecnicos
+                    SET
+                        Deletado = 1,
+                        DataDelecao = @dataDelecao,
+                        QuemDeletou = @quemDeletou
+                    WHERE
+                        Id = @id", conn);
+
+                cmd.Parameters.AddWithValue("@id", idtecnico.ToString());
+                cmd.Parameters.AddWithValue("@dataDelecao", DateTime.Now);
+                cmd.Parameters.AddWithValue("@quemDeletou", quemDeletou);
+
+                int linhasAfetadas = cmd.ExecuteNonQuery();
+                if (linhasAfetadas > 0)
+                {
+                    Console.WriteLine($"{idtecnico} marcado como deletado em {DateTime.Now} por {quemDeletou}");
+                    return true;
+                }
+
+                return false;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        //Restaurar Tecnico
+        public static bool RestaurarTecnico(Guid idtecnico)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(MariaDB);
+                conn.Open();
+
+                var cmd = new MySqlCommand(@"
+                    UPDATE tecnicos
+                    SET
+                        Deletado = 0,
+                        DataDelecao = NULL,
+                        QuemDeletou = NULL
+                    WHERE
+                        Id = @id", conn);
+                
+                cmd.Parameters.AddWithValue("@id", idtecnico.ToString());
+
+                int linhasAfetadas = cmd.ExecuteNonQuery();
+                return linhasAfetadas > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }
