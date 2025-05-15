@@ -1,6 +1,6 @@
-namespace Util_Menu
+namespace Views.Menu
 {
-    public static class Interface_Inicial
+    public static class View_Inicial
     {
         public static void Print_01()
         {

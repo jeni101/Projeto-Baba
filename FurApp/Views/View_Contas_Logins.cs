@@ -1,13 +1,13 @@
 using ContaJogadorApp;
 using JogosApp;
 
-namespace Util_Contas
+namespace Views.Contas
 {
-    public class Utils_De_Contas
+    public class Views_De_Contas
     {
         private Conta_Jogador contaLogada;
 
-        public Utils_De_Contas(Conta_Jogador conta)
+        public Views_De_Contas(Conta_Jogador conta)
         {
             contaLogada = conta;
         }
