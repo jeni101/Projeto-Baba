@@ -33,12 +33,12 @@ namespace ContaTecnicoApp
         //time
         void ITecnico.CriarTime()
         {
-            Console.WriteLine("Nome do Time: ");
+            Console.WriteLine("Nome do Time: ");  //LUIS VERIFICA O OUTPUT
             string? nomeTime = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(nomeTime))
             {
-                Console.WriteLine("Nome vazio");
+                Console.WriteLine("Nome vazio"); //LUIS VERIFICA O OUTPUT
                 return;
             }
 
@@ -74,7 +74,7 @@ namespace ContaTecnicoApp
             Interesses: {Interesses}
             Amistosos: {Amistosos}
             Time: {Time}
-            """);
+            """); //LUIS VERIFICA O OUTPUT
         }
     }
 }

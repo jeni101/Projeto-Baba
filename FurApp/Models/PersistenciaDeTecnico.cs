@@ -45,7 +45,7 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
@@ -92,12 +92,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -141,11 +141,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return tecnicos;
@@ -182,11 +182,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return null;
@@ -228,12 +228,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -270,12 +270,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -304,7 +304,7 @@ namespace PersistenciaApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }

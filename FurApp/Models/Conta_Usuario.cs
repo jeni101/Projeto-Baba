@@ -49,7 +49,7 @@ namespace ContaUsuarioApp
         {
             try
             {
-                Console.WriteLine("Quer ser jogador, tecnico ou ambos?");
+                Console.WriteLine("Quer ser jogador, tecnico ou ambos?"); //LUIS VERIFICA O OUTPUT
                 Console.WriteLine("1 - Jogador");
                 Console.WriteLine("2 - Tecnico");
                 Console.WriteLine("3 - Ambos");
@@ -86,7 +86,7 @@ namespace ContaUsuarioApp
                     RegistrarComoTecnico(senhaValida);
                 }
 
-                Console.WriteLine("Registro feito");
+                Console.WriteLine("Registro feito"); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace ContaUsuarioApp
 
             if (contasJogador.Any(c => c.Nome == Nome))
             {
-                Console.WriteLine("Nome já registrado");
+                Console.WriteLine("Nome já registrado"); //LUIS VERIFICA O OUTPUT
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace ContaUsuarioApp
 
             if (tecnicos.Any(t => t.Nome == Nome))
             {
-                Console.WriteLine("Nome já resgistrado");
+                Console.WriteLine("Nome já resgistrado"); //LUIS VERIFICA O OUTPUT
                 return;
             }
 
@@ -146,16 +146,16 @@ namespace ContaUsuarioApp
         {
             for (int i = 0; i < maxTentativas; i++)
             {
-                Console.WriteLine("Defina sua senha (min. 6 char.): ");
+                Console.WriteLine("Defina sua senha (min. 6 char.): "); //LUIS VERIFICA O OUTPUT
                 string senha = Console.ReadLine() ?? "";
 
                 if (senha.Length < 6)
                 {
-                    Console.WriteLine("Senha muito curta");
+                    Console.WriteLine("Senha muito curta"); //LUIS VERIFICA O OUTPUT
                     continue;
                 }
 
-                Console.WriteLine("Confirme sua senha: ");
+                Console.WriteLine("Confirme sua senha: "); //LUIS VERIFICA O OUTPUT
                 string confirmacaoSenha = Console.ReadLine() ?? "";
 
                 if (senha == confirmacaoSenha)
@@ -163,9 +163,9 @@ namespace ContaUsuarioApp
                     return senha;
                 }
 
-                Console.WriteLine("Senhas não coicidem");
+                Console.WriteLine("Senhas não coicidem"); //LUIS VERIFICA O OUTPUT
             }
-            throw new InvalidOperationException("Número máximo de tentativas atingido");
+            throw new InvalidOperationException("Número máximo de tentativas atingido"); //LUIS VERIFICA O OUTPUT
         }
 
         //amistoso
@@ -180,11 +180,11 @@ namespace ContaUsuarioApp
         {
             if (valor > Saldo)
             {
-                Console.WriteLine("Saldo insuficiente para essa aposta");
+                Console.WriteLine("Saldo insuficiente para essa aposta"); //LUIS VERIFICA O OUTPUT
                 return;
             }
             Saldo -= valor;
-            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso");
+            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso"); //LUIS VERIFICA O OUTPUT
         }
 
         //perfil
@@ -204,7 +204,7 @@ namespace ContaUsuarioApp
             Data de criação: {DataCriacao:dd/MM/yyyy}
             Interesses: {Interesses}
             Amistosos: {Amistosos}
-            """);
+            """); //LUIS VERIFICA O OUTPUT
         }
         protected void DefinirId(Guid id)
         {
