@@ -1,4 +1,4 @@
-namespace ContaJogadorApp;
+namespace Interfaces.IJogador;
 
 interface IJogador
 {

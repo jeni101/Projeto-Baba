@@ -1,4 +1,4 @@
-namespace ContaTecnicoApp;
+namespace Interfaces.ITecnico;
 
 interface ITecnico
 {
