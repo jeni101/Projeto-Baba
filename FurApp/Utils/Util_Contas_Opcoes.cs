@@ -12,86 +12,253 @@ namespace Util_OpcoesContas
             contaLogada = conta;
         }
         public void Display_MenuAdministrador()
-        {   Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
-            Console.WriteLine(".______________________________________.");
-            Console.WriteLine("|  -=-     Menu Administrador     -=-  |");
-            Console.WriteLine("|======================================|");
-            Console.WriteLine("|Opções de Conta . . . . . . . . |  1  |");
-            Console.WriteLine("|Opções de Jogador . . . . . . . |  2  |");
-            Console.WriteLine("|Opções de Técnico . . . . . . . |  3  |");
-            Console.WriteLine("|Opções de Arbitro . . . . . . . |  4  |");
-            Console.WriteLine("|Opções de Time. . . . . . . . . |  5  |");
-            Console.WriteLine("|Opções de Jogo. . . . . . . . . |  6  |");
-            Console.WriteLine("|Opções de Partidas. . . . . . . |  6  |");
-            Console.WriteLine("|________________________________|_____|");
-            Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
-            Console.WriteLine("|======================================|");
-            Console.WriteLine(" • Digite a Opção Desejada: ");
-            string? escolha = Console.ReadLine();
-
-            switch (escolha)
+        {
+            while (true)
             {
-                case "1":
-                    // Vou linkar MENU de Opções de Conta
-                    break;
+                Console.Clear();
+                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine(".______________________________________.");
+                Console.WriteLine("|  -=-     Menu Administrador     -=-  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine("|Opções de Conta . . . . . . . . |  1  |");
+                Console.WriteLine("|Opções de Jogador . . . . . . . |  2  |");
+                Console.WriteLine("|Opções de Técnico . . . . . . . |  3  |");
+                Console.WriteLine("|Opções de Arbitro . . . . . . . |  4  |");
+                Console.WriteLine("|Opções de Time. . . . . . . . . |  5  |");
+                Console.WriteLine("|Opções de Jogo. . . . . . . . . |  6  |");
+                Console.WriteLine("|Opções de Partidas. . . . . . . |  6  |");
+                Console.WriteLine("|________________________________|_____|");
+                Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine(" • Digite a Opção Desejada: ");
+                string? escolha = Console.ReadLine();
 
-                case "2":
-                    // Vou linkar MENU de Opções de Jogador
-                    break;
+                switch (escolha)
+                {
+                    case "1":
+                        // Vou linkar MENU de Opções de Conta
+                        break;
 
-                case "3":
-                    // Vou linkar MENU de Opções de Tecnico
-                    break;
+                    case "2":
+                        // Vou linkar MENU de Opções de Jogador
+                        break;
 
-                case "4":
-                    // Vou linkar MENU de Opções de Arbitro
-                    break;
+                    case "3":
+                        // Vou linkar MENU de Opções de Tecnico
+                        break;
 
-                case "5":
-                    // Vou linkar MENU de Opções de Times
-                    break;
+                    case "4":
+                        // Vou linkar MENU de Opções de Arbitro
+                        break;
 
-                case "6":
-                    // Vou linkar MENU de Opções de Jogos
-                    break;
+                    case "5":
+                        // Vou linkar MENU de Opções de Times
+                        break;
 
-                case "7":
-                    // Vou linkar MENU de Opções de Partidas
-                    break;
+                    case "6":
+                        // Vou linkar MENU de Opções de Jogos
+                        break;
 
-                case "0":
-                    // Fazer uma confirmação antes de sair de fato
-                    Console.WriteLine("Saindo .............");
-                    return;
+                    case "7":
+                        // Vou linkar MENU de Opções de Partidas
+                        break;
+
+                    case "0":
+                        Console.Write("Tem certeza que desejas sair? (S/N): ");
+                        string? confirmacao = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                        {
+                            Console.WriteLine("Saindo da Conta...");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Comando Errado, Tente Novamente: ");
+                            Console.ReadKey();
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Comando Errado, Tente Novamente: ");
+                        Console.ReadKey();
+                        break;
+                }
             }
         }
         public void Display_MenuArbitro()
-        {   Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
-            Console.WriteLine(".______________________________________.");
-            Console.WriteLine("|  -=-        Menu Arbitro        -=-  |");
-            Console.WriteLine("|======================================|");
-            Console.WriteLine("|Opções de Jogo. . . . . . . . . |  1  |");
-            Console.WriteLine("|Opções de Partidas. . . . . . . |  2  |");
-            Console.WriteLine("|________________________________|_____|");
-            Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
-            Console.WriteLine("|======================================|");
-            Console.WriteLine(" • Digite a Opção Desejada: ");
-            string? escolha = Console.ReadLine();
-
-            switch (escolha)
+        {
+            while (true)
             {
-                case "1":
-                    // Vou linkar MENU de Opções de Jogos
-                    break;
+                Console.Clear();
+                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine(".______________________________________.");
+                Console.WriteLine("|  -=-        Menu Arbitro        -=-  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine("|Informações do Arbitro. . . . . |  1  |");
+                Console.WriteLine("|Opções de Jogo. . . . . . . . . |  2  |");
+                Console.WriteLine("|Opções de Partidas. . . . . . . |  3  |");
+                Console.WriteLine("|________________________________|_____|");
+                Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine(" • Digite a Opção Desejada: ");
+                string? escolha = Console.ReadLine();
 
-                case "2":
-                    // Vou linkar MENU de Opções de Partidas
-                    break;
+                switch (escolha)
+                {
+                    case "1":
+                        // Linkar Função ExibirPerfil do Arbitro
+                        break;
 
-                case "0":
-                    // Fazer uma confirmação antes de sair de fato
-                    Console.WriteLine("Saindo .............");
-                    return;
+                    case "2":
+                        // Vou linkar MENU de Opções de Jogos
+                        break;
+
+                    case "3":
+                        // Vou linkar MENU de Opções de Partidas
+                        break;
+
+                    case "0":
+                        Console.Write("Tem certeza que desejas sair? (S/N): ");
+                        string? confirmacao = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                        {
+                            Console.WriteLine("Saindo da Conta...");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Comando Errado, Tente Novamente: ");
+                            Console.ReadKey();
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Comando Errado, Tente Novamente: ");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+        public void Display_MenuJogador()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine(".______________________________________.");
+                Console.WriteLine("|  -=-        Menu Jogador        -=-  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine("|Informações do Jogador. . . . . |  1  |");
+                Console.WriteLine("|Entrar em um Time . . . . . . . |  2  |");
+                Console.WriteLine("|Jogos e Partidas  . . . . . . . |  3  |");
+                Console.WriteLine("|Opções Adicionais . . . . . . . |  4  |");
+                Console.WriteLine("|________________________________|_____|");
+                Console.WriteLine("|LOGOFF. . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine(" • Digite a Opção Desejada: ");
+                string? escolha = Console.ReadLine();
+
+                switch (escolha)
+                {
+                    case "1":
+                        //linkar Função de ExibirPerfil do Jogador
+                        break;
+
+                    case "2":
+                        // linkar Função de Entrar em um time
+                        break;
+
+                    case "3":
+                        // Vou linkar MENU de Informações de Partidas
+                        break;
+
+                    case "4":
+                        // Vou linkar MENU de Opções Adicionais
+                        break;
+
+                    case "0":
+                        Console.Write("Tem certeza que desejas sair? (S/N): ");
+                        string? confirmacao = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                        {
+                            Console.WriteLine("Saindo da Conta...");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Comando Errado, Tente Novamente: ");
+                            Console.ReadKey();
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Comando Errado, Tente Novamente: ");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+                public void Display_MenuTecnico()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine(".______________________________________.");
+                Console.WriteLine("|  -=-        Menu Tecnico        -=-  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine("|Informações do Tecnico. . . . . |  1  |");
+                Console.WriteLine("|Criar / Gerenciar Time. . . . . |  2  |");
+                Console.WriteLine("|Criar / Entrar em um Jogo . . . |  3  |");
+                Console.WriteLine("|Pesquisar Jogador . . . . . . . |  4  |");
+                Console.WriteLine("|________________________________|_____|");
+                Console.WriteLine("|VOLTAR. . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|======================================|");
+                Console.WriteLine(" • Digite a Opção Desejada: ");
+                string? escolha = Console.ReadLine();
+
+                switch (escolha)
+                {
+                    case "1":
+                        //Linkar Função de ExibirPerfil do tecnico
+                        break;
+
+                    case "2":
+                        //Linkar Função de Gerenciamento/Criação de Time
+                        break;
+
+                    case "3":
+                        //Linkar Função de Criação/Entrada em Jogos
+                        break;
+
+                    case "4":
+                        //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
+                        break;
+
+                    case "0":
+                        Console.Write("Tem certeza que desejas sair? (S/N): ");
+                        string? confirmacao = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
+                        {
+                            Console.WriteLine("Saindo da Conta...");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Comando Errado, Tente Novamente: ");
+                            Console.ReadKey();
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Comando Errado, Tente Novamente: ");
+                        Console.ReadKey();
+                        break;
+                }
             }
         }
     }
