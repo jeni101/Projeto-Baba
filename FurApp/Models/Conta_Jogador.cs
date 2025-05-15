@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using ContaUsuarioApp;
+using Models.ContaApp.Usuario;
+using Interfaces.IJogador;
 
-namespace ContaJogadorApp
+namespace Models.ContaApp.Usuario.Jogador
 {
     public class Conta_Jogador : Conta_Usuario, IJogador
     {

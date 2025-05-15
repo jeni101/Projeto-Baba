@@ -1,15 +1,16 @@
-using ContaApp;
-using ContaJogadorApp;
-using ContaTecnicoApp;
+using Interfaces.IJogador;
+using Interfaces.ITecnico;
+using Models.ContaApp;
 using PersistenciaApp;
 
-namespace ContaUsuarioApp
+namespace Models.ContaApp.Usuario
 {
     public class Conta_Usuario : Conta
     {
+        //Atributos
         public float Saldo { get; private set; }
-        public string Interesses { get; set; }
-        public string Amistosos { get; set; }
+        public List<string> Interesses { get; set; }
+        public List<string> Amistosos { get; set; }
         public bool TornouSeJogador { get; private set; }
         public bool TornouSeTecnico { get; private set;}
         public DateTime DataCriacao { get; private set; }
@@ -18,127 +19,16 @@ namespace ContaUsuarioApp
         public Conta_Usuario(string nome, 
                             string senha, 
                             int idade, 
-                            float saldo, 
-                            string interesses, 
-                            string amistosos,
                             bool querSerJogador = true,
-                            bool querSerTecnico = false)
-                            : base(nome, senha, idade)
+                            bool querSerTecnico = false) 
+                    : base (nome, senha, idade)
         {
-            Saldo = saldo;
-            Interesses = interesses;
-            Amistosos = amistosos;
+            Saldo = 10f;
+            Interesses = new List<string>();
+            Amistosos = new List<string>();
             TornouSeJogador = querSerJogador;
             TornouSeTecnico = querSerTecnico;
             DataCriacao = DateTime.Now;
-        }
-        
-        //Login
-        public override bool Login(string nome, string senha)
-        {
-            bool sucesso = base.Login(nome, senha);
-            if (sucesso)
-            {
-                Console.WriteLine($"Bem vindo(a), {Nome}!");
-            }
-            return sucesso;
-        }
-
-        //Register
-        public override void Register()
-        {
-            try
-            {
-                Console.WriteLine("Quer ser jogador, tecnico ou ambos?"); //LUIS VERIFICA O OUTPUT
-                Console.WriteLine("1 - Jogador");
-                Console.WriteLine("2 - Tecnico");
-                Console.WriteLine("3 - Ambos");
-                
-                var escolha  = Console.ReadLine();
-                bool serJogador = false, serTecnico = false;
-
-                switch (escolha)
-                {
-                    case "1":
-                        serJogador = true;
-                        break;
-                    case "2":
-                        serTecnico = true;
-                        break;
-                    case "3":
-                        serJogador = true;
-                        serTecnico = true;
-                        break;
-                    default:
-                        serJogador = true;
-                        break;
-                }
-
-                string senhaValida = Definir_Senha(3);
-
-                if (serJogador)
-                {
-                    RegistrarComoJogador(senhaValida);
-                }
-
-                if (serTecnico)
-                {
-                    RegistrarComoTecnico(senhaValida);
-                }
-
-                Console.WriteLine("Registro feito"); //LUIS VERIFICA O OUTPUT
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        private void RegistrarComoJogador(string senha)
-        {
-            var contasJogador = PersistenciaDeJogador.CarregarJogadores();
-
-            if (contasJogador.Any(c => c.Nome == Nome))
-            {
-                Console.WriteLine("Nome já registrado"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-
-            var contaJogador = new Conta_Jogador(
-                Nome,
-                senha,
-                Idade,
-                "Não definida",
-                Saldo,
-                Interesses,
-                Amistosos
-            );
-
-            PersistenciaDeJogador.SalvarJogador(contaJogador);
-            TornouSeJogador = true;
-        }
-
-        private void RegistrarComoTecnico(string senha)
-        {
-            var tecnicos = PersistenciaDeTecnico.CarregarTecnicos();
-
-            if (tecnicos.Any(t => t.Nome == Nome))
-            {
-                Console.WriteLine("Nome já resgistrado"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-
-            var contaTecnico = new Conta_Tecnico(
-                Nome,
-                senha,
-                Idade,
-                Saldo,
-                Interesses,
-                Amistosos
-            );
-
-            PersistenciaDeTecnico.SalvarTecnico(contaTecnico);
-            TornouSeTecnico = true;
         }
 
         //Senha

@@ -1,7 +1,8 @@
-using ContaUsuarioApp;
+using Interfaces.ITecnico;
+using Models.ContaApp.Usuario;
 using TimesApp;
 
-namespace ContaTecnicoApp
+namespace Models.ContaApp.Usuario.Tecnico
 {
     public class Conta_Tecnico : Conta_Usuario, ITecnico
     {
