@@ -16,9 +16,9 @@ namespace ContaApp
         //Conta protegida
         protected Conta(string nome, string senha, int idade)
         {
-            if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("O nome não pode ser vazio", nameof(nome));
-            if (string.IsNullOrWhiteSpace(senha)) throw new ArgumentException("A senha não pode ser vazia", nameof(senha));
-            if (idade <= 0) throw new ArgumentException("Idade não deve ser negativa", nameof(idade));
+            if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("O nome não pode ser vazio", nameof(nome)); //LUIS VERIFICA O OUTPUT
+            if (string.IsNullOrWhiteSpace(senha)) throw new ArgumentException("A senha não pode ser vazia", nameof(senha)); //LUIS VERIFICA O OUTPUT
+            if (idade <= 0) throw new ArgumentException("Idade não deve ser negativa", nameof(idade)); //LUIS VERIFICA O OUTPUT
             //Gerando ID ao criar conta
             Id = Guid.NewGuid();
             Nome = nome;
@@ -32,15 +32,15 @@ namespace ContaApp
         {
             if (Autenticar(nome, senha))
             {
-                Console.WriteLine("Login bem sucedido");
+                Console.WriteLine("Login bem sucedido"); //LUIS VERIFICA O OUTPUT
                 return true;
             }
-            Console.WriteLine("Falha login");
+            Console.WriteLine("Falha login"); //LUIS VERIFICA O OUTPUT
             return false;
         }
         public void Logout() 
         {
-            Console.WriteLine("Logout realizado");
+            Console.WriteLine("Logout realizado"); //LUIS VERIFICA O OUTPUT
         }
 
         protected bool Autenticar(string nome, string senha)
@@ -79,8 +79,8 @@ namespace ContaApp
             var key = new Rfc2898DeriveBytes(
             senha,
             salt,
-            10000,                   // Mais iterações = mais segurança
-            HashAlgorithmName.SHA256 // SHA-256 é mais seguro que SHA-1
+            10000,
+            HashAlgorithmName.SHA256 
             );
             byte[] hash = key.GetBytes(20);
 

@@ -35,7 +35,7 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
         }
         public static bool SalvarTime(Times time)
@@ -57,7 +57,7 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -110,11 +110,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return times;

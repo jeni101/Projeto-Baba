@@ -50,11 +50,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}");
+                Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}"); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
             }
         }
 
@@ -104,12 +104,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao salvar jogador: {ex.Message}");
+                Console.WriteLine($"Erro ao salvar jogador: {ex.Message}"); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -156,11 +156,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao carregar jogadores: {ex.Message}");
+                Console.WriteLine($"Erro ao carregar jogadores: {ex.Message}"); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
             }
 
             return jogadores;
@@ -199,11 +199,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return null;
@@ -252,12 +252,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -294,12 +294,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -328,7 +328,7 @@ namespace PersistenciaApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
