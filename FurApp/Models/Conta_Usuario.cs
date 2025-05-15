@@ -1,5 +1,6 @@
 using ContaApp;
 using ContaJogadorApp;
+using ContaTecnicoApp;
 using PersistenciaApp;
 
 namespace ContaUsuarioApp
@@ -10,6 +11,7 @@ namespace ContaUsuarioApp
         public string Interesses { get; set; }
         public string Amistosos { get; set; }
         public bool TornouSeJogador { get; private set; }
+        public bool TornouSeTecnico { get; private set;}
         public DateTime DataCriacao { get; private set; }
 
         //Construtor
@@ -18,13 +20,16 @@ namespace ContaUsuarioApp
                             int idade, 
                             float saldo, 
                             string interesses, 
-                            string amistosos)
+                            string amistosos,
+                            bool querSerJogador = true,
+                            bool querSerTecnico = false)
                             : base(nome, senha, idade)
         {
             Saldo = saldo;
             Interesses = interesses;
             Amistosos = amistosos;
-            TornouSeJogador = false;
+            TornouSeJogador = querSerJogador;
+            TornouSeTecnico = querSerTecnico;
             DataCriacao = DateTime.Now;
         }
         
@@ -44,36 +49,96 @@ namespace ContaUsuarioApp
         {
             try
             {
-                List<Conta_Jogador> contas = PersistenciaDeJogador.CarregarJogadores();
+                Console.WriteLine("Quer ser jogador, tecnico ou ambos?");
+                Console.WriteLine("1 - Jogador");
+                Console.WriteLine("2 - Tecnico");
+                Console.WriteLine("3 - Ambos");
+                
+                var escolha  = Console.ReadLine();
+                bool serJogador = false, serTecnico = false;
 
-                if (contas.Any(c=>c.Nome == Nome))
+                switch (escolha)
                 {
-                    Console.WriteLine("Erro: Nome de usuário já registrado");
-                    return;
+                    case "1":
+                        serJogador = true;
+                        break;
+                    case "2":
+                        serTecnico = true;
+                        break;
+                    case "3":
+                        serJogador = true;
+                        serTecnico = true;
+                        break;
+                    default:
+                        serJogador = true;
+                        break;
                 }
 
                 string senhaValida = Definir_Senha(3);
 
-                var contaJogador = new Conta_Jogador(
-                    Nome,
-                    senhaValida,
-                    Idade,
-                    "Não definida",
-                    Saldo,
-                    Interesses,
-                    Amistosos
-                );
-                
-                contas.Add(contaJogador);
+                if (serJogador)
+                {
+                    RegistrarComoJogador(senhaValida);
+                }
 
-                PersistenciaDeJogador.SalvarJogador(contaJogador);
+                if (serTecnico)
+                {
+                    RegistrarComoTecnico(senhaValida);
+                }
 
-                Console.WriteLine("Conta registrada com sucesso");
+                Console.WriteLine("Registro feito");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro {ex.Message}");
+                Console.WriteLine(ex.Message);
             }
+        }
+
+        private void RegistrarComoJogador(string senha)
+        {
+            var contasJogador = PersistenciaDeJogador.CarregarJogadores();
+
+            if (contasJogador.Any(c => c.Nome == Nome))
+            {
+                Console.WriteLine("Nome já registrado");
+                return;
+            }
+
+            var contaJogador = new Conta_Jogador(
+                Nome,
+                senha,
+                Idade,
+                "Não definida",
+                Saldo,
+                Interesses,
+                Amistosos
+            );
+
+            PersistenciaDeJogador.SalvarJogador(contaJogador);
+            TornouSeJogador = true;
+        }
+
+        private void RegistrarComoTecnico(string senha)
+        {
+            var tecnicos = PersistenciaDeTecnico.CarregarTecnicos();
+
+            if (tecnicos.Any(t => t.Nome == Nome))
+            {
+                Console.WriteLine("Nome já resgistrado");
+                return;
+            }
+
+            var contaTecnico = new Conta_Tecnico(
+                Nome,
+                senha,
+                Idade,
+                Saldo,
+                Interesses,
+                Amistosos
+            );
+
+            PersistenciaDeTecnico.SalvarTecnico(contaTecnico);
+            TornouSeTecnico = true;
         }
 
         //Senha
@@ -125,12 +190,18 @@ namespace ContaUsuarioApp
         //perfil
         public void Exibir_Perfil() 
         {
+            string tiposConta = "";
+            if (TornouSeJogador) tiposConta += "Jogador";
+            if (TornouSeTecnico) tiposConta += (tiposConta != "" ? " e " : "") + "Tecnico";
+            if (tiposConta == "") tiposConta = "Nenhu tipo definido";
+
             Console.WriteLine($"""
-            === PERFIL DE {Nome} ===
+            === Perfil De {Nome} ===
             ID: {Id}
+            Tipo: {tiposConta}
             Idade: {Idade}
-            Saldo: R$ {Saldo:F2}
-            Data de Criação: {DataCriacao:dd/MM/yyyy}
+            Saldo: {Saldo:F2}
+            Data de criação: {DataCriacao:dd/MM/yyyy}
             Interesses: {Interesses}
             Amistosos: {Amistosos}
             """);
