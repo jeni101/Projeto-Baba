@@ -20,14 +20,14 @@ namespace Views.Contas
         {
             while (true)
             {
-                Console.WriteLine(".______________________________________.");
-                Console.WriteLine("|  -=-       Login Inicial        -=-  |");
-                Console.WriteLine("|======================================|");
-                Console.WriteLine("|Novo Usuário. . . . . . . . . . |  1  |");
-                Console.WriteLine("|Usuário Existente . . . . . . . |  2  |");
-                Console.WriteLine("|________________________________|_____|");
-                Console.WriteLine("|SAIR. . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|======================================|");
+                Console.WriteLine(".________________________________________________.");
+                Console.WriteLine("|  -=-            Login Inicial             -=-  |");
+                Console.WriteLine("|================================================|");
+                Console.WriteLine("|- Novo Usuário  . . . . . . . . . . . . . |  1  |");
+                Console.WriteLine("|- Usuário Existente . . . . . . . . . . . |  2  |");
+                Console.WriteLine("|__________________________________________|_____|");
+                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|================================================|");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
@@ -69,15 +69,15 @@ namespace Views.Contas
             while (true)
             {
                 Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
-                Console.WriteLine(".______________________________________.");
-                Console.WriteLine("|  -=-       Menu de Contas       -=-  |");
-                Console.WriteLine("|======================================|");
-                Console.WriteLine("|Criar Nova Conta. . . . . . . . |  1  |");
-                Console.WriteLine("|Editar Conta Existente. . . . . |  2  |");
-                Console.WriteLine("|Deletar Conta Existente . . . . |  3  |");
-                Console.WriteLine("|________________________________|_____|");
-                Console.WriteLine("|VOLTAR. . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|======================================|");
+                Console.WriteLine(".________________________________________________.");
+                Console.WriteLine("|  -=-            Menu de Contas            -=-  |");
+                Console.WriteLine("|================================================|");
+                Console.WriteLine("|- Criar Nova Conta  . . . . . . . . . . . |  1  |");
+                Console.WriteLine("|- Editar Conta Existente  . . . . . . . . |  2  |");
+                Console.WriteLine("|- Deletar Conta Existente . . . . . . . . |  3  |");
+                Console.WriteLine("|__________________________________________|_____|");
+                Console.WriteLine("|- VOLTAR  . . . . . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|================================================|");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
