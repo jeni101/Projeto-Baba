@@ -50,11 +50,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine($"➠ Erro ao inicializar o banco de dados: \n {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine($"➠ Erro inesperado: \n {ex.Message}"); 
             }
         }
 
@@ -104,12 +104,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao salvar jogador: {ex.Message}"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine($"➠ Erro ao salvar jogador: \n {ex.Message}");
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine($"➠ Erro inesperado: \n {ex.Message}"); 
                 return false;
             }
         }
@@ -150,11 +150,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao carregar jogadores: {ex.Message}"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine($"➠ Erro ao carregar jogadores: \n {ex.Message}"); 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine($"➠ Erro inesperado: \n {ex.Message}"); 
             }
 
             return jogadores;
