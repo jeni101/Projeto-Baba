@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MySqlConnector;
-using ContaApp;
-using ContaJogadorApp;
-using ContaTecnicoApp;
+using Models.ContaApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Tecnico;
 
 namespace PersistenciaApp
 {
@@ -128,9 +128,6 @@ namespace PersistenciaApp
                         nome : reader.GetString("Nome"),
                         senha : reader.GetString("SenhaHash"),
                         idade : reader.GetInt32("Idade"),
-                        saldo : reader.GetFloat("Saldo"),
-                        interesses : reader.IsDBNull(reader.GetOrdinal("Interesses")) ? null : reader.GetString("Interesses"),
-                        amistosos : reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? null : reader.GetString("Amistosos"),
                         time : reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time")
                     );
 
@@ -170,9 +167,6 @@ namespace PersistenciaApp
                         nome : reader.GetString("Nome"),
                         senha : reader.GetString("SenhaHash"),
                         idade : reader.GetInt32("Idade"),
-                        saldo : reader.GetFloat("Saldo"),
-                        interesses : reader.IsDBNull(reader.GetOrdinal("Interesses")) ? null : reader.GetString("Interesses"),
-                        amistosos : reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? null : reader.GetString("Amistosos"),
                         time : reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time")
                     );
 

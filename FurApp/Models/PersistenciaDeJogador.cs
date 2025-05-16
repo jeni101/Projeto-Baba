@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MySqlConnector;
-using ContaApp;
-using ContaUsuarioApp;
-using ContaJogadorApp;
+using Models.ContaApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Jogador;
 
 namespace PersistenciaApp
 {
@@ -140,13 +140,7 @@ namespace PersistenciaApp
                         nome: reader.GetString("Nome"),
                         senha: reader.GetString("SenhaHash"),
                         idade: reader.GetInt32("Idade"),
-                        posicao: reader.GetString("Posicao"),
-                        saldo: reader.GetFloat("Saldo"),
-                        interesses: !reader.IsDBNull(reader.GetOrdinal("Interesses")) ? reader.GetString("Interesses") : "",
-                        amistosos: !reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? reader.GetString("Amistosos") : "",
-                        time: !reader.IsDBNull(reader.GetOrdinal("Time")) ? reader.GetString("Time") : "",
-                        gols: reader.GetInt32("Gols"),
-                        assistencias: reader.GetInt32("Assistencias")
+                        posicao: reader.GetString("Posicao")
                     );
 
                     typeof(Conta).GetProperty("Id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(jogador, id);
@@ -184,14 +178,8 @@ namespace PersistenciaApp
                     var jogador = new Conta_Jogador(nome: reader.GetString("Nome"),
                         senha: reader.GetString("SenhaHash"),
                         idade: reader.GetInt32("Idade"),
-                        posicao: reader.GetString("Posicao"),
-                        saldo: reader.GetFloat("Saldo"),
-                        interesses: !reader.IsDBNull(reader.GetOrdinal("Interesses")) ? reader.GetString("Interesses") : "",
-                        amistosos: !reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? reader.GetString("Amistosos") : "",
-                        time: !reader.IsDBNull(reader.GetOrdinal("Time")) ? reader.GetString("Time") : "",
-                        gols: reader.GetInt32("Gols"),
-                        assistencias: reader.GetInt32("Assistencias")
-                    ); 
+                        posicao: reader.GetString("Posicao")
+                        ); 
 
                     typeof(Conta).GetProperty("Id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(jogador, id);
                     return jogador;

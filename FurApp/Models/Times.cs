@@ -1,6 +1,6 @@
-using ContaJogadorApp;
-using ContaTecnicoApp;
-using ContaUsuarioApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Jogador;
+using Models.ContaApp.Usuario.Tecnico;
 
 namespace TimesApp
 {
