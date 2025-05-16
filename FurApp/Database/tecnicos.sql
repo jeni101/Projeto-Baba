@@ -1,8 +1,0 @@
--- Active: 1747004395306@@127.0.0.1@18046@furapp
-USE furapp;
-
-CREATE TABLE IF NOT EXISTS tecnicos (
-    id CHAR(36) PRIMARY KEY,
-    time VARCHAR(100),
-    FOREIGN KEY (id) REFERENCES contas(id) ON DELETE CASCADE
-);
