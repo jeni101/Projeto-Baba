@@ -1,14 +1,14 @@
-namespace ContaTecnicoApp;
+namespace Interfaces.ITecnico;
 
 interface ITecnico
 {
     //time
-    public void criarTime();
+    public void CriarTime();
 
     //treino
-    public void criarTreino();
+    public void CriarTreino();
 
     //jogo
-    public void criarJogo();
-    public void entrarJogo();
+    public void CriarJogo();
+    public void EntrarJogo();
 }

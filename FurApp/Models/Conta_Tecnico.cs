@@ -1,7 +1,8 @@
-using ContaUsuarioApp;
+using Interfaces.ITecnico;
+using Models.ContaApp.Usuario;
 using TimesApp;
 
-namespace ContaTecnicoApp
+namespace Models.ContaApp.Usuario.Tecnico
 {
     public class Conta_Tecnico : Conta_Usuario, ITecnico
     {
@@ -14,31 +15,25 @@ namespace ContaTecnicoApp
         //Construtor
         public Conta_Tecnico(string nome, 
                             string senha, 
-                            int idade, 
-                            float? saldo = null, 
-                            string? interesses = null, 
-                            string? amistosos = null, 
-                            string? time = null, 
-                            List<string>? eventos = null, 
-                            List<string>? jogos = null, 
-                            List<string>? partidas = null)
-                            : base (nome, senha, idade, saldo ?? 0, interesses ?? string.Empty, amistosos ?? string.Empty)
+                            int idade,
+                            string time)
+                            : base (nome, senha, idade)
             {
                 Time = time ?? string.Empty;
-                Eventos = eventos ?? new List<string>();
-                Jogos = jogos ?? new List<string>();
-                Partidas = partidas ?? new List<string>();
+                Eventos = new List<string>();  
+                Jogos = new List<string>();    
+                Partidas = new List<string>();
             }
 
         //time
-        void ITecnico.criarTime()
+        void ITecnico.CriarTime()
         {
-            Console.WriteLine("Nome do Time: ");
+            Console.WriteLine("Nome do Time: ");  //LUIS VERIFICA O OUTPUT
             string? nomeTime = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(nomeTime))
             {
-                Console.WriteLine("Nome vazio");
+                Console.WriteLine("Nome vazio"); //LUIS VERIFICA O OUTPUT
                 return;
             }
 
@@ -47,19 +42,34 @@ namespace ContaTecnicoApp
         }
 
         //jogos
-        void ITecnico.criarJogo()
+        void ITecnico.CriarJogo()
         {
             throw new NotImplementedException();
         }
-        void ITecnico.entrarJogo()
+        void ITecnico.EntrarJogo()
         {
             throw new NotImplementedException();
         }
 
         //treino
-        void ITecnico.criarTreino()
+        void ITecnico.CriarTreino()
         {
             throw new NotImplementedException();
+        }
+
+        //perfil
+        public void ExibirPerfil()
+        {
+            Console.WriteLine($"""
+            === PERFIL DO TÉCNICO ===
+            ID: {Id}
+            Nome: {Nome}
+            Idade: {Idade}
+            Saldo: R$ {Saldo:F2}
+            Interesses: {Interesses}
+            Amistosos: {Amistosos}
+            Time: {Time}
+            """); //LUIS VERIFICA O OUTPUT
         }
     }
 }

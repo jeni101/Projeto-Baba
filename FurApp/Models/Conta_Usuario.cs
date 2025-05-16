@@ -1,79 +1,34 @@
-using ContaApp;
-using ContaJogadorApp;
+using Interfaces.IJogador;
+using Interfaces.ITecnico;
+using Models.ContaApp;
 using PersistenciaApp;
 
-namespace ContaUsuarioApp
+namespace Models.ContaApp.Usuario
 {
     public class Conta_Usuario : Conta
     {
+        //Atributos
         public float Saldo { get; private set; }
-        public string Interesses { get; set; }
-        public string Amistosos { get; set; }
+        public List<string> Interesses { get; set; }
+        public List<string> Amistosos { get; set; }
         public bool TornouSeJogador { get; private set; }
+        public bool TornouSeTecnico { get; private set;}
         public DateTime DataCriacao { get; private set; }
 
         //Construtor
         public Conta_Usuario(string nome, 
                             string senha, 
                             int idade, 
-                            float saldo, 
-                            string interesses, 
-                            string amistosos)
-                            : base(nome, senha, idade)
+                            bool querSerJogador = true,
+                            bool querSerTecnico = false) 
+                    : base (nome, senha, idade)
         {
-            Saldo = saldo;
-            Interesses = interesses;
-            Amistosos = amistosos;
-            TornouSeJogador = false;
+            Saldo = 10f;
+            Interesses = new List<string>();
+            Amistosos = new List<string>();
+            TornouSeJogador = querSerJogador;
+            TornouSeTecnico = querSerTecnico;
             DataCriacao = DateTime.Now;
-        }
-        
-        //Login
-        public override bool Login(string nome, string senha)
-        {
-            bool sucesso = base.Login(nome, senha);
-            if (sucesso)
-            {
-                Console.WriteLine($"Bem vindo(a), {Nome}!");
-            }
-            return sucesso;
-        }
-
-        //Register
-        public override void Register()
-        {
-            try
-            {
-                List<Conta_Jogador> contas = PersistenciaDeContas.CarregarJogadores();
-
-                if (contas.Any(c=>c.Nome == Nome))
-                {
-                    Console.WriteLine("Erro: Nome de usuário já registrado");
-                    return;
-                }
-
-                string senhaValida = Definir_Senha(3);
-
-                var contaJogador = new Conta_Jogador(
-                    Nome,
-                    senhaValida,
-                    Idade,
-                    "Não definida",
-                    Saldo,
-                    Interesses,
-                    Amistosos
-                );
-                
-                contas.Add(contaJogador);
-
-                PersistenciaDeContas.SalvarJogador(contaJogador);
-
-                Console.WriteLine("Conta registrada com sucesso");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro {ex.Message}");
-            }
         }
 
         //Senha
@@ -81,16 +36,16 @@ namespace ContaUsuarioApp
         {
             for (int i = 0; i < maxTentativas; i++)
             {
-                Console.WriteLine("Defina sua senha (min. 6 char.): ");
+                Console.WriteLine("Defina sua senha (min. 6 char.): "); //LUIS VERIFICA O OUTPUT
                 string senha = Console.ReadLine() ?? "";
 
                 if (senha.Length < 6)
                 {
-                    Console.WriteLine("Senha muito curta");
+                    Console.WriteLine("Senha muito curta"); //LUIS VERIFICA O OUTPUT
                     continue;
                 }
 
-                Console.WriteLine("Confirme sua senha: ");
+                Console.WriteLine("Confirme sua senha: "); //LUIS VERIFICA O OUTPUT
                 string confirmacaoSenha = Console.ReadLine() ?? "";
 
                 if (senha == confirmacaoSenha)
@@ -98,9 +53,9 @@ namespace ContaUsuarioApp
                     return senha;
                 }
 
-                Console.WriteLine("Senhas não coicidem");
+                Console.WriteLine("Senhas não coicidem"); //LUIS VERIFICA O OUTPUT
             }
-            throw new InvalidOperationException("Número máximo de tentativas atingido");
+            throw new InvalidOperationException("Número máximo de tentativas atingido"); //LUIS VERIFICA O OUTPUT
         }
 
         //amistoso
@@ -115,25 +70,35 @@ namespace ContaUsuarioApp
         {
             if (valor > Saldo)
             {
-                Console.WriteLine("Saldo insuficiente para essa aposta");
+                Console.WriteLine("Saldo insuficiente para essa aposta"); //LUIS VERIFICA O OUTPUT
                 return;
             }
             Saldo -= valor;
-            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso");
+            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso"); //LUIS VERIFICA O OUTPUT
         }
 
         //perfil
         public void Exibir_Perfil() 
         {
+            string tiposConta = "";
+            if (TornouSeJogador) tiposConta += "Jogador";
+            if (TornouSeTecnico) tiposConta += (tiposConta != "" ? " e " : "") + "Tecnico";
+            if (tiposConta == "") tiposConta = "Nenhu tipo definido";
+
             Console.WriteLine($"""
-            === PERFIL DE {Nome} ===
+            === Perfil De {Nome} ===
             ID: {Id}
+            Tipo: {tiposConta}
             Idade: {Idade}
-            Saldo: R$ {Saldo:F2}
-            Data de Criação: {DataCriacao:dd/MM/yyyy}
+            Saldo: {Saldo:F2}
+            Data de criação: {DataCriacao:dd/MM/yyyy}
             Interesses: {Interesses}
             Amistosos: {Amistosos}
-            """);
+            """); //LUIS VERIFICA O OUTPUT
+        }
+        protected void DefinirId(Guid id)
+        {
+            this.Id = Guid.NewGuid();
         }
         public void Editar_Perfil() { }
         public void Deletar_Conta() { }

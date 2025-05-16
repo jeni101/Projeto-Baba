@@ -70,14 +70,33 @@ Versions:
         -00.3.0.0.0.0.0.012 (Database correction 1)
         -00.3.0.0.0.0.0.013 (gitignore restarted)
 
-    -0.00.04
+    -0.000.04
         -00.4.0.0.0.0.0.001 (Dev branch created)
         -00.4.0.0.0.0.0.002 (main commit) *
         -00.4.0.0.0.0.0.003 (gitignore restart main) *
         -00.4.0.0.0.0.0.004 (realigment) *
+        -00.4.0.0.0.0.0.004.1 (Test Commit) *
         -00.4.0.0.0.0.0.005 (database correction 2)
         -00.4.0.0.0.0.0.005.1 (resolvendo problemas)
-        
-       
-
-
+        -00.4.0.0.0.0.0.005.2 (resolvendo problemas do gitignore)
+        -00.4.0.0.0.0.0.006 (Persistences fixation)
+        -00.4.0.0.0.0.0.006.1 (Luisinho sloved)
+        -00.4.0.0.0.0.0.006.2 (MySql deletation)
+        -00.4.0.0.0.0.0.006.3 (docker restruturation)
+        -00.4.0.0.0.0.0.007 (Estrutura da Interface do Menu de Contas)
+        -00.4.0.0.0.0.0.007.1 (Estrutura Interface Administrador e Arbitro Adicionada)
+        -00.4.0.0.0.0.0.007.2 (Estrutura Interface Edição de Contas Adicionada)
+        -00.4.0.0.0.0.0.008 (Estrutura Interface Jogador e confirmação de saida Adicionadas)
+        -00.4.0.0.0.0.0.009 (Correção de Sintax e Organizacao do Código)
+        -00.4.0.0.0.0.0.010 (Estrutura Menu Tecnico e Correção de Códigos)
+        -00.4.0.0.0.0.0.011 (Conta.cs tec/jog decider)
+        -00.4.0.0.0.0.0.012 (Tec reformation, Entrega 14/05)
+        -00.4.0.0.0.0.0.013 (backend output)
+        -00.4.0.0.0.0.0.014 (Utils => Views)
+        -00.4.0.0.0.0.0.015 (Utils & Services comebacks)
+        -00.4.0.0.0.0.0.016 (Tamanho das Views foram Editadas)
+        -00.4.0.0.0.0.0.017 (Modelo Inicial do Mascote e Mascara inplementados)
+        -00.4.0.0.0.0.0.018 (Readaptation code)
+        -00.4.0.0.0.0.0.018.1 (fix saga)
+        -00.4.0.0.0.0.0.018.2 (senha.cs comeback)
+        -00.4.0.0.0.0.0.018.3 (resolvendo problemas)

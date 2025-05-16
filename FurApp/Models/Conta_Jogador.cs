@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using ContaUsuarioApp;
+using Models.ContaApp.Usuario;
+using Interfaces.IJogador;
 
-namespace ContaJogadorApp
+namespace Models.ContaApp.Usuario.Jogador
 {
     public class Conta_Jogador : Conta_Usuario, IJogador
     {
@@ -21,21 +18,13 @@ namespace ContaJogadorApp
             string nome,
             string senha,
             int idade,
-            string posicao,
-            float? saldo = null,
-            string? interesses = null,
-            string? amistosos = null,
-            string? time = null,
-            int? gols = null,
-            int? assistencias = null)
-            : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty)
+            string posicao)
+            : base (nome, senha, idade)
         {
+            Time = string.Empty;
             Posicao = posicao;
-            Time = time ?? string.Empty;
-            Gols = gols ?? 0;
-            Assistencias = assistencias ?? 0;
-            Eventos = new List<string>();  // Inicializando a lista
-            Jogos = new List<string>();    // Inicializando a lista
+            Eventos = new List<string>();  
+            Jogos = new List<string>();    
             Partidas = new List<string>();
         }
 
@@ -61,14 +50,14 @@ namespace ContaJogadorApp
             }
             else
             {
-                Console.WriteLine("Sem time");
+                Console.WriteLine("Sem time"); //LUIS VERIFICA O OUTPUT
             }
         }
         void IJogador.Exibir_Jogos()
         {
             if (Jogos.Count > 0)
             {
-                Console.WriteLine("Jogos:");
+                Console.WriteLine("Jogos:"); //LUIS VERIFICA O OUTPUT
                 foreach (var jogo in Jogos)
                 {
                     Console.WriteLine(jogo);
@@ -76,7 +65,7 @@ namespace ContaJogadorApp
             }
             else
             {
-                Console.WriteLine("Nenhum jogo registrado");
+                Console.WriteLine("Nenhum jogo registrado"); //LUIS VERIFICA O OUTPUT
             }
         }
 
@@ -84,7 +73,7 @@ namespace ContaJogadorApp
         {
             if (Partidas.Count > 0)
             {
-                Console.WriteLine("Partidas:");
+                Console.WriteLine("Partidas:"); //LUIS VERIFICA O OUTPUT
                 foreach (var partida in Partidas)
                 {
                     Console.WriteLine(partida);
@@ -92,7 +81,7 @@ namespace ContaJogadorApp
             }
             else
             {
-                Console.WriteLine("Nenhuma partida registrada");
+                Console.WriteLine("Nenhuma partida registrada"); //LUIS VERIFICA O OUTPUT
             }
         }
 
