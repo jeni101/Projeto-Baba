@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MySqlConnector;
-using ContaApp;
-using ContaJogadorApp;
-using ContaTecnicoApp;
+using Models.ContaApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Tecnico;
 
 namespace PersistenciaApp
 {
@@ -45,7 +45,7 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
@@ -92,12 +92,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"Erro inesperado: {ex.Message}"); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -128,9 +128,6 @@ namespace PersistenciaApp
                         nome : reader.GetString("Nome"),
                         senha : reader.GetString("SenhaHash"),
                         idade : reader.GetInt32("Idade"),
-                        saldo : reader.GetFloat("Saldo"),
-                        interesses : reader.IsDBNull(reader.GetOrdinal("Interesses")) ? null : reader.GetString("Interesses"),
-                        amistosos : reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? null : reader.GetString("Amistosos"),
                         time : reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time")
                     );
 
@@ -141,11 +138,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return tecnicos;
@@ -170,9 +167,6 @@ namespace PersistenciaApp
                         nome : reader.GetString("Nome"),
                         senha : reader.GetString("SenhaHash"),
                         idade : reader.GetInt32("Idade"),
-                        saldo : reader.GetFloat("Saldo"),
-                        interesses : reader.IsDBNull(reader.GetOrdinal("Interesses")) ? null : reader.GetString("Interesses"),
-                        amistosos : reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? null : reader.GetString("Amistosos"),
                         time : reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time")
                     );
 
@@ -182,11 +176,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return null;
@@ -228,12 +222,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -270,12 +264,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -304,7 +298,7 @@ namespace PersistenciaApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }

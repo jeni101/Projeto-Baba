@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MySqlConnector;
-using ContaApp;
-using ContaUsuarioApp;
-using ContaJogadorApp;
+using Models.ContaApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Jogador;
 
 namespace PersistenciaApp
 {
@@ -50,11 +50,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao inicializar o banco de dados: {ex.Message}");
+                Console.WriteLine($"➠ Erro ao inicializar o banco de dados: \n {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"➠ Erro inesperado: \n {ex.Message}"); 
             }
         }
 
@@ -104,12 +104,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao salvar jogador: {ex.Message}");
+                Console.WriteLine($"➠ Erro ao salvar jogador: \n {ex.Message}");
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"➠ Erro inesperado: \n {ex.Message}"); 
                 return false;
             }
         }
@@ -140,13 +140,7 @@ namespace PersistenciaApp
                         nome: reader.GetString("Nome"),
                         senha: reader.GetString("SenhaHash"),
                         idade: reader.GetInt32("Idade"),
-                        posicao: reader.GetString("Posicao"),
-                        saldo: reader.GetFloat("Saldo"),
-                        interesses: !reader.IsDBNull(reader.GetOrdinal("Interesses")) ? reader.GetString("Interesses") : "",
-                        amistosos: !reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? reader.GetString("Amistosos") : "",
-                        time: !reader.IsDBNull(reader.GetOrdinal("Time")) ? reader.GetString("Time") : "",
-                        gols: reader.GetInt32("Gols"),
-                        assistencias: reader.GetInt32("Assistencias")
+                        posicao: reader.GetString("Posicao")
                     );
 
                     typeof(Conta).GetProperty("Id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(jogador, id);
@@ -156,11 +150,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao carregar jogadores: {ex.Message}");
+                Console.WriteLine($"➠ Erro ao carregar jogadores: \n {ex.Message}"); 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro inesperado: {ex.Message}");
+                Console.WriteLine($"➠ Erro inesperado: \n {ex.Message}"); 
             }
 
             return jogadores;
@@ -184,14 +178,8 @@ namespace PersistenciaApp
                     var jogador = new Conta_Jogador(nome: reader.GetString("Nome"),
                         senha: reader.GetString("SenhaHash"),
                         idade: reader.GetInt32("Idade"),
-                        posicao: reader.GetString("Posicao"),
-                        saldo: reader.GetFloat("Saldo"),
-                        interesses: !reader.IsDBNull(reader.GetOrdinal("Interesses")) ? reader.GetString("Interesses") : "",
-                        amistosos: !reader.IsDBNull(reader.GetOrdinal("Amistosos")) ? reader.GetString("Amistosos") : "",
-                        time: !reader.IsDBNull(reader.GetOrdinal("Time")) ? reader.GetString("Time") : "",
-                        gols: reader.GetInt32("Gols"),
-                        assistencias: reader.GetInt32("Assistencias")
-                    ); 
+                        posicao: reader.GetString("Posicao")
+                        ); 
 
                     typeof(Conta).GetProperty("Id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(jogador, id);
                     return jogador;
@@ -199,11 +187,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return null;
@@ -252,12 +240,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -294,12 +282,12 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -328,7 +316,7 @@ namespace PersistenciaApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
