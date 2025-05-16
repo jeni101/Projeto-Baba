@@ -95,3 +95,4 @@ Versions:
         -00.4.0.0.0.0.0.014 (Utils => Views)
         -00.4.0.0.0.0.0.015 (Utils & Services comebacks)
         -00.4.0.0.0.0.0.016 (Tamanho das Views foram Editadas)
+        -00.4.0.0.0.0.0.017 (Modelo Inicial do Mascote e Mascara inplementados)
