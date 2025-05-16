@@ -15,20 +15,14 @@ namespace Models.ContaApp.Usuario.Tecnico
         //Construtor
         public Conta_Tecnico(string nome, 
                             string senha, 
-                            int idade, 
-                            float? saldo = null, 
-                            string? interesses = null, 
-                            string? amistosos = null, 
-                            string? time = null, 
-                            List<string>? eventos = null, 
-                            List<string>? jogos = null, 
-                            List<string>? partidas = null)
-                            : base (nome, senha, idade, saldo ?? 0, interesses ?? string.Empty, amistosos ?? string.Empty)
+                            int idade,
+                            string time)
+                            : base (nome, senha, idade)
             {
                 Time = time ?? string.Empty;
-                Eventos = eventos ?? new List<string>();
-                Jogos = jogos ?? new List<string>();
-                Partidas = partidas ?? new List<string>();
+                Eventos = new List<string>();  
+                Jogos = new List<string>();    
+                Partidas = new List<string>();
             }
 
         //time

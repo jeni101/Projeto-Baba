@@ -18,21 +18,13 @@ namespace Models.ContaApp.Usuario.Jogador
             string nome,
             string senha,
             int idade,
-            string posicao,
-            float? saldo = null,
-            string? interesses = null,
-            string? amistosos = null,
-            string? time = null,
-            int? gols = null,
-            int? assistencias = null)
-            : base(nome, senha, idade, saldo ?? 0f, interesses ?? string.Empty, amistosos ?? string.Empty)
+            string posicao)
+            : base (nome, senha, idade)
         {
+            Time = string.Empty;
             Posicao = posicao;
-            Time = time ?? string.Empty;
-            Gols = gols ?? 0;
-            Assistencias = assistencias ?? 0;
-            Eventos = new List<string>();  // Inicializando a lista
-            Jogos = new List<string>();    // Inicializando a lista
+            Eventos = new List<string>();  
+            Jogos = new List<string>();    
             Partidas = new List<string>();
         }
 

@@ -1,6 +1,6 @@
 using System;
 using System.Security.Cryptography;
-using Utils.Censurador_De_Senha;
+using Utils.CensuradorDeSenha;
 
 namespace Models.ContaApp
 {
@@ -28,14 +28,14 @@ namespace Models.ContaApp
             //Gerando ID ao criar conta
             Id = Guid.NewGuid();
             Nome = nome;
-            SenhaHash = Censurador_De_Senha.HashPassword(senha);
+            SenhaHash = CensuradorDeSenha.HashPassword(senha);
             Idade = idade;
         } 
 
         //Verifica a senha
         public bool Autenticar(string senha)
         {
-            return Censurador_De_Senha.VerificarSenha(senha, SenhaHash);
+            return CensuradorDeSenha.VerificarSenha(senha, SenhaHash);
         }
     }
 }

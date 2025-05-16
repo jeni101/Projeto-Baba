@@ -1,9 +1,9 @@
 using System;
 using System.Security.Cryptography;
 
-namespace Utils.Censurador_De_Senha
+namespace Utils.CensuradorDeSenha
 {
-    public static class Censurador_De_Senha
+    public static class CensuradorDeSenha
     {
         private const int Salt = 16;
         private const int Hash = 20;
