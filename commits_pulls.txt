@@ -104,3 +104,4 @@ Versions:
         -00.4.0.0.0.0.0.020 (atualizacao da branch)
         -00.4.0.0.0.0.0.020.1 (Views fix)
         -00.4.0.0.0.0.0.021 (repository created)
+        -00.4.0.0.0.0.0.022 (ARepository, posible Persistencia replacement)

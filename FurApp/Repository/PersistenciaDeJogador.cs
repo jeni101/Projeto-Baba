@@ -5,7 +5,7 @@ using Models.ContaApp;
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 
-namespace PersistenciaApp
+namespace Repository.PersistenciaApp
 {
     public static class PersistenciaDeJogador
     {
