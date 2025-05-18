@@ -6,23 +6,19 @@ using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
 using JogosApp;
 using Views.OpcoesAdministrador;
+using Services.Autenticacao;
+
 
 namespace Views.OpcoesContas
 {
-    public class Views_De_OpcoesContas
+    public static class Views_De_OpcoesContas
     {
-        private Conta_Jogador contaLogada;
-
-        public Views_De_OpcoesContas(Conta_Jogador conta)
-        {
-            contaLogada = conta;
-        }
-        public void Display_MenuAdministrador()
+        public static void Display_MenuAdministrador()
         {
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine($"Olá, {Autenticador.PegarNomeConta()}!\n");
                 Console.WriteLine(".________________________________________________.  ▄▀▀▄▄         ▄▄▀▀▄ ");
                 Console.WriteLine("|  -=-          Menu Administrador          -=-  | ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌");
                 Console.WriteLine("|================================================| ▐  ▄▀ ▄       ▄ ▀▄  ▌");
@@ -92,7 +88,7 @@ namespace Views.OpcoesContas
                 }
             }
         }
-        public void Display_MenuArbitro()
+        public static void Display_MenuArbitro()
         {
             while (true)
             {
@@ -147,7 +143,7 @@ namespace Views.OpcoesContas
                 }
             }
         }
-        public void Display_MenuJogador()
+        public static void Display_MenuJogador()
         {
             while (true)
             {
@@ -207,7 +203,7 @@ namespace Views.OpcoesContas
                 }
             }
         }
-                public void Display_MenuTecnico()
+        public static void Display_MenuTecnico()
         {
             while (true)
             {
