@@ -1,6 +1,6 @@
 using System;
 using System.Security.Cryptography;
-using Utils.CensuradorDeSenha;
+using Utils.Pelase.CensuradorDeSenha;
 
 namespace Models.ContaApp
 {
