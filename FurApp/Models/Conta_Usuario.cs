@@ -3,6 +3,10 @@ using Interfaces.ITecnico;
 using Models.ContaApp;
 
 
+
+using Repository.PersistenciaApp;
+
+
 namespace Models.ContaApp.Usuario
 {
     public class Conta_Usuario : Conta
