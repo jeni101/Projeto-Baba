@@ -3,6 +3,7 @@ using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
 using JogosApp;
 using Controle_de_execoesApp;
+using Confirmacao_de_saida;
 
 namespace Views_Campos
 {
@@ -77,8 +78,7 @@ namespace Views_Campos
                             break;
 
                         case 0:
-                            Console.Clear();
-                            AnimacaoApp.VoltandoAnimadoElaborado.ExibirMensagemVoltando_();
+                            Confirmacao.ExibirMensagemSaida(ref opcao);
                             sair = true;  // Sai do loop
                             break;
 

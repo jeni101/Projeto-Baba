@@ -1,7 +1,7 @@
 using Interfaces.IJogador;
 using Interfaces.ITecnico;
 using Models.ContaApp;
-using PersistenciaApp;
+
 
 namespace Models.ContaApp.Usuario
 {

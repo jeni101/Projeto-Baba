@@ -110,3 +110,12 @@ Versions:
 
     -0.000.05
         -00.5.0.0.0.0.0.001 (Version start commit)
+
+
+
+
+
+
+
+        
+        -00.5.0.0.0.0.0.008 (Implementacao do caso 0)

@@ -1,102 +1,103 @@
-using System;
-using System.Linq;
-using Models.ContaApp;
-using Models.ContaApp.Usuario;
-using Models.ContaApp.Usuario.Tecnico;
-using Models.ContaApp.Usuario.Jogador;
-using PersistenciaApp;
-using System.Reflection.Metadata;
-using Services.Login;
-using Services.Senha;
+// using System;
+// using System.Linq;
+// using Models.ContaApp;
+// using Models.ContaApp.Usuario;
+// using Models.ContaApp.Usuario.Tecnico;
+// using Models.ContaApp.Usuario.Jogador;
 
-namespace Services.Register
-{
-    public class Registro
-    {
-        public void Registrar()
-        {
-            Console.WriteLine("Nome :");
-            string nome = Console.ReadLine()?.Trim() ?? "";
+// using System.Reflection.Metadata;
+// using Services.Persistencia; // Assuming PersistenciaDeTecnico is in this namespace
+// using Services.Login;
+// using Services.Senha;
 
-            Console.WriteLine("Idade: ");
-            if (!int.TryParse(Console.ReadLine(), out int idade) || idade <= 0)
-            {
-                Console.WriteLine("Idade inválida");
-                return;
-            }
+// namespace Services.Register
+// {
+//     public class Registro
+//     {
+//         public void Registrar()
+//         {
+//             Console.WriteLine("Nome :");
+//             string nome = Console.ReadLine()?.Trim() ?? "";
 
-            int escolha;
-            do
-            {
-                Console.WriteLine("Escolha o tipo de conta:"); //LUIS VERIFICA O OUTPUT
-                Console.WriteLine("1 - Jogador");
-                Console.WriteLine("2 - Técnico");
-                Console.WriteLine("3 - Ambos");
-                Console.Write("Opção: ");
-            } 
-            while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > 3);
+//             Console.WriteLine("Idade: ");
+//             if (!int.TryParse(Console.ReadLine(), out int idade) || idade <= 0)
+//             {
+//                 Console.WriteLine("Idade inválida");
+//                 return;
+//             }
 
-            string senha;
-            try
-            {
-                senha = ObtencaoSenha.DefinirSenha();
-            }
-            catch (InvalidOperationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }       
+//             int escolha;
+//             do
+//             {
+//                 Console.WriteLine("Escolha o tipo de conta:"); //LUIS VERIFICA O OUTPUT
+//                 Console.WriteLine("1 - Jogador");
+//                 Console.WriteLine("2 - Técnico");
+//                 Console.WriteLine("3 - Ambos");
+//                 Console.Write("Opção: ");
+//             } 
+//             while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > 3);
 
-            try 
-            {
-                switch (escolha)
-                {
-                    case 1:
-                        RegistrarJogador(nome, senha, idade);
-                        break;
+//             string senha;
+//             try
+//             {
+//                 senha = ObtencaoSenha.DefinirSenha();
+//             }
+//             catch (InvalidOperationException ex)
+//             {
+//                 Console.WriteLine(ex.Message);
+//                 return;
+//             }       
+
+//             try 
+//             {
+//                 switch (escolha)
+//                 {
+//                     case 1:
+//                         RegistrarJogador(nome, senha, idade);
+//                         break;
                     
-                    case 2:
-                        RegistrarTecnico(nome, senha, idade);
-                        break;
+//                     case 2:
+//                         RegistrarTecnico(nome, senha, idade);
+//                         break;
 
-                    case 3:
-                        RegistrarJogador(nome, senha, idade);
-                        RegistrarTecnico(nome, senha, idade);
-                        break;
-                }
-                Console.WriteLine("Registro concluido");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+//                     case 3:
+//                         RegistrarJogador(nome, senha, idade);
+//                         RegistrarTecnico(nome, senha, idade);
+//                         break;
+//                 }
+//                 Console.WriteLine("Registro concluido");
+//             }
+//             catch (Exception ex)
+//             {
+//                 Console.WriteLine(ex.Message);
+//             }
+//         }
 
-        private void RegistrarJogador(string nome, string senha, int idade)
-        {
-            var jogador = new Conta_Jogador(
-                nome,
-                senha,
-                idade,
-                "Não definida"
-            );
+//         private void RegistrarJogador(string nome, string senha, int idade)
+//         {
+//             var jogador = new Conta_Jogador(
+//                 nome,
+//                 senha,
+//                 idade,
+//                 "Não definida"
+//             );
 
-            PersistenciaDeJogador.SalvarJogador(jogador);
-            Console.WriteLine("Conta jogador criada  com sucesso");
-        }
+//             PersistenciaDeJogador.SalvarJogador(jogador);
+//             Console.WriteLine("Conta jogador criada  com sucesso");
+//         }
 
-        private void RegistrarTecnico(string nome, string senha, int idade)
-        {
-            var tecnico = new Conta_Tecnico(
-                nome,
-                senha,
-                idade,
-                "Sem time"
-            );
-
-            PersistenciaDeTecnico.SalvarTecnico(tecnico);
-            Console.WriteLine("Conta tecnico criada com sucesso");
-        }
-    }
-}
+//         private void RegistrarTecnico(string nome, string senha, int idade)
+//         {
+//             var tecnico = new Conta_Tecnico(
+//                 nome,
+//                 senha,
+//                 idade,
+//                 "Sem time"
+//             );
+//             PersistenciaDeTecnico.SalvarTecnico(tecnico); // Ensure PersistenciaDeTecnico is defined in the imported namespace
+//             PersistenciaDeTecnico.SalvarTecnico(tecnico);
+//             Console.WriteLine("Conta tecnico criada com sucesso");
+//         }
+//     }
+// }
 

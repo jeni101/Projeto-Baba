@@ -194,7 +194,7 @@ namespace Repository.PersistenciaApp
                 Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
-            return null;
+            throw new InvalidOperationException("Jogador não encontrado para o ID fornecido.");
         }
 
         //Atualizar jogador
