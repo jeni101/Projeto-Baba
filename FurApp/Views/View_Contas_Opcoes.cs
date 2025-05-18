@@ -46,7 +46,7 @@ namespace Views.OpcoesContas
                         break;
 
                     case "2":
-                        // Vou linkar MENU de Opções de Jogador
+                        Views_Administrador.Display_Adm_Jogador();
                         break;
 
                     case "3":
