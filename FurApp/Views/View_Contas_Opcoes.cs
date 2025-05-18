@@ -42,7 +42,7 @@ namespace Views.OpcoesContas
                 switch (escolha)
                 {
                     case "1":
-                        OpcoesAdministrador.Views_Administrador.
+                        Views_Administrador.Display_Adm_Contas();
                         break;
 
                     case "2":

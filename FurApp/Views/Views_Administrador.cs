@@ -1,8 +1,8 @@
 namespace Views.OpcoesAdministrador
 {
-    public class Views_Administrador
+    public static class Views_Administrador
     {
-        public void Display_Adm_Contas()
+        public static void Display_Adm_Contas()
         {
             while (true)
             {
@@ -61,7 +61,7 @@ namespace Views.OpcoesAdministrador
                 }
             }
         }
-        public void Display_Adm_Jogador()
+        public static void Display_Adm_Jogador()
         {
             while (true)
             {
