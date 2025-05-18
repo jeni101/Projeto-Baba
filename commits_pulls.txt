@@ -116,3 +116,4 @@ Versions:
         -00.5.0.0.0.0.0.005 (Static void error)
         -00.5.0.0.0.0.0.006 (Correcao de Erros)
         -00.5.0.0.0.0.0.007 (Auth services)
+        -00.5.0.0.0.0.0.007.1 (Bugs Visuais e Operacionais)
