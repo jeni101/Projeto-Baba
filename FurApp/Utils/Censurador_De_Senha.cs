@@ -1,7 +1,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace Utils.CensuradorDeSenha
+namespace Utils.Pelase.CensuradorDeSenha
 {
     public static class CensuradorDeSenha
     {
