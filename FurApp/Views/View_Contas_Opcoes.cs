@@ -5,6 +5,7 @@ using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
 using JogosApp;
+using Views.OpcoesAdministrador;
 
 namespace Views.OpcoesContas
 {
@@ -41,7 +42,7 @@ namespace Views.OpcoesContas
                 switch (escolha)
                 {
                     case "1":
-                        // Vou linkar MENU de Opções de Conta
+                        OpcoesAdministrador.Views_Administrador.
                         break;
 
                     case "2":

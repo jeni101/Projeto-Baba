@@ -112,3 +112,4 @@ Versions:
         -00.5.0.0.0.0.0.001 (Version start commit)
         -00.5.0.0.0.0.0.002 (O mascote Chegou)
         -00.5.0.0.0.0.0.003 (RepositoryJogador completed)
+        -00.5.0.0.0.0.0.004 (Imprementações na Interface de Administrador)

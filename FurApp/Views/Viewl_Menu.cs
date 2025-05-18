@@ -1,4 +1,4 @@
-namespace Views.Menu
+namespace Views.OpcoesAdministrador
 {
     public static class View_Inicial
     {
@@ -28,12 +28,19 @@ namespace Views.Menu
         }
         public static void Mascote() // Esse view é apenas um bloco de notas
         {
+            Console.WriteLine("                                                              ▐   ▀   ▄▄▄   ▀   ▌            ");
+            Console.WriteLine("                                                               █    ▄ ▀█▀ ▄    █             ");
+            Console.WriteLine("                                                                ▀▄   ▀▀ ▀▀   ▄▀              ");
+            Console.WriteLine("                                                                 ▐▀▄▄▄   ▄▄▄▀▌               ");
+            Console.WriteLine("                                                                 ▐    ▀▀▀    ▌               ");
+            Console.WriteLine("                                                                ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
+            
             Console.WriteLine(@"           ▄▀▀▄▄         ▄▄▀▀▄            ");
             Console.WriteLine(@"          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
             Console.WriteLine(@"          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
-            Console.WriteLine(@"           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀  Oque vamos");
-            Console.WriteLine(@"           ▐   ▄         ▄   ▌ fazer hoje?");
-            Console.WriteLine(@"           ▐  ▐█▌       ▐█▌  ▌  ╯         ");
+            Console.WriteLine(@"           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀            ");
+            Console.WriteLine(@"           ▐   ▄         ▄   ▌            ");
+            Console.WriteLine(@"           ▐  ▐█▌       ▐█▌  ▌            ");
             Console.WriteLine(@"           ▐   ▀   ▄▄▄   ▀   ▌            ");
             Console.WriteLine(@"            █    ▄ ▀█▀ ▄    █             ");
             Console.WriteLine(@"             ▀▄   ▀▀ ▀▀   ▄▀              ");
