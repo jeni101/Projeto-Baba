@@ -1,4 +1,4 @@
-using ContaApp;
+using Models.ContaApp;
 
 namespace ContaAdmApp
 {

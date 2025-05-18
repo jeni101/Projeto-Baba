@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using MySqlConnector;
 using TimesApp;
-using ContaTecnicoApp;
+using Models.ContaApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Tecnico;
 
-namespace PersistenciaApp
+namespace Repository.PersistenciaApp
 {
     public static class PersistenciaDeTimes
     {
@@ -35,7 +37,7 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
         }
         public static bool SalvarTime(Times time)
@@ -57,7 +59,7 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
                 return false;
             }
         }
@@ -110,11 +112,11 @@ namespace PersistenciaApp
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
             return times;

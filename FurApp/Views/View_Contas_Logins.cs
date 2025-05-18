@@ -1,13 +1,18 @@
-using ContaJogadorApp;
+using System;
+using Models;
+using Models.ContaApp;
+using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Jogador;
+using Models.ContaApp.Usuario.Tecnico;
 using JogosApp;
 
-namespace Util_Contas
+namespace Views.Contas
 {
-    public class Utils_De_Contas
+    public class Views_De_Contas
     {
         private Conta_Jogador contaLogada;
 
-        public Utils_De_Contas(Conta_Jogador conta)
+        public Views_De_Contas(Conta_Jogador conta)
         {
             contaLogada = conta;
         }
@@ -15,14 +20,14 @@ namespace Util_Contas
         {
             while (true)
             {
-                Console.WriteLine(".______________________________________.");
-                Console.WriteLine("|  -=-       Login Inicial        -=-  |");
-                Console.WriteLine("|======================================|");
-                Console.WriteLine("|Novo Usuário. . . . . . . . . . |  1  |");
-                Console.WriteLine("|Usuário Existente . . . . . . . |  2  |");
-                Console.WriteLine("|________________________________|_____|");
-                Console.WriteLine("|SAIR. . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|======================================|");
+                Console.WriteLine(".________________________________________________.");
+                Console.WriteLine("|  -=-            Login Inicial             -=-  |");
+                Console.WriteLine("|================================================|");
+                Console.WriteLine("|- Novo Usuário  . . . . . . . . . . . . . |  1  |");
+                Console.WriteLine("|- Usuário Existente . . . . . . . . . . . |  2  |");
+                Console.WriteLine("|__________________________________________|_____|");
+                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|================================================|");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
@@ -64,15 +69,15 @@ namespace Util_Contas
             while (true)
             {
                 Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
-                Console.WriteLine(".______________________________________.");
-                Console.WriteLine("|  -=-       Menu de Contas       -=-  |");
-                Console.WriteLine("|======================================|");
-                Console.WriteLine("|Criar Nova Conta. . . . . . . . |  1  |");
-                Console.WriteLine("|Editar Conta Existente. . . . . |  2  |");
-                Console.WriteLine("|Deletar Conta Existente . . . . |  3  |");
-                Console.WriteLine("|________________________________|_____|");
-                Console.WriteLine("|VOLTAR. . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|======================================|");
+                Console.WriteLine(".________________________________________________.");
+                Console.WriteLine("|  -=-            Menu de Contas            -=-  |");
+                Console.WriteLine("|================================================|");
+                Console.WriteLine("|- Criar Nova Conta  . . . . . . . . . . . |  1  |");
+                Console.WriteLine("|- Editar Conta Existente  . . . . . . . . |  2  |");
+                Console.WriteLine("|- Deletar Conta Existente . . . . . . . . |  3  |");
+                Console.WriteLine("|__________________________________________|_____|");
+                Console.WriteLine("|- VOLTAR  . . . . . . . . . . . . . . . . |  0  |");
+                Console.WriteLine("|================================================|");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
