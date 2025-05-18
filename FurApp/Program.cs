@@ -1,11 +1,24 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
+using Views_Campos;
+using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
+using Controle_de_execoesApp;
+
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
+
+       
+
+
+
+
+
+
+    
         var configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
@@ -50,3 +63,25 @@ class Program
         Console.ReadKey();
     }
 }
+
+
+// teste 
+//        {
+//         var conta = new Conta_Jogador(
+//             "cleitin", 
+//             "Sobrenome", 
+//             25, 
+//             "email@example.com"
+//         );
+
+
+//         var viewsDeCampos = new Views_De_Campos(conta);
+//         viewsDeCampos.DisplayMenu();
+
+
+//         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
+//         Console.ReadKey();
+//   }
+    
+// }
+    

@@ -128,7 +128,7 @@ namespace PersistenciaApp
                         nome : reader.GetString("Nome"),
                         senha : reader.GetString("SenhaHash"),
                         idade : reader.GetInt32("Idade"),
-                        time : reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time")
+                        time : reader.IsDBNull(reader.GetOrdinal("Time")) ? string.Empty : reader.GetString("Time")
                     );
 
                     typeof(Conta).GetProperty("Id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(tecnico, id);
@@ -167,7 +167,7 @@ namespace PersistenciaApp
                         nome : reader.GetString("Nome"),
                         senha : reader.GetString("SenhaHash"),
                         idade : reader.GetInt32("Idade"),
-                        time : reader.IsDBNull(reader.GetOrdinal("Time")) ? null : reader.GetString("Time")
+                        time : reader.IsDBNull(reader.GetOrdinal("Time")) ? string.Empty : reader.GetString("Time")
                     );
 
                     typeof(Conta).GetProperty("Id", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(tecnico, id);
@@ -183,7 +183,7 @@ namespace PersistenciaApp
                 Console.WriteLine(ex.Message); //LUIS VERIFICA O OUTPUT
             }
 
-            return null;
+            throw new InvalidOperationException($"Técnico com ID {id} não encontrado.");
         }
 
         //Atualizar tecnico

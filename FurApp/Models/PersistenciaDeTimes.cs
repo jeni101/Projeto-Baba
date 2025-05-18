@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MySqlConnector;
 using TimesApp;
-using ContaTecnicoApp;
+using Models.ContaApp.Usuario.Tecnico;
 
 namespace PersistenciaApp
 {

@@ -1,4 +1,4 @@
-using ContaUsuarioApp;
+using Models.ContaApp.Usuario;
 
 namespace ContaArbitroApp
 {
@@ -9,7 +9,7 @@ namespace ContaArbitroApp
         public string Partidas {get; set;}
 
         public Conta_Arbitro(string nome, string senha, int idade, float? saldo = null, string? interesses = null, string? amistosos = null, string? jogos = null, string? partidas = null)
-            : base(nome, senha, idade, saldo ?? 0, interesses ?? string.Empty, amistosos ?? string.Empty)
+            : base(nome, senha, idade)
             {
                 Jogos = jogos ?? string.Empty;
                 Partidas = partidas ?? string.Empty;

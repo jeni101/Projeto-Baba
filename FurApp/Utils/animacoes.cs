@@ -59,6 +59,28 @@ namespace AnimacaoApp
         }
     }
 
+
+     public class VoltandoAnimadoElaborado
+    {
+        public static void ExibirMensagemVoltando_()
+        {
+            foreach (char letra in "voltando")
+            {
+                Console.Write(letra);
+                System.Threading.Thread.Sleep(100); // Pausa de 0.1 segundo
+            }
+            
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write(".");
+                System.Threading.Thread.Sleep(100); // Pausa de 1 segundo
+            }
+            Console.Clear();
+            
+        }
+    }
+
     public class SairContaAnimado
     {
         public static void ExibirMensagemSairConta()
