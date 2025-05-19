@@ -123,3 +123,4 @@ Versions:
         -00.5.0.0.0.0.0.010 (Database repository tecnico)
         -00.5.0.0.0.0.0.011 (Opções de Contas Completas)
         -00.5.0.0.0.0.0.012 (Sintax e Posições FrontEnd Organizadas)
+        -00.5.0.0.0.0.0.013 (Exclusão de repositorys Inutilizados)
