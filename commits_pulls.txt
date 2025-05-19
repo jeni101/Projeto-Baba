@@ -121,3 +121,4 @@ Versions:
         -00.5.0.0.0.0.0.008.1 (Merge branch 'dev' into Jeni)
         -00.5.0.0.0.0.0.009 (Database repository jogador)
         -00.5.0.0.0.0.0.010 (Database repository tecnico)
+        -00.5.0.0.0.0.0.011 (Opções de Contas Completas)

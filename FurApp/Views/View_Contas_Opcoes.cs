@@ -18,20 +18,20 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
-                Console.WriteLine(".________________________________________________.  ▄▀▀▄▄         ▄▄▀▀▄ ");
-                Console.WriteLine("|  -=-          Menu Administrador          -=-  | ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌");
-                Console.WriteLine("|================================================| ▐  ▄▀ ▄       ▄ ▀▄  ▌");
-                Console.WriteLine("|- Opções de Conta . . . . . . . . . . . . |  1  |  ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀ ");
-                Console.WriteLine("|- Opções de Jogador . . . . . . . . . . . |  2  |  ▐   ▄         ▄   ▌ ");
-                Console.WriteLine("|- Opções de Técnico . . . . . . . . . . . |  3  |  ▐  ▐█▌       ▐█▌  ▌ ");
-                Console.WriteLine("|- Opções de Arbitro . . . . . . . . . . . |  4  |  ▐   ▀   ▄▄▄   ▀   ▌ ");
-                Console.WriteLine("|- Opções de Time  . . . . . . . . . . . . |  5  |   █    ▄ ▀█▀ ▄    █  ");
-                Console.WriteLine("|- Opções de Jogo  . . . . . . . . . . . . |  6  |    ▀▄   ▀▀ ▀▀   ▄▀   ");
-                Console.WriteLine("|- Opções de Partidas  . . . . . . . . . . |  7  |     ▐▀▄▄▄   ▄▄▄▀▌    ");
-                Console.WriteLine("|__________________________________________|_____|     ▐    ▀▀▀    ▌    ");
-                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |    ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌   ");
-                Console.WriteLine("|================================================|");
+                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄            ");
+                Console.WriteLine(" |  -=-          Menu Administrador          -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
+                Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
+                Console.WriteLine(" |- Opções de Conta . . . . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀            ");
+                Console.WriteLine(" |- Opções de Jogador . . . . . . . . . . . |  2  |           ▐   ▄         ▄   ▌            ");
+                Console.WriteLine(" |- Opções de Técnico . . . . . . . . . . . |  3  |           ▐  ▐█▌       ▐█▌  ▌            ");
+                Console.WriteLine(" |- Opções de Arbitro . . . . . . . . . . . |  4  |           ▐   ▀   ▄▄▄   ▀   ▌            ");
+                Console.WriteLine(" |- Opções de Time  . . . . . . . . . . . . |  5  |            █    ▄ ▀█▀ ▄    █             ");
+                Console.WriteLine(" |- Opções de Jogo  . . . . . . . . . . . . |  6  |             ▀▄   ▀▀ ▀▀   ▄▀              ");
+                Console.WriteLine(" |- Opções de Partidas  . . . . . . . . . . |  7  |              ▐▀▄▄▄   ▄▄▄▀▌               ");
+                Console.WriteLine(" |__________________________________________|_____|              ▐    ▀▀▀    ▌               ");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |             ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
+                Console.WriteLine(" |================================================|");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
@@ -65,62 +65,7 @@ namespace Views.OpcoesContas
                         // Vou linkar MENU de Opções de Partidas
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
-                        break;
-
-                    default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
-                }
-            }
-        }
-        public static void Display_MenuArbitro()
-        {
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
-                Console.WriteLine(".________________________________________________.");
-                Console.WriteLine("|  -=-             Menu Arbitro             -=-  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine("|- Informações do Arbitro  . . . . . . . . |  1  |");
-                Console.WriteLine("|- Opções de Jogo  . . . . . . . . . . . . |  2  |");
-                Console.WriteLine("|- Opções de Partidas  . . . . . . . . . . |  3  |");
-                Console.WriteLine("|__________________________________________|_____|");
-                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine(" • Digite a Opção Desejada: ");
-                string? escolha = Console.ReadLine();
-
-                switch (escolha)
-                {
-                    case "1":
-                        // Linkar Função ExibirPerfil do Arbitro
-                        break;
-
-                    case "2":
-                        // Vou linkar MENU de Opções de Jogos
-                        break;
-
-                    case "3":
-                        // Vou linkar MENU de Opções de Partidas
-                        break;
-
-                    case "0":
+                    case "0": //Linkar Nova Case 0
                         Console.Write("Tem certeza que desejas sair? (S/N): ");
                         string? confirmacao = Console.ReadLine();
 
@@ -148,17 +93,19 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
-                Console.WriteLine(".________________________________________________.");
-                Console.WriteLine("|  -=-             Menu Jogador             -=-  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine("|- Informações do Jogador  . . . . . . . . |  1  |");
-                Console.WriteLine("|- Entrar em um Time . . . . . . . . . . . |  2  |");
-                Console.WriteLine("|- Jogos e Partidas  . . . . . . . . . . . |  3  |");
-                Console.WriteLine("|- Opções Adicionais . . . . . . . . . . . |  4  |");
-                Console.WriteLine("|__________________________________________|_____|");
-                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|================================================|");
+                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄            ");
+                Console.WriteLine(" |  -=-             Menu Jogador             -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
+                Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
+                Console.WriteLine(" |- Informações do Jogador  . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀            ");
+                Console.WriteLine(" |- Entrar em um Time . . . . . . . . . . . |  2  |           ▐   ▄         ▄   ▌            ");
+                Console.WriteLine(" |- Jogos e Partidas  . . . . . . . . . . . |  3  |           ▐  ▐█▌       ▐█▌  ▌            ");
+                Console.WriteLine(" |- Opções Adicionais . . . . . . . . . . . |  4  |           ▐   ▀   ▄▄▄   ▀   ▌            ");
+                Console.WriteLine(" |__________________________________________|_____|            █    ▄ ▀█▀ ▄    █             ");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |             ▀▄   ▀▀ ▀▀   ▄▀              ");
+                Console.WriteLine(" |================================================|              ▐▀▄▄▄   ▄▄▄▀▌               ");
+                Console.WriteLine("                                                                 ▐    ▀▀▀    ▌               ");
+                Console.WriteLine("                                                                ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
@@ -180,7 +127,7 @@ namespace Views.OpcoesContas
                         // Vou linkar MENU de Opções Adicionais
                         break;
 
-                    case "0":
+                    case "0": //Linkar Nova Case 0
                         Console.Write("Tem certeza que desejas sair? (S/N): ");
                         string? confirmacao = Console.ReadLine();
 
@@ -208,17 +155,19 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
-                Console.WriteLine(".________________________________________________.");
-                Console.WriteLine("|  -=-             Menu Tecnico             -=-  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine("|- Informações do Tecnic . . . . . . . . . |  1  |");
-                Console.WriteLine("|- Criar / Gerenciar Time  . . . . . . . . |  2  |");
-                Console.WriteLine("|- Criar / Entrar em um Jogo . . . . . . . |  3  |");
-                Console.WriteLine("|- Pesquisar Jogador . . . . . . . . . . . |  4  |");
-                Console.WriteLine("|__________________________________________|_____|");
-                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|================================================|");
+                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄            ");
+                Console.WriteLine(" |  -=-             Menu Tecnico             -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
+                Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
+                Console.WriteLine(" |- Informações do Tecnic . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀            ");
+                Console.WriteLine(" |- Criar / Gerenciar Time  . . . . . . . . |  2  |           ▐   ▄         ▄   ▌            ");
+                Console.WriteLine(" |- Criar / Entrar em um Jogo . . . . . . . |  3  |           ▐  ▐█▌       ▐█▌  ▌            ");
+                Console.WriteLine(" |- Pesquisar Jogador . . . . . . . . . . . |  4  |           ▐   ▀   ▄▄▄   ▀   ▌            ");
+                Console.WriteLine(" |__________________________________________|_____|            █    ▄ ▀█▀ ▄    █             ");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |             ▀▄   ▀▀ ▀▀   ▄▀              ");
+                Console.WriteLine(" |================================================|              ▐▀▄▄▄   ▄▄▄▀▌               ");
+                Console.WriteLine("                                                                 ▐    ▀▀▀    ▌               ");
+                Console.WriteLine("                                                                ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
@@ -240,7 +189,7 @@ namespace Views.OpcoesContas
                         //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
                         break;
 
-                    case "0":
+                    case "0": //Linkar Nova Case 0
                         Console.Write("Tem certeza que desejas sair? (S/N): ");
                         string? confirmacao = Console.ReadLine();
 
