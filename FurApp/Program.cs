@@ -21,14 +21,13 @@ class Program
 
 
         var viewsDeCampos = new Views_De_Campos(conta, 0);
+        View_Inicial.Display_Mascara01();
         //viewsDeCampos.DisplayMenu();
-        // View_Inicial.Print_01();
 
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
         Console.ReadKey();
   }
-    
 }
     
 

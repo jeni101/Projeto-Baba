@@ -127,3 +127,4 @@ Versions:
         -00.5.0.0.0.0.0.014 (Async register/null-safe)
         -00.5.0.0.0.0.0.015 (Jogos comeback)
         -00.5.0.0.0.0.0.015.1 (Jogos reparation)
+        -00.5.0.0.0.0.0.016 (Mascara e Menus Administrador Completos)
