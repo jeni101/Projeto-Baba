@@ -8,12 +8,19 @@ using Repository.PersistenciaApp;
 using System.Reflection.Metadata;
 using Services.Login;
 using Services.Senha;
+using Repository.PersistenciaApp.Jogador;
+using Repository.PersistenciaApp.Tecnico;
 
 namespace Services.Register
 {
     public class Registro
     {
-        public void Registrar()
+        //Atributos
+        private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
+        private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
+
+        //Funcoes
+        public async Task RegistrarAsync()
         {
             Console.WriteLine("Nome :");
             string nome = Console.ReadLine()?.Trim() ?? "";
@@ -33,7 +40,7 @@ namespace Services.Register
                 Console.WriteLine("2 - Técnico");
                 Console.WriteLine("3 - Ambos");
                 Console.Write("Opção: ");
-            } 
+            }
             while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > 3);
 
             string senha;
@@ -45,23 +52,23 @@ namespace Services.Register
             {
                 Console.WriteLine(ex.Message);
                 return;
-            }       
+            }
 
-            try 
+            try
             {
                 switch (escolha)
                 {
                     case 1:
-                        RegistrarJogador(nome, senha, idade);
+                        await RegistrarJogadorAsync(nome, senha, idade);
                         break;
-                    
+
                     case 2:
-                        RegistrarTecnico(nome, senha, idade);
+                        await RegistrarTecnicoAsync(nome, senha, idade);
                         break;
 
                     case 3:
-                        RegistrarJogador(nome, senha, idade);
-                        RegistrarTecnico(nome, senha, idade);
+                        await RegistrarJogadorAsync(nome, senha, idade);
+                        await RegistrarTecnicoAsync(nome, senha, idade);
                         break;
                 }
                 Console.WriteLine("Registro concluido");
@@ -72,7 +79,7 @@ namespace Services.Register
             }
         }
 
-        private void RegistrarJogador(string nome, string senha, int idade)
+        private async Task RegistrarJogadorAsync(string nome, string senha, int idade)
         {
             var jogador = new Conta_Jogador(
                 nome,
@@ -81,11 +88,11 @@ namespace Services.Register
                 "Não definida"
             );
 
-            PersistenciaDeJogador.SalvarJogador(jogador);
+            await _repoJogador.SalvarJogador(jogador);
             Console.WriteLine("Conta jogador criada  com sucesso");
         }
 
-        private void RegistrarTecnico(string nome, string senha, int idade)
+        private async Task RegistrarTecnicoAsync(string nome, string senha, int idade)
         {
             var tecnico = new Conta_Tecnico(
                 nome,
@@ -94,7 +101,7 @@ namespace Services.Register
                 "Sem time"
             );
 
-            PersistenciaDeTecnico.SalvarTecnico(tecnico);
+            await _repoTecnico.SalvarTecnico(tecnico);
             Console.WriteLine("Conta tecnico criada com sucesso");
         }
     }
