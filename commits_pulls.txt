@@ -129,3 +129,4 @@ Versions:
         -00.5.0.0.0.0.0.015.1 (Jogos reparation)
         -00.5.0.0.0.0.0.016 (Mascara e Menus Administrador Completos)
         -00.5.0.0.0.0.0.017 (Mascara Adicionada em Todos os Menus)
+        -00.5.0.0.0.0.0.018 (Ajuste de Sintax Gerais)
