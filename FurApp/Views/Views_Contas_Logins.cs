@@ -6,14 +6,16 @@ using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
 using Models.JogosApp;
 using Services.Autenticacao;
+using Services.Register;
 using Views.OpcoesMascara;
 using Confirmacao_de_saida;
+using System.Threading.Tasks;
 
 namespace Views.Contas
 {
     public class Views_De_Contas
     {
-        public void DisplayMenu_LoginInicial()
+        public async Task DisplayMenu_LoginInicial()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -42,11 +44,11 @@ namespace Views.Contas
                 switch (opcao)
                 {
                     case 1:
-                        //Linkar Função de Criação de Novo Usuário
+                        await Registro.Instancia.RegistrarAsync();
                         break;
 
                     case 2:
-                        //Linkar Função de Verificação de Usuario
+                        await Autenticador.Instancia.LoginAsync();
                         break;
 
                     case 0:

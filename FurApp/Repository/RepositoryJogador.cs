@@ -102,5 +102,34 @@ namespace Repository.PersistenciaApp.Jogador
 
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
+
+        public override async Task<Conta_Jogador?> GetByNameAsync(string nome)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogadores WHERE Nome = @nome AND Deletado = 0 LIMIT 1", conn);
+
+                cmd.Parameters.AddWithValue("@nome", nome);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                return await reader.ReadAsync()
+                    ? LeitorDeJogador.LerJogador(reader)
+                    : null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null;
+        }
     }
 }

@@ -135,3 +135,4 @@ Versions:
         -00.5.0.0.0.0.0.021 (Frases do mascote e Correcao de erros implementados)
         -00.5.0.0.0.0.0.022 (Animação de Saída Implementada com Sucesso!)
         -00.5.0.0.0.0.0.023 (Login => Auth services)
+        -00.5.0.0.0.0.0.024 (Register & login linking)
