@@ -8,7 +8,7 @@ using Models.JogosApp;
 using Views.OpcoesAdministrador;
 using Services.Autenticacao;
 using Views.OpcoesMascara;
-
+using Confirmacao_de_saida;
 
 namespace Views.OpcoesContas
 {
@@ -16,79 +16,72 @@ namespace Views.OpcoesContas
     {
         public static void Display_MenuAdministrador()
         {
-            while (true)
+            int[] validos = { 1, 2, 3, 4, 5, 6 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
                 Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.    .      ▄▀▀▄▄         ▄▄▀▀▄       .    ");
                 Console.WriteLine(" |  -=-          Menu Administrador          -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
-                Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
+                Console.WriteLine(" |================================================|        . ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
                 Console.WriteLine(" |- Opções de Conta . . . . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀      .     ");
                 Console.WriteLine(" |- Opções de Jogador . . . . . . . . . . . |  2  |     .     ▐   ▄         ▄   ▌            ");
-                Console.WriteLine(" |- Opções de Técnico . . . . . . . . . . . |  3  |           ▐  ▐█▌       ▐█▌  ▌            ");
-                Console.WriteLine(" |- Opções de Time  . . . . . . . . . . . . |  4  |           ▐   ▀   ▄▄▄   ▀   ▌            ");
+                Console.WriteLine(" |- Opções de Técnico . . . . . . . . . . . |  3  |       .   ▐  ▐█▌       ▐█▌  ▌            ");
+                Console.WriteLine(" |- Opções de Time  . . . . . . . . . . . . |  4  |     .     ▐   ▀   ▄▄▄   ▀   ▌         .  ");
                 Console.WriteLine(" |- Opções de Jogo  . . . . . . . . . . . . |  5  |.           █    ▄ ▀█▀ ▄    █   .         ");
                 Console.WriteLine(" |- Opções de Partidas  . . . . . . . . . . |  6  |         .   ▀▄   ▀▀ ▀▀   ▄▀              ");
                 Console.WriteLine(" |__________________________________________|_____|              ▐▀▄▄▄   ▄▄▄▀▌           .   ");
-                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |   .          ▐    ▀▀▀    ▌               ");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |   .      .   ▐    ▀▀▀    ▌               ");
                 Console.WriteLine(" |================================================|             ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌    .         ");
+                Console.WriteLine("       .             .            .          .            .            .           .         ");
 
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         Views_Administrador.Display_Adm_Contas();
                         break;
 
-                    case "2":
+                    case 2:
                         Views_Administrador.Display_Adm_Jogador();
                         break;
 
-                    case "3":
+                    case 3:
                         Views_Administrador.Display_Adm_Tecnico();
                         break;
 
-                    case "4":
+                    case 4:
                         Views_Administrador.Display_Adm_Times();
                         break;
 
-                    case "5":
+                    case 5:
                         Views_Administrador.Display_Adm_Jogos();
                         break;
 
-                    case "6":
+                    case 6:
                         Views_Administrador.Display_Adm_Partidas();
                         break;
 
-                    case "0": //Linkar Nova Case 0
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_MenuJogador()
         {
-            while (true)
+            int[] validos = { 1, 2, 3, 4 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -105,53 +98,44 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" |================================================|      .       ▐▀▄▄▄   ▄▄▄▀▌         .     ");
                 Console.WriteLine("   .                .                     .                      ▐    ▀▀▀    ▌ .             ");
                 Console.WriteLine("            .                 .                         .       ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌           .  ");
+                Console.WriteLine("       .            .             .          .            .            .           .         ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //linkar Função de ExibirPerfil do Jogador
                         break;
 
-                    case "2":
+                    case 2:
                         // linkar Função de Entrar em um time
                         break;
 
-                    case "3":
+                    case 3:
                         // Vou linkar MENU de Informações de Partidas
                         break;
 
-                    case "4":
+                    case 4:
                         // Vou linkar MENU de Opções Adicionais
                         break;
 
-                    case "0": //Linkar Nova Case 0
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_MenuTecnico()
         {
-            while (true)
+            int[] validos = { 1, 2, 3, 4 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -168,47 +152,36 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" |================================================|       .      ▐▀▄▄▄   ▄▄▄▀▌          .    ");
                 Console.WriteLine("      .                    .                 .                   ▐    ▀▀▀    ▌               ");
                 Console.WriteLine("                .                   .                     .     ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌      .       ");
+                Console.WriteLine("       .            .             .          .            .            .           .         ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de ExibirPerfil do tecnico
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Gerenciamento/Criação de Time
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Criação/Entrada em Jogos
                         break;
 
-                    case "4":
+                    case 4:
                         //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
                         break;
 
-                    case "0": //Linkar Nova Case 0
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }

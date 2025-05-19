@@ -5,115 +5,57 @@ using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
 using Models.JogosApp;
+using Services.Autenticacao;
+using Views.OpcoesMascara;
+using Confirmacao_de_saida;
 
 namespace Views.Contas
 {
     public class Views_De_Contas
     {
-        private Conta_Jogador contaLogada;
-
-        public Views_De_Contas(Conta_Jogador conta)
-        {
-            contaLogada = conta;
-        }
         public void DisplayMenu_LoginInicial()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
-                Console.WriteLine(".________________________________________________.");
-                Console.WriteLine("|  -=-            Login Inicial             -=-  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine("|- Novo Usuário  . . . . . . . . . . . . . |  1  |");
-                Console.WriteLine("|- Usuário Existente . . . . . . . . . . . |  2  |");
-                Console.WriteLine("|__________________________________________|_____|");
-                Console.WriteLine("|- SAIR  . . . . . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|================================================|");
+                Console.Clear();
+                View_Inicial.Display_Mascara01();
+                Console.WriteLine(" • Olá! Seleciona uma Opção Abaixo: ");
+                Console.WriteLine(" .________________________________________________.    .      ▄▀▀▄▄         ▄▄▀▀▄       .    ");
+                Console.WriteLine(" |  -=-           Opções de Login            -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
+                Console.WriteLine(" |================================================|        . ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
+                Console.WriteLine(" |- Novo Usuário  . . . . . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀      .     ");
+                Console.WriteLine(" |- Usuário Existente . . . . . . . . . . . |  2  |     .     ▐   ▄         ▄   ▌            ");
+                Console.WriteLine(" |__________________________________________|_____|       .   ▐  ▐▀▌       ▐▀▌  ▌            ");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |     .     ▐       ▄▄▄       ▌         .  ");
+                Console.WriteLine(" |================================================|.           █    ▄ ▀█▀ ▄    █   .         ");
+                Console.WriteLine("  .          .                       .                          ▀▄   ▀███▀   ▄▀   .          ");
+                Console.WriteLine("                    .                                     .      ▐▀▄▄▄   ▄▄▄▀▌          .    ");
+                Console.WriteLine("      .                    .                 .                   ▐    ▀▀▀    ▌               ");
+                Console.WriteLine("                .                                         .     ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌      .       ");
+                Console.WriteLine("       .            .             .          .            .            .           .         ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Novo Usuário
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Verificação de Usuario
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
-                }
-            }
-        }
-        public void DisplayMenu_Contas()
-        {
-            while (true)
-            {
-                Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
-                Console.WriteLine(".________________________________________________.");
-                Console.WriteLine("|  -=-            Menu de Contas            -=-  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine("|- Criar Nova Conta  . . . . . . . . . . . |  1  |");
-                Console.WriteLine("|- Editar Conta Existente  . . . . . . . . |  2  |");
-                Console.WriteLine("|- Deletar Conta Existente . . . . . . . . |  3  |");
-                Console.WriteLine("|__________________________________________|_____|");
-                Console.WriteLine("|- VOLTAR  . . . . . . . . . . . . . . . . |  0  |");
-                Console.WriteLine("|================================================|");
-                Console.WriteLine(" • Digite a Opção Desejada: ");
-                string? escolha = Console.ReadLine();
-
-                switch (escolha)
-                {
-                    case "1":
-                        //Linkar Função de Criação de Conta
-                        break;
-
-                    case "2":
-                        //Linkar Função de Edição de Conta
-                        break;
-
-                    case "3":
-                        //Linkar Função de Remover Conta
-                        break;
-
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
-                        break;
-
-                    default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
