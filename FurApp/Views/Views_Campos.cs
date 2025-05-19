@@ -16,16 +16,16 @@ namespace Views_Campos
         {
             contaLogada = conta;
             Contador_de_erros = contador_de_erros;
-            
+
         }
 
         public void DisplayMenu()
         {
-            int[] validos = {1, 2, 3, 4, 5};
+            int[] validos = { 1, 2, 3, 4, 5 };
             bool sair = false;
 
             while (!sair)
-            { 
+            {
                 Console.Clear();
 
                 Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
@@ -42,7 +42,7 @@ namespace Views_Campos
                 Console.WriteLine("|======================================|");
                 Console.Write(" \nEscolha: ");
                 string? escolha = Console.ReadLine();
-                
+
                 string tipo_quadra = "";
                 int quantidade_jogadores = 0;
 

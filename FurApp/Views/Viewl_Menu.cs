@@ -19,7 +19,7 @@ namespace Views.OpcoesMascara
             Console.WriteLine("                                                                 ▐▀▄▄▄   ▄▄▄▀▌               ");
             Console.WriteLine("                                                                 ▐    ▀▀▀    ▌               ");
             Console.WriteLine("                                                                ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
-            
+
             Console.WriteLine(@"           ▄▀▀▄▄         ▄▄▀▀▄            ");
             Console.WriteLine(@"          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
             Console.WriteLine(@"          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -58,7 +58,7 @@ namespace Views.OpcoesMascara
             Console.WriteLine(@"              ▐▀▄▄▄   ▄▄▄▀▌               ");
             Console.WriteLine(@"              ▐    ▀▀▀    ▌               ");
             Console.WriteLine(@"             ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
-            
+
             Console.WriteLine(@"           ▄▀▀▄▄         ▄▄▀▀▄            ");
             Console.WriteLine(@"          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
             Console.WriteLine(@"          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
