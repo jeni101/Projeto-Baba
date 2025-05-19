@@ -1,5 +1,6 @@
 using Services.Autenticacao;
 using Views.OpcoesMascara;
+using Confirmacao_de_saida;
 
 namespace Views.OpcoesAdministrador
 {
@@ -7,7 +8,9 @@ namespace Views.OpcoesAdministrador
     {
         public static void Display_Adm_Contas()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -28,46 +31,36 @@ namespace Views.OpcoesAdministrador
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Conta
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Edição de Conta
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Exclusão de Conta
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_Adm_Jogador()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -88,46 +81,36 @@ namespace Views.OpcoesAdministrador
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Jogador
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Edição de Jogador
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Exclusão de Jogador
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_Adm_Tecnico()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -148,46 +131,36 @@ namespace Views.OpcoesAdministrador
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Tecnico
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Edição de Tecnico
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Exclusão de Tecnico
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_Adm_Times()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -208,46 +181,36 @@ namespace Views.OpcoesAdministrador
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Times
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Edição de Times
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Exclusão de Times
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_Adm_Jogos()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -268,46 +231,36 @@ namespace Views.OpcoesAdministrador
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Jogos
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Edição de Jogos
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Exclusão de Jogos
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
         public static void Display_Adm_Partidas()
         {
-            while (true)
+            int[] validos = { 1, 2 };
+            bool sair = false;
+            while (!sair)
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -328,44 +281,32 @@ namespace Views.OpcoesAdministrador
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                switch (escolha)
+                int opcao = int.Parse(escolha ?? "");
+                switch (opcao)
                 {
-                    case "1":
+                    case 1:
                         //Linkar Função de Criação de Partidas
                         break;
 
-                    case "2":
+                    case 2:
                         //Linkar Função de Edição de Partidas
                         break;
 
-                    case "3":
+                    case 3:
                         //Linkar Função de Exclusão de Partidas
                         break;
 
-                    case "4":
+                    case 4:
                         //Linkar Função de Encerrar Partidas
                         break;
 
-                    case "0":
-                        Console.Write("Tem certeza que desejas sair? (S/N): ");
-                        string? confirmacao = Console.ReadLine();
-
-                        if (!string.IsNullOrEmpty(confirmacao) && confirmacao.Trim().ToUpper() == "S")
-                        {
-                            Console.WriteLine("Saindo da Conta...");
-                            return;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Comando Errado, Tente Novamente: ");
-                            Console.ReadKey();
-                        }
+                    case 0:
+                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        sair = true;
                         break;
 
                     default:
-                        Console.WriteLine("Comando Errado, Tente Novamente: ");
-                        Console.ReadKey();
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
