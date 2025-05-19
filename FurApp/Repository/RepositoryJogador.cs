@@ -5,19 +5,27 @@ using MySqlConnector;
 using Models.ContaApp.Usuario.Jogador;
 using Utils.Pelase.Leitor.Jogador;
 using Utils.Pelase.Argumentos.Jogador;
+using Repository.Database.Jogadores;
 
 namespace Repository.PersistenciaApp.Jogador
 {
     public class RepositoryJogador : ARepository<Conta_Jogador>
     {
+        private readonly DatabaseJogadores _dbSchema = new DatabaseJogadores();
         public RepositoryJogador() : base() { }
 
+        //Salvar jogador
         public async Task<bool> SalvarJogador(Conta_Jogador jogador)
         {
             try
             {
                 using var conn = Conectar();
                 await conn.OpenAsync();
+
+                if (!await _dbSchema.TabelaExiste(conn))
+                {
+                await _dbSchema.CriarTabelaAsync(conn);
+                }
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO jogadores (
@@ -46,6 +54,7 @@ namespace Repository.PersistenciaApp.Jogador
             }
         }
 
+        //Carregar jogador
         public async Task<List<Conta_Jogador>> CarregarTodos()
         {
             var jogadoresLista = new List<Conta_Jogador>();
@@ -75,6 +84,7 @@ namespace Repository.PersistenciaApp.Jogador
             return jogadoresLista;
         }
 
+        //Deletar Jogador
         public async Task<bool> Deletar(Guid id, string quemDeletou)
         {
             using var conn = Conectar();
