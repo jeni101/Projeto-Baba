@@ -18,6 +18,7 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
+
                 Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄            ");
                 Console.WriteLine(" |  -=-          Menu Administrador          -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
@@ -25,13 +26,13 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" |- Opções de Conta . . . . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀            ");
                 Console.WriteLine(" |- Opções de Jogador . . . . . . . . . . . |  2  |           ▐   ▄         ▄   ▌            ");
                 Console.WriteLine(" |- Opções de Técnico . . . . . . . . . . . |  3  |           ▐  ▐█▌       ▐█▌  ▌            ");
-                Console.WriteLine(" |- Opções de Arbitro . . . . . . . . . . . |  4  |           ▐   ▀   ▄▄▄   ▀   ▌            ");
-                Console.WriteLine(" |- Opções de Time  . . . . . . . . . . . . |  5  |            █    ▄ ▀█▀ ▄    █             ");
-                Console.WriteLine(" |- Opções de Jogo  . . . . . . . . . . . . |  6  |             ▀▄   ▀▀ ▀▀   ▄▀              ");
-                Console.WriteLine(" |- Opções de Partidas  . . . . . . . . . . |  7  |              ▐▀▄▄▄   ▄▄▄▀▌               ");
-                Console.WriteLine(" |__________________________________________|_____|              ▐    ▀▀▀    ▌               ");
-                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |             ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
-                Console.WriteLine(" |================================================|");
+                Console.WriteLine(" |- Opções de Time  . . . . . . . . . . . . |  4  |           ▐   ▀   ▄▄▄   ▀   ▌            ");
+                Console.WriteLine(" |- Opções de Jogo  . . . . . . . . . . . . |  5  |            █    ▄ ▀█▀ ▄    █             ");
+                Console.WriteLine(" |- Opções de Partidas  . . . . . . . . . . |  6  |             ▀▄   ▀▀ ▀▀   ▄▀              ");
+                Console.WriteLine(" |__________________________________________|_____|              ▐▀▄▄▄   ▄▄▄▀▌               ");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |              ▐    ▀▀▀    ▌               ");
+                Console.WriteLine(" |================================================|             ▐▀▄▄▀▀▄▄▄▀▀▄▄▀▌              ");
+
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
@@ -50,18 +51,14 @@ namespace Views.OpcoesContas
                         break;
 
                     case "4":
-                        // Vou linkar MENU de Opções de Arbitro
-                        break;
-
-                    case "5":
                         // Vou linkar MENU de Opções de Times
                         break;
 
-                    case "6":
+                    case "5":
                         // Vou linkar MENU de Opções de Jogos
                         break;
 
-                    case "7":
+                    case "6":
                         // Vou linkar MENU de Opções de Partidas
                         break;
 
