@@ -125,4 +125,5 @@ Versions:
         -00.5.0.0.0.0.0.012 (Sintax e Posições FrontEnd Organizadas)
         -00.5.0.0.0.0.0.013 (Exclusão de repositorys Inutilizados)
         -00.5.0.0.0.0.0.014 (Async register/null-safe)
-        -00.5.0.0.0.0.0.015 (Jogos reborn)
+        -00.5.0.0.0.0.0.015 (Jogos comeback)
+        -00.5.0.0.0.0.0.015.1 (Jogos reparation)

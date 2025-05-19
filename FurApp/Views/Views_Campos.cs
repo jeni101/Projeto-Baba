@@ -1,7 +1,7 @@
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
-using JogosApp;
+using Models.JogosApp;
 using Controle_de_execoesApp;
 using Confirmacao_de_saida;
 
@@ -98,7 +98,7 @@ namespace Views_Campos
 
                 if (int.TryParse(escolha, out int escolhaInt) && validos.Contains(escolhaInt))
                 {
-                    Jogos jogo = new Jogos(
+                    Jogo jogo = new Jogo(
                         DateOnly.FromDateTime(DateTime.Today),
                         TimeOnly.FromDateTime(DateTime.Now),
                         "Campo a Definir",

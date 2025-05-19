@@ -4,7 +4,7 @@ using Models.ContaApp;
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
-using JogosApp;
+using Models.JogosApp;
 
 namespace Views.Contas
 {
