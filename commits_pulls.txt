@@ -133,4 +133,5 @@ Versions:
         -00.5.0.0.0.0.0.019 (Posicao improvement)
         -00.5.0.0.0.0.0.020 (Novo Case"0" Implementado)
         -00.5.0.0.0.0.0.021 (Frases do mascote e Correcao de erros implementados)
-        -00.5.0.0.0.0.0.022 (Login => Auth services)
+        -00.5.0.0.0.0.0.022 (Animação de Saída Implementada com Sucesso!)
+        -00.5.0.0.0.0.0.023 (Login => Auth services)
