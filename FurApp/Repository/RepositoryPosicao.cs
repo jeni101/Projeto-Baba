@@ -76,7 +76,36 @@ namespace Repository.PersistenciaApp.Posicoes
 
             return posicoesLista;
         }
+        
+        //Pegar por nome
+        public override async Task<Posicao?> GetByNameAsync(string nome)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
 
+                using var cmd = new MySqlCommand("SELECT * FROM posicoes WHERE Nome = @nome", conn);
+
+                cmd.Parameters.AddWithValue("@nome", nome);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                return await reader.ReadAsync()
+                    ? LeitorDePosicao.LerPosicao(reader)
+                    : null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null;
+        }
 
     }
 }

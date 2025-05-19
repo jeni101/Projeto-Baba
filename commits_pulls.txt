@@ -136,3 +136,4 @@ Versions:
         -00.5.0.0.0.0.0.022 (Animação de Saída Implementada com Sucesso!)
         -00.5.0.0.0.0.0.023 (Login => Auth services)
         -00.5.0.0.0.0.0.024 (Register & login linking)
+        -00.5.0.0.0.0.0.024.1 (Repository remake errors)

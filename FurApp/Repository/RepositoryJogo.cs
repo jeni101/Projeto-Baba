@@ -98,5 +98,10 @@ namespace Repository.PersistenciaApp.Jogos
 
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
+
+        public override async Task<Jogo?> GetByNameAsync(string nome)
+        {
+            return null;
+        }
     }
 }
