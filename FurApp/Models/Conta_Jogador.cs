@@ -1,5 +1,6 @@
 using Models.ContaApp.Usuario;
 using Interfaces.IJogador;
+using JogosApp;
 
 namespace Models.ContaApp.Usuario.Jogador
 {
@@ -9,9 +10,9 @@ namespace Models.ContaApp.Usuario.Jogador
         public string Time { get; private set; }
         public int Gols { get; private set; }
         public int Assistencias { get; private set; }
-        public List<string> Eventos { get; private set; } 
-        public List<string> Jogos { get; private set; } 
-        public List<string> Partidas { get; private set; } 
+        public List<string> Eventos { get; private set; }
+        public List<string> Jogos { get; private set; }
+        public List<string> Partidas { get; private set; }
 
         //Construtor padrão
         public Conta_Jogador(
@@ -19,12 +20,12 @@ namespace Models.ContaApp.Usuario.Jogador
             string senha,
             int idade,
             string posicao)
-            : base (nome, senha, idade)
+            : base(nome, senha, idade)
         {
             Time = string.Empty;
             Posicao = posicao;
-            Eventos = new List<string>();  
-            Jogos = new List<string>();    
+            Eventos = new List<string>();
+            Jogos = new List<string>();
             Partidas = new List<string>();
         }
 
@@ -99,6 +100,43 @@ namespace Models.ContaApp.Usuario.Jogador
         public void Adicionar_Assistencia()
         {
             Assistencias++;
+        }
+
+        //Interesses
+        public void EntrarComoInteressado(Jogos interesse)
+        {
+            if (interesse == null)
+            {
+                Console.WriteLine("Jogo inválido");
+                return;
+            }
+
+            if (interesse.AdicionarInteressado(this))
+            {
+                Console.WriteLine($"Você está interessado no jogo em {interesse.Data}");
+            }
+            else
+            {
+                Console.WriteLine("Você já demonstrou interesse");
+            }
+        }
+
+        public void SairComoInteressado(Jogos interesse)
+        { 
+           if (interesse == null)
+            {
+                Console.WriteLine("Jogo inválido");
+                return;
+            }
+
+            if (interesse.AdicionarInteressado(this))
+            {
+                Console.WriteLine($"Você não está mais interessado no jogo em {interesse.Data}");
+            }
+            else
+            {
+                Console.WriteLine("Você não estava interessado");
+            } 
         }
     }
 }

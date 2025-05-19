@@ -24,7 +24,7 @@ namespace Repository.PersistenciaApp.Jogador
 
                 if (!await _dbSchema.TabelaExiste(conn))
                 {
-                await _dbSchema.CriarTabelaAsync(conn);
+                    await _dbSchema.CriarTabelaAsync(conn);
                 }
 
                 var cmd = new MySqlCommand(@"
@@ -32,7 +32,7 @@ namespace Repository.PersistenciaApp.Jogador
                         Id, Nome, SenhaHash, Idade, Posicao, Saldo, Time, Gols, Assistencias, Interesses, Amistosos)
                     VALUES (
                         @id, @nome, @senhaHash, @idade, @posicao, @saldo, @time, @gols, @assistencias, @interesses, @amistosos)
-                    ON DUPLICATE KEY UPDADE
+                    ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         SenhaHash = @senhaHash,
                         Idade = @idade,
@@ -85,7 +85,7 @@ namespace Repository.PersistenciaApp.Jogador
         }
 
         //Deletar Jogador
-        public async Task<bool> Deletar(Guid id, string quemDeletou)
+        public async Task<bool> DeletarJogador(Guid id, string quemDeletou)
         {
             using var conn = Conectar();
             await conn.OpenAsync();
