@@ -20,9 +20,9 @@ class Program
         );
 
 
-        var viewsDeCampos = new Views_De_Campos(conta, 0);
+        var viewsDeCampos = new Views_De_Campos(conta);
         View_Inicial.Display_Mascara01();
-        //viewsDeCampos.DisplayMenu();
+        viewsDeCampos.DisplayMenu();
 
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");

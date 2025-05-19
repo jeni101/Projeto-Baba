@@ -55,7 +55,7 @@ namespace Models.JogosApp
 
         public void Alterar_Local()
         {
-            string novoLocal = Console.ReadLine();
+            string novoLocal = Console.ReadLine() ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(novoLocal))
             {
                 Local = novoLocal;
@@ -64,7 +64,7 @@ namespace Models.JogosApp
 
         public void Alterar_Tipo_De_Campo()
         {
-            string novoTipo = Console.ReadLine();
+            string novoTipo = Console.ReadLine() ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(novoTipo))
             {
                 TipoDeCampo = novoTipo;

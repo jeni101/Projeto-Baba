@@ -12,10 +12,10 @@ namespace Views_Campos
         private Conta_Jogador contaLogada;
         private int Contador_de_erros = 0;
 
-        public Views_De_Campos(Conta_Jogador conta, int contador_de_erros)
+        public Views_De_Campos(Conta_Jogador conta)
         {
             contaLogada = conta;
-            Contador_de_erros = contador_de_erros;
+            
 
         }
 
@@ -88,10 +88,7 @@ namespace Views_Campos
 
                 }, escolha ?? "", ref Contador_de_erros);
 
-                if (!HouveErro)
-                {
-                    Contador_de_erros = 0; //reseta o contador se n houver erro
-                }
+            
 
                 if (sair)
                     break; // Sai do while se escolheu 0

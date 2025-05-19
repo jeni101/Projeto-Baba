@@ -128,3 +128,14 @@ Versions:
         -00.5.0.0.0.0.0.015 (Jogos comeback)
         -00.5.0.0.0.0.0.015.1 (Jogos reparation)
         -00.5.0.0.0.0.0.016 (Mascara e Menus Administrador Completos)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        -00.5.0.0.0.0.0.025 (Refatoracao: centraliza lógica de contagem de erros e simplifica tratamento de exceções)
