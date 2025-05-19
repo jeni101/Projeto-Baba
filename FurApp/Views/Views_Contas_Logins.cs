@@ -26,10 +26,10 @@ namespace Views.Contas
                 Console.WriteLine(" |  -=-           Opções de Login            -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|        . ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
                 Console.WriteLine(" |- Novo Usuário  . . . . . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀      .     ");
-                Console.WriteLine(" |- Usuário Existente . . . . . . . . . . . |  2  |     .     ▐   ▄         ▄   ▌            ");
-                Console.WriteLine(" |__________________________________________|_____|       .   ▐  ▐▀▌       ▐▀▌  ▌            ");
-                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |     .     ▐       ▄▄▄       ▌         .  ");
-                Console.WriteLine(" |================================================|.           █    ▄ ▀█▀ ▄    █   .         ");
+                Console.WriteLine(" |- Usuário Existente . . . . . . . . . . . |  2  |     .     ▐   ▄         ▄   ▌  Olá! Seja ");
+                Console.WriteLine(" |__________________________________________|_____|       .   ▐  ▐▀▌       ▐▀▌  ▌Bem-Vindo(a)");
+                Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |     .     ▐       ▄▄▄       ▌ ao FurApp! ");
+                Console.WriteLine(" |================================================|.           █    ▄ ▀█▀ ▄    █    ╯        ");
                 Console.WriteLine("  .          .                       .                          ▀▄   ▀███▀   ▄▀   .          ");
                 Console.WriteLine("                    .                                     .      ▐▀▄▄▄   ▄▄▄▀▌          .    ");
                 Console.WriteLine("      .                    .                 .                   ▐    ▀▀▀    ▌               ");
