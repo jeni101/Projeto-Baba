@@ -47,7 +47,7 @@ namespace Views.OpcoesAdministrador
                         break;
 
                     case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        Confirmacao.ExibirMensagemVoltando(ref opcao);
                         sair = true;
                         break;
 
@@ -97,7 +97,7 @@ namespace Views.OpcoesAdministrador
                         break;
 
                     case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        Confirmacao.ExibirMensagemVoltando(ref opcao);
                         sair = true;
                         break;
 
@@ -147,7 +147,7 @@ namespace Views.OpcoesAdministrador
                         break;
 
                     case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        Confirmacao.ExibirMensagemVoltando(ref opcao);
                         sair = true;
                         break;
 
@@ -197,7 +197,7 @@ namespace Views.OpcoesAdministrador
                         break;
 
                     case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        Confirmacao.ExibirMensagemVoltando(ref opcao);
                         sair = true;
                         break;
 
@@ -247,7 +247,7 @@ namespace Views.OpcoesAdministrador
                         break;
 
                     case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        Confirmacao.ExibirMensagemVoltando(ref opcao);
                         sair = true;
                         break;
 
@@ -301,7 +301,7 @@ namespace Views.OpcoesAdministrador
                         break;
 
                     case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
+                        Confirmacao.ExibirMensagemVoltando(ref opcao);
                         sair = true;
                         break;
 
