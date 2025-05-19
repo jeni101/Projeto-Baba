@@ -1,6 +1,6 @@
 using Models.ContaApp.Usuario;
 using Interfaces.IJogador;
-using JogosApp;
+using Models.JogosApp;
 
 namespace Models.ContaApp.Usuario.Jogador
 {
@@ -103,7 +103,7 @@ namespace Models.ContaApp.Usuario.Jogador
         }
 
         //Interesses
-        public void EntrarComoInteressado(Jogos interesse)
+        public void EntrarComoInteressado(Jogo interesse)
         {
             if (interesse == null)
             {
@@ -121,7 +121,7 @@ namespace Models.ContaApp.Usuario.Jogador
             }
         }
 
-        public void SairComoInteressado(Jogos interesse)
+        public void SairComoInteressado(Jogo interesse)
         { 
            if (interesse == null)
             {
