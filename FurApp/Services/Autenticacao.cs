@@ -6,8 +6,13 @@ namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
+        //Instaciador
         public static Autenticador Instancia { get; } = new Autenticador();
+
+        //Atributos
         private Conta? _contaLogada;
+
+        //Login
         public bool Login(Conta conta, string senha)
         {
             if (conta == null || string.IsNullOrWhiteSpace(senha))
@@ -27,6 +32,7 @@ namespace Services.Autenticacao
             return logado;
         }
 
+        //Logout
         public void Logout(Conta? conta)
         {
             if (conta == null || _contaLogada == null)
@@ -39,6 +45,7 @@ namespace Services.Autenticacao
             _contaLogada = null;
         }
 
+        //Pegar nome
         public string PegarNomeConta() => _contaLogada?.Nome ?? "Nenhum usuário logado";
     }
 }
