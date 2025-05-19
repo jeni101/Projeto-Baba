@@ -6,6 +6,7 @@ namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
+        public static Autenticador Instancia { get; } = new Autenticador();
         private Conta _contaLogada;
         public bool Login(Conta conta, string senha)
         {

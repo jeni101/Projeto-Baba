@@ -18,7 +18,7 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {Autenticador.PegarNomeConta()}!\n");
+                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
                 Console.WriteLine(".________________________________________________.  ▄▀▀▄▄         ▄▄▀▀▄ ");
                 Console.WriteLine("|  -=-          Menu Administrador          -=-  | ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌");
                 Console.WriteLine("|================================================| ▐  ▄▀ ▄       ▄ ▀▄  ▌");
@@ -93,7 +93,7 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
                 Console.WriteLine(".________________________________________________.");
                 Console.WriteLine("|  -=-             Menu Arbitro             -=-  |");
                 Console.WriteLine("|================================================|");
@@ -148,7 +148,7 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
                 Console.WriteLine(".________________________________________________.");
                 Console.WriteLine("|  -=-             Menu Jogador             -=-  |");
                 Console.WriteLine("|================================================|");
@@ -208,7 +208,7 @@ namespace Views.OpcoesContas
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"Olá, {contaLogada.Nome}!\n");
+                Console.WriteLine($"Olá, {Autenticador.Instancia.PegarNomeConta()}!\n");
                 Console.WriteLine(".________________________________________________.");
                 Console.WriteLine("|  -=-             Menu Tecnico             -=-  |");
                 Console.WriteLine("|================================================|");
