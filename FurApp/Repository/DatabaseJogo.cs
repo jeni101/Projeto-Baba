@@ -8,7 +8,7 @@ namespace Repository.Database.Jogos
         public override string NomeTabela => "jogos";
 
         public override string ScriptCriacao => @"
-            CREATE TABLE IF NOT EXISTS jogados (
+            CREATE TABLE IF NOT EXISTS jogos (
                 id CHAR(36) PRIMARY KEY,
                 Data DATE NOT NULL,
                 Hora TIME NOT NULL,
