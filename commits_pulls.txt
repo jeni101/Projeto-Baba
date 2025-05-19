@@ -110,3 +110,17 @@ Versions:
 
     -0.000.05
         -00.5.0.0.0.0.0.001 (Version start commit)
+        -00.5.0.0.0.0.0.002 (O mascote Chegou)
+        -00.5.0.0.0.0.0.003 (RepositoryJogador completed)
+        -00.5.0.0.0.0.0.004 (Imprementações na Interface de Administrador)
+        -00.5.0.0.0.0.0.005 (Static void error)
+        -00.5.0.0.0.0.0.006 (Correcao de Erros)
+        -00.5.0.0.0.0.0.007 (Auth services)
+        -00.5.0.0.0.0.0.007.1 (Bugs Visuais e Operacionais)        
+        -00.5.0.0.0.0.0.008 (Implementacao do caso 0)
+        -00.5.0.0.0.0.0.008.1 (Merge branch 'dev' into Jeni)
+        -00.5.0.0.0.0.0.009 (Database repository jogador)
+        -00.5.0.0.0.0.0.010 (Database repository tecnico)
+        -00.5.0.0.0.0.0.011 (Opções de Contas Completas)
+        -00.5.0.0.0.0.0.012 (Sintax e Posições FrontEnd Organizadas)
+        -00.5.0.0.0.0.0.013 (Exclusão de repositorys Inutilizados)

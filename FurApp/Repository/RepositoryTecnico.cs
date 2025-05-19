@@ -2,20 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MySqlConnector;
-using Models.ContaApp.Usuario.Jogador;
-using Utils.Pelase.Leitor.Jogador;
-using Utils.Pelase.Argumentos.Jogador;
-using Repository.Database.Jogadores;
+using Models.ContaApp.Usuario.Tecnico;
+using Utils.Pelase.Leitor.Tecnico;
+using Utils.Pelase.Argumentos.Tecnico;
+using Repository.Database.Tecnicos;
 
-namespace Repository.PersistenciaApp.Jogador
+namespace Repository.PersistenciaApp.Tecnico
 {
-    public class RepositoryJogador : ARepository<Conta_Jogador>
+    public class RepositoryTecnico : ARepository<Conta_Tecnico>
     {
-        private readonly DatabaseJogadores _dbSchema = new DatabaseJogadores();
-        public RepositoryJogador() : base() { }
+        private readonly DatabaseTecnicos _dbSchema = new DatabaseTecnicos();
+        public RepositoryTecnico() : base() { }
 
-        //Salvar jogador
-        public async Task<bool> SalvarJogador(Conta_Jogador jogador)
+        //Salvar tecnico
+        public async Task<bool> SalvarTecnico(Conta_Tecnico tecnico)
         {
             try
             {
@@ -28,23 +28,21 @@ namespace Repository.PersistenciaApp.Jogador
                 }
 
                 var cmd = new MySqlCommand(@"
-                    INSERT INTO jogadores (
-                        Id, Nome, SenhaHash, Idade, Posicao, Saldo, Time, Gols, Assistencias, Interesses, Amistosos)
-                    VALUES (
-                        @id, @nome, @senhaHash, @idade, @posicao, @saldo, @time, @gols, @assistencias, @interesses, @amistosos)
-                    ON DUPLICATE KEY UPDADE
+                    INSERT INTO tecnicos (
+                        Id, Nome, SenhaHash, Idade, Saldo, Interesses, Amistosos, Time
+                    ) VALUES (
+                        @id, @nome, @senhaHash, @idade, @saldo, @interesses, @amistosos, @time
+                    )
+                    ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         SenhaHash = @senhaHash,
                         Idade = @idade,
-                        Posicao = @posicao,
                         Saldo = @saldo,
-                        Time = @time, 
-                        Gols = @gols,
-                        Assistencias = @assistencias,
                         Interesses = @interesses,
-                        Amistosos = @amistosos", conn);
+                        Amistosos = @amistosos,
+                        Time = @time", conn);
 
-                ArgumentosJogador.PreencherParametros(cmd, jogador);
+                ArgumentosTecnico.PreencherParametros(cmd, tecnico);
                 return await cmd.ExecuteNonQueryAsync() > 0;
             }
             catch (Exception ex)
@@ -54,22 +52,22 @@ namespace Repository.PersistenciaApp.Jogador
             }
         }
 
-        //Carregar jogador
-        public async Task<List<Conta_Jogador>> CarregarTodos()
+        //Carregar tecnico
+        public async Task<List<Conta_Tecnico>> CarregarTodos()
         {
-            var jogadoresLista = new List<Conta_Jogador>();
+            var tecnicosLista = new List<Conta_Tecnico>();
 
             try
             {
                 using var conn = Conectar();
                 await conn.OpenAsync();
 
-                using var cmd = new MySqlCommand("SELECT * FROM jogadores WHERE deletado = 0", conn);
+                using var cmd = new MySqlCommand("SELECT * FROM tecnicos WHERE deletado = 0", conn);
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
                 {
-                    jogadoresLista.Add(LeitorDeJogador.LerJogador(reader));
+                    tecnicosLista.Add(LeitorDeTecnico.LerTecnico(reader));
                 }
             }
             catch (MySqlException ex)
@@ -81,17 +79,17 @@ namespace Repository.PersistenciaApp.Jogador
                 Console.WriteLine(ex.Message);
             }
 
-            return jogadoresLista;
+            return tecnicosLista;
         }
 
-        //Deletar Jogador
+        //Deletar Tecnico
         public async Task<bool> Deletar(Guid id, string quemDeletou)
         {
             using var conn = Conectar();
             await conn.OpenAsync();
 
             var cmd = new MySqlCommand(@"
-                UPDATE jogadores
+                UPDATE tecnicos
                 SET Deletado = 1,
                     DataDelecao = NOW(),
                     QuemDeletou = @quemDeletou

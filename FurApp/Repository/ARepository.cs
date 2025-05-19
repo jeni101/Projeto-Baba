@@ -12,7 +12,7 @@ namespace Repository.PersistenciaApp
     {
         private bool _disposed = false;
         protected readonly string _connStr;
-        protected ARepository(string connStr = null)
+        protected ARepository(string? connStr = null)
         {
             _connStr = connStr ?? ConectarPorPadrao();
         }

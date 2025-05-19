@@ -4,7 +4,7 @@ using Models.ContaApp;
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Tecnico;
 using Models.ContaApp.Usuario.Jogador;
-using PersistenciaApp;
+using Repository.PersistenciaApp;
 using System.Reflection.Metadata;
 using Services.Login;
 using Services.Senha;

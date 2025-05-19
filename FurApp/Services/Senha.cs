@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Utils.CensuradorDeSenha;
+using Utils.Pelase.CensuradorDeSenha;
 
 namespace Services.Senha
 {
