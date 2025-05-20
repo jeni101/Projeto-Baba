@@ -20,9 +20,9 @@ namespace Views.Contas
         {
             int[] validos = { 1, 2 };
             bool sair = false;
-            int Contador_de_erros = 0;
+            int contador_de_erros = 0;
 
-            while (!sair)
+            while (!sair) //aqui pode só ser true
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
@@ -43,7 +43,9 @@ namespace Views.Contas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
+                //Transformei em var para não considerar como false ou true quando a opção funcionar
+                //ps.: Se quiser ser mais expecifico, chame de ExecutarComTratamentoAsync, aqui e na funcao, pela boa prática
+               var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
@@ -57,16 +59,15 @@ namespace Views.Contas
                             break;
 
                         case 0:
-                            Confirmacao.ExibirMensagemSaida(ref opcao);
+                            Confirmacao.ExibirMensagemSaida(ref opcao); //Se quiser, faz uma "opcaoSaida" para não congestionar
                             sair = true;
                             break;
 
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }, escolha ?? "", ref Contador_de_erros);
-                if (sair)
-                    break;
+                }, escolha ?? "", contador_de_erros);
+                if (sair) break; //Deixei em uma linha só, mas vai de sua escolha
             }
         }
     }

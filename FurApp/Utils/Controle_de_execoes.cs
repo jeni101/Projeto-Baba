@@ -1,6 +1,7 @@
 using System;
 using Views_Campos;
 
+//Utils são estáticos, verifica depois se não é melhor isso ser um Services
 namespace Controle_de_execoesApp
 {
     public class ControleDeExecoes // classe para o tratamento de execoes base, obs: tentar adaptar p funcionar com o database
@@ -12,17 +13,16 @@ namespace Controle_de_execoesApp
             Contador_de_erros = contador_de_erros;
         }
 
-        public static bool ExecutarComTratamento(Action acao, string escolha, ref int contador_de_erros) // Executa a ação passada, tratando possíveis erros relacionados ao valor da variável "escolha".
+        public static async Task<(bool HouveErro, int ContadorDeErros)> ExecutarComTratamento(Func<Task> acao, string escolha, int contadorAtual) // Executa a ação passada, tratando possíveis erros relacionados ao valor da variável "escolha".
         {
             try
             {
-                acao();
-                contador_de_erros = 0; // reseta o contador se n houver erro
-                return false;
+                await acao();
+                return (false, 0); //reseta contador
             }
             catch (Exception ex) 
             {
-                contador_de_erros++;
+                int novoContador = contadorAtual + 1;
                 if (ex is ArgumentOutOfRangeException) // verifica se é uma entrada dentro do intervalo
                 {
                     Console.WriteLine("Erro: Escolha fora das opções validas. Tente novamente.\n");
@@ -47,23 +47,23 @@ namespace Controle_de_execoesApp
                     Console.WriteLine("Pressione qualquer tecla para continuar...");
                     Console.ReadKey();
                 }
-                if (contador_de_erros ==2 || contador_de_erros ==3)
+                //Mensagens de erro *Coloridinhas
+                if (contadorAtual == 2 || contadorAtual == 3)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Presta atenção abestado, assim num pode não!");
                     Console.ReadKey();
                     Console.ResetColor();
-
                 }
-                else if (contador_de_erros ==4)
+                else if (contadorAtual == 4)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Cara..... precisa de ajuda?");
                     Console.ReadKey();
                     Console.ResetColor(); // resetando a cor 
                 }
-                else if (contador_de_erros == 7)
+                else if (contadorAtual == 7)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Ainda por aqui amigo? .... Como vai a vida?");
@@ -71,7 +71,7 @@ namespace Controle_de_execoesApp
                     Console.ResetColor();
                 }
 
-                else if (contador_de_erros == 10)
+                else if (contadorAtual == 10)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("Rapaz......Tenso......");
@@ -79,8 +79,7 @@ namespace Controle_de_execoesApp
                     Console.ResetColor();
                 }
                 
-                return true;
-
+                return (true, novoContador);
             }
         }
     }
