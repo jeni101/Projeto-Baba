@@ -10,6 +10,7 @@ using Services.Register;
 using Views.OpcoesMascara;
 using Confirmacao_de_saida;
 using System.Threading.Tasks;
+using Controle_de_execoesApp;
 
 namespace Views.Contas
 {
@@ -19,6 +20,8 @@ namespace Views.Contas
         {
             int[] validos = { 1, 2 };
             bool sair = false;
+            int Contador_de_erros = 0;
+
             while (!sair)
             {
                 Console.Clear();
@@ -40,25 +43,30 @@ namespace Views.Contas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                int opcao = int.Parse(escolha ?? "");
-                switch (opcao)
+                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
                 {
-                    case 1:
-                        await Registro.Instancia.RegistrarAsync();
-                        break;
+                    int opcao = int.Parse(escolha ?? "");
+                    switch (opcao)
+                    {
+                        case 1:
+                            await Registro.Instancia.RegistrarAsync();
+                            break;
 
-                    case 2:
-                        await Autenticador.Instancia.LoginAsync();
-                        break;
+                        case 2:
+                            await Autenticador.Instancia.LoginAsync();
+                            break;
 
-                    case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
-                        sair = true;
-                        break;
+                        case 0:
+                            Confirmacao.ExibirMensagemSaida(ref opcao);
+                            sair = true;
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }, escolha ?? "", ref Contador_de_erros);
+                if (sair)
+                    break;
             }
         }
     }
