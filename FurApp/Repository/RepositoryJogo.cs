@@ -101,7 +101,7 @@ namespace Repository.PersistenciaApp.Jogos
 
         public override async Task<Jogo?> GetByNameAsync(string nome)
         {
-            return null;
+            throw new NotSupportedException("Jogos não possuem pesquisa por nome nessa implementação");
         }
     }
 }
