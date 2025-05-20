@@ -20,7 +20,7 @@ class Program
         );
 
 
-        var viewsDeCampos = new Views_De_Campos(conta, 0);
+        var viewsDeCampos = new Views_De_Campos(conta);
         Views_De_OpcoesContas.Display_MenuAdministrador();
         // viewsDeCampos.DisplayMenu();
 

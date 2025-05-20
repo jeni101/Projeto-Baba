@@ -5,14 +5,22 @@ namespace Controle_de_execoesApp
 {
     public class ControleDeExecoes // classe para o tratamento de execoes base, obs: tentar adaptar p funcionar com o database
     {
+        private int Contador_de_erros = 0;
+
+        public ControleDeExecoes(int contador_de_erros)
+        {
+            Contador_de_erros = contador_de_erros;
+        }
+
         public static bool ExecutarComTratamento(Action acao, string escolha, ref int contador_de_erros) // Executa a ação passada, tratando possíveis erros relacionados ao valor da variável "escolha".
         {
             try
             {
                 acao();
+                contador_de_erros = 0; // reseta o contador se n houver erro
                 return false;
             }
-            catch (Exception ex) // inplementar um so p miss click ou é perda de tempo?
+            catch (Exception ex) 
             {
                 contador_de_erros++;
                 if (ex is ArgumentOutOfRangeException) // verifica se é uma entrada dentro do intervalo
@@ -53,7 +61,7 @@ namespace Controle_de_execoesApp
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Cara..... precisa de ajuda?");
                     Console.ReadKey();
-                    Console.ResetColor(); // resentdo a cor 
+                    Console.ResetColor(); // resetando a cor 
                 }
                 else if (contador_de_erros == 7)
                 {
@@ -70,8 +78,9 @@ namespace Controle_de_execoesApp
                     Console.ReadKey();
                     Console.ResetColor();
                 }
-
+                
                 return true;
+
             }
         }
     }
