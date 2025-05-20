@@ -4,7 +4,7 @@ using MySqlConnector;
 using Views_Campos;
 using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
 using Controle_de_execoesApp;
-using Views.OpcoesMascara;
+using Views.OpcoesContas;
 
 
 class Program
@@ -21,8 +21,8 @@ class Program
 
 
         var viewsDeCampos = new Views_De_Campos(conta);
-        View_Inicial.Display_Mascara01();
-        viewsDeCampos.DisplayMenu();
+        Views_De_OpcoesContas.Display_MenuAdministrador();
+        // viewsDeCampos.DisplayMenu();
 
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");

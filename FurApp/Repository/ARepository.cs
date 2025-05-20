@@ -64,6 +64,7 @@ namespace Repository.PersistenciaApp
             }
         }
 
+        public abstract Task<T?> GetByNameAsync(string nome);
         public async Task DeleteAsync(int id)
         {
             using (var conn = Conectar())

@@ -3,8 +3,10 @@ namespace Interfaces.IAutenticacao;
 
 interface IAutenticacao
 {
-    bool Login(Conta conta, string senha);
-    void Logout(Conta conta);
-    string PegarNomeConta();
+    Task<bool> LoginAsync();
+    Task<bool> LoginAsync(string nome, string senha);
+    void Logout();
+    string? PegarNomeConta();
+    Conta? PegarContaLogada();
 
 }

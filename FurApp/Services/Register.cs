@@ -6,7 +6,6 @@ using Models.ContaApp.Usuario.Tecnico;
 using Models.ContaApp.Usuario.Jogador;
 using Repository.PersistenciaApp;
 using System.Reflection.Metadata;
-using Services.Login;
 using Services.Senha;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
@@ -15,11 +14,14 @@ namespace Services.Register
 {
     public class Registro
     {
+        //Instanciador
+        public static Registro Instancia { get; } = new Registro();
+
         //Atributos
         private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
         private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
 
-        //Funcoes
+        //Registro geral
         public async Task RegistrarAsync()
         {
             Console.WriteLine("Nome :");
@@ -79,6 +81,7 @@ namespace Services.Register
             }
         }
 
+        //Registrar Jogador
         private async Task RegistrarJogadorAsync(string nome, string senha, int idade)
         {
             var jogador = new Conta_Jogador(
@@ -92,6 +95,7 @@ namespace Services.Register
             Console.WriteLine("Conta jogador criada  com sucesso");
         }
 
+        //Registrar Tecnico
         private async Task RegistrarTecnicoAsync(string nome, string senha, int idade)
         {
             var tecnico = new Conta_Tecnico(
