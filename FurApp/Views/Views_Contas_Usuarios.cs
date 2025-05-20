@@ -9,6 +9,7 @@ using Views.OpcoesAdministrador;
 using Services.Autenticacao;
 using Views.OpcoesMascara;
 using Confirmacao_de_saida;
+using Controle_de_execoesApp;
 
 namespace Views.OpcoesContas
 {
@@ -18,6 +19,8 @@ namespace Views.OpcoesContas
         {
             int[] validos = { 1, 2, 3, 4, 5, 6 };
             bool sair = false;
+            int Contador_de_erros = 0;
+
             while (!sair)
             {
                 Console.Clear();
@@ -40,47 +43,54 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                int opcao = int.Parse(escolha ?? "");
-                switch (opcao)
+                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
                 {
-                    case 1:
-                        Views_Administrador.Display_Adm_Contas();
-                        break;
+                    int opcao = int.Parse(escolha ?? "");
+                    switch (opcao)
+                    {
+                        case 1:
+                            Views_Administrador.Display_Adm_Contas();
+                            break;
 
-                    case 2:
-                        Views_Administrador.Display_Adm_Jogador();
-                        break;
+                        case 2:
+                            Views_Administrador.Display_Adm_Jogador();
+                            break;
 
-                    case 3:
-                        Views_Administrador.Display_Adm_Tecnico();
-                        break;
+                        case 3:
+                            Views_Administrador.Display_Adm_Tecnico();
+                            break;
 
-                    case 4:
-                        Views_Administrador.Display_Adm_Times();
-                        break;
+                        case 4:
+                            Views_Administrador.Display_Adm_Times();
+                            break;
 
-                    case 5:
-                        Views_Administrador.Display_Adm_Jogos();
-                        break;
+                        case 5:
+                            Views_Administrador.Display_Adm_Jogos();
+                            break;
 
-                    case 6:
-                        Views_Administrador.Display_Adm_Partidas();
-                        break;
+                        case 6:
+                            Views_Administrador.Display_Adm_Partidas();
+                            break;
 
-                    case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
-                        sair = true;
-                        break;
+                        case 0:
+                            Confirmacao.ExibirMensagemSaida(ref opcao);
+                            sair = true;
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }, escolha ?? "", ref Contador_de_erros);
+                if (sair)
+                    break;
             }
         }
         public static void Display_MenuJogador()
         {
             int[] validos = { 1, 2, 3, 4 };
             bool sair = false;
+            int Contador_de_erros = 0;
+
             while (!sair)
             {
                 Console.Clear();
@@ -102,39 +112,46 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                int opcao = int.Parse(escolha ?? "");
-                switch (opcao)
+                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
                 {
-                    case 1:
-                        //linkar Função de ExibirPerfil do Jogador
-                        break;
+                    int opcao = int.Parse(escolha ?? "");
+                    switch (opcao)
+                    {
+                        case 1:
+                            //linkar Função de ExibirPerfil do Jogador
+                            break;
 
-                    case 2:
-                        // linkar Função de Entrar em um time
-                        break;
+                        case 2:
+                            // linkar Função de Entrar em um time
+                            break;
 
-                    case 3:
-                        // Vou linkar MENU de Informações de Partidas
-                        break;
+                        case 3:
+                            // Vou linkar MENU de Informações de Partidas
+                            break;
 
-                    case 4:
-                        // Vou linkar MENU de Opções Adicionais
-                        break;
+                        case 4:
+                            // Vou linkar MENU de Opções Adicionais
+                            break;
 
-                    case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
-                        sair = true;
-                        break;
+                        case 0:
+                            Confirmacao.ExibirMensagemSaida(ref opcao);
+                            sair = true;
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }, escolha ?? "", ref Contador_de_erros);
+                if (sair)
+                    break;
             }
         }
         public static void Display_MenuTecnico()
         {
             int[] validos = { 1, 2, 3, 4 };
             bool sair = false;
+            int Contador_de_erros = 0;
+
             while (!sair)
             {
                 Console.Clear();
@@ -155,34 +172,39 @@ namespace Views.OpcoesContas
                 Console.WriteLine("       .            .             .          .            .            .           .         ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
-
-                int opcao = int.Parse(escolha ?? "");
-                switch (opcao)
+                
+                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
                 {
-                    case 1:
-                        //Linkar Função de ExibirPerfil do tecnico
-                        break;
+                    int opcao = int.Parse(escolha ?? "");
+                    switch (opcao)
+                    {
+                        case 1:
+                            //Linkar Função de ExibirPerfil do tecnico
+                            break;
 
-                    case 2:
-                        //Linkar Função de Gerenciamento/Criação de Time
-                        break;
+                        case 2:
+                            //Linkar Função de Gerenciamento/Criação de Time
+                            break;
 
-                    case 3:
-                        //Linkar Função de Criação/Entrada em Jogos
-                        break;
+                        case 3:
+                            //Linkar Função de Criação/Entrada em Jogos
+                            break;
 
-                    case 4:
-                        //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
-                        break;
+                        case 4:
+                            //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
+                            break;
 
-                    case 0:
-                        Confirmacao.ExibirMensagemSaida(ref opcao);
-                        sair = true;
-                        break;
+                        case 0:
+                            Confirmacao.ExibirMensagemSaida(ref opcao);
+                            sair = true;
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }, escolha ?? "", ref Contador_de_erros);
+                if (sair)
+                    break;
             }
         }
     }
