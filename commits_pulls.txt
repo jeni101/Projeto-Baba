@@ -141,3 +141,4 @@ Versions:
         -00.5.0.0.0.0.0.026 (Correcao de erros)
         -00.5.0.0.0.0.0.027 (Error jogo name)
         -00.5.0.0.0.0.0.028 (Sistema de Erros de Sintax atribuidos as Views)
+        -00.5.0.0.0.0.0.029 (Jogo name definition)

@@ -17,6 +17,10 @@ namespace Utils.Pelase.Leitor.Jogos
             );
 
             typeof(Jogo).GetProperty("Id")?.SetValue(jogo, Guid.Parse(reader.GetString("Id")));
+            typeof(Jogo).GetProperty("Nome")?.SetValue(jogo, Guid.Parse(reader.GetString("Nome")));
+            typeof(Jogo).GetProperty("AbreviacaoTimeA")?.SetValue(jogo, Guid.Parse(reader.GetString("AbreviacaoTimeA")));
+            typeof(Jogo).GetProperty("AbreviacaoTimeB")?.SetValue(jogo, Guid.Parse(reader.GetString("AbreviacaoTimeB")));
+            
             return jogo;
         }
     }

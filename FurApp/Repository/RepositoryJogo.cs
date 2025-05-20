@@ -21,6 +21,7 @@ namespace Repository.PersistenciaApp.Jogos
         {
             try
             {
+                jogo.AtualizarNome();
                 using var conn = Conectar();
                 await conn.OpenAsync();
 
@@ -29,12 +30,17 @@ namespace Repository.PersistenciaApp.Jogos
                     await _dbSchema.CriarTabelaAsync(conn);
                 }
 
+                string interessadosStr = string.Join(",", jogo.Interessados);
+
                 var cmd = new MySqlCommand(@"
                     INSERT INTO jogos (
-                        Id, Data, Hora, Local, TipoDeCampo, Interessados, QuantidadeDeJogadores)
+                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Data, Hora, Local, TipoDeCampo, Interessados, QuantidadeDeJogadores)
                     VALUES (
-                        @id, @data, @hora, @local, @tipoDeCampo, @interessados, @quantidadeDeJogadores)
+                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @data, @hora, @local, @tipoDeCampo, @interessados, @quantidadeDeJogadores)
                     ON DUPLICATE KEY UPDATE
+                        Nome = @nome,
+                        AbreviacaoTimeA = @abreviacaoTimeA,
+                        AbreviacaoTimeB = @abreviacaoTimeB,
                         Data = @data,
                         Hora = @hora,
                         Local = @local,
@@ -101,7 +107,28 @@ namespace Repository.PersistenciaApp.Jogos
 
         public override async Task<Jogo?> GetByNameAsync(string nome)
         {
-            throw new NotSupportedException("Jogos não possuem pesquisa por nome nessa implementação");
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogos WHERE Nome = @nome AND Deletado = 0 LIMIT 1", conn);
+                cmd.Parameters.AddWithValue("@nome", nome);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    return LeitorDeJogos.LerJogo(reader);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }

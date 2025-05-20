@@ -5,6 +5,9 @@ namespace Models.JogosApp
     public class Jogo
     {
         public Guid Id { get; protected set; }
+        public string Nome { get; private set; }
+        public string AbreviacaoTimeA { get; set; }
+        public string AbreviacaoTimeB { get; set; }
         public DateOnly Data { get; private set; }
         public TimeOnly Hora { get; private set; }
         public string Local { get; private set; }
@@ -19,6 +22,9 @@ namespace Models.JogosApp
                     string tipoDeCampo,
                     int quantidadeDeJogadores)
         {
+            AbreviacaoTimeA = "Time A";
+            AbreviacaoTimeB = "Time B";
+            Nome = GerarNome();
             Data = data;
             Hora = hora;
             Local = local ?? throw new ArgumentNullException(nameof(local));
@@ -31,17 +37,54 @@ namespace Models.JogosApp
         }
 
         //funcoes
+        //Receber nome
+        public string GerarNome()
+        {
+            return $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {Local}";
+        }
+
+        //Definir abreviaturas
+        public void DefinirAbreviacoes(string timeA, string timeB)
+        {
+            if (string.IsNullOrWhiteSpace(timeA) || string.IsNullOrWhiteSpace(timeB))
+                throw new ArgumentException("Abreviação não deve estar vazia");
+
+            AbreviacaoTimeA = timeA.Trim().ToUpper();
+            AbreviacaoTimeB = timeB.Trim().ToUpper();
+            Nome = GerarNome();
+        }
+
+        //Atualização interna
+        public void AtualizarNome()
+        {
+            Nome = $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {Local}";
+        }
+        
+        //Alterar data
         public void Alterar_Data()
         {
-            string entrada = Console.ReadLine() ?? string.Empty;
-
-            if (DateOnly.TryParseExact(entrada, "dd/MM/yyyy", null,
-                System.Globalization.DateTimeStyles.None, out DateOnly novaData))
+            try
             {
-                Data = novaData;
+                string entrada = Console.ReadLine() ?? string.Empty;
+
+                if (DateOnly.TryParseExact(entrada, "dd/MM/yyyy", null,
+                    System.Globalization.DateTimeStyles.None, out DateOnly novaData))
+                {
+                    Data = novaData;
+                    Nome = GerarNome();
+                }
+                else
+                {
+                    Console.WriteLine("Formato de data inválido. Use dd/MM/yyyy");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
+        //Alterar hora
         public void Alterar_Hora()
         {
             string entrada = Console.ReadLine() ?? "0";
@@ -53,15 +96,18 @@ namespace Models.JogosApp
             }
         }
 
+        //Alterar local
         public void Alterar_Local()
         {
             string novoLocal = Console.ReadLine() ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(novoLocal))
             {
                 Local = novoLocal;
+                Nome = GerarNome();
             }
         }
 
+        //Tipo de campo
         public void Alterar_Tipo_De_Campo()
         {
             string novoTipo = Console.ReadLine() ?? string.Empty;
@@ -71,6 +117,7 @@ namespace Models.JogosApp
             }
         }
 
+        //Quantidade de Jogadores
         public void Alterar_Quantidade_De_Jogadores()
         {
             string entrada = Console.ReadLine() ?? string.Empty;
@@ -80,6 +127,7 @@ namespace Models.JogosApp
             }
         }
 
+        //Interessados
         public void AdicionarInteressado(string nome)
         {
             if (!string.IsNullOrWhiteSpace(nome))
@@ -88,6 +136,7 @@ namespace Models.JogosApp
             }
         }
 
+        //Interessado (Jogador)
         public bool AdicionarInteressado(Conta_Jogador jogador)
         {
             if (jogador == null) return false;
@@ -104,6 +153,7 @@ namespace Models.JogosApp
             return false;
         }
 
+        //Remover interessado (jogador)
         public bool RemoverInteressado(Conta_Jogador jogador)
         {
             if (jogador == null) return false;
