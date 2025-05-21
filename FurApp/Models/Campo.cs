@@ -1,9 +1,10 @@
 using System;
 
-namespace CamposApp
+namespace Models.CamposApp
 {
     public class Campo
     {
+        public Guid Id { get; set; }
         public string Nome { get; private set; }
         public string Local { get; private set; }
         public int Capacidade { get; private set; }
