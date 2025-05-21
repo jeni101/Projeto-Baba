@@ -149,3 +149,6 @@ Versions:
         -00.5.0.0.0.0.0.033.1 (Resolvendo conflitos)
         -00.5.0.0.0.0.0.034 (Campos reworked)
         -00.5.0.0.0.0.0.035 (Campos enchance)
+
+    -0.000.06
+        -00.6.0.0.0.0.0.001 (Version start commit)
