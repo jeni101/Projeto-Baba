@@ -344,6 +344,7 @@ namespace Views.OpcoesAdministrador
                             Confirmacao.ExibirMensagemVoltando(ref opcao);
                             sair = true;
                             break;
+                            
 
                         default:
                             throw new ArgumentOutOfRangeException();
