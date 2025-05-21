@@ -147,3 +147,7 @@ Versions:
         -00.5.0.0.0.0.0.032 (Views de Registro Adicionadas)
         -00.5.0.0.0.0.0.033 (Implementacao Campo)
         -00.5.0.0.0.0.0.033.1 (Resolvendo conflitos)
+
+    -0.000.06
+        -00.6.0.0.0.0.0.001 (Version start commit)
+        -00.6.0.0.0.0.0.002 (implementacao funcao editar nome, revisao necessaria)

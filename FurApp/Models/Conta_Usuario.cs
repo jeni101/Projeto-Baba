@@ -104,8 +104,46 @@ namespace Models.ContaApp.Usuario
         {
             this.Id = Guid.NewGuid();
         }
-        public void Editar_Perfil() { }
+        public void Editar_Perfil(string escolha)
+        {
+            // tipo de conta: 1- jogador 
+            Console.WriteLine(""" 
+            -=-=-=- opcoes de edicao  conta jogador -=-=-=-=-
+            1. Nome/Nick
+            2. Interesses
+            3. Amistosos
+            4. time 
+            0. voltar
+            """); //LUIS VERIFICA O OUTPUT
+            
+
+        }
+
+       public void Editar_Perfil_Nome()
+        {
+            string novoNome;
+
+            while (true)
+            {
+                Console.WriteLine("digite o novo Nome: ");
+                novoNome = Console.ReadLine() ?? "";
+
+                if (string.IsNullOrWhiteSpace(novoNome) || novoNome.Length < 3)
+                {
+                    Console.WriteLine("Nome inválido. Deve ter pelo menos 3 caracteres.");
+                    continue;
+                }
+
+                Nome = novoNome;
+                Console.WriteLine("Nome alterado com sucesso!");
+                break;
+            }
+        }
+
+                
+    
         public void Deletar_Conta() { }
+
         public void Exibir_Interesses() { }
         public void Deletar_Interesses() { }
 

@@ -6,6 +6,7 @@ using Views_Campos;
 using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
 using Controle_de_execoesApp;
 using Views.OpcoesContas;
+using Models.ContaApp.Usuario;
 
 
 class Program

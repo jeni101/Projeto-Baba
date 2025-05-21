@@ -9,7 +9,7 @@ namespace Models.ContaApp
         //sistema de ID
         public Guid Id { get; protected set; }
         //atributos
-        public string Nome {get; private set;}
+        public string Nome {get; protected set;}
         public string SenhaHash {get; private set;}
         public int Idade {get; private set;}
 
