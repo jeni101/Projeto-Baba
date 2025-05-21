@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using Repository.PersistenciaApp.Campos;
+using Models.CamposApp;
+using Models.CamposApp.Tipo;
 using Models.ContaApp.Usuario.Jogador;
 
 namespace Models.JogosApp
@@ -54,7 +59,7 @@ namespace Models.JogosApp
             Nome = GerarNome();
         }
 
-        //Atualização interna
+        //Atualização
         public void AtualizarNome()
         {
             Nome = $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {Local}";
@@ -107,14 +112,49 @@ namespace Models.JogosApp
             }
         }
 
-        //Tipo de campo
-        public void Alterar_Tipo_De_Campo()
+        //Selecionar tipo de campo
+        public static async Task<Campo?> SelecionarCampo(RepositoryCampos repoCampos)
         {
-            string novoTipo = Console.ReadLine() ?? string.Empty;
-            if (!string.IsNullOrWhiteSpace(novoTipo))
+            Console.WriteLine("Seleção de Campo");
+            Console.WriteLine("Filtros (deixe em branco para ignorar): ");
+            Console.Write("Digite parte do nome do campo: ");
+            string filtroNome = Console.ReadLine() ?? "";
+
+            Console.Write("Digite parte do tipo de campo: ");
+            string filtroTipo = Console.ReadLine() ?? "";
+
+            var campos = await repoCampos.FiltrarCampo(filtroNome, filtroTipo);
+
+            if (campos.Count == 0)
             {
-                TipoDeCampo = novoTipo;
+                Console.WriteLine("Nenhum campo disponível com esses filtros");
+                return null;
             }
+
+            Console.WriteLine("Campos disponíveis");
+            for (int i = 0; i < campos.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {campos[i].Nome} - {campos[i].TipoDeCampo} (Capacidade: {campos[i].Capacidade})");
+            }
+
+            Console.Write("Digite número do campo");
+            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= campos.Count)
+            {
+                var campoEscolhido = campos[escolha - 1];
+                Console.WriteLine($"Campo selecionado: {campoEscolhido.Nome} ({campoEscolhido.TipoDeCampo})");
+                return campoEscolhido;
+            }
+            Console.WriteLine("Inválido");
+            return null;
+        }
+
+        //Definidor de campo
+        public void DefinirCampo(Campo campo)
+        {
+            if (campo == null) return;
+            Local = campo.Local;
+            TipoDeCampo = campo.TipoDeCampo;
+            Nome = GerarNome();
         }
 
         //Quantidade de Jogadores

@@ -17,6 +17,6 @@ namespace Repository.Database.Campos
                 Deletado BIT DEFAULT 0,
                 DataDelecao DATETIME NULL,
                 QuemDeletou VARCHAR(100) NULL,
-                FOREIGN KEY (TipoDeCampo) REFERENCES campos_tipo(Id))";
+                FOREIGN KEY (TipoDeCampo) REFERENCES campos_tipo(Tipo))";
     }
 }
