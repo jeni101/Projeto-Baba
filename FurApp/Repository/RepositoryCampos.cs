@@ -6,6 +6,7 @@ using Models.CamposApp;
 using Utils.Pelase.Leitor.Campos;
 using Utils.Pelase.Argumentos.Campos;
 using Repository.Database.Campos;
+using System.Runtime.InteropServices;
 
 namespace Repository.PersistenciaApp.Campos
 {
@@ -124,6 +125,38 @@ namespace Repository.PersistenciaApp.Campos
             }
 
             return null;
+        }
+
+        public async Task<List<Campo>> FiltrarCampo(string nome = "", string tipo = "")
+        {
+            var camposFiltrados = new List<Campo>();
+
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                var cmd = new MySqlCommand(@"
+                    SELECT * FROM campos
+                    WHERE (Nome LIKE @Nome OR @Nome = '')
+                    AND (TipoDeCampo LIKE @Tipo OR @Tipo = '')
+                    AND Deletado = 0", conn);
+
+                cmd.Parameters.AddWithValue("@Nome", $"%{nome}%");
+                cmd.Parameters.AddWithValue("@Tipo", $"%{tipo}%");
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    camposFiltrados.Add(LeitorDeCampos.LerCampos(reader));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return camposFiltrados;
         }
     }
 }
