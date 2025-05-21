@@ -1,34 +1,25 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
+using Views.Contas;
 using Views_Campos;
 using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
 using Controle_de_execoesApp;
-using Views.OpcoesMascara;
+using Views.OpcoesContas;
 
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     // teste 
        {
-        var conta = new Conta_Jogador(
-            "cleitin", 
-            "Sobrenome", 
-            25, 
-            "email@example.com"
-        );
-
-
-        var viewsDeCampos = new Views_De_Campos(conta, 0);
-        //viewsDeCampos.DisplayMenu();
-        // View_Inicial.Print_01();
+        var viewsDeContas = new Views_De_Contas();
+        await viewsDeContas.DisplayMenu_LoginInicial();
 
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
         Console.ReadKey();
   }
-    
 }
     
 

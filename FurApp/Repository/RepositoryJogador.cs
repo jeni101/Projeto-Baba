@@ -24,7 +24,7 @@ namespace Repository.PersistenciaApp.Jogador
 
                 if (!await _dbSchema.TabelaExiste(conn))
                 {
-                await _dbSchema.CriarTabelaAsync(conn);
+                    await _dbSchema.CriarTabelaAsync(conn);
                 }
 
                 var cmd = new MySqlCommand(@"
@@ -32,7 +32,7 @@ namespace Repository.PersistenciaApp.Jogador
                         Id, Nome, SenhaHash, Idade, Posicao, Saldo, Time, Gols, Assistencias, Interesses, Amistosos)
                     VALUES (
                         @id, @nome, @senhaHash, @idade, @posicao, @saldo, @time, @gols, @assistencias, @interesses, @amistosos)
-                    ON DUPLICATE KEY UPDADE
+                    ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         SenhaHash = @senhaHash,
                         Idade = @idade,
@@ -85,7 +85,7 @@ namespace Repository.PersistenciaApp.Jogador
         }
 
         //Deletar Jogador
-        public async Task<bool> Deletar(Guid id, string quemDeletou)
+        public async Task<bool> DeletarJogador(Guid id, string quemDeletou)
         {
             using var conn = Conectar();
             await conn.OpenAsync();
@@ -101,6 +101,35 @@ namespace Repository.PersistenciaApp.Jogador
             cmd.Parameters.AddWithValue("@quemDeletou", quemDeletou);
 
             return await cmd.ExecuteNonQueryAsync() > 0;
+        }
+
+        public override async Task<Conta_Jogador?> GetByNameAsync(string nome)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogadores WHERE Nome = @nome AND Deletado = 0 LIMIT 1", conn);
+
+                cmd.Parameters.AddWithValue("@nome", nome);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                return await reader.ReadAsync()
+                    ? LeitorDeJogador.LerJogador(reader)
+                    : null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null;
         }
     }
 }

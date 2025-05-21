@@ -1,5 +1,7 @@
 using Models.ContaApp.Usuario;
 using Interfaces.IJogador;
+using Models.JogosApp;
+using Models.PosicaoApp;
 
 namespace Models.ContaApp.Usuario.Jogador
 {
@@ -9,9 +11,9 @@ namespace Models.ContaApp.Usuario.Jogador
         public string Time { get; private set; }
         public int Gols { get; private set; }
         public int Assistencias { get; private set; }
-        public List<string> Eventos { get; private set; } 
-        public List<string> Jogos { get; private set; } 
-        public List<string> Partidas { get; private set; } 
+        public List<string> Eventos { get; private set; }
+        public List<string> Jogos { get; private set; }
+        public List<string> Partidas { get; private set; }
 
         //Construtor padrão
         public Conta_Jogador(
@@ -19,12 +21,12 @@ namespace Models.ContaApp.Usuario.Jogador
             string senha,
             int idade,
             string posicao)
-            : base (nome, senha, idade)
+            : base(nome, senha, idade)
         {
             Time = string.Empty;
             Posicao = posicao;
-            Eventos = new List<string>();  
-            Jogos = new List<string>();    
+            Eventos = new List<string>();
+            Jogos = new List<string>();
             Partidas = new List<string>();
         }
 
@@ -37,9 +39,30 @@ namespace Models.ContaApp.Usuario.Jogador
         {
             Console.WriteLine($"Assistências: {Assistencias}");
         }
-        void IJogador.Escolher_Posicao()
+        void IJogador.Escolher_Posicao(List<Posicao> posicoesDisponiveis)
         {
-            // Implementação futura
+            if (posicoesDisponiveis == null || posicoesDisponiveis.Count == 0)
+            {
+                Console.WriteLine("Nenuma posição disponível");
+                return;
+            }
+
+            Console.WriteLine("Escolha sua posição");
+            for (int i = 0; i < posicoesDisponiveis.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {posicoesDisponiveis[i].Nome} ({posicoesDisponiveis[i].Abreviacao})");
+            }
+
+            Console.WriteLine("Digite o número da posicao que deseja ser");
+            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= posicoesDisponiveis.Count)
+            {
+                Posicao = posicoesDisponiveis[escolha - 1].Nome;
+                Console.WriteLine($"Posição definida como: {Posicao}");
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida, tente novamente");
+            }
         }
 
         void IJogador.Exibir_Time()
@@ -99,6 +122,43 @@ namespace Models.ContaApp.Usuario.Jogador
         public void Adicionar_Assistencia()
         {
             Assistencias++;
+        }
+
+        //Interesses
+        public void EntrarComoInteressado(Jogo interesse)
+        {
+            if (interesse == null)
+            {
+                Console.WriteLine("Jogo inválido");
+                return;
+            }
+
+            if (interesse.AdicionarInteressado(this))
+            {
+                Console.WriteLine($"Você está interessado no jogo em {interesse.Data}");
+            }
+            else
+            {
+                Console.WriteLine("Você já demonstrou interesse");
+            }
+        }
+
+        public void SairComoInteressado(Jogo interesse)
+        {
+            if (interesse == null)
+            {
+                Console.WriteLine("Jogo inválido");
+                return;
+            }
+
+            if (interesse.AdicionarInteressado(this))
+            {
+                Console.WriteLine($"Você não está mais interessado no jogo em {interesse.Data}");
+            }
+            else
+            {
+                Console.WriteLine("Você não estava interessado");
+            }
         }
     }
 }

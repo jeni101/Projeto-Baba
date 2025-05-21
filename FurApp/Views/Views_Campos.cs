@@ -1,7 +1,7 @@
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
-using JogosApp;
+using Models.JogosApp;
 using Controle_de_execoesApp;
 using Confirmacao_de_saida;
 
@@ -10,12 +10,12 @@ namespace Views_Campos
     public class Views_De_Campos
     {
         private Conta_Jogador contaLogada;
-        private int Contador_de_erros = 0;
+        private int contador_de_erros = 0;
 
-        public Views_De_Campos(Conta_Jogador conta, int contador_de_erros)
+        public Views_De_Campos(Conta_Jogador conta)
         {
             contaLogada = conta;
-            Contador_de_erros = contador_de_erros;
+            
 
         }
 
@@ -46,7 +46,7 @@ namespace Views_Campos
                 string tipo_quadra = "";
                 int quantidade_jogadores = 0;
 
-                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
+                var HouveErro = ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
                     int opcao = int.Parse(escolha ?? "");
 
@@ -86,19 +86,16 @@ namespace Views_Campos
                             throw new ArgumentOutOfRangeException(); // Força exceção se inválido
                     }
 
-                }, escolha ?? "", ref Contador_de_erros);
+                }, escolha ?? "", contador_de_erros);
 
-                if (!HouveErro)
-                {
-                    Contador_de_erros = 0; //reseta o contador se n houver erro
-                }
+            
 
                 if (sair)
                     break; // Sai do while se escolheu 0
 
                 if (int.TryParse(escolha, out int escolhaInt) && validos.Contains(escolhaInt))
                 {
-                    Jogos jogo = new Jogos(
+                    Jogo jogo = new Jogo(
                         DateOnly.FromDateTime(DateTime.Today),
                         TimeOnly.FromDateTime(DateTime.Now),
                         "Campo a Definir",

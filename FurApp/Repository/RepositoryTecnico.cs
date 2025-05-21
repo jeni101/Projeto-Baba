@@ -24,7 +24,7 @@ namespace Repository.PersistenciaApp.Tecnico
 
                 if (!await _dbSchema.TabelaExiste(conn))
                 {
-                await _dbSchema.CriarTabelaAsync(conn);
+                    await _dbSchema.CriarTabelaAsync(conn);
                 }
 
                 var cmd = new MySqlCommand(@"
@@ -99,6 +99,36 @@ namespace Repository.PersistenciaApp.Tecnico
             cmd.Parameters.AddWithValue("@quemDeletou", quemDeletou);
 
             return await cmd.ExecuteNonQueryAsync() > 0;
+        }
+
+        //Pegar pelo nome
+        public override async Task<Conta_Tecnico?> GetByNameAsync(string nome)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM tecnicos WHERE Nome = @nome AND Deletado = 0 LIMIT 1", conn);
+
+                cmd.Parameters.AddWithValue("@nome", nome);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                return await reader.ReadAsync()
+                    ? LeitorDeTecnico.LerTecnico(reader)
+                    : null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null;
         }
     }
 }
