@@ -1,7 +1,7 @@
 using Services.Autenticacao;
 using Views.OpcoesMascara;
-using Confirmacao_de_saida;
-using Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
+using Utils.Controle_de_execoesApp;
 
 namespace Views.OpcoesAdministrador
 {
@@ -36,6 +36,8 @@ namespace Views.OpcoesAdministrador
 
                 var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () => //Apitando porque falta coisa pro await
                 {
+                    await Task.Delay(0);
+                    
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {
@@ -92,6 +94,8 @@ namespace Views.OpcoesAdministrador
 
                 var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async() => //Apitando porque falta coisa pro await
                 {
+                    await Task.Delay(0);
+
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {
@@ -148,6 +152,8 @@ namespace Views.OpcoesAdministrador
 
                 var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () => //Apitando porque falta coisa pro await
                 {
+                    await Task.Delay(0); 
+
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {
@@ -204,6 +210,8 @@ namespace Views.OpcoesAdministrador
 
                 var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () => //Apitando porque falta coisa pro await
                 {
+                    await Task.Delay(0);
+
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {
@@ -260,6 +268,8 @@ namespace Views.OpcoesAdministrador
 
                 var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () => //Apitando porque falta coisa pro await
                 {
+                    await Task.Delay(0);
+
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {
@@ -316,6 +326,8 @@ namespace Views.OpcoesAdministrador
 
                 var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () => //Apitando porque falta coisa pro await
                 {
+                    await Task.Delay(0);
+
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {

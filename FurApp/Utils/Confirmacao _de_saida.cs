@@ -1,6 +1,6 @@
 using System;
 
-namespace Confirmacao_de_saida
+namespace Utils.Confirmacao_de_saida
 {
     public class Confirmacao
     {

@@ -4,7 +4,7 @@ using MySqlConnector;
 using Views.Contas;
 using Views_Campos;
 using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
-using Controle_de_execoesApp;
+using Utils.Controle_de_execoesApp;
 using Views.OpcoesContas;
 using Models.ContaApp.Usuario;
 
@@ -17,6 +17,8 @@ class Program
         var viewsDeContas = new Views_De_Contas();
         await viewsDeContas.DisplayMenu_LoginInicial();
 
+        var conta_Usuario = new Conta_Usuario("fghjk", "fdf", 22, true );
+        conta_Usuario.Editar_Perfil_Nome();
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
         Console.ReadKey();
