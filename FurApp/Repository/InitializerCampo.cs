@@ -22,13 +22,14 @@ namespace Repository.Database.Initializer.Campos
 
             var camposUnasp = new List<Campo>
             {
-                new Campo("Campão", "Ao lado do complexo esportivo", 22, tiposDeCampo[0].Id.ToString()),
-                new Campo("Quadra A", "Quadra interna, à esquerda, complexo esportivo", 10, tiposDeCampo[2].Id.ToString()),
-                new Campo("Quadra B", "Quadra interna, à direita, complexo esportivo", 10, tiposDeCampo[2].Id.ToString()),
-                new Campo("Quadra C", "Quadra externa, à esquerda, complexo esportivo", 10, tiposDeCampo[2].Id.ToString()),
-                new Campo("Quadra D", "Quadra externa, à esquerda, complexo esportivo", 10, tiposDeCampo[2].Id.ToString()),
-                new Campo("Quadra da Portaria", "Quadra próxima a portaria", 10, tiposDeCampo[2].Id.ToString()),
-                new Campo("Quadra de Areia", "Campo de areia próximo ao complexo esportivo", 10, tiposDeCampo[3].Id.ToString()),
+                new Campo("Campão", "Ao lado do complexo esportivo", 22, tiposDeCampo[0].Tipo),
+                new Campo("Quadra A", "Quadra interna, à esquerda, complexo esportivo", 10, tiposDeCampo[2].Tipo),
+                new Campo("Quadra B", "Quadra interna, à direita, complexo esportivo", 10, tiposDeCampo[2].Tipo),
+                new Campo("Quadra C", "Quadra externa, à esquerda, complexo esportivo", 10, tiposDeCampo[2].Tipo),
+                new Campo("Quadra D", "Quadra externa, à esquerda, complexo esportivo", 10, tiposDeCampo[2].Tipo),
+                new Campo("Quadra da Portaria", "Quadra próxima a portaria", 10, tiposDeCampo[2].Tipo),
+                new Campo("Quadra de Areia", "Campo de areia próximo ao complexo esportivo", 10, tiposDeCampo[3].Tipo),
+                new Campo("Quadra de Atletismo", "Campo de areia próximo ao complexo esportivo", 10, tiposDeCampo[3].Tipo),
             };
 
             foreach (var campo in camposUnasp)

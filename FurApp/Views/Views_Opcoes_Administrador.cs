@@ -1,7 +1,7 @@
 using Services.Autenticacao;
 using Views.OpcoesMascara;
-using Confirmacao_de_saida;
-using Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
+using Utils.Controle_de_execoesApp;
 
 namespace Views.OpcoesAdministrador
 {
