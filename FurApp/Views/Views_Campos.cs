@@ -10,7 +10,7 @@ namespace Views_Campos
     public class Views_De_Campos
     {
         private Conta_Jogador contaLogada;
-        private int Contador_de_erros = 0;
+        private int contador_de_erros = 0;
 
         public Views_De_Campos(Conta_Jogador conta)
         {
@@ -46,7 +46,7 @@ namespace Views_Campos
                 string tipo_quadra = "";
                 int quantidade_jogadores = 0;
 
-                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
+                var HouveErro = ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
                     int opcao = int.Parse(escolha ?? "");
 
@@ -86,8 +86,7 @@ namespace Views_Campos
                             throw new ArgumentOutOfRangeException(); // Força exceção se inválido
                     }
 
-                }, escolha ?? "", ref Contador_de_erros);
-                
+                }, escolha ?? "", contador_de_erros);
 
             
 

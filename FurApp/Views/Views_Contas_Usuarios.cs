@@ -13,13 +13,13 @@ using Controle_de_execoesApp;
 
 namespace Views.OpcoesContas
 {
-    public static class Views_De_OpcoesContas
+    public class Views_De_OpcoesContas
     {
-        public static void Display_MenuAdministrador()
+        public async Task Display_MenuAdministrador()
         {
             int[] validos = { 1, 2, 3, 4, 5, 6 };
             bool sair = false;
-            int Contador_de_erros = 0;
+            int contador_de_erros = 0;
 
             while (!sair)
             {
@@ -43,53 +43,53 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
+                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
                     {
                         case 1:
-                            Views_Administrador.Display_Adm_Contas();
+                            await Views_Administrador.Display_Adm_Contas();
                             break;
 
                         case 2:
-                            Views_Administrador.Display_Adm_Jogador();
+                            await Views_Administrador.Display_Adm_Jogador();
                             break;
 
                         case 3:
-                            Views_Administrador.Display_Adm_Tecnico();
+                            await Views_Administrador.Display_Adm_Tecnico();
                             break;
 
                         case 4:
-                            Views_Administrador.Display_Adm_Times();
+                            await Views_Administrador.Display_Adm_Times();
                             break;
 
                         case 5:
-                            Views_Administrador.Display_Adm_Jogos();
+                            await Views_Administrador.Display_Adm_Jogos();
                             break;
 
                         case 6:
-                            Views_Administrador.Display_Adm_Partidas();
+                            await Views_Administrador.Display_Adm_Partidas();
                             break;
 
                         case 0:
-                            Confirmacao.ExibirMensagemSaida(ref opcao);
+                            int temp = opcao;
+                            Confirmacao.ExibirMensagemSaida(ref temp);
                             sair = true;
                             break;
 
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }, escolha ?? "", ref Contador_de_erros);
-                if (sair)
-                    break;
+                }, escolha ?? "", contador_de_erros);
+                if (sair) break;
             }
         }
-        public static void Display_MenuJogador()
+        public async Task Display_MenuJogador()
         {
             int[] validos = { 1, 2, 3, 4 };
             bool sair = false;
-            int Contador_de_erros = 0;
+            int contador_de_erros = 0;
 
             while (!sair)
             {
@@ -112,7 +112,7 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
+                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
@@ -141,16 +141,15 @@ namespace Views.OpcoesContas
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }, escolha ?? "", ref Contador_de_erros);
-                if (sair)
-                    break;
+                }, escolha ?? "", contador_de_erros);
+                if (sair) break;
             }
         }
-        public static void Display_MenuTecnico()
+        public async Task Display_MenuTecnico()
         {
             int[] validos = { 1, 2, 3, 4 };
             bool sair = false;
-            int Contador_de_erros = 0;
+            int contador_de_erros = 0;
 
             while (!sair)
             {
@@ -173,7 +172,7 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
                 
-                bool HouveErro = ControleDeExecoes.ExecutarComTratamento(() =>
+                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
                     int opcao = int.Parse(escolha ?? "");
                     switch (opcao)
@@ -202,9 +201,8 @@ namespace Views.OpcoesContas
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }, escolha ?? "", ref Contador_de_erros);
-                if (sair)
-                    break;
+                }, escolha ?? "", contador_de_erros);
+                if (sair) break;
             }
         }
     }

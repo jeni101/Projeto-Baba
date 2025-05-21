@@ -143,6 +143,7 @@ Versions:
         -00.5.0.0.0.0.0.028 (Sistema de Erros de Sintax atribuidos as Views)
         -00.5.0.0.0.0.0.029 (Jogo name definition)
         -00.5.0.0.0.0.0.030 (Async error views fix)
-        
-        
+        -00.5.0.0.0.0.0.031 (Async error Program fix)
+        -00.5.0.0.0.0.0.032 (Views de Registro Adicionadas)
         -00.5.0.0.0.0.0.033 (Implementacao Campo)
+        -00.5.0.0.0.0.0.033.1 (Resolvendo conflitos)
