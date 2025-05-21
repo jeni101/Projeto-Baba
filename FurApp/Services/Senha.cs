@@ -15,10 +15,10 @@ namespace Services.Senha
         {
             for (int tentativas = 1; tentativas <= TentativasMax; tentativas++)
             {
-                Console.Write($"Digite sua senha (mínimo {TamanhoMinimo} caracteres): ");
+                Console.Write($" • Digite sua senha (mínimo {TamanhoMinimo} caracteres): ");
                 string senha = Console.ReadLine() ?? string.Empty;
 
-                Console.Write("Confirme a senha: ");
+                Console.Write(" • Confirme a senha: ");
                 string confirmacao = Console.ReadLine() ?? string.Empty;
 
                 try
@@ -29,20 +29,20 @@ namespace Services.Senha
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Console.WriteLine($"Tentativas restantes: {TentativasMax - tentativas}");
+                    Console.WriteLine($" • Tentativas restantes: {TentativasMax - tentativas}");
                 }
             }
 
-            throw new InvalidOperationException("Número máximo de tentativas excedido");
+            throw new InvalidOperationException(" • Número máximo de tentativas excedido");
         }
 
         public static void ValidarSenha(string senha, string confirmacao)
         {
             if (senha.Length < TamanhoMinimo)
-                throw new ArgumentException($"Senha deve possuir pelo menos {TamanhoMinimo} caracteres");
+                throw new ArgumentException($" • Senha deve possuir pelo menos {TamanhoMinimo} caracteres");
 
             if (senha != confirmacao)
-                throw new ArgumentException("As senhas não coincidem");
+                throw new ArgumentException(" • As senhas não coincidem");
         }
 
         public static string CensurarSenha(string senha)
