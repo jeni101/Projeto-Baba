@@ -2,8 +2,8 @@ using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
 using Models.JogosApp;
-using Controle_de_execoesApp;
-using Confirmacao_de_saida;
+using Utils.Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
 
 namespace Views_Campos
 {
