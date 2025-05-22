@@ -6,6 +6,7 @@ using Views_Campos;
 using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
 using Utils.Controle_de_execoesApp;
 using Views.OpcoesContas;
+using Views.OpcoesAdministrador;
 
 
 class Program
@@ -13,8 +14,11 @@ class Program
     static async Task Main(string[] args)
     // teste 
        {
-        var viewsDeContas = new Views_De_Contas();
-        await viewsDeContas.DisplayMenu_LoginInicial();
+      //   var viewsDeContas = new Views_De_Contas();
+      //   await viewsDeContas.DisplayMenu_LoginInicial();
+    var viewsDeLogins = new Views_De_OpcoesContas();
+    await viewsDeLogins.Display_MenuAdministrador();
+
 
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
