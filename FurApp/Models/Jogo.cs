@@ -4,6 +4,9 @@ using Repository.PersistenciaApp.Campos;
 using Models.CamposApp;
 using Models.CamposApp.Tipo;
 using Models.ContaApp.Usuario.Jogador;
+using Repository.PersistenciaApp.Jogos;
+using Utils.Pelase.Leitor.DataHora;
+using Services.Jogos;
 
 namespace Models.JogosApp
 {
@@ -64,7 +67,7 @@ namespace Models.JogosApp
         {
             Nome = $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {Local}";
         }
-        
+
         //Alterar data
         public void Alterar_Data()
         {
@@ -208,5 +211,24 @@ namespace Models.JogosApp
 
             return removido;
         }
+
+        public static async Task<Jogo?> CriarJogo(JogosServices jogosServices)
+        {
+            Console.WriteLine("Criação de Jogo");
+
+            var data = LeitorDataHora.LerData("data (dd/MM/yyyy): ");
+            var hora = LeitorDataHora.LerHora("hora (HH:mm): ");
+
+            var campo = await jogosServices.SelecionarCampoDisponível(data, hora);
+            if (campo is null) return null;
+
+            int quantidadeJogadores = jogosServices.ObterQuantidadeDeJogadores(campo.Capacidade);
+
+            var jogo = new Jogo(data, hora, campo.Local, campo.TipoDeCampo, quantidadeJogadores);
+
+            return await jogosServices.PersistirJogo(jogo)
+                ? jogo
+                : null;
+       }
     }
 }
