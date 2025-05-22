@@ -156,3 +156,4 @@ Versions:
         -00.6.0.0.0.0.0.003 (Alterações nas views de login / carregamentos)
 
         -00.6.0.0.0.0.0.005 (Add capacity create Jogo)
+        -00.6.0.0.0.0.0.006 (Database for times created)
