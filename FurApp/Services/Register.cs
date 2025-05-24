@@ -82,34 +82,10 @@ namespace Services.Register
                 Console.WriteLine(" • Digite a Opção Desejada: ");
             }
             while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > 3);
-            string opcao = " ";
-            switch (escolha) //Pequeno switch que define oque é cada coisa
-            {
-                case 1:
-                    opcao = "Jogador";
-                    break;
-                case 2:
-                    opcao = "Técnico";
-                    break;
-                case 3:
-                    opcao = "Ambos";
-                    break;        
-            }
             string senha;
             try
             {
                 Console.Clear();
-                View_Inicial.Display_Mascara01();
-                Console.WriteLine(" • Agora Vamos Definir uma senha!");
-                Console.WriteLine(" .____________________________________.   .__________."); //view Com Tudo menos a Senha
-                Console.WriteLine(" |  -=-     Criação de Conta     -=-  |   |=- Tipo -=|");
-                Console.WriteLine(" |====================================|   |==========|");
-                Console.WriteLine($" |- Nome: {nome.PadRight(27)} |   |- {opcao,-7} |");
-                Console.WriteLine(" |____________________________________|   |__________|");
-                Console.WriteLine($" |- Idade: {idade,-26} |");
-                Console.WriteLine(" |                                    |");
-                Console.WriteLine(" |====================================|");
-
                 senha = ObtencaoSenha.DefinirSenha();
             }
             catch (InvalidOperationException ex)

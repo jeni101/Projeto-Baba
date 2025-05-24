@@ -103,9 +103,9 @@ namespace AnimacaoApp
         public static void ExibirMensagemSaida2() // saída mais elaborada
         {
             View_Inicial.Display_Mascara01(); // Mascara do Programa
-            string borda_cima = "._______________________________.";
+            string borda_cima = ".__Saindo_______________________.";
             string borda_baixo = "˙‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾˙";
-            string mensagemBase = "Saindo ";
+            string mensagemBase = "";
 
             // Mostra o retângulo antes de começar
             Console.WriteLine(borda_cima);
@@ -137,35 +137,62 @@ namespace AnimacaoApp
         }
         public static void ExibirMensagemVoltar() // Voltar mais elaborada
         {
-            View_Inicial.Display_Mascara01(); // Mascara do Programa
-            string borda_cima = "._________________________________.";
+            View_Inicial.Display_Mascara01();
+            string borda_cima = ".__Voltando_______________________.";
             string borda_baixo = "˙‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾˙";
-            string mensagemBase = "Voltando ";
+            string mensagemBase = "";
 
-            // Mostra o retângulo antes de começar
             Console.WriteLine(borda_cima);
-            Console.Write("| "); // Começa a linha do meio
-            Console.Write(new string(' ', 32)); // Espaço onde a animação vai rolar
+            Console.Write("| ");
+            Console.Write(new string(' ', 32));
             Console.WriteLine("|");
             Console.WriteLine(borda_baixo);
 
-            // Volta o cursor para a posição onde a animação vai acontecer
-            Console.SetCursorPosition(2, Console.CursorTop - 2); // Linha do meio, após "| "
+            Console.SetCursorPosition(2, Console.CursorTop - 2); 
 
-            // Anima "Saindo"
             foreach (char letra in mensagemBase)
             {
                 Console.Write(letra);
                 Thread.Sleep(75);
             }
-            // Anima os pontinhos após "Saindo"
+
             for (int i = 0; i < 30 - mensagemBase.Length; i++)
             {
                 Console.Write("█");
                 Thread.Sleep(75);
             }
-            // Espera o usuário pressionar Enter
-            Console.SetCursorPosition(0, Console.CursorTop + 2); // Vai pra baixo do retângulo
+
+            Console.SetCursorPosition(0, Console.CursorTop + 2);
+            Console.WriteLine("\nObrigado por usar o FurApp!\n");
+        }
+        public static void ExibirMensagemCarregando() // Carregar mais elaborada
+        {
+            View_Inicial.Display_Mascara01();
+            string borda_cima = ".__Carregando_____________________.";
+            string borda_baixo = "˙‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾˙";
+            string mensagemBase = "";
+
+            Console.WriteLine(borda_cima);
+            Console.Write("| ");
+            Console.Write(new string(' ', 32));
+            Console.WriteLine("|");
+            Console.WriteLine(borda_baixo);
+
+            Console.SetCursorPosition(2, Console.CursorTop - 2); 
+
+            foreach (char letra in mensagemBase)
+            {
+                Console.Write(letra);
+                Thread.Sleep(75);
+            }
+
+            for (int i = 0; i < 30 - mensagemBase.Length; i++)
+            {
+                Console.Write("█");
+                Thread.Sleep(75);
+            }
+            
+            Console.SetCursorPosition(0, Console.CursorTop + 2); 
             Console.WriteLine("\nObrigado por usar o FurApp!\n");
         }
     }

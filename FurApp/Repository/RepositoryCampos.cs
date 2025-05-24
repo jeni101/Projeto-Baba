@@ -158,5 +158,35 @@ namespace Repository.PersistenciaApp.Campos
 
             return camposFiltrados;
         }
+
+        public async Task<bool> VerificarDisponibilidade(Guid campoId, DateOnly data, TimeOnly hora)
+        {
+            const int intervaloMinutos = 100;
+
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                var cmd = new MySqlCommand(@"
+                    SELECT COUNT(*) FROM jogos
+                    WHERE CampoId = @campoId
+                    AND Data = @data,
+                    AND ABS(TIMESTAMPDIFF(MINUTE, Hora, @hora)) < @intervalo
+                    AND Deletado = 0", conn);
+
+                cmd.Parameters.AddWithValue("@campoId", campoId);
+                cmd.Parameters.AddWithValue("@data", data);
+                cmd.Parameters.AddWithValue("@intervalo", intervaloMinutos);
+
+                var count = Convert.ToInt32(await cmd.ExecuteScalarAsync());
+                return count == 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }

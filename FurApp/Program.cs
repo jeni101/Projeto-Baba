@@ -7,6 +7,8 @@ using Conta_Jogador = Models.ContaApp.Usuario.Jogador.Conta_Jogador;
 using Utils.Controle_de_execoesApp;
 using Views.OpcoesContas;
 using Models.ContaApp.Usuario;
+using Views.OpcoesAdministrador;
+
 
 
 class Program
@@ -14,8 +16,11 @@ class Program
     static async Task Main(string[] args)
     // teste 
        {
-        var viewsDeContas = new Views_De_Contas();
-        await viewsDeContas.DisplayMenu_LoginInicial();
+      //   var viewsDeContas = new Views_De_Contas();
+      //   await viewsDeContas.DisplayMenu_LoginInicial();
+    var viewsDeLogins = new Views_De_OpcoesContas();
+    await viewsDeLogins.Display_MenuAdministrador();
+
 
         var conta_Usuario = new Conta_Usuario("fghjk", "fdf", 22, true );
        // conta_Usuario.Editar_Perfil_Nome();

@@ -3,6 +3,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Utils.Pelase.CensuradorDeSenha;
+using Views.OpcoesMascara;
+using Utils.Confirmacao_de_saida;
 
 namespace Services.Senha
 {
@@ -15,9 +17,23 @@ namespace Services.Senha
         {
             for (int tentativas = 1; tentativas <= TentativasMax; tentativas++)
             {
+                View_Inicial.Display_Mascara01(); 
+                Console.WriteLine(" .____________________________________."); //View de Registro de Senha
+                Console.WriteLine(" |  -=-     Defina sua Senha     -=-  |");
+                Console.WriteLine(" |====================================|");
+                Console.WriteLine($" |- Senha:                            |");
+                Console.WriteLine(" |____________________________________|");
+
                 Console.Write($" • Digite sua senha (mínimo {TamanhoMinimo} caracteres): ");
                 string senha = Console.ReadLine() ?? string.Empty;
 
+                Console.Clear();
+                View_Inicial.Display_Mascara01(); 
+                Console.WriteLine(" .____________________________________."); //View de Registro de Senha
+                Console.WriteLine(" |  -=-     Defina sua Senha     -=-  |");
+                Console.WriteLine(" |====================================|");
+                Console.WriteLine($" |- Senha: * * * * * * * * * * * *    |");
+                Console.WriteLine(" |____________________________________|");
                 Console.Write(" • Confirme a senha: ");
                 string confirmacao = Console.ReadLine() ?? string.Empty;
 
@@ -28,6 +44,7 @@ namespace Services.Senha
                 }
                 catch (ArgumentException ex)
                 {
+                    Console.Clear();
                     Console.WriteLine(ex.Message);
                     Console.WriteLine($" • Tentativas restantes: {TentativasMax - tentativas}");
                 }

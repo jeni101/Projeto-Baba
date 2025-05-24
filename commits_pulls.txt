@@ -152,8 +152,13 @@ Versions:
 
     -0.000.06
         -00.6.0.0.0.0.0.001 (Version start commit)
-        -00.6.0.0.0.0.0.002 (implementacao funcao editar nome, revisao necessaria)
-        -00.6.0.0.0.0.0.003 (Ajuste na sintaxe geral)
-        -00.6.0.0.0.0.0.004 (implementacao funcao de personalizacao de hobies, revisao necessaria)
+        -00.6.0.0.0.0.0.002 (Bug typos)
+        -00.6.0.0.0.0.0.003 (Alterações nas views de login / carregamentos)
 
+        -00.6.0.0.0.0.0.005 (Add capacity create Jogo)
+        -00.6.0.0.0.0.0.006 (Database for times created)
+        -00.6.0.0.0.0.0.007 (implementacao funcao editar nome, revisao necessaria)
+        -00.6.0.0.0.0.0.008 (Ajuste na sintaxe geral)
+        -00.6.0.0.0.0.0.009 (implementacao funcao de personalizacao de hobies, revisao necessaria)
+        -00.6.0.0.0.0.0.009.1 (Resolvendo conflitos)
 
