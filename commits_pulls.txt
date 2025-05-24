@@ -154,5 +154,6 @@ Versions:
         -00.6.0.0.0.0.0.001 (Version start commit)
         -00.6.0.0.0.0.0.002 (implementacao funcao editar nome, revisao necessaria)
         -00.6.0.0.0.0.0.003 (Ajuste na sintaxe geral)
+        -00.6.0.0.0.0.0.004 (implementacao funcao de personalizacao de hobies, revisao necessaria)
 
 

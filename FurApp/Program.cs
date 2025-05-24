@@ -18,7 +18,8 @@ class Program
         await viewsDeContas.DisplayMenu_LoginInicial();
 
         var conta_Usuario = new Conta_Usuario("fghjk", "fdf", 22, true );
-        conta_Usuario.Editar_Perfil_Nome();
+       // conta_Usuario.Editar_Perfil_Nome();
+        conta_Usuario.Editar_Interesses();
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
         Console.ReadKey();

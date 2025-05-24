@@ -1,6 +1,7 @@
 using Interfaces.IJogador;
 using Interfaces.ITecnico;
 using Models.ContaApp;
+using System.Text;
 
 
 
@@ -16,16 +17,16 @@ namespace Models.ContaApp.Usuario
         public List<string> Interesses { get; set; }
         public List<string> Amistosos { get; set; }
         public bool TornouSeJogador { get; private set; }
-        public bool TornouSeTecnico { get; private set;}
+        public bool TornouSeTecnico { get; private set; }
         public DateTime DataCriacao { get; private set; }
 
         //Construtor
-        public Conta_Usuario(string nome, 
-                            string senha, 
-                            int idade, 
+        public Conta_Usuario(string nome,
+                            string senha,
+                            int idade,
                             bool querSerJogador = true,
-                            bool querSerTecnico = false) 
-                    : base (nome, senha, idade)
+                            bool querSerTecnico = false)
+                    : base(nome, senha, idade)
         {
             Saldo = 10f;
             Interesses = new List<string>();
@@ -66,11 +67,11 @@ namespace Models.ContaApp.Usuario
         public void CriarAmistosos() { }
 
         //grana
-        public void ExibirSaldo() 
+        public void ExibirSaldo()
         {
             Console.WriteLine($"Saldo: {Saldo:F2}");
         }
-        public void Apostar(float valor) 
+        public void Apostar(float valor)
         {
             if (valor > Saldo)
             {
@@ -82,7 +83,7 @@ namespace Models.ContaApp.Usuario
         }
 
         //perfil
-        public void Exibir_Perfil() 
+        public void Exibir_Perfil()
         {
             string tiposConta = "";
             if (TornouSeJogador) tiposConta += "Jogador";
@@ -115,11 +116,11 @@ namespace Models.ContaApp.Usuario
             4. time 
             0. voltar
             """); //LUIS VERIFICA O OUTPUT
-            
+
 
         }
 
-       public void Editar_Perfil_Nome()
+        public void Editar_Perfil_Nome()
         {
             string novoNome;
 
@@ -140,9 +141,51 @@ namespace Models.ContaApp.Usuario
             }
         }
 
-                
-    
-        public void Deletar_Conta() { }
+
+       public void Editar_Interesses()
+        {
+            int limite = 150;
+            var buffer = new StringBuilder();
+            ConsoleKeyInfo key;
+
+            Console.Write($"Digite seus interesses (máx: {limite} caracteres): ");
+
+            while (true)
+            {
+                key = Console.ReadKey(intercept: true); // intercepta para não imprimir automaticamente
+
+                if (key.Key == ConsoleKey.Enter) // verifica se apertou enter
+                {
+                    Console.WriteLine(); // pular linha ao finalizar
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Backspace && buffer.Length > 0) // verifica se tem algo no bufer p poder apagar
+                {
+                    buffer.Length--; // remove o último caractere
+                    Console.Write("\b \b"); // apaga visualmente
+                }
+                else if (!char.IsControl(key.KeyChar) && buffer.Length < limite)
+                {
+                    buffer.Append(key.KeyChar);
+                    Console.Write(key.KeyChar); // mostra o caractere
+                }
+                else if (buffer.Length >= limite) 
+                {
+                    
+                    Console.Beep(); // dá um aviso sonoro se funcionar 
+                    Console.Write("\nLimite de 150 caracteres atingido! \n");
+
+                }
+            }
+
+            // Atribui o valor à lista
+            Interesses = new List<string> { buffer.ToString() };
+
+            Console.WriteLine("Interesses atualizados com sucesso!");
+        }
+
+             
+    public void Deletar_Conta() { }
 
         public void Exibir_Interesses() { }
         public void Deletar_Interesses() { }
