@@ -1,24 +1,18 @@
-// using JogosApp;
-// using PlacarApp;
-// using TimesApp;
+using Models.JogosApp;
+using Models.JogosApp.PlacarJogo;
+using Models.TimesApp;
 
-namespace PartidasApp
+namespace Models.JogosApp.Partidas
 {
-    /*
-    public class Partida : Jogos
+
+    public class Partida
     {
         public Placar Placar { get; set; }
-        public TimesApp.Times Times { get; set; }
-        
-        public Partida(DateOnly data,
-                    TimeOnly hora, 
-                    string local, 
-                    string tipoDeCampo, 
-                    int quantidadeDeJogadores,
-                    Placar placar,
-                    Times times)
-                : base(data, hora, local, tipoDeCampo, quantidadeDeJogadores)
-                {
+        public List<Time> Times { get; set; }
 
-                } */
+        public Partida()
+        {
+
+        }
     }
+}
