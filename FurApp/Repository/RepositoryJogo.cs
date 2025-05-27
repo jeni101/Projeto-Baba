@@ -34,13 +34,14 @@ namespace Repository.PersistenciaApp.Jogos
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO jogos (
-                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Data, Hora, Local, TipoDeCampo, Interessados, QuantidadeDeJogadores)
+                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Aberto, Data, Hora, Local, TipoDeCampo, Interessados, QuantidadeDeJogadores)
                     VALUES (
-                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @data, @hora, @local, @tipoDeCampo, @interessados, @quantidadeDeJogadores)
+                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @aberto, @data, @hora, @local, @tipoDeCampo, @interessados, @quantidadeDeJogadores)
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         AbreviacaoTimeA = @abreviacaoTimeA,
                         AbreviacaoTimeB = @abreviacaoTimeB,
+                        Aberto = @aberto,
                         Data = @data,
                         Hora = @hora,
                         Local = @local,
@@ -103,6 +104,36 @@ namespace Repository.PersistenciaApp.Jogos
             cmd.Parameters.AddWithValue("@id", id.ToString());
 
             return await cmd.ExecuteNonQueryAsync() > 0;
+        }
+
+        //Carrega jogos (abertos)
+        public async Task<List<Jogo>> CarregarJogosAbertos()
+        {
+            var jogosAbertos = new List<Jogo>();
+
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogos WHERE Aberto = 1 AND Deletado = 0", conn);
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    jogosAbertos.Add(LeitorDeJogos.LerJogo(reader));
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Erro MySQL ao carregar jogos abertos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro geral ao carregar jogos abertos: {ex.Message}");
+            }
+
+            return jogosAbertos;
         }
 
         public override async Task<Jogo?> GetByNameAsync(string nome)
