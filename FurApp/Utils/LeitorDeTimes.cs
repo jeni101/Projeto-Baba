@@ -9,14 +9,15 @@ namespace Utils.Pelase.Leitor.Times
         public static Time LerTime(MySqlDataReader reader)
         {
             var time = new Time(
+                Guid.Parse(reader.GetString("Id")),
                 reader.GetString("Nome"),
                 reader.GetString("Abrevicao"),
-                reader.GetInt32("Tecnico"),
-                reader.GetString("Jogadores"),
-                reader.GetString("Jogos"),
-                reader.GetString("Partidas"));
+                reader.GetString("Tecnico"),
+                reader.IsDBNull(reader.GetOrdinal("Jogadores")) ? "" : reader.GetString("Jogadores"),
+                reader.IsDBNull(reader.GetOrdinal("Jogos")) ? "" : reader.GetString("Jogos"),
+                reader.IsDBNull(reader.GetOrdinal("Partidas")) ? "" : reader.GetString("Partidas")
+            );
 
-            typeof(Time).GetProperty("Id")?.SetValue(time, Guid.Parse(reader.GetString("Id")));
             return time;
         }
     }

@@ -1,7 +1,5 @@
-namespace PlacarApp
+namespace Models.JogosApp.PlacarJogo
 {
-
-
     public class Placar
     {
         public string TimeA { get; set; }

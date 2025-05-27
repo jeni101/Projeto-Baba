@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Interfaces.ITecnico;
 using Models.ContaApp.Usuario;
-using TimesApp;
+using Models.TimesApp;
+using Services.Times;
 
 namespace Models.ContaApp.Usuario.Tecnico
 {
@@ -8,7 +12,6 @@ namespace Models.ContaApp.Usuario.Tecnico
     {
         //sobre o tecnico
         public string Time {get; set;}
-        public List<string> Eventos {get; set;}
         public List<string> Jogos {get; set;}
         public List<string> Partidas {get; set;}
 
@@ -20,25 +23,35 @@ namespace Models.ContaApp.Usuario.Tecnico
                             : base (nome, senha, idade)
             {
                 Time = time ?? string.Empty;
-                Eventos = new List<string>();  
                 Jogos = new List<string>();    
                 Partidas = new List<string>();
             }
 
         //time
-        void ITecnico.CriarTime()
+        async void ITecnico.CriarTime()
         {
-            Console.WriteLine("Nome do Time: ");  //LUIS VERIFICA O OUTPUT
+            Console.WriteLine("Criação de Time");
+            Console.WriteLine("Digite o nome que deseja para o seu time");
             string? nomeTime = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(nomeTime))
+            Console.WriteLine("Qual será a abreviação do seu time?");
+            string? abreviacaoTime = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nomeTime) || string.IsNullOrWhiteSpace(abreviacaoTime))
             {
-                Console.WriteLine("Nome vazio"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine("Nome ou abreviação não podem estar vazios");
                 return;
             }
 
-            Times.CriarTime(nomeTime, this);
-            Time = nomeTime;
+            TimesServices timesServices = new TimesServices();
+
+            var timeCriado = await timesServices.CriarTime(nomeTime, abreviacaoTime, this);
+
+            if (timeCriado != null)
+            {
+                this.Time = timeCriado.Nome;
+                Console.WriteLine($"O técnico '{Nome}' agora está associado ao time '{this.Time}'");
+            }
         }
 
         //jogos
@@ -47,12 +60,6 @@ namespace Models.ContaApp.Usuario.Tecnico
             throw new NotImplementedException();
         }
         void ITecnico.EntrarJogo()
-        {
-            throw new NotImplementedException();
-        }
-
-        //treino
-        void ITecnico.CriarTreino()
         {
             throw new NotImplementedException();
         }

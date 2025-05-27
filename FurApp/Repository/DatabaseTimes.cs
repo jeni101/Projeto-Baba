@@ -12,7 +12,7 @@ namespace Repository.Database.Times
                 Id CHAR(36) PRIMARY KEY,
                 Nome VARCHAR(100) NOT NULL UNIQUE,
                 Abreviacao CHAR(5) NOT NULL UNIQUE,
-                Tecnico VARCHAR(100) NOT NULL UNIQUE,
+                Tecnico VARCHAR(100) NOT NULL,
                 Jogadores TEXT,
                 Jogos TEXT,
                 Partidas TEXT,
