@@ -11,6 +11,7 @@ namespace Repository.Database.Jogos
             CREATE TABLE IF NOT EXISTS jogos (
                 id CHAR(36) PRIMARY KEY,
                 Nome VARCHAR(100) NOT NULL UNIQUE,
+                Aberto BOOLEAN DEFAULT TRUE,
                 Data DATE NOT NULL,
                 Hora TIME NOT NULL,
                 Local VARCHAR(100) NOT NULL,

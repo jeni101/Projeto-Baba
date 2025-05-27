@@ -20,6 +20,7 @@ namespace Utils.Pelase.Leitor.Jogos
             typeof(Jogo).GetProperty("Nome")?.SetValue(jogo, Guid.Parse(reader.GetString("Nome")));
             typeof(Jogo).GetProperty("AbreviacaoTimeA")?.SetValue(jogo, Guid.Parse(reader.GetString("AbreviacaoTimeA")));
             typeof(Jogo).GetProperty("AbreviacaoTimeB")?.SetValue(jogo, Guid.Parse(reader.GetString("AbreviacaoTimeB")));
+            typeof(Jogo).GetProperty("Aberto")?.SetValue(jogo, reader.GetBoolean("Aberto"));
             
             return jogo;
         }

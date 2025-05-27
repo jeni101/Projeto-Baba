@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MySqlConnector;
-using Models.TimesApp;
+using TimesApp;
 using Utils.Pelase.Leitor.Times;
 using Utils.Pelase.Argumentos.Times;
 using Repository.Database.Times;
