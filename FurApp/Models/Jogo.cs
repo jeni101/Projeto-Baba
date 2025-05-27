@@ -16,6 +16,7 @@ namespace Models.JogosApp
         public string Nome { get; private set; }
         public string AbreviacaoTimeA { get; set; }
         public string AbreviacaoTimeB { get; set; }
+        public bool Aberto { get; private set; }
         public DateOnly Data { get; private set; }
         public TimeOnly Hora { get; private set; }
         public string Local { get; private set; }
@@ -42,6 +43,7 @@ namespace Models.JogosApp
                 : throw new ArgumentException("A quantidade de jogadores deve ser positiva");
             Interessados = new List<string>();
             Id = Guid.NewGuid();
+            Aberto = true;
         }
 
         //funcoes
@@ -212,6 +214,20 @@ namespace Models.JogosApp
             return removido;
         }
 
+        //Status se está aberto
+        public void AbrirJogo()
+        {
+            Aberto = true;
+            Console.WriteLine($"O jogo '{Nome}' agora está ABERTO para interessados.");
+        }
+
+        public void FecharJogo()
+        {
+            Aberto = false;
+            Console.WriteLine($"O jogo '{Nome}' agora está FECHADO para interessados.");
+        }
+
+        //Criar jogo
         public static async Task<Jogo?> CriarJogo(JogosServices jogosServices)
         {
             Console.WriteLine("Criação de Jogo");
@@ -226,9 +242,28 @@ namespace Models.JogosApp
 
             var jogo = new Jogo(data, hora, campo.Local, campo.TipoDeCampo, quantidadeJogadores);
 
+            Console.Write("Deseja que o jogo seja ABERTO para interessados? (S/N): ");
+            if (Console.ReadLine()?.Trim().ToUpper() == "N")
+            {
+                jogo.FecharJogo();
+            }
+            else
+            {
+                jogo.AbrirJogo();
+            }
+
+            if (jogo.Aberto)
+            {
+                Console.WriteLine($"Status inicial: O jogo está ABERTO e pode receber interessados.");
+            }
+            else
+            {
+                Console.WriteLine($"Status inicial: O jogo está FECHADO para novos interessados.");
+            }
+
             return await jogosServices.PersistirJogo(jogo)
-                ? jogo
-                : null;
-       }
+                    ? jogo
+                    : null;
+        }
     }
 }
