@@ -9,7 +9,7 @@ namespace Repository.Database.Jogadores
 
         public override string ScriptCriacao => @"
             CREATE TABLE IF NOT EXISTS jogadores (
-                id CHAR(36) PRIMARY KEY,
+                Id CHAR(36) PRIMARY KEY,
                 Nome VARCHAR(100) NOT NULL UNIQUE,
                 SenhaHash TEXT NOT NULL,
                 Idade INT NOT NULL,
