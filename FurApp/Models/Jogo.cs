@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Repository.PersistenciaApp.Campos;
 using Models.CamposApp;
 using Models.CamposApp.Tipo;
+using Models.JogosApp.Partidas;
 using Models.ContaApp.Usuario.Jogador;
 using Repository.PersistenciaApp.Jogos;
+using Repository.PersistenciaApp.Partidas;
 using Utils.Pelase.Leitor.DataHora;
 using Services.Jogos;
 
@@ -261,9 +263,48 @@ namespace Models.JogosApp
                 Console.WriteLine($"Status inicial: O jogo está FECHADO para novos interessados.");
             }
 
-            return await jogosServices.PersistirJogo(jogo)
-                    ? jogo
-                    : null;
+            bool jogoSalvo = await jogosServices.PersistirJogo(jogo);
+
+            if (jogoSalvo)
+            {
+                Console.WriteLine("Jogo criado e salvo com sucesso");
+
+                try
+                {
+                    RepositoryPartidas repoPartidas = new RepositoryPartidas();
+
+                    Partida novaPartida = new Partida(
+                        jogo.Id,
+                        jogo.AbreviacaoTimeA,
+                        jogo.AbreviacaoTimeB,
+                        jogo.Data,
+                        jogo.Hora,
+                        jogo.Local
+                    );
+
+                    bool partidaSalva = await repoPartidas.SalvarPartidas(novaPartida);
+
+                    if (partidaSalva)
+                    {
+                        Console.WriteLine($"Partida '{novaPartida.Nome}' criada e salva automaticamente para o jogo '{jogo.Nome}'.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Aviso: Falha ao criar e salvar a partida automaticamente para o jogo '{jogo.Nome}'.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                return jogo;
+            }
+            else
+            { 
+                Console.WriteLine("Falha ao criar e salvar o Jogo.");
+                return null;
+            }
         }
     }
 }

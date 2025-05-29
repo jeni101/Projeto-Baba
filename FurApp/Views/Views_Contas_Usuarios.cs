@@ -10,6 +10,9 @@ using Services.Autenticacao;
 using Views.OpcoesMascara;
 using Utils.Confirmacao_de_saida;
 using Utils.Controle_de_execoesApp;
+using Utils.Mappers.Usuario;
+using DTO.Perfil.Usuario;
+using Presentation.Perfil;
 
 namespace Views.OpcoesContas
 {
@@ -112,39 +115,47 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
+                Conta? contaLogada = Autenticador.Instancia.PegarContaLogada();
+
+                if (contaLogada is Conta_Usuario usuarioLogado)
                 {
-                    await Task.Delay(0);
-
-                    int opcao = int.Parse(escolha ?? "");
-                    switch (opcao)
+                    var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                     {
-                        case 1:
-                            //linkar Função de ExibirPerfil do Jogador
-                            break;
+                        await Task.Delay(0);
 
-                        case 2:
-                            // linkar Função de Entrar em um time
-                            break;
+                        int opcao = int.Parse(escolha ?? "");
+                        switch (opcao)
+                        {
+                            case 1:
+                                PerfilUsuarioDTO perfilDTO = MapperUsuario.ToPerfilUsuarioDTO(usuarioLogado);
+                                PresenterPerfil.ExibirPerfil(perfilDTO);
+                                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                                Console.ReadKey();
+                                break;
 
-                        case 3:
-                            // Vou linkar MENU de Informações de Partidas
-                            break;
+                            case 2:
+                                // linkar Função de Entrar em um time
+                                break;
 
-                        case 4:
-                            // Vou linkar MENU de Opções Adicionais
-                            break;
+                            case 3:
+                                // Vou linkar MENU de Informações de Partidas
+                                break;
 
-                        case 0:
-                            Confirmacao.ExibirMensagemSaida(ref opcao);
-                            sair = true;
-                            break;
+                            case 4:
+                                // Vou linkar MENU de Opções Adicionais
+                                break;
 
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }, escolha ?? "", contador_de_erros);
-                if (sair) break;
+                            case 0:
+                                Confirmacao.ExibirMensagemSaida(ref opcao);
+                                sair = true;
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }, escolha ?? "", contador_de_erros);
+                    if (sair) break;
+                }
             }
         }
         public async Task Display_MenuTecnico()
@@ -173,40 +184,48 @@ namespace Views.OpcoesContas
                 Console.WriteLine("       .            .             .          .            .            .           .         ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
-                
-                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
+
+                Conta? contaLogada = Autenticador.Instancia.PegarContaLogada();
+
+                if (contaLogada is Conta_Usuario usuarioLogado)
                 {
-                    await Task.Delay(0);
-                    
-                    int opcao = int.Parse(escolha ?? "");
-                    switch (opcao)
+                    var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                     {
-                        case 1:
-                            //Linkar Função de ExibirPerfil do tecnico
-                            break;
+                        await Task.Delay(0);
 
-                        case 2:
-                            //Linkar Função de Gerenciamento/Criação de Time
-                            break;
+                        int opcao = int.Parse(escolha ?? "");
+                        switch (opcao)
+                        {
+                            case 1:
+                                PerfilUsuarioDTO perfilDTO = MapperUsuario.ToPerfilUsuarioDTO(usuarioLogado);
+                                PresenterPerfil.ExibirPerfil(perfilDTO);
+                                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                                Console.ReadKey();
+                                break;
 
-                        case 3:
-                            //Linkar Função de Criação/Entrada em Jogos
-                            break;
+                            case 2:
+                                //Linkar Função de Gerenciamento/Criação de Time
+                                break;
 
-                        case 4:
-                            //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
-                            break;
+                            case 3:
+                                //Linkar Função de Criação/Entrada em Jogos
+                                break;
 
-                        case 0:
-                            Confirmacao.ExibirMensagemSaida(ref opcao);
-                            sair = true;
-                            break;
+                            case 4:
+                                //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
+                                break;
 
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }, escolha ?? "", contador_de_erros);
-                if (sair) break;
+                            case 0:
+                                Confirmacao.ExibirMensagemSaida(ref opcao);
+                                sair = true;
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }, escolha ?? "", contador_de_erros);
+                    if (sair) break;
+                }
             }
         }
     }
