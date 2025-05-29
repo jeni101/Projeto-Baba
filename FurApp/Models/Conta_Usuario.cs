@@ -1,12 +1,9 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
 using Interfaces.IJogador;
 using Interfaces.ITecnico;
 using Models.ContaApp;
-using System.Text;
-
-
-
-using Repository.PersistenciaApp;
-
 
 namespace Models.ContaApp.Usuario
 {
@@ -36,36 +33,6 @@ namespace Models.ContaApp.Usuario
             DataCriacao = DateTime.Now;
         }
 
-        //Senha
-        private string Definir_Senha(int maxTentativas = 3)
-        {
-            for (int i = 0; i < maxTentativas; i++)
-            {
-                Console.WriteLine("Defina sua senha (min. 6 char.): "); //LUIS VERIFICA O OUTPUT
-                string senha = Console.ReadLine() ?? "";
-
-                if (senha.Length < 6)
-                {
-                    Console.WriteLine("Senha muito curta"); //LUIS VERIFICA O OUTPUT
-                    continue;
-                }
-
-                Console.WriteLine("Confirme sua senha: "); //LUIS VERIFICA O OUTPUT
-                string confirmacaoSenha = Console.ReadLine() ?? "";
-
-                if (senha == confirmacaoSenha)
-                {
-                    return senha;
-                }
-
-                Console.WriteLine("Senhas não coicidem"); //LUIS VERIFICA O OUTPUT
-            }
-            throw new InvalidOperationException("Número máximo de tentativas atingido"); //LUIS VERIFICA O OUTPUT
-        }
-
-        //amistoso
-        public void CriarAmistosos() { }
-
         //grana
         public void ExibirSaldo()
         {
@@ -83,28 +50,6 @@ namespace Models.ContaApp.Usuario
         }
 
         //perfil
-        public void Exibir_Perfil()
-        {
-            string tiposConta = "";
-            if (TornouSeJogador) tiposConta += "Jogador";
-            if (TornouSeTecnico) tiposConta += (tiposConta != "" ? " e " : "") + "Tecnico";
-            if (tiposConta == "") tiposConta = "Nenhu tipo definido";
-
-            Console.WriteLine($"""
-            === Perfil De {Nome} ===
-            ID: {Id}
-            Tipo: {tiposConta}
-            Idade: {Idade}
-            Saldo: {Saldo:F2}
-            Data de criação: {DataCriacao:dd/MM/yyyy}
-            Interesses: {Interesses}
-            Amistosos: {Amistosos}
-            """); //LUIS VERIFICA O OUTPUT
-        }
-        protected void DefinirId(Guid id)
-        {
-            this.Id = Guid.NewGuid();
-        }
         public void Editar_Perfil(string escolha)
         {
             // tipo de conta: 1- jogador 
@@ -116,8 +61,6 @@ namespace Models.ContaApp.Usuario
             4. time 
             0. voltar
             """); //LUIS VERIFICA O OUTPUT
-
-
         }
 
         public void Editar_Perfil_Nome()
@@ -135,7 +78,7 @@ namespace Models.ContaApp.Usuario
                     continue;
                 }
 
-                Nome = novoNome;
+                base.Nome = novoNome;
                 Console.WriteLine("Nome alterado com sucesso!");
                 break;
             }
@@ -184,8 +127,7 @@ namespace Models.ContaApp.Usuario
             Console.WriteLine("Interesses atualizados com sucesso!");
         }
 
-             
-    public void Deletar_Conta() { }
+        public void Deletar_Conta() { }
 
         public void Exibir_Interesses() { }
         public void Deletar_Interesses() { }

@@ -63,20 +63,5 @@ namespace Models.ContaApp.Usuario.Tecnico
         {
             throw new NotImplementedException();
         }
-
-        //perfil
-        public void ExibirPerfil()
-        {
-            Console.WriteLine($"""
-            === PERFIL DO TÉCNICO ===
-            ID: {Id}
-            Nome: {Nome}
-            Idade: {Idade}
-            Saldo: R$ {Saldo:F2}
-            Interesses: {Interesses}
-            Amistosos: {Amistosos}
-            Time: {Time}
-            """); //LUIS VERIFICA O OUTPUT
-        }
     }
 }

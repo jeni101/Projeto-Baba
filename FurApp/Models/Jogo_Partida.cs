@@ -19,7 +19,8 @@ namespace Models.JogosApp.Partidas
         public string Local { get; private set; }
         public PartidaStatus Status { get; private set; }
 
-        public Partida(Guid jogoId, string timeA, string timeB, Placar placar, DateOnly data, TimeOnly hora, string local, PartidaStatus status)
+        //Construtor padrão
+        public Partida(Guid jogoId, string timeA, string timeB, DateOnly data, TimeOnly hora, string local)
         {
             Id = Guid.NewGuid();
             JogoId = jogoId;
@@ -33,6 +34,7 @@ namespace Models.JogosApp.Partidas
             Nome = GerarNomePartida();
         }
 
+        //Banco
         public Partida(Guid id, Guid jogoId, string nome, string timeA, string timeB, int GolsA, int GolsB, DateOnly data, TimeOnly hora, string local, PartidaStatus status)
         {
             Id = id;
