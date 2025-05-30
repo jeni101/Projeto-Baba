@@ -1,4 +1,4 @@
-using PlacarApp;
+using Models.JogosApp.PlacarJogo;
 
 namespace AmistosoApp
 {

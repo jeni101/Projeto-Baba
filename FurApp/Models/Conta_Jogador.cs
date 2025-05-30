@@ -2,6 +2,8 @@ using Models.ContaApp.Usuario;
 using Interfaces.IJogador;
 using Models.JogosApp;
 using Models.PosicaoApp;
+using Models.JogosApp.Partidas;
+
 
 namespace Models.ContaApp.Usuario.Jogador
 {
@@ -133,7 +135,23 @@ namespace Models.ContaApp.Usuario.Jogador
                 return;
             }
 
-            if (interesse.AdicionarInteressado(this))
+            if (interesse.Interessados.Contains(this.Nome))
+            {
+
+                Console.WriteLine($"Você está interessado no jogo em {interesse.Data} às {interesse.Hora} no {interesse.Local}");
+            }
+            
+            
+            else if (interesse.Interessados.Contains($"{Nome} ({Posicao})") && !interesse.Aberto)
+            {
+                Console.WriteLine($"Você está interessado no jogo em {interesse.Data} às {interesse.Hora} no {interesse.Local}");
+            }
+            else if (interesse.Interessados.Contains($"{Nome} ({Posicao})") && interesse.Aberto)   
+            {
+                
+                Console.WriteLine($"Você está interessado no jogo em {interesse.Data} às {interesse.Hora} no {interesse.Local}");
+            }
+            else if (interesse.Interessados.Contains($"{Nome} ({Posicao})"))
             {
                 Console.WriteLine($"Você está interessado no jogo em {interesse.Data}");
             }

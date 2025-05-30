@@ -182,11 +182,11 @@ namespace Models.JogosApp
         }
 
         //Interessado (Jogador)
-        public bool AdicionarInteressado(Conta_Jogador jogador)
+        public bool AdicionarInteressado(Conta_Jogador jogador, ref string posicaoEscolhida)
         {
             if (jogador == null) return false;
 
-            string indentificacao = $"Jogador {jogador.Nome} ({jogador.Posicao})";
+            string indentificacao = $"Jogador {jogador.Nome} ({posicaoEscolhida})";
 
             if (!Interessados.Contains(indentificacao))
             {
@@ -230,9 +230,13 @@ namespace Models.JogosApp
         //Criar jogo
         public static async Task<Jogo?> CriarJogo(JogosServices jogosServices)
         {
+            Console.Clear();
             Console.WriteLine("Criação de Jogo");
-
+            // bug com relacao a criacao, horas e data so aceitam valores dps do dia e horario atual
+            Console.WriteLine("Insira a data do jogo");
             var data = LeitorDataHora.LerData("data (dd/MM/yyyy): ");
+            Console.Clear();
+            Console.WriteLine("Insira a hora do jogo");
             var hora = LeitorDataHora.LerHora("hora (HH:mm): ");
 
             var campo = await jogosServices.SelecionarCampoDisponível(data, hora);
