@@ -18,8 +18,8 @@ namespace Repository.PersistenciaApp
         }
         private static string ConectarPorPadrao()
         {
-            return  "Server=localhost;" +
-                    "Port=18046;" +
+            return  "Server=database;" +
+                    "Port=3306;" +
                     "Database=furapp;" +
                     "User ID=root;" +
                     "Password=qhG171U4;" +

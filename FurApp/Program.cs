@@ -13,21 +13,13 @@ using Views.OpcoesAdministrador;
 
 class Program
 {
-    static async Task Main(string[] args)
-    // teste 
-       {
-      //   var viewsDeContas = new Views_De_Contas();
-      //   await viewsDeContas.DisplayMenu_LoginInicial();
+  static async Task Main(string[] args)
+  {
     var viewsDeLogins = new Views_De_OpcoesContas();
     await viewsDeLogins.Display_MenuAdministrador();
 
-
-        var conta_Usuario = new Conta_Usuario("fghjk", "fdf", 22, true );
-       // conta_Usuario.Editar_Perfil_Nome();
-        conta_Usuario.Editar_Interesses();
-
-        Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
-        Console.ReadKey();
+    Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
+    Console.ReadKey();
   }
 }
     
