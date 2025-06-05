@@ -38,15 +38,6 @@ namespace Models.CamposApp
                 throw new ArgumentException("Tipo inválido") : tipoDeCampo.Trim();
         }
 
-        //Deleta
-        public void MostrarDetalhes()
-        {
-            Console.WriteLine($"Nome: {Nome}");
-            Console.WriteLine($"Localização: {Local}");
-            Console.WriteLine($"Capacidade: {Capacidade}");
-            Console.WriteLine($"Tipo de Campo: {TipoDeCampo}");
-        }
-
         //String-lizador
         public override string ToString() => 
             $"{Nome} | {Local} | Capacidade: {Capacidade} | Tipo: {TipoDeCampo}";
