@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace DTO.Perfil.Usuario
 {
     public class PerfilUsuarioDTO
