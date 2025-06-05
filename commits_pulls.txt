@@ -166,3 +166,5 @@ Versions:
         -00.6.0.0.0.0.0.013 (Partidas reworked)
         -00.6.0.0.0.0.0.014 (DTO initialization, Front-Back connection)
         -00.6.0.0.0.0.0.015 (DATABASE FINAL VERSION :D)
+        -00.6.0.0.0.0.0.016 (Git Ignore Adicionado)
+        -00.6.0.0.0.0.0.017 (Sintax e Novas Views Updates)
