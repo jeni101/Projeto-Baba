@@ -1,15 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
-using MySqlConnector;
-using Views.Contas;
-using Views_Campos;
-using Models.ContaApp.Usuario.Jogador;
-using Utils.Controle_de_execoesApp;
-using Views.OpcoesContas;
-using Models.ContaApp.Usuario;
-using Views.OpcoesAdministrador;
-
-
+﻿using Views.OpcoesContas;
 
 class Program
 {
