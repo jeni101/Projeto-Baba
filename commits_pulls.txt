@@ -168,3 +168,4 @@ Versions:
         -00.6.0.0.0.0.0.015 (DATABASE FINAL VERSION :D)
         -00.6.0.0.0.0.0.016 (Git Ignore Adicionado)
         -00.6.0.0.0.0.0.017 (Sintax e Novas Views Updates)
+        -00.6.0.0.0.0.0.018 (Placar Mapper/DTO)
