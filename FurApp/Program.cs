@@ -1,13 +1,14 @@
 ﻿using Views.OpcoesContas;
 using Views.Partidas;
+using Views.PartidasApp;
 
 class Program
 {
   static async Task Main(string[] args)
   {
-  //   var viewsDeLogins = new Views_De_OpcoesContas();
-  //   await viewsDeLogins.Display_MenuAdministrador();
-    
+    //   var viewsDeLogins = new Views_De_OpcoesContas();
+    //   await viewsDeLogins.Display_MenuAdministrador();
+
     var viewsDePartidas = new Views_Partidas();
     await viewsDePartidas.Display_InfoPartidas();
 

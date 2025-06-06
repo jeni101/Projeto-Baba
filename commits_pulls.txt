@@ -171,3 +171,4 @@ Versions:
         -00.6.0.0.0.0.0.018 (Placar Mapper/DTO)
         -00.6.0.0.0.0.0.019 (Campos problem found)
         -00.6.0.0.0.0.0.020 (View de Partidas Adicionado)
+        -00.6.0.0.0.0.0.020.1 (Bugs slove Views_Partidas.cs)

@@ -1,10 +1,12 @@
+using Utils.Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
 using Views.OpcoesMascara;
 
 namespace Views.Partidas
 {
     public class Views_Partidas
     {
-        public async Task Display_InfoPartida()
+        public async Task Display_InfoPartidas()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
