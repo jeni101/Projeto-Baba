@@ -10,7 +10,7 @@ class Program
     //   await viewsDeLogins.Display_MenuAdministrador();
 
     var viewsDePartidas = new Views_Partidas();
-    await viewsDePartidas.Display_InfoPartidas();
+    await viewsDePartidas.Display_InfoPartidas_22();
 
     Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
     Console.ReadKey();
