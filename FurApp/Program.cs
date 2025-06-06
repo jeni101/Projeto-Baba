@@ -1,4 +1,5 @@
-﻿using Views.OpcoesContas;
+﻿using Views.Contas;
+using Views.OpcoesContas;
 using Views.Partidas;
 using Views.PartidasApp;
 
@@ -6,11 +7,17 @@ class Program
 {
   static async Task Main(string[] args)
   {
+    // - View Opcoes Administrador 
     //   var viewsDeLogins = new Views_De_OpcoesContas();
     //   await viewsDeLogins.Display_MenuAdministrador();
 
-    var viewsDePartidas = new Views_Partidas();
-    await viewsDePartidas.Display_InfoPartidas_22();
+    // - View Partidas
+    // var viewsDePartidas = new Views_Partidas();
+    // await viewsDePartidas.Display_InfoPartidas_22();
+
+    // - view Login Inicial
+    // var viewsDeLogins = new Views_De_Contas();
+    // await viewsDeLogins.DisplayMenu_LoginInicial();
 
     Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
     Console.ReadKey();

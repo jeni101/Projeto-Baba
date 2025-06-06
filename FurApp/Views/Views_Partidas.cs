@@ -16,8 +16,7 @@ namespace Views.Partidas
             {
                 Console.Clear();                         //  Aqui precisa fazer Bastante coisa, Como por exemplo:
                 View_Inicial.Display_Mascara01();        //    Adicionar Times no Rodapé, Placar Automático, Listar cada jogador e Linkar funções dos botões
-                Console.WriteLine(" .____________________ Placar ____________________.");
-                Console.WriteLine(" |-=-    Time A        0  X  0     Time B      -=-|");
+                //Implementar Presenter do Placar (Dúvidas Olhe o Presenter)
                 Console.WriteLine(" |========================|=======================|   . ._______________________________.  . ");
                 Console.WriteLine(" | - Tecnico              | - Tecnico             |     |-      |  |         |  |      -|    ");
                 Console.WriteLine(" | - jogador 1            | - Jogador 1           |  .  |       |  ˙‾‾‾‾-‾‾‾‾˙  |       |    ");
@@ -79,8 +78,7 @@ namespace Views.Partidas
             {
                 Console.Clear();                         //  Aqui precisa fazer Bastante coisa, Como por exemplo:
                 View_Inicial.Display_Mascara01();        //    Adicionar Times no Rodapé, Placar Automático, Listar cada jogador e Linkar funções dos botões
-                Console.WriteLine(" .____________________ Placar ____________________.");
-                Console.WriteLine(" |-=-    Time A        0  X  0     Time B      -=-|");
+                //Implementar Presenter do Placar (Dúvidas Olhe o Presenter)
                 Console.WriteLine(" |========================|=======================|   . ._______________________________.  . ");
                 Console.WriteLine(" | - Tecnico              | - Tecnico             |     |-      |  |         |  |      -|    ");
                 Console.WriteLine(" | - jogador 1            | - Jogador 1           |  .  |       |  ˙‾‾‾‾-‾‾‾‾˙  |       |    ");
@@ -140,8 +138,7 @@ namespace Views.Partidas
             {
                 Console.Clear();                         //  Aqui precisa fazer Bastante coisa, Como por exemplo:
                 View_Inicial.Display_Mascara01();        //    Adicionar Times no Rodapé, Placar Automático, Listar cada jogador e Linkar funções dos botões
-                Console.WriteLine(" .____________________ Placar ____________________.");
-                Console.WriteLine(" |-=-    Time A        0  X  0     Time B      -=-|");
+                //Implementar Presenter do Placar (Dúvidas Olhe o Presenter)
                 Console.WriteLine(" |========================|=======================|   . ._______________________________.  . ");
                 Console.WriteLine(" | - Tecnico              | - Tecnico             |     |-      |  |         |  |      -|    ");
                 Console.WriteLine(" | - jogador 1            | - Jogador 1           |  .  |       |  ˙‾‾‾‾-‾‾‾‾˙  |       |    ");
