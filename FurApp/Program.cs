@@ -1,11 +1,15 @@
 ﻿using Views.OpcoesContas;
+using Views.Partidas;
 
 class Program
 {
   static async Task Main(string[] args)
   {
-    var viewsDeLogins = new Views_De_OpcoesContas();
-    await viewsDeLogins.Display_MenuAdministrador();
+  //   var viewsDeLogins = new Views_De_OpcoesContas();
+  //   await viewsDeLogins.Display_MenuAdministrador();
+    
+    var viewsDePartidas = new Views_Partidas();
+    await viewsDePartidas.Display_InfoPartidas();
 
     Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
     Console.ReadKey();
