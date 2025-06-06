@@ -1,10 +1,5 @@
-using System;
-using Models;
 using Models.ContaApp;
 using Models.ContaApp.Usuario;
-using Models.ContaApp.Usuario.Jogador;
-using Models.ContaApp.Usuario.Tecnico;
-using Models.JogosApp;
 using Views.OpcoesAdministrador;
 using Services.Autenticacao;
 using Views.OpcoesMascara;
@@ -13,6 +8,7 @@ using Utils.Controle_de_execoesApp;
 using Utils.Mappers.Usuario;
 using DTO.Perfil.Usuario;
 using Presentation.Perfil;
+using Views.OpcoesUsuarios;
 
 namespace Views.OpcoesContas
 {
@@ -138,11 +134,11 @@ namespace Views.OpcoesContas
                                 break;
 
                             case 3:
-                                // Vou linkar MENU de Informações de Partidas
+                                await Views_Usuarios.Display_User_Partidas();
                                 break;
 
                             case 4:
-                                // Vou linkar MENU de Opções Adicionais
+                                await Views_Usuarios.Display_User_Adicionais();
                                 break;
 
                             case 0:

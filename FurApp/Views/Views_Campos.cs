@@ -1,6 +1,4 @@
-using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
-using Models.ContaApp.Usuario.Tecnico;
 using Models.JogosApp;
 using Utils.Controle_de_execoesApp;
 using Utils.Confirmacao_de_saida;
@@ -29,7 +27,7 @@ namespace Views_Campos
                 Console.Clear();
 
                 Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
-                Console.WriteLine(".______________________________________.");
+                Console.WriteLine(".______________________________________."); //Verificar Oque Vai Fazer com isso....
                 Console.WriteLine("|  -=- Selecione o Tipo da Quadra -=-  |");
                 Console.WriteLine("|======================================|");
                 Console.WriteLine("|Campo Oficial . . . . . . . . . |  1  |");

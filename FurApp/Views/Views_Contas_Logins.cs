@@ -1,15 +1,7 @@
-using System;
-using Models;
-using Models.ContaApp;
-using Models.ContaApp.Usuario;
-using Models.ContaApp.Usuario.Jogador;
-using Models.ContaApp.Usuario.Tecnico;
-using Models.JogosApp;
 using Services.Autenticacao;
 using Services.Register;
 using Views.OpcoesMascara;
 using Utils.Confirmacao_de_saida;
-using System.Threading.Tasks;
 using Utils.Controle_de_execoesApp;
 
 namespace Views.Contas

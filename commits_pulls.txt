@@ -175,3 +175,4 @@ Versions:
         -00.6.0.0.0.0.0.021 (Views de Partidas e Presenter de Perfil Adicionados)
         -00.6.0.0.0.0.0.022 (Atualizacao de Views Partidas e Mascote)
         -00.6.0.0.0.0.0.023 (Views Opcoes de Partidas Added)
+        -00.6.0.0.0.0.0.024 (Linkagem de Menus e Correcao de Sintaxes)

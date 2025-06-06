@@ -1,6 +1,4 @@
-using System;
 using DTO.Perfil.Usuario;
-using Models.ContaApp.Usuario;
 
 namespace Presentation.Perfil
 {
@@ -13,7 +11,8 @@ namespace Presentation.Perfil
                 Console.WriteLine("Erro: Não foi possível exibir o perfil. DTO nulo");
                 return;
             }
-                //Tem que testar ainda, provavelmente está bem desorganizado no print, Se alguem puder deixar um jeito de eu ver como fica no program eu agradeço
+                //Tem que testar ainda, provavelmente está bem desorganizado no print, 
+                // Se alguem puder deixar um jeito de eu ver como fica no program eu agradeço
             Console.WriteLine($" .________________________ Perfil De: ________________________.");
             Console.WriteLine($" | -=-             {perfilDTO.Nome.ToUpper()}             -=- |");
             Console.WriteLine($" |============================================================|");
