@@ -10,6 +10,7 @@ namespace Models.CamposApp.Tipo
 
         public TipoDeCampo(string tipo, int capacidadePadrao)
         {
+            Id = Guid.NewGuid();
             Tipo = tipo;
             CapacidadePadrao = capacidadePadrao;
         }
