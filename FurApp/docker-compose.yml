@@ -1,29 +1,34 @@
-version: '3.8'
+version: '3.8' # <<-- Aviso de 'version' é normal, mas pode ser removido em versões futuras
 
 services:
   database:
     image: mariadb:latest
     container_name: database
     ports:
-      - "18046:3306" # <--- Mudei aqui! Agora mapeia a porta 18046 do host para a 3306 do contêiner
+      - "18046:3306" # Mapeia a porta 18046 do host para a 3306 do contêiner
     environment:
       MARIADB_ROOT_PASSWORD: qhG171U4
       MARIADB_DATABASE: furapp
     volumes:
       - db_data:/var/lib/mysql # Persiste os dados do banco de dados
+    healthcheck:
+      test: ["CMD", "mariadb", "-h", "localhost", "-u", "root", "-pqhG171U4", "-e", "SELECT 1;"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
 
   fur_app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80" # Ou a porta que sua aplicação usa no host
+      - "8080:80" # Mapeia a porta 8080 do host para a porta 80 do contêiner da sua aplicação
     depends_on:
       - database
     environment:
-      # A string de conexão ainda usa 'Server=database' porque está se conectando ao nome do serviço
+      # A string de conexão usa 'Server=database' porque está se conectando ao nome do serviço
       # dentro da rede Docker. A porta interna do MariaDB no contêiner é 3306.
       ConnectionStrings__MariaDB: "Server=database;Port=3306;Database=furapp;User ID=root;Password=qhG171U4;Connection Timeout=30;"
 
 volumes:
-  db_data:
+  db_data: # Define o volume para persistência de dados do banco

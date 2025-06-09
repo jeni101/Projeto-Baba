@@ -1,7 +1,9 @@
-using System.Runtime.Serialization;
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using MySqlConnector;
 using Models.JogosApp;
 using Models.CamposApp;
-using Models.CamposApp.Tipo;
 using Repository.PersistenciaApp.Campos;
 using Repository.PersistenciaApp.Jogos;
 
@@ -68,7 +70,17 @@ namespace Services.Jogos
         {
             try
             {
+                if (jogo == null)
+                {
+                    Console.WriteLine("Erro: O objeto Jogo a ser persistido não pode ser nulo.");
+                    return false;
+                }
                 return await _repoJogo.SalvarJogos(jogo);
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (Exception ex)
             {

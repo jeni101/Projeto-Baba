@@ -21,38 +21,66 @@ namespace Models.JogosApp
         public bool Aberto { get; private set; }
         public DateOnly Data { get; private set; }
         public TimeOnly Hora { get; private set; }
-        public string Local { get; private set; }
-        public string TipoDeCampo { get; private set; }
+        public Guid CampoId { get; private set; }
+        public string LocalDisplay { get; private set; }
+        public string TipoDeCampoDisplay { get; private set; }
         public List<string> Interessados { get; private set; }
         public int QuantidadeDeJogadores { get; private set; }
 
         //construtores
         public Jogo(DateOnly data,
                     TimeOnly hora,
-                    string local,
-                    string tipoDeCampo,
+                    Campo campo,
                     int quantidadeDeJogadores)
         {
+            if (campo == null) throw new ArgumentNullException(nameof(campo), "Campo não pode ser nulo");
+            if (campo.TipoDeCampo == null) throw new InvalidOperationException("Campo.TipoDeCampo é nulo. O campo deve ter um tipo associado.");
+
             AbreviacaoTimeA = "Time A";
             AbreviacaoTimeB = "Time B";
-            Nome = GerarNome();
+
             Data = data;
             Hora = hora;
-            Local = local ?? throw new ArgumentNullException(nameof(local));
-            TipoDeCampo = tipoDeCampo ?? throw new ArgumentNullException(nameof(tipoDeCampo));
+
+            CampoId = campo.Id;
+            LocalDisplay = campo.Local;
+            TipoDeCampoDisplay = campo.TipoDeCampo.Tipo;
+
             QuantidadeDeJogadores = quantidadeDeJogadores > 0
                 ? quantidadeDeJogadores
                 : throw new ArgumentException("A quantidade de jogadores deve ser positiva");
+
             Interessados = new List<string>();
             Id = Guid.NewGuid();
             Aberto = true;
+            Nome = GerarNome();
+        }
+
+        //Construtor no banco de dados
+        public Jogo(Guid id, string nome, string abreviacaoTimeA, string abreviacaoTimeB, 
+                    bool aberto, DateOnly data, TimeOnly hora, Guid campoId,
+                    string localDisplay, string tipoDeCampoDisplay, 
+                    List<string> interessados, int quantidadeDeJogadores)
+        {
+            Id = id;
+            Nome = nome;
+            AbreviacaoTimeA = abreviacaoTimeA;
+            AbreviacaoTimeB = abreviacaoTimeB;
+            Aberto = aberto;
+            Data = data;
+            Hora = hora;
+            CampoId = campoId;
+            LocalDisplay = localDisplay;
+            TipoDeCampoDisplay = tipoDeCampoDisplay;
+            Interessados = interessados ?? new List<string>();
+            QuantidadeDeJogadores = quantidadeDeJogadores;
         }
 
         //funcoes
         //Receber nome
         public string GerarNome()
         {
-            return $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {Local}";
+            return $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {LocalDisplay}";
         }
 
         //Definir abreviaturas
@@ -69,7 +97,7 @@ namespace Models.JogosApp
         //Atualização
         public void AtualizarNome()
         {
-            Nome = $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {Local}";
+            Nome = $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {LocalDisplay}";
         }
 
         //Alterar data
@@ -105,18 +133,18 @@ namespace Models.JogosApp
                 System.Globalization.DateTimeStyles.None, out TimeOnly novaHora))
             {
                 Hora = novaHora;
+                Nome = GerarNome();
             }
         }
 
         //Alterar local
-        public void Alterar_Local()
+        public void Alterar_Local(string novoLocal)
         {
-            string novoLocal = Console.ReadLine() ?? string.Empty;
-            if (!string.IsNullOrWhiteSpace(novoLocal))
-            {
-                Local = novoLocal;
-                Nome = GerarNome();
-            }
+            if (string.IsNullOrWhiteSpace(novoLocal))
+                throw new ArgumentException("O novo local não pode estar vazio");
+
+            LocalDisplay = novoLocal;
+            Nome = GerarNome();
         }
 
         //Selecionar tipo de campo
@@ -141,14 +169,14 @@ namespace Models.JogosApp
             Console.WriteLine("Campos disponíveis");
             for (int i = 0; i < campos.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {campos[i].Nome} - {campos[i].TipoDeCampo} (Capacidade: {campos[i].Capacidade})");
+                Console.WriteLine($"{i + 1}. {campos[i].Nome} - {campos[i].TipoDeCampo.Tipo} (Capacidade: {campos[i].Capacidade})");
             }
 
-            Console.Write("Digite número do campo");
+            Console.Write("Digite número do campo: ");
             if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= campos.Count)
             {
                 var campoEscolhido = campos[escolha - 1];
-                Console.WriteLine($"Campo selecionado: {campoEscolhido.Nome} ({campoEscolhido.TipoDeCampo})");
+                Console.WriteLine($"Campo selecionado: {campoEscolhido.Nome} ({campoEscolhido.TipoDeCampo.Tipo})");
                 return campoEscolhido;
             }
             Console.WriteLine("Inválido");
@@ -158,9 +186,15 @@ namespace Models.JogosApp
         //Definidor de campo
         public void DefinirCampo(Campo campo)
         {
-            if (campo == null) return;
-            Local = campo.Local;
-            TipoDeCampo = campo.TipoDeCampo;
+            if (campo == null)
+                throw new ArgumentNullException(nameof(campo), "O campo fornecido não pode ser nulo.");
+
+            if (campo.TipoDeCampo == null)
+                throw new InvalidOperationException("O campo fornecido não tem um TipoDeCampo associado.");
+
+            CampoId = campo.Id;
+            LocalDisplay = campo.Local;
+            TipoDeCampoDisplay = campo.TipoDeCampo.Tipo;
             Nome = GerarNome();
         }
 
@@ -177,7 +211,7 @@ namespace Models.JogosApp
         //Interessados
         public void AdicionarInteressado(string nome)
         {
-            if (!string.IsNullOrWhiteSpace(nome))
+            if (!string.IsNullOrWhiteSpace(nome) && !Interessados.Contains(nome))
             {
                 Interessados.Add(nome);
             }
@@ -193,10 +227,9 @@ namespace Models.JogosApp
             if (!Interessados.Contains(indentificacao))
             {
                 Interessados.Add(indentificacao);
-                jogador.Interesses.Add($"Jogo em {Data} às {Hora} no {Local}");
+                jogador.Interesses.Add($"Jogo em {Data:dd/MM/yyyy} às {Hora:HH:mm} no {LocalDisplay}");
                 return true;
             }
-
             return false;
         }
 
@@ -210,9 +243,8 @@ namespace Models.JogosApp
 
             if (removido)
             {
-                jogador.Interesses.Remove($"Jogo em {Data} às {Hora} no {Local}");
+                jogador.Interesses.Add($"Jogo em {Data:dd/MM/yyyy} às {Hora:HH:mm} no {LocalDisplay}");
             }
-
             return removido;
         }
 
@@ -242,7 +274,7 @@ namespace Models.JogosApp
 
             int quantidadeJogadores = jogosServices.ObterQuantidadeDeJogadores(campo.Capacidade);
 
-            var jogo = new Jogo(data, hora, campo.Local, campo.TipoDeCampo, quantidadeJogadores);
+            var jogo = new Jogo(data, hora, campo, quantidadeJogadores);
 
             Console.Write("Deseja que o jogo seja ABERTO para interessados? (S/N): ");
             if (Console.ReadLine()?.Trim().ToUpper() == "N")
@@ -279,7 +311,7 @@ namespace Models.JogosApp
                         jogo.AbreviacaoTimeB,
                         jogo.Data,
                         jogo.Hora,
-                        jogo.Local
+                        jogo.LocalDisplay
                     );
 
                     bool partidaSalva = await repoPartidas.SalvarPartidas(novaPartida);

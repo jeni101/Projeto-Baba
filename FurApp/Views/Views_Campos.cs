@@ -1,5 +1,5 @@
+/*
 using Models.ContaApp.Usuario.Jogador;
-using Models.JogosApp;
 using Utils.Controle_de_execoesApp;
 using Utils.Confirmacao_de_saida;
 
@@ -87,27 +87,8 @@ namespace Views_Campos
                     }
 
                 }, escolha ?? "", contador_de_erros);
-
-            
-
-                if (sair)
-                    break; // Sai do while se escolheu 0
-
-                if (int.TryParse(escolha, out int escolhaInt) && validos.Contains(escolhaInt))
-                {
-                    Jogo jogo = new Jogo(
-                        DateOnly.FromDateTime(DateTime.Today),
-                        TimeOnly.FromDateTime(DateTime.Now),
-                        "Campo a Definir",
-                        tipo_quadra,
-                        quantidade_jogadores);
-
-                    Console.WriteLine($"\nJogo Criado: {jogo.TipoDeCampo}, {jogo.QuantidadeDeJogadores} jogadores.");
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
-                }
             }
         }
     }
 }
-
+*/

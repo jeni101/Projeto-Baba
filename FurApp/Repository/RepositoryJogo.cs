@@ -34,9 +34,11 @@ namespace Repository.PersistenciaApp.Jogos
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO jogos (
-                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Aberto, Data, Hora, Local, TipoDeCampo, Interessados, QuantidadeDeJogadores)
+                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Aberto, Data, Hora, 
+                        CampoId, LocalDisplay, TipoDeCampoDisplay, Interessados, QuantidadeDeJogadores)
                     VALUES (
-                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @aberto, @data, @hora, @local, @tipoDeCampo, @interessados, @quantidadeDeJogadores)
+                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @aberto, @data, @hora, 
+                        @campoId, @localDisplay, @tipoDeCampoDisplay, @interessados, @quantidadeDeJogadores)
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         AbreviacaoTimeA = @abreviacaoTimeA,
@@ -44,8 +46,9 @@ namespace Repository.PersistenciaApp.Jogos
                         Aberto = @aberto,
                         Data = @data,
                         Hora = @hora,
-                        Local = @local,
-                        TipoDeCampo = @tipoDeCampo,
+                        CampoId = @campoId,
+                        LocalDisplay = @localDisplay,
+                        TipoDeCampoDisplay = @tipoDeCampoDisplay,
                         Interessados = @interessados,
                         QuantidadeDeJogadores = @quantidadeDeJogadores", conn);
 
