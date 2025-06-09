@@ -26,25 +26,25 @@ namespace Utils.Controle_de_execoesApp
                 {
                     Console.WriteLine("Erro: Escolha fora das opções validas. Tente novamente.\n");
                     Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
+                    Console.Read();
                 }
                 else if (!int.TryParse(escolha, out _)) // verifica se é um numero
                 {
                     Console.WriteLine("Erro: Entrada não é um número. Tente novamente.\n");
                     Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
+                    Console.Read();
                 }
                 else if (ex is FormatException) // verifica se é um formato valido ex invalido:
                 {
                     Console.WriteLine("Erro: Formato inválido. Tente novamente.\n");
                     Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
+                    Console.Read();
                 }
                 else
                 {
                     Console.WriteLine($"Erro inesperado: {ex.Message}\n"); // fudeu, mas tem esse aqui ainda
                     Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
+                    Console.Read();
                 }
                 //Mensagens de erro *Coloridinhas
                 if (contadorAtual == 2 || contadorAtual == 3)
@@ -52,21 +52,21 @@ namespace Utils.Controle_de_execoesApp
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Presta atenção abestado, assim num pode não!");
-                    Console.ReadKey();
+                    Console.Read();
                     Console.ResetColor();
                 }
                 else if (contadorAtual == 4)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Cara..... precisa de ajuda?");
-                    Console.ReadKey();
+                    Console.Read();
                     Console.ResetColor(); // resetando a cor 
                 }
                 else if (contadorAtual == 7)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Ainda por aqui amigo? .... Como vai a vida?");
-                    Console.ReadKey();
+                    Console.Read();
                     Console.ResetColor();
                 }
 
@@ -74,7 +74,7 @@ namespace Utils.Controle_de_execoesApp
                 {
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("Rapaz......Tenso......");
-                    Console.ReadKey();
+                    Console.Read();
                     Console.ResetColor();
                 }
                 

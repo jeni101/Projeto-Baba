@@ -11,6 +11,11 @@ services:
       MARIADB_DATABASE: furapp
     volumes:
       - db_data:/var/lib/mysql # Persiste os dados do banco de dados
+    healthcheck:
+      test: ["CMD", "mariadb", "-h", "localhost", "-u", "root", "-pqhG171U4", "-e", "SELECT 1;"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
 
   fur_app:
     build:

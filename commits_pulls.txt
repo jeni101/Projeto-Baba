@@ -180,3 +180,4 @@ Versions:
         -00.6.0.0.0.0.0.026 (Campos DTO implementation)
         -00.6.0.0.0.0.0.027 (Placar DTO/View connection)
         -00.6.0.0.0.0.0.028 (ADM creation)
+        -00.6.0.0.0.0.0.029 (Error release)
