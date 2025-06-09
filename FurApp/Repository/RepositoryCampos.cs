@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MySqlConnector;
 using Models.CamposApp;
+using Models.CamposApp.Tipo;
 using Utils.Pelase.Leitor.Campos;
 using Utils.Pelase.Argumentos.Campos;
 using Repository.Database.Campos;
-using System.Runtime.InteropServices;
+using Repository.PersistenciaApp.CamposTipo;
 
 namespace Repository.PersistenciaApp.Campos
 {
     public class RepositoryCampos : ARepository<Campo>
     {
         private readonly DatabaseCampos _dbSchema = new DatabaseCampos();
-        public RepositoryCampos() : base() { }
+        private readonly RepositoryCamposTipos _repoTipoCampo;
+        public RepositoryCampos() : base()
+        {
+            _repoTipoCampo = new RepositoryCamposTipos();
+        }
 
         //Salvar campo
         public async Task<bool> SalvarCampo(Campo campo)
@@ -30,14 +35,19 @@ namespace Repository.PersistenciaApp.Campos
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO campos (
-                        Id, Nome, Local, Capacidade, TipoDeCampo, Deletado, DataDelecao, QuemDeletou)
+                        Id, Nome, Local, Capacidade, TipoDeCampoId, Deletado, DataDelecao, QuemDeletou)
                     VALUES (
-                        @id, @nome, @local, @capacidade, @tipoDeCampo, @deletado, @dataDelecao, @quemDeletou)
+                        @id, @nome, @local, @capacidade, @tipoDeCampoId, @deletado, @dataDelecao, @quemDeletou)
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         Local = @local,
                         Capacidade = @capacidade,
-                        TipoDeCampo = @tipoDeCampo", conn);
+                        TipoDeCampoId = @tipoDeCampoId", conn);
+
+                if (campo.TipoDeCampo == null)
+                {
+                    throw new ArgumentNullException(nameof(campo.TipoDeCampo), " ! O tipo não pode ser nulo ao salvar ! ");
+                }
 
                 ArgumentosCampos.PreencherParametros(cmd, campo);
                 return await cmd.ExecuteNonQueryAsync() > 0;
@@ -49,7 +59,7 @@ namespace Repository.PersistenciaApp.Campos
             }
         }
 
-        //Carregar jogador
+        //Carregar campo
         public async Task<List<Campo>> CarregarTodos()
         {
             var camposLista = new List<Campo>();
@@ -64,7 +74,7 @@ namespace Repository.PersistenciaApp.Campos
 
                 while (await reader.ReadAsync())
                 {
-                    camposLista.Add(LeitorDeCampos.LerCampos(reader));
+                    camposLista.Add(await LeitorDeCampos.LerCampos(reader, _repoTipoCampo));
                 }
             }
             catch (MySqlException ex)
@@ -82,20 +92,28 @@ namespace Repository.PersistenciaApp.Campos
         //Deletar Campo
         public async Task<bool> DeletarCampo(Guid id, string quemDeletou)
         {
-            using var conn = Conectar();
-            await conn.OpenAsync();
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
 
-            var cmd = new MySqlCommand(@"
+                var cmd = new MySqlCommand(@"
                 UPDATE campos
                 SET Deletado = 1,
                     DataDelecao = NOW(),
                     QuemDeletou = @quemDeletou
                 WHERE Id = @id", conn);
 
-            cmd.Parameters.AddWithValue("@id", id.ToString());
-            cmd.Parameters.AddWithValue("@quemDeletou", quemDeletou);
+                cmd.Parameters.AddWithValue("@id", id.ToString());
+                cmd.Parameters.AddWithValue("@quemDeletou", quemDeletou);
 
-            return await cmd.ExecuteNonQueryAsync() > 0;
+                return await cmd.ExecuteNonQueryAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         public override async Task<Campo?> GetByNameAsync(string nome)
@@ -112,7 +130,7 @@ namespace Repository.PersistenciaApp.Campos
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? LeitorDeCampos.LerCampos(reader)
+                    ? await LeitorDeCampos.LerCampos(reader, _repoTipoCampo)
                     : null;
             }
             catch (MySqlException ex)
@@ -137,10 +155,11 @@ namespace Repository.PersistenciaApp.Campos
                 await conn.OpenAsync();
 
                 var cmd = new MySqlCommand(@"
-                    SELECT * FROM campos
-                    WHERE (Nome LIKE @Nome OR @Nome = '')
-                    AND (TipoDeCampo LIKE @Tipo OR @Tipo = '')
-                    AND Deletado = 0", conn);
+                    SELECT c.* FROM campos c
+                    JOIN campos_tipo tc ON c.TipoDeCampoId
+                    WHERE (c.Nome LIKE @Nome OR @Nome = '')
+                    AND (tc.Tipo LIKE @Tipo OR @Tipo = '')
+                    AND c.Deletado = 0", conn);
 
                 cmd.Parameters.AddWithValue("@Nome", $"%{nome}%");
                 cmd.Parameters.AddWithValue("@Tipo", $"%{tipo}%");
@@ -148,7 +167,7 @@ namespace Repository.PersistenciaApp.Campos
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    camposFiltrados.Add(LeitorDeCampos.LerCampos(reader));
+                    camposFiltrados.Add(await LeitorDeCampos.LerCampos(reader, _repoTipoCampo));
                 }
             }
             catch (Exception ex)
@@ -171,12 +190,13 @@ namespace Repository.PersistenciaApp.Campos
                 var cmd = new MySqlCommand(@"
                     SELECT COUNT(*) FROM jogos
                     WHERE CampoId = @campoId
-                    AND Data = @data,
+                    AND Data = @data
                     AND ABS(TIMESTAMPDIFF(MINUTE, Hora, @hora)) < @intervalo
                     AND Deletado = 0", conn);
 
-                cmd.Parameters.AddWithValue("@campoId", campoId);
-                cmd.Parameters.AddWithValue("@data", data);
+                cmd.Parameters.AddWithValue("@campoId", campoId.ToString());
+                cmd.Parameters.AddWithValue("@data", data.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@hora", hora.ToString("HH:mm:ss"));
                 cmd.Parameters.AddWithValue("@intervalo", intervaloMinutos);
 
                 var count = Convert.ToInt32(await cmd.ExecuteScalarAsync());

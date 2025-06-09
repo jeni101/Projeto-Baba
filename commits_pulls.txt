@@ -176,3 +176,6 @@ Versions:
         -00.6.0.0.0.0.0.022 (Atualizacao de Views Partidas e Mascote)
         -00.6.0.0.0.0.0.023 (Views Opcoes de Partidas Added)
         -00.6.0.0.0.0.0.024 (Linkagem de Menus e Correcao de Sintaxes)
+        -00.6.0.0.0.0.0.025 (Campos correction)
+        -00.6.0.0.0.0.0.026 (Campos DTO implementation)
+        -00.6.0.0.0.0.0.027 (Placar DTO/View connection)

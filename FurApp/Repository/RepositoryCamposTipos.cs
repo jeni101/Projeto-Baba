@@ -35,7 +35,6 @@ namespace Repository.PersistenciaApp.CamposTipo
                     VALUES (
                         @id, @tipo, @capacidadePadrao)
                     ON DUPLICATE KEY UPDATE
-                        Nome = @nome,
                         Tipo = @tipo,
                         CapacidadePadrao = @capacidadePadrao", conn);
 
@@ -59,7 +58,7 @@ namespace Repository.PersistenciaApp.CamposTipo
                 using var conn = Conectar();
                 await conn.OpenAsync();
 
-                using var cmd = new MySqlCommand("SELECT * FROM campos_tipo WHERE deletado = 0", conn);
+                using var cmd = new MySqlCommand("SELECT * FROM campos_tipo", conn);
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
@@ -86,9 +85,9 @@ namespace Repository.PersistenciaApp.CamposTipo
                 using var conn = Conectar();
                 await conn.OpenAsync();
 
-                using var cmd = new MySqlCommand("SELECT * FROM campos_tipo WHERE Nome = @nome AND Deletado = 0 LIMIT 1", conn);
+                using var cmd = new MySqlCommand("SELECT * FROM campos_tipo WHERE Tipo = @tipo LIMIT 1", conn);
 
-                cmd.Parameters.AddWithValue("@nome", nome);
+                cmd.Parameters.AddWithValue("@tipo", nome);
 
                 using var reader = await cmd.ExecuteReaderAsync();
 
@@ -105,6 +104,35 @@ namespace Repository.PersistenciaApp.CamposTipo
                 Console.WriteLine(ex.Message);
             }
 
+            return null;
+        }
+
+        public async Task<TipoDeCampo?> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM campos_tipo WHERE Id = @id LIMIT 1", conn);
+
+                cmd.Parameters.AddWithValue("@id", id.ToString());
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                return await reader.ReadAsync()
+                    ? LeitorDeTipoCampos.LerTipoCampos(reader)
+                    : null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             return null;
         }
     }

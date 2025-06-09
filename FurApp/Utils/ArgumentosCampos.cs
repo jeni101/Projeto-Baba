@@ -12,6 +12,11 @@ namespace Utils.Pelase.Argumentos.Campos
             cmd.Parameters.AddWithValue("@nome", campo.Nome);
             cmd.Parameters.AddWithValue("@local", campo.Local);
             cmd.Parameters.AddWithValue("@capacidade", campo.Capacidade);
+
+            if (campo.TipoDeCampo == null)
+            {
+                throw new ArgumentException(" !  Erro ao preencher parametros de campo  ! ");
+            }
             cmd.Parameters.AddWithValue("@tipoDeCampo", campo.TipoDeCampo);
         }
     }
