@@ -76,9 +76,9 @@ namespace Services.Times
                 Console.WriteLine($"Nome: {time.Nome}");
                 Console.WriteLine($"Abreviação: {time.Abreviacao}");
                 Console.WriteLine($"Técnico: {time.Tecnico}");
-                Console.WriteLine($"Jogadores: {string.Join(", ", time.Jogadores)}");
-                Console.WriteLine($"Jogos: {string.Join(", ", time.Jogos)}");
-                Console.WriteLine($"Partidas: {string.Join(", ", time.Partidas)}");
+                Console.WriteLine($"Jogadores: {(time.Jogadores != null ? string.Join(", ", time.Jogadores) : "Nenhum")}");
+                Console.WriteLine($"Jogos: {(time.Jogos != null ? string.Join(", ", time.Jogos) : "Nenhum")}");
+                Console.WriteLine($"Partidas: {(time.Partidas != null ? string.Join(", ", time.Partidas) : "Nenhum")}");
             }
         }
     }

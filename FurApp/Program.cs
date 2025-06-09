@@ -1,23 +1,16 @@
-﻿using Views.Contas;
-using Views.OpcoesContas;
-using Views.Partidas;
-using Views.PartidasApp;
+﻿using Repository.PersistenciaApp.ADM;
+using Repository.Database.Initializer.ADM;
 
 class Program
 {
   static async Task Main(string[] args)
   {
-    // - View Opcoes Administrador 
-    //   var viewsDeLogins = new Views_De_OpcoesContas();
-    //   await viewsDeLogins.Display_MenuAdministrador();
+    var repoADM = new RepositoryADM();
+    await InitializerADM.Inicializar(repoADM);
+    Console.WriteLine(":)");
 
-    // - View Partidas
-    // var viewsDePartidas = new Views_Partidas();
-    // await viewsDePartidas.Display_InfoPartidas_22();
-
-    // - view Login Inicial
-    // var viewsDeLogins = new Views_De_Contas();
-    // await viewsDeLogins.DisplayMenu_LoginInicial();
+    var viewsContas = new Views.Contas.Views_De_Contas();
+    await viewsContas.DisplayMenu_LoginInicial();
 
     Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");
     Console.ReadKey();

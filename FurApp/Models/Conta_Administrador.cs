@@ -1,6 +1,4 @@
-using Models.ContaApp;
-
-namespace ContaAdmApp
+namespace Models.ContaApp.ADM
 {
     public class Conta_Administrador : Conta
     {

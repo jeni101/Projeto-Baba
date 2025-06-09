@@ -3,6 +3,7 @@ using Models.ContaApp;
 using Models.ContaApp.Usuario;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
+using Repository.PersistenciaApp.ADM;
 
 namespace Services.Autenticacao
 {
@@ -14,6 +15,7 @@ namespace Services.Autenticacao
         //Atributos
         private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
         private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
+        private readonly RepositoryADM _repoADM = new RepositoryADM();
         private Conta? _contaLogada;
 
         //Login
@@ -40,12 +42,25 @@ namespace Services.Autenticacao
 
                 var jogador = await _repoJogador.GetByNameAsync(nome);
                 var tecnico = await _repoTecnico.GetByNameAsync(nome);
+                var adm = await _repoADM.GetByNameAsync(nome);
 
-                var conta = jogador ?? tecnico as Conta;
+                Conta? conta = null;
+                if (adm != null)
+                {
+                    conta = adm;
+                }
+                else if (jogador != null)
+                {
+                    conta = jogador;
+                }
+                else if (tecnico != null)
+                {
+                    conta = tecnico;
+                }
 
                 if (conta == null || !conta.Autenticar(senha))
                 {
-                    Console.WriteLine("Credenciais inválidas");
+                    Console.WriteLine(" ! Credenciais inválidas ! ");
                     return false;
                 }
 

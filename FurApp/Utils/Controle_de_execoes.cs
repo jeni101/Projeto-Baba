@@ -1,5 +1,4 @@
 using System;
-using Views_Campos;
 
 //Utils são estáticos, verifica depois se não é melhor isso ser um Services
 namespace Utils.Controle_de_execoesApp

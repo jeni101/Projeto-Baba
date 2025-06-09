@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using Utils.Pelase.CensuradorDeSenha;
 
 namespace Models.ContaApp
@@ -30,7 +29,7 @@ namespace Models.ContaApp
             Nome = nome;
             SenhaHash = CensuradorDeSenha.HashPassword(senha);
             Idade = idade;
-        } 
+        }
 
         //Verifica a senha
         public bool Autenticar(string senha)
