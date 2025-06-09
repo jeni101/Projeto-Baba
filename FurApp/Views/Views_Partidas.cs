@@ -1,11 +1,17 @@
 using Utils.Controle_de_execoesApp;
 using Utils.Confirmacao_de_saida;
 using Views.OpcoesMascara;
+using Presentation.Placar;
+using DTO.Times;
+using DTO.Jogos.Placar;
 
 namespace Views.Partidas
 {
     public class Views_Partidas
     {
+        readonly TimesDTO timeA;
+        readonly TimesDTO timeB;
+        readonly PlacarDTO placar;
         public async Task Display_InfoPartidas_22()
         {
             int[] validos = { 1, 2 };
@@ -16,7 +22,7 @@ namespace Views.Partidas
             {
                 Console.Clear();                         //  Aqui precisa fazer Bastante coisa, Como por exemplo:
                 View_Inicial.Display_Mascara01();        //    Adicionar Times no Rodapé, Placar Automático, Listar cada jogador e Linkar funções dos botões
-                //Implementar Presenter do Placar (Dúvidas Olhe o Presenter)
+                PresenterPlacar.ExibirPlacar(placar, timeA, timeB);
                 Console.WriteLine(" |========================|=======================|   . ._______________________________.  . ");
                 Console.WriteLine(" | - Tecnico              | - Tecnico             |     |-      |  |         |  |      -|    ");
                 Console.WriteLine(" | - jogador 1            | - Jogador 1           |  .  |       |  ˙‾‾‾‾-‾‾‾‾˙  |       |    ");
@@ -78,7 +84,7 @@ namespace Views.Partidas
             {
                 Console.Clear();                         //  Aqui precisa fazer Bastante coisa, Como por exemplo:
                 View_Inicial.Display_Mascara01();        //    Adicionar Times no Rodapé, Placar Automático, Listar cada jogador e Linkar funções dos botões
-                //Implementar Presenter do Placar (Dúvidas Olhe o Presenter)
+                PresenterPlacar.ExibirPlacar(placar, timeA, timeB);
                 Console.WriteLine(" |========================|=======================|   . ._______________________________.  . ");
                 Console.WriteLine(" | - Tecnico              | - Tecnico             |     |-      |  |         |  |      -|    ");
                 Console.WriteLine(" | - jogador 1            | - Jogador 1           |  .  |       |  ˙‾‾‾‾-‾‾‾‾˙  |       |    ");
@@ -138,7 +144,7 @@ namespace Views.Partidas
             {
                 Console.Clear();                         //  Aqui precisa fazer Bastante coisa, Como por exemplo:
                 View_Inicial.Display_Mascara01();        //    Adicionar Times no Rodapé, Placar Automático, Listar cada jogador e Linkar funções dos botões
-                //Implementar Presenter do Placar (Dúvidas Olhe o Presenter)
+                PresenterPlacar.ExibirPlacar(placar, timeA, timeB);
                 Console.WriteLine(" |========================|=======================|   . ._______________________________.  . ");
                 Console.WriteLine(" | - Tecnico              | - Tecnico             |     |-      |  |         |  |      -|    ");
                 Console.WriteLine(" | - jogador 1            | - Jogador 1           |  .  |       |  ˙‾‾‾‾-‾‾‾‾˙  |       |    ");
