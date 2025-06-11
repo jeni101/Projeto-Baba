@@ -9,7 +9,6 @@ namespace DTO.Perfil.Usuario
         public float Saldo { get; set; }
         public DateTime DataCriacao { get; set; }
         public required string Interesses { get; set; }
-        public required string Amistosos { get; set; }
         public required string TimeAssociado { get; set; }
     }
 }

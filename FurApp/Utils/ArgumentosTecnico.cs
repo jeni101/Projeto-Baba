@@ -16,7 +16,6 @@ namespace Utils.Pelase.Argumentos.Tecnico
             cmd.Parameters.AddWithValue("@idade", tecnico.Idade);
             cmd.Parameters.AddWithValue("@time", tecnico.Time);
             cmd.Parameters.AddWithValue("@interesses", tecnico.Interesses);
-            cmd.Parameters.AddWithValue("@amistosos", tecnico.Amistosos);
         }
     }
 }

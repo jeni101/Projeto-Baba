@@ -1,6 +1,5 @@
 using System;
 
-//Utils são estáticos, verifica depois se não é melhor isso ser um Services
 namespace Utils.Controle_de_execoesApp
 {
     public class ControleDeExecoes // classe para o tratamento de execoes base, obs: tentar adaptar p funcionar com o database

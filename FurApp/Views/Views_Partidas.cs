@@ -13,6 +13,12 @@ namespace Views.Partidas
         readonly TimesDTO timeA;
         readonly TimesDTO timeB;
         readonly PlacarDTO placar;
+        public Views_Partidas(TimesDTO timeA, TimesDTO timeB, PlacarDTO placar)
+        {
+            this.timeA = timeA;
+            this.timeB = timeB;
+            this.placar = placar;
+        }
         public async Task Display_InfoPartidas_22(JogoDTO jogoDTO)
         {
             int[] validos = { 1, 2 };

@@ -1,14 +1,14 @@
-using Models.ContaApp.Usuario;
 using Interfaces.IJogador;
 using Models.JogosApp;
 using Models.PosicaoApp;
+using Models.TimesApp;
 
 namespace Models.ContaApp.Usuario.Jogador
 {
     public class Conta_Jogador : Conta_Usuario, IJogador
     {
         public string Posicao { get; set; }
-        public string Time { get; private set; }
+        public Time? Time { get; private set; }
         public List<string> Partidas { get; private set; }
 
         //Construtor padrão
@@ -19,14 +19,14 @@ namespace Models.ContaApp.Usuario.Jogador
             string posicao)
             : base(nome, senha, idade)
         {
-            Time = string.Empty;
+            Time = null;
             Posicao = posicao;
             Partidas = new List<string>();
         }
 
         //Construtor db
         public Conta_Jogador(
-            Guid id, string nome, string senhaHash, int idade, string posicao, string time,
+            Guid id, string nome, string senhaHash, int idade, string posicao, Time? time,
             List<string> interesses, List<string> partidas, bool tornouSeJogador, bool tornouSeTecnico, DateTime dataCriacao,
             bool deletado, DateTime? dataDelecao, string? quemDeletou)
             : base (id, nome, senhaHash, idade, interesses, tornouSeJogador, tornouSeTecnico, dataCriacao, deletado, dataDelecao, quemDeletou)
@@ -65,15 +65,20 @@ namespace Models.ContaApp.Usuario.Jogador
 
         void IJogador.Exibir_Time()
         {
-            if (!string.IsNullOrEmpty(Time))
+            if (Time != null)
             {
-                Console.WriteLine($"Time: {Time}");
+                Console.WriteLine($"Time: {Time} - {Time.Abreviacao}");
             }
             else
             {
                 Console.WriteLine("Você não está em nenhum time");
             }
         }
+
+        public void SairDoTime()
+        {
+            this.Time = null;
+        } 
         void IJogador.Exibir_Jogos()
         {
             if (Interesses.Count > 0)

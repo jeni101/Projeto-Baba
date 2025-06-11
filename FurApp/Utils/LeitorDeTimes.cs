@@ -1,21 +1,56 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using MySqlConnector;
 using Models.TimesApp;
+using Repository.PersistenciaApp.Jogador;
+using Models.ContaApp.Usuario.Jogador;
 
 namespace Utils.Pelase.Leitor.Times
 {
     public static class LeitorDeTimes
     {
-        public static Time LerTime(MySqlDataReader reader)
+        private static readonly RepositoryJogador _jogadorRepository = new RepositoryJogador();
+        public static async Task<Time> LerTime(MySqlDataReader reader)
         {
+            List<Guid> ParseGuidList(string columnName)
+            {
+                if (reader.IsDBNull(reader.GetOrdinal(columnName)))
+                {
+                    return new List<Guid>();
+                }
+
+                string data = reader.GetString(columnName);
+                if (string.IsNullOrWhiteSpace(data))
+                {
+                    return new List<Guid>();
+                }
+                return data.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                            .Select(s => s.Trim())
+                            .Where(s => Guid.TryParse(s, out _))
+                            .Select(Guid.Parse)
+                            .ToList();
+            }
+
+            List<Guid> jogadorIds = ParseGuidList("Jogadores");
+
+            List<Conta_Jogador> jogadoresCompletos = await _jogadorRepository.GetByIds(jogadorIds);
+
+            Guid idTime = Guid.Parse(reader.GetString("Id"));
+            string nomeTime = reader.GetString("Nome");
+            string abreviacaoTime = reader.GetString("Abreviacao");
+            string tecnicoNome = reader.GetString("Tecnico");
+            string jogosStr = reader.IsDBNull(reader.GetOrdinal("Jogos")) ? "" : reader.GetString("Jogos");
+            string partidasStr = reader.IsDBNull(reader.GetOrdinal("Partidas")) ? "" : reader.GetString("Partidas");
+
             var time = new Time(
-                Guid.Parse(reader.GetString("Id")),
-                reader.GetString("Nome"),
-                reader.GetString("Abrevicao"),
-                reader.GetString("Tecnico"),
-                reader.IsDBNull(reader.GetOrdinal("Jogadores")) ? "" : reader.GetString("Jogadores"),
-                reader.IsDBNull(reader.GetOrdinal("Jogos")) ? "" : reader.GetString("Jogos"),
-                reader.IsDBNull(reader.GetOrdinal("Partidas")) ? "" : reader.GetString("Partidas")
+                idTime,
+                nomeTime,
+                abreviacaoTime,
+                tecnicoNome,
+                jogadoresCompletos,
+                jogosStr,
+                partidasStr
             );
 
             return time;

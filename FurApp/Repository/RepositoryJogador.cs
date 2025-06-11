@@ -65,7 +65,7 @@ namespace Repository.PersistenciaApp.Jogador
 
                 while (await reader.ReadAsync())
                 {
-                    jogadoresLista.Add(LeitorDeJogador.LerJogador(reader));
+                    jogadoresLista.Add(await LeitorDeJogador.LerJogador(reader));
                 }
             }
             catch (MySqlException ex)
@@ -113,7 +113,7 @@ namespace Repository.PersistenciaApp.Jogador
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? LeitorDeJogador.LerJogador(reader)
+                    ? await LeitorDeJogador.LerJogador(reader)
                     : null;
             }
             catch (MySqlException ex)
@@ -126,6 +126,83 @@ namespace Repository.PersistenciaApp.Jogador
             }
 
             return null;
+        }
+
+        public async Task<Conta_Jogador?> GetById(Guid id)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand(
+                    "SELECT * FROM jogadores WHERE Id = @id AND Deletado = 0 LIMIT 1",
+                    conn
+                );
+                cmd.Parameters.AddWithValue("@id", id.ToString());
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    return await LeitorDeJogador.LerJogador(reader);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<List<Conta_Jogador>> GetByIds(List<Guid> ids)
+        {
+            var jogadores = new List<Conta_Jogador>();
+            if (ids == null || !ids.Any())
+            {
+                return jogadores;
+            }
+
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                var paramNames = ids.Select((id, index) => $"@id{index}").ToList();
+                var inClause = string.Join(",", paramNames);
+
+                using var cmd = new MySqlCommand(
+                    $"SELECT * FROM jogadores WHERE Id IN ({inClause}) AND Deletado = 0",
+                    conn
+                );
+
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    cmd.Parameters.AddWithValue(paramNames[i], ids[i].ToString());
+                }
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    jogadores.Add(await LeitorDeJogador.LerJogador(reader));
+                }
+
+
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return jogadores;
         }
     }
 }
