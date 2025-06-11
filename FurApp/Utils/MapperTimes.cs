@@ -7,7 +7,7 @@ namespace Utils.Mappers.Times
 {
     public class MapperTimes
     {
-        public static TimesDTO toTimesDTO(Time time)
+        public static TimesDTO ToTimesDTO(Time time)
         {
             if (time == null)
             {

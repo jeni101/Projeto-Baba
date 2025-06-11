@@ -13,7 +13,7 @@ namespace Views.Partidas
         readonly TimesDTO timeA;
         readonly TimesDTO timeB;
         readonly PlacarDTO placar;
-        public async Task Display_InfoPartidas_22()
+        public async Task Display_InfoPartidas_22(JogoDTO jogoDTO)
         {
             int[] validos = { 1, 2 };
             bool sair = false;
