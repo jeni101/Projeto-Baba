@@ -10,12 +10,13 @@ namespace Models.ContaApp.Usuario
     public class Conta_Usuario : Conta
     {
         //Atributos
-        public float Saldo { get; private set; }
         public List<string> Interesses { get; set; }
-        public List<string> Amistosos { get; set; }
         public bool TornouSeJogador { get; private set; }
         public bool TornouSeTecnico { get; private set; }
         public DateTime DataCriacao { get; private set; }
+        public bool Deletado { get; private set; }
+        public DateTime? DataDelecao { get; private set; }
+        public string? QuemDeletou { get; set; }
 
         //Construtor
         public Conta_Usuario(string nome,
@@ -25,28 +26,26 @@ namespace Models.ContaApp.Usuario
                             bool querSerTecnico = false)
                     : base(nome, senha, idade)
         {
-            Saldo = 10f;
             Interesses = new List<string>();
-            Amistosos = new List<string>();
             TornouSeJogador = querSerJogador;
             TornouSeTecnico = querSerTecnico;
             DataCriacao = DateTime.Now;
+            Deletado = false;
+            DataDelecao = null;
+            QuemDeletou = null;
         }
 
-        //grana
-        public void ExibirSaldo()
+        //Construtor db
+        public Conta_Usuario(Guid id, string nome, string senhaHash, int idade, List<string> interesses, bool tornouSeJogador, bool tornouSeTecnico, DateTime dataCriacao, bool deletado, DateTime? dataDelecao, string? quemDeletou)
+            : base(id, nome, senhaHash, idade)
         {
-            Console.WriteLine($"Saldo: {Saldo:F2}");
-        }
-        public void Apostar(float valor)
-        {
-            if (valor > Saldo)
-            {
-                Console.WriteLine("Saldo insuficiente para essa aposta"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-            Saldo -= valor;
-            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso"); //LUIS VERIFICA O OUTPUT
+            Interesses = interesses;
+            TornouSeJogador = tornouSeJogador;
+            TornouSeTecnico = tornouSeTecnico;
+            DataCriacao = dataCriacao;
+            Deletado = deletado;
+            DataDelecao = dataDelecao;
+            QuemDeletou = quemDeletou;
         }
 
         //perfil
@@ -57,8 +56,7 @@ namespace Models.ContaApp.Usuario
             -=-=-=- opcoes de edicao  conta jogador -=-=-=-=-
             1. Nome/Nick
             2. Interesses
-            3. Amistosos
-            4. time 
+            3. time 
             0. voltar
             """); //LUIS VERIFICA O OUTPUT
         }
@@ -66,10 +64,9 @@ namespace Models.ContaApp.Usuario
         public void Editar_Perfil_Nome()
         {
             string novoNome;
-
             while (true)
             {
-                Console.WriteLine("digite o novo Nome: ");
+                Console.WriteLine("Digite o novo Nome: ");
                 novoNome = Console.ReadLine() ?? "";
 
                 if (string.IsNullOrWhiteSpace(novoNome) || novoNome.Length < 3)
@@ -84,50 +81,12 @@ namespace Models.ContaApp.Usuario
             }
         }
 
-
-       public void Editar_Interesses()
+        public void Deletar_Conta(string quemDeletou)
         {
-            int limite = 150;
-            var buffer = new StringBuilder();
-            ConsoleKeyInfo key;
-
-            Console.Write($"Digite seus interesses (máx: {limite} caracteres): ");
-
-            while (true)
-            {
-                key = Console.ReadKey(intercept: true); // intercepta para não imprimir automaticamente
-
-                if (key.Key == ConsoleKey.Enter) // verifica se apertou enter
-                {
-                    Console.WriteLine(); // pular linha ao finalizar
-                    break;
-                }
-                else if (key.Key == ConsoleKey.Backspace && buffer.Length > 0) // verifica se tem algo no bufer p poder apagar
-                {
-                    buffer.Length--; // remove o último caractere
-                    Console.Write("\b \b"); // apaga visualmente
-                }
-                else if (!char.IsControl(key.KeyChar) && buffer.Length < limite)
-                {
-                    buffer.Append(key.KeyChar);
-                    Console.Write(key.KeyChar); // mostra o caractere
-                }
-                else if (buffer.Length >= limite) 
-                {
-                    
-                    Console.Beep(); // dá um aviso sonoro se funcionar 
-                    Console.Write("\nLimite de 150 caracteres atingido! \n");
-
-                }
-            }
-
-            // Atribui o valor à lista
-            Interesses = new List<string> { buffer.ToString() };
-
-            Console.WriteLine("Interesses atualizados com sucesso!");
+            Deletado = true;
+            DataDelecao = DateTime.Now;
+            QuemDeletou = quemDeletou;
         }
-
-        public void Deletar_Conta() { }
 
         public void Exibir_Interesses() { }
         public void Deletar_Interesses() { }

@@ -3,6 +3,7 @@ using Utils.Confirmacao_de_saida;
 using Views.OpcoesMascara;
 using Presentation.Placar;
 using DTO.Times;
+using DTO.Jogos;
 using DTO.Jogos.Placar;
 
 namespace Views.Partidas

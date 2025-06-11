@@ -29,17 +29,15 @@ namespace Repository.PersistenciaApp.Tecnico
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO tecnicos (
-                        Id, Nome, SenhaHash, Idade, Saldo, Interesses, Amistosos, Time
+                        Id, Nome, SenhaHash, Idade, Interesses, Time
                     ) VALUES (
-                        @id, @nome, @senhaHash, @idade, @saldo, @interesses, @amistosos, @time
+                        @id, @nome, @senhaHash, @idade, @interesses, @time
                     )
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         SenhaHash = @senhaHash,
                         Idade = @idade,
-                        Saldo = @saldo,
                         Interesses = @interesses,
-                        Amistosos = @amistosos,
                         Time = @time", conn);
 
                 ArgumentosTecnico.PreencherParametros(cmd, tecnico);

@@ -42,7 +42,10 @@ namespace Repository.PersistenciaApp.Campos
                         Nome = @nome,
                         Local = @local,
                         Capacidade = @capacidade,
-                        TipoDeCampoId = @tipoDeCampoId", conn);
+                        TipoDeCampoId = @tipoDeCampoId
+                        Deletado = @deletado,       
+                        DataDelecao = @dataDelecao,
+                        QuemDeletou = @quemDeletou;", conn);
 
                 if (campo.TipoDeCampo == null)
                 {
@@ -116,6 +119,7 @@ namespace Repository.PersistenciaApp.Campos
             }
         }
 
+        //Pegar pelo nome
         public override async Task<Campo?> GetByNameAsync(string nome)
         {
             try
@@ -145,6 +149,7 @@ namespace Repository.PersistenciaApp.Campos
             return null;
         }
 
+        //Filtragem
         public async Task<List<Campo>> FiltrarCampo(string nome = "", string tipo = "")
         {
             var camposFiltrados = new List<Campo>();
@@ -161,8 +166,9 @@ namespace Repository.PersistenciaApp.Campos
                     AND (tc.Tipo LIKE @Tipo OR @Tipo = '')
                     AND c.Deletado = 0", conn);
 
-                cmd.Parameters.AddWithValue("@Nome", $"%{nome}%");
-                cmd.Parameters.AddWithValue("@Tipo", $"%{tipo}%");
+                cmd.Parameters.AddWithValue("@Nome", string.IsNullOrWhiteSpace(nome) ? "%%" : $"%{nome}%");
+                cmd.Parameters.AddWithValue("@Tipo", string.IsNullOrWhiteSpace(tipo) ? "%%" : $"%{tipo}%");
+
 
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -178,6 +184,7 @@ namespace Repository.PersistenciaApp.Campos
             return camposFiltrados;
         }
 
+        //Disponibilidade
         public async Task<bool> VerificarDisponibilidade(Guid campoId, DateOnly data, TimeOnly hora)
         {
             const int intervaloMinutos = 100;

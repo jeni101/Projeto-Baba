@@ -16,10 +16,7 @@ namespace Utils.Pelase.Argumentos.Jogador
             cmd.Parameters.AddWithValue("@idade", jogador.Idade);
             cmd.Parameters.AddWithValue("@posicao", jogador.Posicao);
             cmd.Parameters.AddWithValue("@time", jogador.Time);
-            cmd.Parameters.AddWithValue("@gols", jogador.Gols);
-            cmd.Parameters.AddWithValue("@assistencias", jogador.Assistencias);
             cmd.Parameters.AddWithValue("@interesses", jogador.Interesses);
-            cmd.Parameters.AddWithValue("@amistosos", jogador.Amistosos);
         }
     }
 }

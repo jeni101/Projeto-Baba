@@ -29,20 +29,16 @@ namespace Repository.PersistenciaApp.Jogador
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO jogadores (
-                        Id, Nome, SenhaHash, Idade, Posicao, Saldo, Time, Gols, Assistencias, Interesses, Amistosos)
+                        Id, Nome, SenhaHash, Idade, Posicao, Time, Interesses)
                     VALUES (
-                        @id, @nome, @senhaHash, @idade, @posicao, @saldo, @time, @gols, @assistencias, @interesses, @amistosos)
+                        @id, @nome, @senhaHash, @idade, @posicao, @time, @interesses)
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         SenhaHash = @senhaHash,
                         Idade = @idade,
                         Posicao = @posicao,
-                        Saldo = @saldo,
-                        Time = @time, 
-                        Gols = @gols,
-                        Assistencias = @assistencias,
-                        Interesses = @interesses,
-                        Amistosos = @amistosos", conn);
+                        Time = @time,
+                        Interesses = @interesses", conn);
 
                 ArgumentosJogador.PreencherParametros(cmd, jogador);
                 return await cmd.ExecuteNonQueryAsync() > 0;

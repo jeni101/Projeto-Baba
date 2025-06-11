@@ -9,10 +9,6 @@ namespace Models.ContaApp.Usuario.Jogador
     {
         public string Posicao { get; set; }
         public string Time { get; private set; }
-        public int Gols { get; private set; }
-        public int Assistencias { get; private set; }
-        public List<string> Eventos { get; private set; }
-        public List<string> Jogos { get; private set; }
         public List<string> Partidas { get; private set; }
 
         //Construtor padrão
@@ -25,20 +21,22 @@ namespace Models.ContaApp.Usuario.Jogador
         {
             Time = string.Empty;
             Posicao = posicao;
-            Eventos = new List<string>();
-            Jogos = new List<string>();
             Partidas = new List<string>();
         }
 
-        //Interface
-        void IJogador.Exibir_Gols()
+        //Construtor db
+        public Conta_Jogador(
+            Guid id, string nome, string senhaHash, int idade, string posicao, string time,
+            List<string> interesses, List<string> partidas, bool tornouSeJogador, bool tornouSeTecnico, DateTime dataCriacao,
+            bool deletado, DateTime? dataDelecao, string? quemDeletou)
+            : base (id, nome, senhaHash, idade, interesses, tornouSeJogador, tornouSeTecnico, dataCriacao, deletado, dataDelecao, quemDeletou)
         {
-            Console.WriteLine($"Gols: {Gols}");
+            Posicao = posicao;
+            Time = time;
+            Partidas = partidas ?? new List<string>();
         }
-        void IJogador.Exibir_Assistencias()
-        {
-            Console.WriteLine($"Assistências: {Assistencias}");
-        }
+
+        //Interfaces
         void IJogador.Escolher_Posicao(List<Posicao> posicoesDisponiveis)
         {
             if (posicoesDisponiveis == null || posicoesDisponiveis.Count == 0)
@@ -69,26 +67,26 @@ namespace Models.ContaApp.Usuario.Jogador
         {
             if (!string.IsNullOrEmpty(Time))
             {
-                Console.WriteLine(Time);
+                Console.WriteLine($"Time: {Time}");
             }
             else
             {
-                Console.WriteLine("Sem time"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine("Você não está em nenhum time");
             }
         }
         void IJogador.Exibir_Jogos()
         {
-            if (Jogos.Count > 0)
+            if (Interesses.Count > 0)
             {
-                Console.WriteLine("Jogos:"); //LUIS VERIFICA O OUTPUT
-                foreach (var jogo in Jogos)
+                Console.WriteLine("Jogos de Interesses: ");
+                foreach (var jogoNome in Interesses)
                 {
-                    Console.WriteLine(jogo);
+                    Console.WriteLine($"- {jogoNome}");
                 }
             }
             else
             {
-                Console.WriteLine("Nenhum jogo registrado"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine("Nenhum jogo de interesse registrado");
             }
         }
 
@@ -96,15 +94,15 @@ namespace Models.ContaApp.Usuario.Jogador
         {
             if (Partidas.Count > 0)
             {
-                Console.WriteLine("Partidas:"); //LUIS VERIFICA O OUTPUT
-                foreach (var partida in Partidas)
+                Console.WriteLine("Partidas jogadas: ");
+                foreach (var partidaId in Partidas)
                 {
-                    Console.WriteLine(partida);
+                    Console.WriteLine($"- {partidaId}");
                 }
             }
             else
             {
-                Console.WriteLine("Nenhuma partida registrada"); //LUIS VERIFICA O OUTPUT
+                Console.WriteLine("Nenhuma partida jogada registrada");
             }
         }
 
@@ -113,33 +111,32 @@ namespace Models.ContaApp.Usuario.Jogador
             // Implementação futura
         }
 
-        // Adicionar estatísticas
-        public void Adicionar_Gols()
-        {
-            Gols++;
-        }
-
-        public void Adicionar_Assistencia()
-        {
-            Assistencias++;
-        }
-
         //Interesses
         public void EntrarComoInteressado(Jogo interesse)
         {
             if (interesse == null)
             {
-                Console.WriteLine("Jogo inválido");
+                Console.WriteLine("Jogo inválido.");
                 return;
             }
 
             if (interesse.AdicionarInteressado(this))
             {
-                Console.WriteLine($"Você está interessado no jogo em {interesse.Data}");
+                string nomeDoJogoParaLista = interesse.GerarNome();
+
+                if (!this.Interesses.Contains(nomeDoJogoParaLista))
+                {
+                    this.Interesses.Add(nomeDoJogoParaLista);
+                    Console.WriteLine($"Você demonstrou interesse no jogo: {nomeDoJogoParaLista}");
+                }
+                else
+                {
+                    Console.WriteLine("Você já demonstrou interesse neste jogo (lista do jogador já contém).");
+                }
             }
             else
             {
-                Console.WriteLine("Você já demonstrou interesse");
+                Console.WriteLine("Não foi possível demonstrar interesse neste jogo (provavelmente já interessado ou erro no Jogo).");
             }
         }
 
@@ -147,18 +144,28 @@ namespace Models.ContaApp.Usuario.Jogador
         {
             if (interesse == null)
             {
-                Console.WriteLine("Jogo inválido");
+                Console.WriteLine("Jogo inválido.");
                 return;
             }
 
-            if (interesse.AdicionarInteressado(this))
+            if (interesse.RemoverInteressado(this))
             {
-                Console.WriteLine($"Você não está mais interessado no jogo em {interesse.Data}");
+                string nomeDoJogoParaLista = interesse.GerarNome();
+
+                if (this.Interesses.Remove(nomeDoJogoParaLista))
+                {
+                    Console.WriteLine($"Você não está mais interessado no jogo: {nomeDoJogoParaLista}");
+                }
+                else
+                {
+                    Console.WriteLine("Você não estava interessado neste jogo (lista do jogador não continha).");
+                }
             }
             else
             {
-                Console.WriteLine("Você não estava interessado");
+                Console.WriteLine("Não foi possível remover o interesse neste jogo (provavelmente não estava interessado ou erro no Jogo).");
             }
         }
+
     }
 }

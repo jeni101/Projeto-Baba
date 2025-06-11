@@ -164,5 +164,35 @@ namespace Repository.PersistenciaApp.Jogos
                 return null;
             }
         }
+
+        public async Task<List<Jogo>> GetJogosByDataHora(DateOnly data, TimeOnly hora)
+        {
+            var jogosNoHorario = new List<Jogo>();
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogos WHERE Data = @data AND Hora = @hora AND Deletado = 0", conn);
+                cmd.Parameters.AddWithValue("@data", data.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@hora", hora.ToString("HH:mm:ss")); 
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    jogosNoHorario.Add(LeitorDeJogos.LerJogo(reader));
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Erro MySQL ao obter jogos por data e hora: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado ao obter jogos por data e hora: {ex.Message}");
+            }
+            return jogosNoHorario;
+        }
     }
 }
