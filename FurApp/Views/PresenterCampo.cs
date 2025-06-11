@@ -26,7 +26,6 @@ namespace Presentation.Campos
             Console.WriteLine($" |- Tipo de Campo: {camposDTO.TipoDeCampoNome}                |");
             Console.WriteLine($" |____________________________________________________________|");
             Console.WriteLine($" |============================================================|");
-
         }
     }
 }

@@ -31,6 +31,15 @@ namespace Models.ContaApp
             Idade = idade;
         }
 
+        //Construtor para db
+        protected Conta(Guid id, string nome, string senhaHash, int idade)
+        {
+            Id = id;
+            Nome = nome;
+            SenhaHash = senhaHash;
+            Idade = idade;
+        }
+
         //Verifica a senha
         public bool Autenticar(string senha)
         {

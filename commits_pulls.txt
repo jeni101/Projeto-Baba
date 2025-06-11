@@ -181,3 +181,6 @@ Versions:
         -00.6.0.0.0.0.0.027 (Placar DTO/View connection)
         -00.6.0.0.0.0.0.028 (ADM creation)
         -00.6.0.0.0.0.0.029 (Error release)
+        -00.6.0.0.0.0.0.030 (Error check DTO/Mappers)
+        -00.6.0.0.0.0.0.031 (Tiredness, mapping slove)
+        -00.6.0.0.0.0.0.032 (Times reworked)

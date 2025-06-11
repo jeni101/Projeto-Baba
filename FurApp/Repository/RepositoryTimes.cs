@@ -28,7 +28,7 @@ namespace Repository.PersistenciaApp.Times
                     await _dbSchema.CriarTabelaAsync(conn);
                 }
 
-                string jogadoresStr = string.Join(",", time.Jogadores);
+                string jogadoresStr = string.Join(",", time.Jogadores.Select(j => j.Id.ToString()));
                 string jogosStr = string.Join(",", time.Jogos);
                 string partidasStr = string.Join(",", time.Partidas);
 
@@ -46,7 +46,7 @@ namespace Repository.PersistenciaApp.Times
                         Jogos = @jogos,
                         Partidas = @partidas", conn);
 
-                ArgumentosTime.PreencherParametros(cmd, time);
+                ArgumentosTime.PreencherParametros(cmd, time, jogadoresStr);
                 return await cmd.ExecuteNonQueryAsync() > 0;
             }
             catch (Exception ex)
@@ -71,7 +71,7 @@ namespace Repository.PersistenciaApp.Times
 
                 while (await reader.ReadAsync())
                 {
-                    timesLista.Add(LeitorDeTimes.LerTime(reader));
+                    timesLista.Add(await LeitorDeTimes.LerTime(reader));
                 }
             }
             catch (MySqlException ex)
@@ -89,7 +89,8 @@ namespace Repository.PersistenciaApp.Times
         //Deletar Time
         public async Task<bool> Deletar(Guid id, string quemDeletou)
         {
-            try {
+            try
+            {
                 using var conn = Conectar();
                 await conn.OpenAsync();
 
@@ -127,7 +128,7 @@ namespace Repository.PersistenciaApp.Times
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? LeitorDeTimes.LerTime(reader)
+                    ? await LeitorDeTimes.LerTime(reader)
                     : null;
             }
             catch (MySqlException ex)
@@ -155,7 +156,7 @@ namespace Repository.PersistenciaApp.Times
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? LeitorDeTimes.LerTime(reader)
+                    ? await LeitorDeTimes.LerTime(reader)
                     : null;
             }
             catch (MySqlException ex)
@@ -167,6 +168,33 @@ namespace Repository.PersistenciaApp.Times
                 Console.WriteLine($"Erro geral ao buscar time por abreviação: {ex.Message}");
             }
 
+            return null;
+        }
+
+        public async Task<Time?> GetById(Guid id)
+        {
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM times WHERE Id = @id AND Deletado = 0 LIMIT 1", conn);
+                cmd.Parameters.AddWithValue("@id", id.ToString());
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                return await reader.ReadAsync()
+                    ? await LeitorDeTimes.LerTime(reader)
+                    : null;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return null;
         }
     }

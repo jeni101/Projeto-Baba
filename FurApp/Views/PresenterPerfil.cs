@@ -22,7 +22,6 @@ namespace Presentation.Perfil
             Console.WriteLine($" |- Saldo: R$ {perfilDTO.Saldo:F2}                            |");
             Console.WriteLine($" |- Membro desde: {perfilDTO.DataCriacao:dd/MM/yyyy}          |");
             Console.WriteLine($" |- Interesses: {perfilDTO.Interesses}                        |");
-            Console.WriteLine($" |- Amistosos: {perfilDTO.Amistosos}                          |");
             Console.WriteLine($" |- Time Associado: {perfilDTO.TimeAssociado}                 |");
             Console.WriteLine($" |____________________________________________________________|");
             Console.WriteLine($" |============================================================|");

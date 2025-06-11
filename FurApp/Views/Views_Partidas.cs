@@ -3,6 +3,7 @@ using Utils.Confirmacao_de_saida;
 using Views.OpcoesMascara;
 using Presentation.Placar;
 using DTO.Times;
+using DTO.Jogos;
 using DTO.Jogos.Placar;
 
 namespace Views.Partidas
@@ -12,7 +13,13 @@ namespace Views.Partidas
         readonly TimesDTO timeA;
         readonly TimesDTO timeB;
         readonly PlacarDTO placar;
-        public async Task Display_InfoPartidas_22()
+        public Views_Partidas(TimesDTO timeA, TimesDTO timeB, PlacarDTO placar)
+        {
+            this.timeA = timeA;
+            this.timeB = timeB;
+            this.placar = placar;
+        }
+        public async Task Display_InfoPartidas_22(JogoDTO jogoDTO)
         {
             int[] validos = { 1, 2 };
             bool sair = false;

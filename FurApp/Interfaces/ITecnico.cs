@@ -3,7 +3,7 @@ namespace Interfaces.ITecnico;
 interface ITecnico
 {
     //time
-    void CriarTime();
+    Task CriarTime();
 
     //jogo
     public void CriarJogo();

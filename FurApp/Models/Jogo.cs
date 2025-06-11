@@ -33,8 +33,12 @@ namespace Models.JogosApp
                     Campo campo,
                     int quantidadeDeJogadores)
         {
-            if (campo == null) throw new ArgumentNullException(nameof(campo), "Campo não pode ser nulo");
-            if (campo.TipoDeCampo == null) throw new InvalidOperationException("Campo.TipoDeCampo é nulo. O campo deve ter um tipo associado.");
+            if (campo == null)
+                throw new ArgumentNullException(nameof(campo), "Campo não pode ser nulo");
+            if (campo.TipoDeCampo == null)
+                throw new InvalidOperationException("Campo.TipoDeCampo é nulo. O campo deve ter um tipo associado.");
+            if (quantidadeDeJogadores <= 0)
+                throw new ArgumentException("A quantidade de jogadores deve ser positiva.", nameof(quantidadeDeJogadores));
 
             AbreviacaoTimeA = "Time A";
             AbreviacaoTimeB = "Time B";
@@ -46,9 +50,7 @@ namespace Models.JogosApp
             LocalDisplay = campo.Local;
             TipoDeCampoDisplay = campo.TipoDeCampo.Tipo;
 
-            QuantidadeDeJogadores = quantidadeDeJogadores > 0
-                ? quantidadeDeJogadores
-                : throw new ArgumentException("A quantidade de jogadores deve ser positiva");
+            QuantidadeDeJogadores = quantidadeDeJogadores;
 
             Interessados = new List<string>();
             Id = Guid.NewGuid();
@@ -97,7 +99,7 @@ namespace Models.JogosApp
         //Atualização
         public void AtualizarNome()
         {
-            Nome = $"{AbreviacaoTimeA} x {AbreviacaoTimeB} - {Data:dd/MM/yyyy} {LocalDisplay}";
+            Nome = GerarNome();
         }
 
         //Alterar data
@@ -147,57 +149,6 @@ namespace Models.JogosApp
             Nome = GerarNome();
         }
 
-        //Selecionar tipo de campo
-        public static async Task<Campo?> SelecionarCampo(RepositoryCampos repoCampos)
-        {
-            Console.WriteLine("Seleção de Campo");
-            Console.WriteLine("Filtros (deixe em branco para ignorar): ");
-            Console.Write("Digite parte do nome do campo: ");
-            string filtroNome = Console.ReadLine() ?? "";
-
-            Console.Write("Digite parte do tipo de campo: ");
-            string filtroTipo = Console.ReadLine() ?? "";
-
-            var campos = await repoCampos.FiltrarCampo(filtroNome, filtroTipo);
-
-            if (campos.Count == 0)
-            {
-                Console.WriteLine("Nenhum campo disponível com esses filtros");
-                return null;
-            }
-
-            Console.WriteLine("Campos disponíveis");
-            for (int i = 0; i < campos.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {campos[i].Nome} - {campos[i].TipoDeCampo.Tipo} (Capacidade: {campos[i].Capacidade})");
-            }
-
-            Console.Write("Digite número do campo: ");
-            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= campos.Count)
-            {
-                var campoEscolhido = campos[escolha - 1];
-                Console.WriteLine($"Campo selecionado: {campoEscolhido.Nome} ({campoEscolhido.TipoDeCampo.Tipo})");
-                return campoEscolhido;
-            }
-            Console.WriteLine("Inválido");
-            return null;
-        }
-
-        //Definidor de campo
-        public void DefinirCampo(Campo campo)
-        {
-            if (campo == null)
-                throw new ArgumentNullException(nameof(campo), "O campo fornecido não pode ser nulo.");
-
-            if (campo.TipoDeCampo == null)
-                throw new InvalidOperationException("O campo fornecido não tem um TipoDeCampo associado.");
-
-            CampoId = campo.Id;
-            LocalDisplay = campo.Local;
-            TipoDeCampoDisplay = campo.TipoDeCampo.Tipo;
-            Nome = GerarNome();
-        }
-
         //Quantidade de Jogadores
         public void Alterar_Quantidade_De_Jogadores()
         {
@@ -214,129 +165,69 @@ namespace Models.JogosApp
             if (!string.IsNullOrWhiteSpace(nome) && !Interessados.Contains(nome))
             {
                 Interessados.Add(nome);
+                Console.WriteLine($"[Jogo] Adicionado interessado: {nome}"); // Adicionado para debug
+            }
+            else
+            {
+                Console.WriteLine($"[Jogo] Interessado '{nome}' já existe ou nome inválido.");
             }
         }
 
-        //Interessado (Jogador)
+        //Interessados (Conta_Jogador)
         public bool AdicionarInteressado(Conta_Jogador jogador)
         {
-            if (jogador == null) return false;
-
-            string indentificacao = $"Jogador {jogador.Nome} ({jogador.Posicao})";
-
-            if (!Interessados.Contains(indentificacao))
+            if (jogador == null)
             {
-                Interessados.Add(indentificacao);
-                jogador.Interesses.Add($"Jogo em {Data:dd/MM/yyyy} às {Hora:HH:mm} no {LocalDisplay}");
+                Console.WriteLine("[Jogo] Tentativa de adicionar interessado nulo.");
+                return false;
+            }
+
+            string identificacao = $"{jogador.Nome} ({jogador.Posicao})";
+
+            if (!Interessados.Contains(identificacao))
+            {
+                Interessados.Add(identificacao);
+                Console.WriteLine($"[Jogo] Adicionado interessado (objeto): {identificacao}");
                 return true;
             }
-            return false;
+            else
+            {
+                Console.WriteLine($"[Jogo] Interessado (objeto) '{identificacao}' já existe.");
+                return false;
+            }
         }
 
-        //Remover interessado (jogador)
+        //Remover interessado (Conta_Jogador)
         public bool RemoverInteressado(Conta_Jogador jogador)
         {
-            if (jogador == null) return false;
+            if (jogador == null)
+            {
+                Console.WriteLine("[Jogo] Tentativa de remover interessado nulo.");
+                return false;
+            }
 
-            string indentificacao = $"{jogador.Nome} ({jogador.Posicao})";
-            bool removido = Interessados.Remove(indentificacao);
+            string identificacao = $"{jogador.Nome} ({jogador.Posicao})";
+            bool removido = Interessados.Remove(identificacao);
 
             if (removido)
             {
-                jogador.Interesses.Add($"Jogo em {Data:dd/MM/yyyy} às {Hora:HH:mm} no {LocalDisplay}");
+                Console.WriteLine($"[Jogo] Removido interessado: {identificacao}");
+            }
+            else
+            {
+                Console.WriteLine($"[Jogo] Interessado '{identificacao}' não encontrado para remoção.");
             }
             return removido;
         }
 
-        //Status se está aberto
         public void AbrirJogo()
         {
             Aberto = true;
-            Console.WriteLine($"O jogo '{Nome}' agora está ABERTO para interessados.");
         }
 
         public void FecharJogo()
         {
             Aberto = false;
-            Console.WriteLine($"O jogo '{Nome}' agora está FECHADO para interessados.");
-        }
-
-        //Criar jogo
-        public static async Task<Jogo?> CriarJogo(JogosServices jogosServices)
-        {
-            Console.WriteLine("Criação de Jogo");
-
-            var data = LeitorDataHora.LerData("data (dd/MM/yyyy): ");
-            var hora = LeitorDataHora.LerHora("hora (HH:mm): ");
-
-            var campo = await jogosServices.SelecionarCampoDisponível(data, hora);
-            if (campo is null) return null;
-
-            int quantidadeJogadores = jogosServices.ObterQuantidadeDeJogadores(campo.Capacidade);
-
-            var jogo = new Jogo(data, hora, campo, quantidadeJogadores);
-
-            Console.Write("Deseja que o jogo seja ABERTO para interessados? (S/N): ");
-            if (Console.ReadLine()?.Trim().ToUpper() == "N")
-            {
-                jogo.FecharJogo();
-            }
-            else
-            {
-                jogo.AbrirJogo();
-            }
-
-            if (jogo.Aberto)
-            {
-                Console.WriteLine($"Status inicial: O jogo está ABERTO e pode receber interessados.");
-            }
-            else
-            {
-                Console.WriteLine($"Status inicial: O jogo está FECHADO para novos interessados.");
-            }
-
-            bool jogoSalvo = await jogosServices.PersistirJogo(jogo);
-
-            if (jogoSalvo)
-            {
-                Console.WriteLine("Jogo criado e salvo com sucesso");
-
-                try
-                {
-                    RepositoryPartidas repoPartidas = new RepositoryPartidas();
-
-                    Partida novaPartida = new Partida(
-                        jogo.Id,
-                        jogo.AbreviacaoTimeA,
-                        jogo.AbreviacaoTimeB,
-                        jogo.Data,
-                        jogo.Hora,
-                        jogo.LocalDisplay
-                    );
-
-                    bool partidaSalva = await repoPartidas.SalvarPartidas(novaPartida);
-
-                    if (partidaSalva)
-                    {
-                        Console.WriteLine($"Partida '{novaPartida.Nome}' criada e salva automaticamente para o jogo '{jogo.Nome}'.");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Aviso: Falha ao criar e salvar a partida automaticamente para o jogo '{jogo.Nome}'.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return jogo;
-            }
-            else
-            { 
-                Console.WriteLine("Falha ao criar e salvar o Jogo.");
-                return null;
-            }
         }
     }
 }

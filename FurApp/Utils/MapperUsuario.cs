@@ -32,14 +32,10 @@ namespace Utils.Mappers.Usuario
                 ? string.Join(", ", usuario.Interesses)
                 : "Nenhum";
 
-            string amistososFormatados = usuario.Amistosos != null && usuario.Amistosos.Any()
-                ? string.Join(", ", usuario.Amistosos)
-                : "Nenhum";
-
             string timeAssociado = "Nenhum";
             if (usuario is Conta_Tecnico tecnico)
             {
-                timeAssociado = tecnico.Time;
+                timeAssociado = tecnico.TimeTecnico?.Nome ?? "Nenhum";
             }
 
             return new PerfilUsuarioDTO
@@ -48,10 +44,8 @@ namespace Utils.Mappers.Usuario
                 Nome = usuario.Nome,
                 TipoConta = tiposConta,
                 Idade = usuario.Idade,
-                Saldo = usuario.Saldo,
                 DataCriacao = usuario.DataCriacao,
                 Interesses = interessesFormatados,
-                Amistosos = amistososFormatados,
                 TimeAssociado = timeAssociado
             };
         }
