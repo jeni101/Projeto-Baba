@@ -65,7 +65,7 @@ namespace Repository.PersistenciaApp.Tecnico
 
                 while (await reader.ReadAsync())
                 {
-                    tecnicosLista.Add(LeitorDeTecnico.LerTecnico(reader));
+                    tecnicosLista.Add(await LeitorDeTecnico.LerTecnico(reader));
                 }
             }
             catch (MySqlException ex)
@@ -114,7 +114,7 @@ namespace Repository.PersistenciaApp.Tecnico
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? LeitorDeTecnico.LerTecnico(reader)
+                    ? await LeitorDeTecnico.LerTecnico(reader)
                     : null;
             }
             catch (MySqlException ex)

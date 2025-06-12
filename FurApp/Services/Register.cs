@@ -139,8 +139,7 @@ namespace Services.Register
             var tecnico = new Conta_Tecnico(
                 nome,
                 senha,
-                idade,
-                "Sem time"
+                idade
             );
 
             await _repoTecnico.SalvarTecnico(tecnico);
