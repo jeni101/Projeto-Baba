@@ -12,7 +12,7 @@ namespace Repository.PersistenciaApp.ADM
     public class RepositoryADM : ARepository<Conta_Administrador>
     {
         private readonly DatabaseADM _dbSchema = new DatabaseADM();
-        public RepositoryADM() : base() { }
+        public RepositoryADM(string connStr) : base(connStr) { }
 
         //Salvar ADM
         public async Task<bool> SalvarADM(Conta_Administrador adm)

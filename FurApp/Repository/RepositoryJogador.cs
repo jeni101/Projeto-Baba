@@ -12,7 +12,7 @@ namespace Repository.PersistenciaApp.Jogador
     public class RepositoryJogador : ARepository<Conta_Jogador>
     {
         private readonly DatabaseJogadores _dbSchema = new DatabaseJogadores();
-        public RepositoryJogador() : base() { }
+        public RepositoryJogador(string connStr) : base(connStr) { }
 
         //Salvar jogador
         public async Task<bool> SalvarJogador(Conta_Jogador jogador)

@@ -10,8 +10,7 @@ namespace Utils.Pelase.Leitor.Times
 {
     public static class LeitorDeTimes
     {
-        private static readonly RepositoryJogador _jogadorRepository = new RepositoryJogador();
-        public static async Task<Time> LerTime(MySqlDataReader reader)
+        public static async Task<Time> LerTime(MySqlDataReader reader, RepositoryJogador _jogadorRepository)
         {
             List<Guid> ParseGuidList(string columnName)
             {

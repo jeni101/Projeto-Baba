@@ -15,12 +15,15 @@ namespace Services.Register
 {
     public class Registro
     {
-        //Instanciador
-        public static Registro Instancia { get; } = new Registro();
-
         //Atributos
-        private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
-        private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
+        private readonly RepositoryJogador _repoJogador;
+        private readonly RepositoryTecnico _repoTecnico;
+
+        public Registro(string connStr)
+        {
+            _repoJogador = new RepositoryJogador(connStr);
+            _repoTecnico = new RepositoryTecnico(connStr);
+        }
 
         //Registro geral
         public async Task RegistrarAsync()

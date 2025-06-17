@@ -18,12 +18,7 @@ namespace Repository.PersistenciaApp
         }
         private static string ConectarPorPadrao()
         {
-            return  "Server=database;" +
-                    "Port=3306;" +
-                    "Database=furapp;" +
-                    "User ID=root;" +
-                    "Password=qhG171U4;" +
-                    "Connection Timeout=30;";
+            throw new InvalidOperationException("A string de conexão deve ser fornecida explicitamente ou configurada via IConfiguration.");
         }
 
         public MySqlConnection Conectar()

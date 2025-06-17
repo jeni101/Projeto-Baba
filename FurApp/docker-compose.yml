@@ -11,6 +11,8 @@ services:
       MARIADB_DATABASE: furapp
     volumes:
       - db_data:/var/lib/mysql # Persiste os dados do banco de dados
+      - C:\Usuários\gusta\Área de Trabalho\my-custom.cnf:/etc/mysql/conf.d/my-custom.cnf:ro
+    restart: always
     healthcheck:
       test: ["CMD", "mariadb", "-h", "localhost", "-u", "root", "-pqhG171U4", "-e", "SELECT 1;"]
       interval: 5s

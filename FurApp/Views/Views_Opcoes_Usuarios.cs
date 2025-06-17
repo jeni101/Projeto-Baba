@@ -5,9 +5,15 @@ using Utils.Controle_de_execoesApp;
 
 namespace Views.OpcoesUsuarios
 {
-    public static class Views_Usuarios
+    public class Views_Usuarios
     {
-        public static async Task Display_User_Partidas()
+        private readonly Autenticador _autenticador;
+
+        public Views_Usuarios(Autenticador autenticador)
+        {
+            _autenticador = autenticador;
+        }
+        public async Task Display_User_Partidas()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -17,7 +23,7 @@ namespace Views.OpcoesUsuarios
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos,{Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos,{_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-        Menu Opções de Partidas       -=-  |    .     ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌       .   ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌ .         ");
@@ -65,7 +71,7 @@ namespace Views.OpcoesUsuarios
                 if (sair) break;
             }
         }
-        public static async Task Display_User_Adicionais()
+        public async Task Display_User_Adicionais()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -75,7 +81,7 @@ namespace Views.OpcoesUsuarios
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos,{Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos,{_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-        Menu Opções Adicionais        -=-  |    .     ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌       .   ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌ .         ");

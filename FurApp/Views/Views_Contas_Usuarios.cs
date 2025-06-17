@@ -14,6 +14,17 @@ namespace Views.OpcoesContas
 {
     public class Views_De_OpcoesContas
     {
+        private readonly Autenticador _autenticador;
+        private readonly Views_Administrador _viewsAdministrador;
+        private readonly Views_Usuarios _viewsUsuarios;
+
+        public Views_De_OpcoesContas(Autenticador autenticador, Views_Administrador viewsAdministrador, Views_Usuarios viewsUsuarios)
+        {
+            _autenticador = autenticador;
+            _viewsAdministrador = viewsAdministrador;
+            _viewsUsuarios = viewsUsuarios;
+        }
+
         public async Task Display_MenuAdministrador()
         {
             int[] validos = { 1, 2, 3, 4, 5, 6 };
@@ -24,7 +35,7 @@ namespace Views.OpcoesContas
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine($"• Olá, {_autenticador.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.    .      ▄▀▀▄▄         ▄▄▀▀▄       .    ");
                 Console.WriteLine(" |  -=-          Menu Administrador          -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|        . ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -48,27 +59,27 @@ namespace Views.OpcoesContas
                     switch (opcao)
                     {
                         case 1:
-                            await Views_Administrador.Display_Adm_Contas();
+                            await _viewsAdministrador.Display_Adm_Contas();
                             break;
 
                         case 2:
-                            await Views_Administrador.Display_Adm_Jogador();
+                            await _viewsAdministrador.Display_Adm_Jogador();
                             break;
 
                         case 3:
-                            await Views_Administrador.Display_Adm_Tecnico();
+                            await _viewsAdministrador.Display_Adm_Tecnico();
                             break;
 
                         case 4:
-                            await Views_Administrador.Display_Adm_Times();
+                            await _viewsAdministrador.Display_Adm_Times();
                             break;
 
                         case 5:
-                            await Views_Administrador.Display_Adm_Jogos();
+                            await _viewsAdministrador.Display_Adm_Jogos();
                             break;
 
                         case 6:
-                            await Views_Administrador.Display_Adm_Partidas();
+                            await _viewsAdministrador.Display_Adm_Partidas();
                             break;
 
                         case 0:
@@ -94,7 +105,7 @@ namespace Views.OpcoesContas
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine($"• Olá, {_autenticador.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.   .       ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-             Menu Jogador             -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌       .   ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -111,7 +122,7 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                Conta? contaLogada = Autenticador.Instancia.PegarContaLogada();
+                Conta? contaLogada = _autenticador.PegarContaLogada();
 
                 if (contaLogada is Conta_Usuario usuarioLogado)
                 {
@@ -134,11 +145,11 @@ namespace Views.OpcoesContas
                                 break;
 
                             case 3:
-                                await Views_Usuarios.Display_User_Partidas();
+                                await _viewsUsuarios.Display_User_Partidas();
                                 break;
 
                             case 4:
-                                await Views_Usuarios.Display_User_Adicionais();
+                                await _viewsUsuarios.Display_User_Adicionais();
                                 break;
 
                             case 0:
@@ -164,7 +175,7 @@ namespace Views.OpcoesContas
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine($"• Olá, {_autenticador.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.     .     ▄▀▀▄▄         ▄▄▀▀▄         .  ");
                 Console.WriteLine(" |  -=-             Menu Tecnico             -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌    .      ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -181,7 +192,7 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                Conta? contaLogada = Autenticador.Instancia.PegarContaLogada();
+                Conta? contaLogada = _autenticador.PegarContaLogada();
 
                 if (contaLogada is Conta_Usuario usuarioLogado)
                 {

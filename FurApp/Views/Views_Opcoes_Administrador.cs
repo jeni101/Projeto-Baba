@@ -5,9 +5,15 @@ using Utils.Controle_de_execoesApp;
 
 namespace Views.OpcoesAdministrador
 {
-    public static class Views_Administrador
+    public class Views_Administrador
     {
-        public static async Task Display_Adm_Contas()
+        private readonly Autenticador _autenticador;
+
+        public Views_Administrador(Autenticador autenticador)
+        {
+            _autenticador = autenticador;
+        }
+        public async Task Display_Adm_Contas()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -17,7 +23,7 @@ namespace Views.OpcoesAdministrador
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos,{Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos,{_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-        Menu Opções de Contas         -=-  |    .     ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌       .   ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌ .         ");
@@ -65,7 +71,7 @@ namespace Views.OpcoesAdministrador
                 if (sair) break;
             }
         }
-        public static async Task Display_Adm_Jogador()
+        public async Task Display_Adm_Jogador()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -75,7 +81,7 @@ namespace Views.OpcoesAdministrador
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos, {Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos, {_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄     .      ");
                 Console.WriteLine(" |  -=-       Menu Opções de Jogador         -=-  |     .    ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌        .  ");
@@ -123,7 +129,7 @@ namespace Views.OpcoesAdministrador
                 if (sair) break;
             }
         }
-        public static async Task Display_Adm_Tecnico()
+        public async Task Display_Adm_Tecnico()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -133,7 +139,7 @@ namespace Views.OpcoesAdministrador
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos, {Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos, {_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄         .  ");
                 Console.WriteLine(" |  -=-       Menu Opções de Técnico         -=-  |  .       ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌   .       ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌       .   ");
@@ -181,7 +187,7 @@ namespace Views.OpcoesAdministrador
                 if (sair) break;
             }
         }
-        public static async Task Display_Adm_Times()
+        public async Task Display_Adm_Times()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -191,7 +197,7 @@ namespace Views.OpcoesAdministrador
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos, {Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos, {_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.   .       ▄▀▀▄▄         ▄▄▀▀▄   .        ");
                 Console.WriteLine(" |  -=-       Menu Opções de Times           -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|      .   ▐  ▄▀ ▄       ▄ ▀▄  ▌     .     ");
@@ -239,7 +245,7 @@ namespace Views.OpcoesAdministrador
                 if (sair) break;
             }
         }
-        public static async Task Display_Adm_Jogos()
+        public async Task Display_Adm_Jogos()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -249,7 +255,7 @@ namespace Views.OpcoesAdministrador
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos, {Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos, {_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.   .       ▄▀▀▄▄         ▄▄▀▀▄      .     ");
                 Console.WriteLine(" |  -=-       Menu Opções de Jogos           -=-  |       .  ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -297,7 +303,7 @@ namespace Views.OpcoesAdministrador
                 if (sair) break;
             }
         }
-        public static async Task Display_Adm_Partidas()
+        public async Task Display_Adm_Partidas()
         {
             int[] validos = { 1, 2 };
             bool sair = false;
@@ -307,7 +313,7 @@ namespace Views.OpcoesAdministrador
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Oque faremos, {Autenticador.Instancia.PegarNomeConta()}?");
+                Console.WriteLine($"• Oque faremos, {_autenticador.PegarNomeConta()}?");
                 Console.WriteLine(" .________________________________________________.   .       ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-       Menu Opções de Partidas        -=-  |        . ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|    .     ▐  ▄▀ ▄       ▄ ▀▄  ▌      .    ");

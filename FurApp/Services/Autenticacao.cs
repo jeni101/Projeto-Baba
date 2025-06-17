@@ -9,14 +9,18 @@ namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
-        //Instaciador
-        public static Autenticador Instancia { get; } = new Autenticador();
-
         //Atributos
-        private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
-        private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
-        private readonly RepositoryADM _repoADM = new RepositoryADM();
+        private readonly RepositoryJogador _repoJogador;
+        private readonly RepositoryTecnico _repoTecnico;
+        private readonly RepositoryADM _repoADM;
         private Conta? _contaLogada;
+
+        public Autenticador(string connStr)
+        {
+            _repoJogador = new RepositoryJogador(connStr);
+            _repoTecnico = new RepositoryTecnico(connStr);
+            _repoADM = new RepositoryADM(connStr);
+        }
 
         //Login
         public async Task<bool> LoginAsync()

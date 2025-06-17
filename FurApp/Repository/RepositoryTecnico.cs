@@ -12,7 +12,7 @@ namespace Repository.PersistenciaApp.Tecnico
     public class RepositoryTecnico : ARepository<Conta_Tecnico>
     {
         private readonly DatabaseTecnicos _dbSchema = new DatabaseTecnicos();
-        public RepositoryTecnico() : base() { }
+        public RepositoryTecnico(string connStr) : base(connStr) { }
 
         //Salvar tecnico
         public async Task<bool> SalvarTecnico(Conta_Tecnico tecnico)
