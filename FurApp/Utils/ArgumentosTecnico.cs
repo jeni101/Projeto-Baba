@@ -14,7 +14,7 @@ namespace Utils.Pelase.Argumentos.Tecnico
             cmd.Parameters.AddWithValue("nome", tecnico.Nome);
             cmd.Parameters.AddWithValue("@senhaHash", tecnico.SenhaHash);
             cmd.Parameters.AddWithValue("@idade", tecnico.Idade);
-            cmd.Parameters.AddWithValue("@time", tecnico.Time);
+            cmd.Parameters.AddWithValue("@time", tecnico.TimeTecnico);
             cmd.Parameters.AddWithValue("@interesses", tecnico.Interesses);
         }
     }
