@@ -17,7 +17,7 @@ namespace Utils.Mappers.Jogadores {
                 Nome = jogador.Nome ?? string.Empty,
                 Idade = jogador.Idade,
                 Posicao = jogador.Posicao ?? "Desconhecida",
-                TimeAtual = jogador.Time.Nome ?? "Sem time",
+                TimeAtual = jogador.Time?.Nome ?? "Sem time",
                 TipoConta = "Jogador",
                 NomesJogosInteressados = jogador.Interesses ?? new List<string>(),
                 NomePartidasJogadas = jogador.Partidas ?? new List<string>()

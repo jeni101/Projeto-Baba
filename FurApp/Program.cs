@@ -39,7 +39,9 @@ class Program
         var serviceProvider = new ServiceCollection()
             // Configurar o JsonServices (Singleton para manter uma única instância e estado do diretório base)
             .AddSingleton<JsonServices>(sp =>
-                new JsonServices(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FurApp", "Database")))
+                //new JsonServices(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FurApp", "Database")))
+                new JsonServices(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Database")))
+
 
             // Registrar Repositórios JSON
             .AddSingleton<RepositoryADM>()

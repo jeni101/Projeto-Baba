@@ -193,3 +193,4 @@ Versions:
     -1.000.01
     -1.000.02 (death time - old)
     -1.000.03 (json all the way)
+    -1.000.04 (Conectanto as coisas, começo)

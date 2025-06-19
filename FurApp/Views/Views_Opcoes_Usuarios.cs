@@ -2,15 +2,19 @@ using Services.Autenticacao;
 using Views.OpcoesMascara;
 using Utils.Confirmacao_de_saida;
 using Utils.Controle_de_execoesApp;
+using Services.Jogos;
 
 namespace Views.OpcoesUsuarios
 {
     public class Views_Usuarios
     {
         private readonly Autenticador _autenticador;
+        private readonly JogosServices _jogosServices;
 
-        public Views_Usuarios(Autenticador autenticador)
+        public Views_Usuarios(Autenticador autenticador, JogosServices jogosServices)
         {
+            _jogosServices = jogosServices;
+        
             _autenticador = autenticador;
         }
         public async Task Display_User_Partidas()
@@ -27,9 +31,9 @@ namespace Views.OpcoesUsuarios
                 Console.WriteLine(" .________________________________________________.           ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-        Menu Opções de Partidas       -=-  |    .     ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌       .   ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌ .         ");
-                Console.WriteLine(" |-                         . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀         .  ");
-                Console.WriteLine(" |-                         . . . . . . . . |  2  |           ▐                 ▌            ");
-                Console.WriteLine(" |-                         . . . . . . . . |  3  |           ▐  ▐▄▌       ▐▄▌  ▌ Hmmmmmm..  ");
+                Console.WriteLine(" |- Criar Novo Jogo . . . . . . . . . . . . |  1  |           ▀▌ ▀▀ ▀▀▄▄▄▀▀ ▀▀ ▐▀         .  ");
+                Console.WriteLine(" |- Ver Jogos Disponíveis . . . . . . . . . |  2  |           ▐                 ▌            ");
+                Console.WriteLine(" |- Ver Jogos Agendados . . . . . . . . . . |  3  |           ▐  ▐▄▌       ▐▄▌  ▌ Hmmmmmm..  ");
                 Console.WriteLine(" |__________________________________________|_____|           ▐   ▀   ▄▄▄   ▀   ▌            ");
                 Console.WriteLine(" |- SAIR  . . . . . . . . . . . . . . . . . |  0  |            █    ▄ ▀█▀ ▄    █  .        . ");
                 Console.WriteLine(" |================================================|         .   ▀▄   ▀▀ ▀▀   ▄▀              ");
@@ -48,6 +52,8 @@ namespace Views.OpcoesUsuarios
                     switch (opcao)
                     {
                         case 1:
+                            await _jogosServices.CriarNovoJogo();
+                            
 
                             break;
 
