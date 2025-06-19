@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Linq;
 using MySqlConnector;
@@ -61,3 +62,4 @@ namespace Utils.Pelase.Leitor.Jogos
         }
     }
 }
+*/

@@ -30,3 +30,4 @@ D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.pdb
 D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.genruntimeconfig.cache
 D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\ref\FurApp.dll
 D:\codes\Projeto-Baba\FurApp\bin\Debug\net9.0\ReadLine.dll
+D:\codes\Projeto-Baba\FurApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll

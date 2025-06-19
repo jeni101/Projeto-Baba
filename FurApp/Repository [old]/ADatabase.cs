@@ -1,4 +1,4 @@
-using Interfaces.IDatabase;
+using Interfaces.old.IDatabase;
 using MySqlConnector;
 
 namespace Repository.Database

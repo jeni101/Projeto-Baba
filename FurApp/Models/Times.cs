@@ -9,9 +9,8 @@ using Models.JogosApp.Partidas;
 
 namespace Models.TimesApp
 {
-    public class Time
+    public class Time : AModel
     {
-        public Guid Id { get; protected set; }
         public string Nome { get; set; }
         public string Abreviacao { get; set; }
         public string Tecnico { get; set; }

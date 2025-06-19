@@ -37,7 +37,7 @@ namespace Services.Times
                 return null;
             }
 
-            var timeExistentePorAbreviacao = await _repoTimes.GetByAbreviacoes(abreviacaoTime);
+            var timeExistentePorAbreviacao = await _repoTimes.GetByAbreviacaoAsync(abreviacaoTime);
             if (timeExistentePorAbreviacao != null)
             {
                 Console.WriteLine($"Erro: Já existe um time com a abreviação '{abreviacaoTime}'.");
@@ -50,7 +50,7 @@ namespace Services.Times
                 tecnicoCriador.Nome
             );
 
-            bool sucesso = await _repoTimes.SalvarTime(novoTime);
+            bool sucesso = await _repoTimes.SalvarAsync(novoTime);
 
             if (sucesso)
             {
@@ -67,7 +67,7 @@ namespace Services.Times
         public async Task ExibirTodosTimes()
         {
             Console.WriteLine("\n--- Times Registrados ---");
-            var times = await _repoTimes.CarregarTodos();
+            var times = await _repoTimes.GetAll();
 
             if (times.Count == 0)
             {

@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,8 +26,9 @@ namespace Repository.Database.Initializer.Campos.Tipo
                 {
                     tipo.Id = Guid.NewGuid();
                     await repoTipoCampo.SalvarTipo(tipo);
-                } 
+                }
             }
         }
     }
 }
+*/

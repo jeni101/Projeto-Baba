@@ -4,59 +4,56 @@ using Models.ContaApp;
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Tecnico;
 using Models.ContaApp.Usuario.Jogador;
-using Repository.PersistenciaApp;
-using System.Reflection.Metadata;
+using System.Reflection.Metadata; 
 using Services.Senha;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
 using Views.OpcoesMascara;
-using Utils.Pelase.Leitor.Jogador;
-using Utils.Pelase.Leitor.Tecnico;
 using Repository.PersistenciaApp.ADM;
+using System.Threading.Tasks; 
 
 namespace Services.Register
 {
     public class Registro
     {
-        //Atributos
-        private readonly string _connStr;
+        // Atributos
         private readonly RepositoryJogador _repoJogador;
         private readonly RepositoryTecnico _repoTecnico;
         private readonly RepositoryADM _repoADM;
 
-        public Registro(string connStr, RepositoryJogador repoJogador, RepositoryTecnico repoTecnico, RepositoryADM repoADM)
+        // Construtor: Remova 'string connStr'
+        public Registro(RepositoryJogador repoJogador, RepositoryTecnico repoTecnico, RepositoryADM repoADM)
         {
-            _connStr = connStr;
-            _repoJogador = repoJogador;
-            _repoTecnico = repoTecnico;
-            _repoADM = repoADM;
+            _repoJogador = repoJogador ?? throw new ArgumentNullException(nameof(repoJogador));
+            _repoTecnico = repoTecnico ?? throw new ArgumentNullException(nameof(repoTecnico));
+            _repoADM = repoADM ?? throw new ArgumentNullException(nameof(repoADM));
         }
 
-        //Registro geral
+        // Registro geral
         public async Task RegistrarAsync()
         {
             Console.Clear();
             View_Inicial.Display_Mascara01();
-            Console.WriteLine(" .____________________________________."); //View de Registro Inicial
+            Console.WriteLine(" .____________________________________.");
             Console.WriteLine(" |  -=-     Criação de Conta     -=-  |");
             Console.WriteLine(" |====================================|");
-            Console.WriteLine(" |- Nome:                             |");
+            Console.WriteLine(" |- Nome:                              |");
             Console.WriteLine(" |____________________________________|");
-            Console.WriteLine(" |- Idade:                            |");
-            Console.WriteLine(" |                                    |");
+            Console.WriteLine(" |- Idade:                             |");
+            Console.WriteLine(" |                                      |");
             Console.WriteLine(" |====================================|");
             Console.WriteLine(" • Insira seu Nome :");
             string nome = Console.ReadLine()?.Trim() ?? "";
 
             Console.Clear();
             View_Inicial.Display_Mascara01();
-            Console.WriteLine(" .____________________________________."); //View de Registro Inicial com Nome Apenas
+            Console.WriteLine(" .____________________________________.");
             Console.WriteLine(" |  -=-     Criação de Conta     -=-  |");
             Console.WriteLine(" |====================================|");
             Console.WriteLine($" |- Nome: {nome.PadRight(27)} |");
             Console.WriteLine(" |____________________________________|");
-            Console.WriteLine(" |- Idade:                            |");
-            Console.WriteLine(" |                                    |");
+            Console.WriteLine(" |- Idade:                             |");
+            Console.WriteLine(" |                                      |");
             Console.WriteLine(" |====================================|");
             Console.WriteLine(" • Insira sua Idade: ");
             if (!int.TryParse(Console.ReadLine(), out int idade) || idade <= 0)
@@ -64,24 +61,24 @@ namespace Services.Register
                 Console.WriteLine(" ! Idade inválida, tente novamente !");
                 return;
             }
-            
+
             int escolha;
             do
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine(" .____________________________________."); //View de Registro Inicial com Nome e Idade
+                Console.WriteLine(" .____________________________________.");
                 Console.WriteLine(" |  -=-     Criação de Conta     -=-  |");
                 Console.WriteLine(" |====================================|");
                 Console.WriteLine($" |- Nome: {nome.PadRight(27)} |");
                 Console.WriteLine(" |____________________________________|");
                 Console.WriteLine($" |- Idade: {idade,-26} |");
-                Console.WriteLine(" |                                    |");
+                Console.WriteLine(" |                                      |");
                 Console.WriteLine(" |====================================|");
 
                 Console.WriteLine(" • Escolha o tipo de conta:");
-                Console.WriteLine(" .______________________________."); //View de Opções
-                Console.WriteLine(" |  -=-  Selecione Abaixo  -=-  |");
+                Console.WriteLine(" .______________________________.");
+                Console.WriteLine(" |  -=-   Selecione Abaixo   -=-  |");
                 Console.WriteLine(" |==============================|");
                 Console.WriteLine(" |- Jogador . . . . . . . |  1  |");
                 Console.WriteLine(" |- Técnico . . . . . . . |  2  |");
@@ -129,21 +126,21 @@ namespace Services.Register
             }
         }
 
-        //Registrar Jogador
+        // Registrar Jogador
         private async Task RegistrarJogadorAsync(string nome, string senha, int idade)
         {
             var jogador = new Conta_Jogador(
                 nome,
                 senha,
                 idade,
-                "Não definida"
+                "Não definida" // Posição padrão
             );
 
-            await _repoJogador.SalvarJogador(jogador);
-            Console.WriteLine(" • Conta jogador criada  com sucesso");
+            await _repoJogador.SalvarAsync(jogador);
+            Console.WriteLine(" • Conta jogador criada com sucesso");
         }
 
-        //Registrar Tecnico
+        // Registrar Tecnico
         private async Task RegistrarTecnicoAsync(string nome, string senha, int idade)
         {
             var tecnico = new Conta_Tecnico(
@@ -152,9 +149,8 @@ namespace Services.Register
                 idade
             );
 
-            await _repoTecnico.SalvarTecnico(tecnico);
+            await _repoTecnico.SalvarAsync(tecnico);
             Console.WriteLine(" • Conta tecnico criada com sucesso");
         }
     }
 }
-

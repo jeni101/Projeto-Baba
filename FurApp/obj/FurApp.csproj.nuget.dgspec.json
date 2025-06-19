@@ -58,6 +58,10 @@
               "target": "Package",
               "version": "[9.0.4, )"
             },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
             "MySqlConnector": {
               "target": "Package",
               "version": "[2.4.0, )"

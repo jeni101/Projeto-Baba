@@ -1,3 +1,4 @@
+/*
 using System;
 using MySqlConnector;
 using Models.PosicaoApp;
@@ -19,3 +20,4 @@ namespace Utils.Pelase.Leitor.Posicoes
         }
     }
 }
+*/

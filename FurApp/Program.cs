@@ -1,161 +1,98 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MySqlConnector;
-using Services.Autenticacao;
-using Services.Register;
-using Repository.PersistenciaApp.Jogador;
-using Repository.PersistenciaApp.Tecnico;
-using Repository.PersistenciaApp.ADM;
+using System;
+using System.Threading.Tasks;
+using System.IO;
+using Services.Json;
 using Repository.Database.Initializer.ADM;
 using Repository.Database.Initializer.Campos;
+using Repository.Database.Initializer.Campos.Tipo;
 using Repository.Database.Initializer.Posicoes;
-using Utils.Pelase.Leitor.Jogador;
-using Utils.Pelase.Leitor.Tecnico;
+using Repository.PersistenciaApp.ADM;
+using Repository.PersistenciaApp.Jogador;
+using Repository.PersistenciaApp.Tecnico;
 using Repository.PersistenciaApp.Times;
-using Utils.Pelase.Leitor.Times;
+using Repository.PersistenciaApp.Campos;
+using Repository.PersistenciaApp.Campos.Tipo;
+using Repository.PersistenciaApp.Posicoes;
+using Repository.PersistenciaApp.Jogos;
+using Services.Autenticacao;
+using Services.Register;
+using Services.Jogos;
+using Utils.Pelase.Leitor.DataHora;
 using Views.Contas;
 using Views.OpcoesContas;
 using Views.OpcoesUsuarios;
 using Views.OpcoesAdministrador;
-using Repository.Database.ADM;
-using Repository.Database.Campos;
-using Repository.Database.Gerenciamento;
-using Repository.Database.Jogadores;
-using Repository.Database.Jogos;
-using Repository.Database.Partidas;
-using Repository.Database.Posicoes;
-using Repository.Database.Tecnicos;
-using Repository.Database.Times;
 
 class Program
 {
     static async Task Main(string[] args)
     {
+        // 1. Configuração (ainda pode ler appsettings.json se precisar de outras configs)
         var builder = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
         IConfiguration configuration = builder.Build();
 
-        string mariaDbConnStr = configuration.GetConnectionString("MariaDB") ?? throw new InvalidOperationException("Connection string 'MariaDB' not found.");
+        // 2. Configuração da Injeção de Dependências
+        var serviceProvider = new ServiceCollection()
+            // Configurar o JsonServices (Singleton para manter uma única instância e estado do diretório base)
+            .AddSingleton<JsonServices>(sp =>
+                new JsonServices(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FurApp", "Database")))
 
-        const int maxRetries = 10; // Número máximo de tentativas de conexão
-        const int delayMilliseconds = 3000; // Atraso entre as tentativas (3 segundos)
+            // Registrar Repositórios JSON
+            .AddSingleton<RepositoryADM>()
+            .AddSingleton<RepositoryJogador>()
+            .AddSingleton<RepositoryTecnico>()
+            .AddSingleton<RepositoryTimes>()
+            .AddSingleton<RepositoryCamposTipo>() // Certifique-se de ter essa classe
+            .AddSingleton<RepositoryCampos>()
+            .AddSingleton<RepositoryPosicao>()
+            .AddSingleton<RepositoryJogos>()
+            // .AddSingleton<JsonRepositoryPartida>() // Se você tiver um repositório de Partida
 
-        for (int i = 0; i < maxRetries; i++)
-        {
-            try
-            {
-                using (var connection = new MySqlConnection(mariaDbConnStr))
-                {
-                    await connection.OpenAsync();
-                    Console.WriteLine("Conexão com o banco de dados estabelecida.");
+            // Registrar os Initializers (Transient, pois são usados uma vez na inicialização)
+            // Eles receberão seus repositórios por injeção
+            .AddTransient<InitializerAdministrador>()
+            .AddTransient<InitializerPosicoes>()
+            .AddTransient<InitializerTipoCampos>()
+            .AddTransient<InitializerCampos>()
 
-                    // *** SEU CÓDIGO DE CRIAÇÃO DE TABELAS VEM AQUI AGORA ***
-                    // Garanta a ordem correta para chaves estrangeiras:
-                    var dbADM = new DatabaseADM();
-                    await dbADM.GarantirExistenciaTabelaAsync(connection);
+            // Registrar Serviços de Autenticação e Registro
+            .AddSingleton<Autenticador>() // Estes serviços recebem os repositórios por DI
+            .AddSingleton<Registro>()
+            // .AddSingleton<GerenciadorDePartidasService>() // Exemplo de outro serviço
 
-                    var dbTecnicos = new DatabaseTecnicos();
-                    await dbTecnicos.GarantirExistenciaTabelaAsync(connection);
+            // Registrar Views
+            .AddSingleton<Views_Administrador>()
+            .AddSingleton<Views_Usuarios>()
+            .AddSingleton<Views_De_OpcoesContas>()
+            .AddSingleton<Views_De_Contas>()
+            .BuildServiceProvider(); // Constrói o ServiceProvider
 
-                    var dbTimes = new DatabaseTimes();
-                    await dbTimes.GarantirExistenciaTabelaAsync(connection);
-
-                    var dbJogadores = new DatabaseJogadores();
-                    await dbJogadores.GarantirExistenciaTabelaAsync(connection);
-                    // *** FIM DO CÓDIGO DE CRIAÇÃO DE TABELAS ***
-
-                    Console.WriteLine("Todas as tabelas verificadas/criadas com sucesso!");
-
-                    // Inicializar o ADM padrão APENAS DEPOIS que as tabelas existem
-                    var repoADM = new RepositoryADM(mariaDbConnStr); // Você precisará passar a connection string
-                    await InitializerADM.Inicializar(repoADM);
-                    Console.WriteLine("Inicializador ADM executado.");
-
-                    // Se a conexão foi bem-sucedida e as tabelas criadas, saia do loop de retentativa
-                    break;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine($"Tentativa {i + 1}/{maxRetries}: Erro ao conectar ou inicializar o banco de dados: {ex.Message}");
-                if (i < maxRetries - 1)
-                {
-                    Console.WriteLine($"Aguardando {delayMilliseconds / 1000} segundos para tentar novamente...");
-                    await Task.Delay(delayMilliseconds);
-                }
-                else
-                {
-                    Console.WriteLine("Número máximo de tentativas excedido. Falha crítica na inicialização do banco de dados.");
-                    return; // Sai do Main se todas as tentativas falharem
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro inesperado durante a inicialização: {ex.Message}");
-                return; // Sai do Main para outros tipos de erros
-            }
-        }
-
+        // 3. Executar Initializers para popular os JSONs, se necessário
+        Console.WriteLine("Iniciando a inicialização de dados (se arquivos JSON vazios)...");
         try
         {
-            using (var connection = new MySqlConnection(mariaDbConnStr))
-            {
-                await connection.OpenAsync();
-                Console.WriteLine("Conexão com o banco de dados estabelecida.");
+            // A ordem é crucial devido a dependências entre os dados
+            await serviceProvider.GetRequiredService<InitializerPosicoes>().InitializeAsync();
+            await serviceProvider.GetRequiredService<InitializerTipoCampos>().InitializeAsync();
+            await serviceProvider.GetRequiredService<InitializerCampos>().InitializeAsync();
+            await serviceProvider.GetRequiredService<InitializerAdministrador>().InitializeAsync();
 
-                var dbADM = new DatabaseADM();
-                await dbADM.GarantirExistenciaTabelaAsync(connection);
-
-                var dbTecnicos = new DatabaseTecnicos();
-                await dbTecnicos.GarantirExistenciaTabelaAsync(connection);
-
-                var dbTimes = new DatabaseTimes();
-                await dbTimes.GarantirExistenciaTabelaAsync(connection);
-
-                var dbJogadores = new DatabaseJogadores();
-                await dbJogadores.GarantirExistenciaTabelaAsync(connection);
-
-                Console.WriteLine("Todas as tabelas verificadas/criadas com sucesso!");
-            }
+            Console.WriteLine("Inicialização de dados concluída.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro crítico ao inicializar o banco de dados: {ex.Message}");
+            Console.WriteLine($"Erro durante a inicialização de dados: {ex.Message}");
             return;
         }
-        Console.WriteLine(":D");
 
-        // 1. Instanciar RepositoryTimes primeiro, pois LeitorDeJogador e LeitorDeTecnico dependem dele.
-        var repoTimes = new RepositoryTimes(mariaDbConnStr, new LeitorDeTimes()); // LeitorDeTimes agora não precisa de repositório no construtor
 
-        // 2. Instanciar LeitorDeJogador e LeitorDeTecnico passando a dependência de RepositoryTimes.
-        var leitorDeJogador = new LeitorDeJogador(repoTimes);
-        var leitorDeTecnico = new LeitorDeTecnico(repoTimes);
-
-        // 3. Instanciar os Repositórios de Jogador, Técnico e ADM, passando seus respectivos leitores.
-        var repoJogador = new RepositoryJogador(mariaDbConnStr, leitorDeJogador);
-        var repoTecnico = new RepositoryTecnico(mariaDbConnStr, leitorDeTecnico);
-        var repoADM = new RepositoryADM(mariaDbConnStr); // LeitorDeADM é estático, não precisa ser passado aqui.
-
-        // 4. Inicializar o ADM.
-        await InitializerADM.Inicializar(repoADM);
-        Console.WriteLine(":D");
-
-        // 5. Instanciar Autenticador e Registro, passando todas as suas dependências.
-        var autenticador = new Autenticador(mariaDbConnStr, repoJogador, repoTecnico, repoADM);
-        var registro = new Registro(mariaDbConnStr, repoJogador, repoTecnico, repoADM);
-
-        // 6. Instanciar Views de Usuarios e Views de Administrador
-        var viewsAdministrador = new Views_Administrador(autenticador);
-        var viewsUsuarios = new Views_Usuarios(autenticador);
-
-        // 7. Instanciar menu de contas para funcionanmento de viewsContas
-        var menuContas = new Views_De_OpcoesContas(autenticador, viewsAdministrador, viewsUsuarios);
-
-        // 8. Instanciar Views_De_Contas com os serviços corretos.
-        var viewsContas = new Views_De_Contas(autenticador, registro, menuContas);
+        // 4. Iniciar a aplicação principal (Views_De_Contas)
+        Console.WriteLine("\nIniciando o sistema FurApp...");
+        var viewsContas = serviceProvider.GetRequiredService<Views_De_Contas>();
         await viewsContas.DisplayMenu_LoginInicial();
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");

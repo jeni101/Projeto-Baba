@@ -1,3 +1,4 @@
+/*
 using System;
 using MySqlConnector;
 using Models.CamposApp.Tipo;
@@ -17,3 +18,4 @@ namespace Utils.Pelase.Leitor.TipoCampos
         }
     }
 }
+*/

@@ -1,9 +1,10 @@
+/*
 using System;
 using System.Collections.Generic;
 using MySqlConnector;
 using Models.ContaApp;
 using Models.ContaApp.Usuario;
-using Interfaces.IRepository;
+using Interfaces.old.IRepository;
 using System.Data;
 
 namespace Repository.PersistenciaApp
@@ -88,3 +89,4 @@ namespace Repository.PersistenciaApp
         }
     }
 }
+*/

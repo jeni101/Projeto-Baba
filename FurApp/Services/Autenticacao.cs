@@ -1,29 +1,29 @@
 using Interfaces.IAutenticacao;
-using Models.ContaApp;
+using Models.ContaApp; 
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
 using Repository.PersistenciaApp.ADM;
+using System.Threading.Tasks; 
+using System;
 
 namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
-        //Atributos
-        private readonly string _connStr;
+        // Atributos
         private readonly RepositoryJogador _repoJogador;
         private readonly RepositoryTecnico _repoTecnico;
         private readonly RepositoryADM _repoADM;
         private Conta? _contaLogada;
 
-        public Autenticador(string connStr, RepositoryJogador repoJogador, RepositoryTecnico repoTecnico, RepositoryADM repoADM)
+        public Autenticador(RepositoryJogador repoJogador, RepositoryTecnico repoTecnico, RepositoryADM repoADM)
         {
-            _connStr = connStr;
-            _repoJogador = repoJogador;
-            _repoTecnico = repoTecnico;
-            _repoADM = repoADM;
+            _repoJogador = repoJogador ?? throw new ArgumentNullException(nameof(repoJogador));
+            _repoTecnico = repoTecnico ?? throw new ArgumentNullException(nameof(repoTecnico));
+            _repoADM = repoADM ?? throw new ArgumentNullException(nameof(repoADM));
         }
 
-        //Login
+        // Login
         public async Task<Conta?> LoginAsync()
         {
             Console.Clear();
@@ -40,7 +40,8 @@ namespace Services.Autenticacao
                 return null;
             }
 
-            var adm = await _repoADM.GetByNameAsync(nome);
+            // As chamadas para os repositórios permanecem as mesmas
+            var adm = await _repoADM.GetByNomeAsync(nome);
             if (adm != null && adm.Autenticar(senha))
             {
                 _contaLogada = adm;
@@ -49,16 +50,16 @@ namespace Services.Autenticacao
                 return adm;
             }
 
-            var jogador = await _repoJogador.GetByNameAsync(nome);
+            var jogador = await _repoJogador.GetByNomeAsync(nome);
             if (jogador != null && jogador.Autenticar(senha))
             {
                 _contaLogada = jogador;
                 Console.WriteLine("Login de Jogador bem-sucedido!");
                 await Task.Delay(1000);
-                return jogador; 
+                return jogador;
             }
 
-            var tecnico = await _repoTecnico.GetByNameAsync(nome);
+            var tecnico = await _repoTecnico.GetByNomeAsync(nome);
             if (tecnico != null && tecnico.Autenticar(senha))
             {
                 _contaLogada = tecnico;
@@ -72,8 +73,8 @@ namespace Services.Autenticacao
             _contaLogada = null;
             return null;
         }
-        
-        //Logout
+
+        // Logout
         public void Logout()
         {
             if (_contaLogada == null)
@@ -86,7 +87,7 @@ namespace Services.Autenticacao
             _contaLogada = null;
         }
 
-        //Pegar nome
+        // Pegar nome
         public string? PegarNomeConta() => _contaLogada?.Nome ?? "Nenhum usuário logado";
         public Conta? PegarContaLogada() => _contaLogada;
     }

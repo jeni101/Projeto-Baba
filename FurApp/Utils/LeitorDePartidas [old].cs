@@ -1,3 +1,4 @@
+/*
 using System;
 using MySqlConnector;
 using Models.JogosApp.Partidas;
@@ -39,3 +40,4 @@ namespace Utils.Pelase.Leitor.Partidas
         }
     }
 }
+*/
