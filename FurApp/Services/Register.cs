@@ -12,23 +12,24 @@ using Repository.PersistenciaApp.Tecnico;
 using Views.OpcoesMascara;
 using Utils.Pelase.Leitor.Jogador;
 using Utils.Pelase.Leitor.Tecnico;
+using Repository.PersistenciaApp.ADM;
 
 namespace Services.Register
 {
     public class Registro
     {
         //Atributos
+        private readonly string _connStr;
         private readonly RepositoryJogador _repoJogador;
         private readonly RepositoryTecnico _repoTecnico;
-        private readonly LeitorDeJogador _leitorDeJogador;
-        private readonly LeitorDeTecnico _leitorDeTecnico;
+        private readonly RepositoryADM _repoADM;
 
-        public Registro(string connStr, LeitorDeJogador leitorDeJogador, LeitorDeTecnico leitorDeTecnico)
+        public Registro(string connStr, RepositoryJogador repoJogador, RepositoryTecnico repoTecnico, RepositoryADM repoADM)
         {
-            _leitorDeJogador = leitorDeJogador;
-            _leitorDeTecnico = leitorDeTecnico;
-            _repoJogador = new RepositoryJogador(connStr, _leitorDeJogador);
-            _repoTecnico = new RepositoryTecnico(connStr, _leitorDeTecnico);
+            _connStr = connStr;
+            _repoJogador = repoJogador;
+            _repoTecnico = repoTecnico;
+            _repoADM = repoADM;
         }
 
         //Registro geral
