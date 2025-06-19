@@ -1,5 +1,5 @@
 # Use uma imagem base do SDK do .NET para construir a aplicação
-FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 # Use uma imagem base de runtime do .NET para rodar a aplicação
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-preview AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/out .
 

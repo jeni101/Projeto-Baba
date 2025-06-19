@@ -33,11 +33,70 @@ class Program
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
         IConfiguration configuration = builder.Build();
 
-        string mariaDbConnStr = configuration.GetConnectionString("MariaDB");
+        string mariaDbConnStr = configuration.GetConnectionString("MariaDB") ?? throw new InvalidOperationException("Connection string 'MariaDB' not found.");
+
+        const int maxRetries = 10; // Número máximo de tentativas de conexão
+        const int delayMilliseconds = 3000; // Atraso entre as tentativas (3 segundos)
+
+        for (int i = 0; i < maxRetries; i++)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(mariaDbConnStr))
+                {
+                    await connection.OpenAsync();
+                    Console.WriteLine("Conexão com o banco de dados estabelecida.");
+
+                    // *** SEU CÓDIGO DE CRIAÇÃO DE TABELAS VEM AQUI AGORA ***
+                    // Garanta a ordem correta para chaves estrangeiras:
+                    var dbADM = new DatabaseADM();
+                    await dbADM.GarantirExistenciaTabelaAsync(connection);
+
+                    var dbTecnicos = new DatabaseTecnicos();
+                    await dbTecnicos.GarantirExistenciaTabelaAsync(connection);
+
+                    var dbTimes = new DatabaseTimes();
+                    await dbTimes.GarantirExistenciaTabelaAsync(connection);
+
+                    var dbJogadores = new DatabaseJogadores();
+                    await dbJogadores.GarantirExistenciaTabelaAsync(connection);
+                    // *** FIM DO CÓDIGO DE CRIAÇÃO DE TABELAS ***
+
+                    Console.WriteLine("Todas as tabelas verificadas/criadas com sucesso!");
+
+                    // Inicializar o ADM padrão APENAS DEPOIS que as tabelas existem
+                    var repoADM = new RepositoryADM(mariaDbConnStr); // Você precisará passar a connection string
+                    await InitializerADM.Inicializar(repoADM);
+                    Console.WriteLine("Inicializador ADM executado.");
+
+                    // Se a conexão foi bem-sucedida e as tabelas criadas, saia do loop de retentativa
+                    break;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Tentativa {i + 1}/{maxRetries}: Erro ao conectar ou inicializar o banco de dados: {ex.Message}");
+                if (i < maxRetries - 1)
+                {
+                    Console.WriteLine($"Aguardando {delayMilliseconds / 1000} segundos para tentar novamente...");
+                    await Task.Delay(delayMilliseconds);
+                }
+                else
+                {
+                    Console.WriteLine("Número máximo de tentativas excedido. Falha crítica na inicialização do banco de dados.");
+                    return; // Sai do Main se todas as tentativas falharem
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado durante a inicialização: {ex.Message}");
+                return; // Sai do Main para outros tipos de erros
+            }
+        }
 
         try
         {
@@ -46,7 +105,7 @@ class Program
                 await connection.OpenAsync();
                 Console.WriteLine("Conexão com o banco de dados estabelecida.");
 
-                var dbADM = new DatabaseADM(); 
+                var dbADM = new DatabaseADM();
                 await dbADM.GarantirExistenciaTabelaAsync(connection);
 
                 var dbTecnicos = new DatabaseTecnicos();
@@ -64,7 +123,7 @@ class Program
         catch (Exception ex)
         {
             Console.WriteLine($"Erro crítico ao inicializar o banco de dados: {ex.Message}");
-            return; 
+            return;
         }
         Console.WriteLine(":D");
 
