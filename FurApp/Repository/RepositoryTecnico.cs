@@ -11,8 +11,12 @@ namespace Repository.PersistenciaApp.Tecnico
 {
     public class RepositoryTecnico : ARepository<Conta_Tecnico>
     {
-        private readonly DatabaseTecnicos _dbSchema = new DatabaseTecnicos();
-        public RepositoryTecnico(string connStr) : base(connStr) { }
+        private readonly DatabaseTecnicos _dbSchema;
+        private readonly LeitorDeTecnico _leitorDeTecnico;
+        public RepositoryTecnico(string connStr, LeitorDeTecnico leitorDeTecnico) : base(connStr)
+        {
+            _leitorDeTecnico = leitorDeTecnico;
+        }
 
         //Salvar tecnico
         public async Task<bool> SalvarTecnico(Conta_Tecnico tecnico)
@@ -65,7 +69,7 @@ namespace Repository.PersistenciaApp.Tecnico
 
                 while (await reader.ReadAsync())
                 {
-                    tecnicosLista.Add(await LeitorDeTecnico.LerTecnico(reader));
+                    tecnicosLista.Add(await _leitorDeTecnico.LerTecnico(reader));
                 }
             }
             catch (MySqlException ex)
@@ -114,7 +118,7 @@ namespace Repository.PersistenciaApp.Tecnico
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? await LeitorDeTecnico.LerTecnico(reader)
+                    ? await _leitorDeTecnico.LerTecnico(reader)
                     : null;
             }
             catch (MySqlException ex)

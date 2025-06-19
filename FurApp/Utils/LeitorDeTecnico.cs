@@ -8,10 +8,14 @@ using Repository.PersistenciaApp.Times;
 
 namespace Utils.Pelase.Leitor.Tecnico
 {
-    public static class LeitorDeTecnico
+    public class LeitorDeTecnico
     {
-        private static readonly RepositoryTimes _timesRepository = new RepositoryTimes();
-        public static async Task<Conta_Tecnico> LerTecnico(MySqlDataReader reader)
+        private readonly RepositoryTimes _timesRepository;
+        public LeitorDeTecnico(RepositoryTimes timesRepository)
+        {
+            _timesRepository = timesRepository;
+        }
+        public async Task<Conta_Tecnico> LerTecnico(MySqlDataReader reader)
         {
             Guid id = Guid.Parse(reader.GetString("Id"));
             string nome = reader.GetString("Nome");

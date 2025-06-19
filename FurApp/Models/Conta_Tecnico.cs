@@ -10,17 +10,18 @@ namespace Models.ContaApp.Usuario.Tecnico
 {
     public class Conta_Tecnico : Conta_Usuario, ITecnico
     {
+        private readonly TimesServices _timesServices;
         //sobre o tecnico
-        public Time? TimeTecnico {get; set;}
+        public Time? TimeTecnico { get; set; }
         public List<string> Partidas {get; set;}
 
         //Construtor
-        public Conta_Tecnico(string nome, 
-                            string senha, 
+        public Conta_Tecnico(string nome,
+                            string senha,
                             int idade)
-                            : base (nome, senha, idade)
+                            : base(nome, senha, idade)
         {
-            TimeTecnico = null;  
+            TimeTecnico = null;
             Partidas = new List<string>();
         }
 
@@ -52,9 +53,7 @@ namespace Models.ContaApp.Usuario.Tecnico
                 return;
             }
 
-            TimesServices timesServices = new TimesServices();
-
-            var timeCriado = await timesServices.CriarTime(nomeTime, abreviacaoTime, this);
+            var timeCriado = await _timesServices.CriarTime(nomeTime, abreviacaoTime, this);
 
             if (timeCriado != null)
             {

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using MySqlConnector;
 using Models.TimesApp;
-using Repository.PersistenciaApp.Jogador;
-using Models.ContaApp.Usuario.Jogador;
 
 namespace Utils.Pelase.Leitor.Times
 {
-    public static class LeitorDeTimes
+    public class LeitorDeTimes
     {
-        public static async Task<Time> LerTime(MySqlDataReader reader, RepositoryJogador _jogadorRepository)
+
+        public async Task<Time> LerTime(MySqlDataReader reader)
         {
             List<Guid> ParseGuidList(string columnName)
             {
@@ -32,26 +31,23 @@ namespace Utils.Pelase.Leitor.Times
             }
 
             List<Guid> jogadorIds = ParseGuidList("Jogadores");
-
-            List<Conta_Jogador> jogadoresCompletos = await _jogadorRepository.GetByIds(jogadorIds);
+            List<Guid> jogosIds = ParseGuidList("Jogos");
+            List<Guid> partidasIds = ParseGuidList("Partidas");
 
             Guid idTime = Guid.Parse(reader.GetString("Id"));
             string nomeTime = reader.GetString("Nome");
             string abreviacaoTime = reader.GetString("Abreviacao");
             string tecnicoNome = reader.GetString("Tecnico");
-            string jogosStr = reader.IsDBNull(reader.GetOrdinal("Jogos")) ? "" : reader.GetString("Jogos");
-            string partidasStr = reader.IsDBNull(reader.GetOrdinal("Partidas")) ? "" : reader.GetString("Partidas");
 
             var time = new Time(
                 idTime,
                 nomeTime,
                 abreviacaoTime,
                 tecnicoNome,
-                jogadoresCompletos,
-                jogosStr,
-                partidasStr
+                new List<Models.ContaApp.Usuario.Jogador.Conta_Jogador>(),
+                jogosIds.ToString(),
+                partidasIds.ToString()
             );
-
             return time;
         }
     }

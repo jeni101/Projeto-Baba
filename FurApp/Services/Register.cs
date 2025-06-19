@@ -10,6 +10,8 @@ using Services.Senha;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
 using Views.OpcoesMascara;
+using Utils.Pelase.Leitor.Jogador;
+using Utils.Pelase.Leitor.Tecnico;
 
 namespace Services.Register
 {
@@ -18,11 +20,15 @@ namespace Services.Register
         //Atributos
         private readonly RepositoryJogador _repoJogador;
         private readonly RepositoryTecnico _repoTecnico;
+        private readonly LeitorDeJogador _leitorDeJogador;
+        private readonly LeitorDeTecnico _leitorDeTecnico;
 
-        public Registro(string connStr)
+        public Registro(string connStr, LeitorDeJogador leitorDeJogador, LeitorDeTecnico leitorDeTecnico)
         {
-            _repoJogador = new RepositoryJogador(connStr);
-            _repoTecnico = new RepositoryTecnico(connStr);
+            _leitorDeJogador = leitorDeJogador;
+            _leitorDeTecnico = leitorDeTecnico;
+            _repoJogador = new RepositoryJogador(connStr, _leitorDeJogador);
+            _repoTecnico = new RepositoryTecnico(connStr, _leitorDeTecnico);
         }
 
         //Registro geral

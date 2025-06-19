@@ -4,21 +4,27 @@ using Models.ContaApp.Usuario;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
 using Repository.PersistenciaApp.ADM;
+using Utils.Pelase.Leitor.Jogador;
+using Utils.Pelase.Leitor.Tecnico;
 
 namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
         //Atributos
+        private readonly LeitorDeJogador _leitorDeJogador;
+        private readonly LeitorDeTecnico _leitorDeTecnico;
         private readonly RepositoryJogador _repoJogador;
         private readonly RepositoryTecnico _repoTecnico;
         private readonly RepositoryADM _repoADM;
         private Conta? _contaLogada;
 
-        public Autenticador(string connStr)
+        public Autenticador(string connStr, LeitorDeJogador leitorDeJogador, LeitorDeTecnico leitorDeTecnico)
         {
-            _repoJogador = new RepositoryJogador(connStr);
-            _repoTecnico = new RepositoryTecnico(connStr);
+            _leitorDeJogador = leitorDeJogador;
+            _leitorDeTecnico = leitorDeTecnico;
+            _repoJogador = new RepositoryJogador(connStr, _leitorDeJogador);
+            _repoTecnico = new RepositoryTecnico(connStr, _leitorDeTecnico);
             _repoADM = new RepositoryADM(connStr);
         }
 

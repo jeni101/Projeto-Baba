@@ -11,8 +11,12 @@ namespace Repository.PersistenciaApp.Jogador
 {
     public class RepositoryJogador : ARepository<Conta_Jogador>
     {
-        private readonly DatabaseJogadores _dbSchema = new DatabaseJogadores();
-        public RepositoryJogador(string connStr) : base(connStr) { }
+        private readonly DatabaseJogadores _dbSchema;
+        private readonly LeitorDeJogador _leitorDeJogador;
+        public RepositoryJogador(string connStr, LeitorDeJogador leitorDeJogador) : base(connStr)
+        {
+            _leitorDeJogador = leitorDeJogador;
+        }
 
         //Salvar jogador
         public async Task<bool> SalvarJogador(Conta_Jogador jogador)
@@ -65,7 +69,7 @@ namespace Repository.PersistenciaApp.Jogador
 
                 while (await reader.ReadAsync())
                 {
-                    jogadoresLista.Add(await LeitorDeJogador.LerJogador(reader));
+                    jogadoresLista.Add(await _leitorDeJogador.LerJogador(reader));
                 }
             }
             catch (MySqlException ex)
@@ -113,7 +117,7 @@ namespace Repository.PersistenciaApp.Jogador
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? await LeitorDeJogador.LerJogador(reader)
+                    ? await _leitorDeJogador.LerJogador(reader)
                     : null;
             }
             catch (MySqlException ex)
@@ -145,7 +149,7 @@ namespace Repository.PersistenciaApp.Jogador
 
                 if (await reader.ReadAsync())
                 {
-                    return await LeitorDeJogador.LerJogador(reader);
+                    return await _leitorDeJogador.LerJogador(reader);
                 }
             }
             catch (MySqlException ex)
@@ -189,7 +193,7 @@ namespace Repository.PersistenciaApp.Jogador
 
                 while (await reader.ReadAsync())
                 {
-                    jogadores.Add(await LeitorDeJogador.LerJogador(reader));
+                    jogadores.Add(await _leitorDeJogador.LerJogador(reader));
                 }
 
 

@@ -8,10 +8,15 @@ using Repository.PersistenciaApp.Times;
 
 namespace Utils.Pelase.Leitor.Jogador
 {
-    public static class LeitorDeJogador
+    public class LeitorDeJogador
     {
-        private static readonly RepositoryTimes _timesRepository = new RepositoryTimes();
-        public static async Task<Conta_Jogador> LerJogador(MySqlDataReader reader)
+        private readonly RepositoryTimes _timesRepository;
+
+        public LeitorDeJogador(RepositoryTimes timesRepository)
+        {
+            _timesRepository = timesRepository;
+        }
+        public async Task<Conta_Jogador> LerJogador(MySqlDataReader reader)
         {
             Guid id = Guid.Parse(reader.GetString("Id"));
             string nome = reader.GetString("Nome");
@@ -41,7 +46,7 @@ namespace Utils.Pelase.Leitor.Jogador
                     }
                 }
                 else
-                { 
+                {
                     Console.WriteLine($"Aviso: Coluna 'TimeId' para o jogador {nome} contém um GUID inválido: '{timeIdString}'.");
                 }
             }

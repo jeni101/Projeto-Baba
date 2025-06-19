@@ -9,7 +9,12 @@ namespace Services.Times
 {
     public class TimesServices
     {
-        private readonly RepositoryTimes _repoTimes = new RepositoryTimes();
+        private readonly RepositoryTimes _repoTimes;
+
+        public TimesServices(RepositoryTimes repoTimes)
+        {
+            _repoTimes = repoTimes;
+        }
 
         public async Task<Time?> CriarTime(string nomeTime, string abreviacaoTime, Conta_Tecnico tecnicoCriador)
         {

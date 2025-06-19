@@ -12,8 +12,12 @@ namespace Repository.PersistenciaApp.Times
 {
     public class RepositoryTimes : ARepository<Time>
     {
-        private readonly DatabaseTimes _dbSchema = new DatabaseTimes();
-        public RepositoryTimes() : base() { }
+        private readonly DatabaseTimes _dbSchema;
+        private readonly LeitorDeTimes _leitorDeTimes;
+        public RepositoryTimes(string connectionString, LeitorDeTimes leitorDeTimes) : base(connectionString)
+        {
+            _leitorDeTimes = leitorDeTimes;
+        }
 
         //Salvar time
         public async Task<bool> SalvarTime(Time time)
@@ -71,7 +75,7 @@ namespace Repository.PersistenciaApp.Times
 
                 while (await reader.ReadAsync())
                 {
-                    timesLista.Add(await LeitorDeTimes.LerTime(reader));
+                    timesLista.Add(await _leitorDeTimes.LerTime(reader));
                 }
             }
             catch (MySqlException ex)
@@ -128,7 +132,7 @@ namespace Repository.PersistenciaApp.Times
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? await LeitorDeTimes.LerTime(reader)
+                    ? await _leitorDeTimes.LerTime(reader)
                     : null;
             }
             catch (MySqlException ex)
@@ -156,7 +160,7 @@ namespace Repository.PersistenciaApp.Times
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? await LeitorDeTimes.LerTime(reader)
+                    ? await _leitorDeTimes.LerTime(reader)
                     : null;
             }
             catch (MySqlException ex)
@@ -184,7 +188,7 @@ namespace Repository.PersistenciaApp.Times
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? await LeitorDeTimes.LerTime(reader)
+                    ? await _leitorDeTimes.LerTime(reader)
                     : null;
             }
             catch (MySqlException ex)

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FurApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8dd8b2e3c16934d80c50a20e0b4249921aeddb65")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+102f4c5f8ced5e349d0ba24034caae47533531a5")]
 [assembly: System.Reflection.AssemblyProductAttribute("FurApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FurApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
