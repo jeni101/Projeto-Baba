@@ -15,11 +15,15 @@ namespace Utils.Pelase.Argumentos.Jogador
             cmd.Parameters.AddWithValue("@senhaHash", jogador.SenhaHash);
             cmd.Parameters.AddWithValue("@idade", jogador.Idade);
             cmd.Parameters.AddWithValue("@posicao", jogador.Posicao);
-            cmd.Parameters.AddWithValue("@time", jogador.Time);
-            cmd.Parameters.AddWithValue("@gols", jogador.Gols);
-            cmd.Parameters.AddWithValue("@assistencias", jogador.Assistencias);
-            cmd.Parameters.AddWithValue("@interesses", jogador.Interesses);
-            cmd.Parameters.AddWithValue("@amistosos", jogador.Amistosos);
+            cmd.Parameters.AddWithValue("@timeId", jogador.Time?.Id.ToString());
+            cmd.Parameters.AddWithValue("@interesses", string.Join(",", jogador.Interesses));
+            cmd.Parameters.AddWithValue("@partidas", string.Join(",", jogador.Partidas));
+            cmd.Parameters.AddWithValue("@tornouSeJogador", jogador.TornouSeJogador);
+            cmd.Parameters.AddWithValue("@tornouSeTecnico", jogador.TornouSeTecnico);
+            cmd.Parameters.AddWithValue("@dataCriacao", jogador.DataCriacao);
+            cmd.Parameters.AddWithValue("@deletado", jogador.Deletado);
+            cmd.Parameters.AddWithValue("@dataDelecao", jogador.DataDelecao ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@quemDeletou", jogador.QuemDeletou ?? (object)DBNull.Value);
         }
     }
 }

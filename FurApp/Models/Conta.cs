@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using Utils.Pelase.CensuradorDeSenha;
 
 namespace Models.ContaApp
@@ -9,7 +8,7 @@ namespace Models.ContaApp
         //sistema de ID
         public Guid Id { get; protected set; }
         //atributos
-        public string Nome {get; private set;}
+        public string Nome {get; protected set;}
         public string SenhaHash {get; private set;}
         public int Idade {get; private set;}
 
@@ -30,7 +29,16 @@ namespace Models.ContaApp
             Nome = nome;
             SenhaHash = CensuradorDeSenha.HashPassword(senha);
             Idade = idade;
-        } 
+        }
+
+        //Construtor para db
+        protected Conta(Guid id, string nome, string senhaHash, int idade)
+        {
+            Id = id;
+            Nome = nome;
+            SenhaHash = senhaHash;
+            Idade = idade;
+        }
 
         //Verifica a senha
         public bool Autenticar(string senha)

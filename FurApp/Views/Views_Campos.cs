@@ -1,9 +1,7 @@
-using Models.ContaApp.Usuario;
+/*
 using Models.ContaApp.Usuario.Jogador;
-using Models.ContaApp.Usuario.Tecnico;
-using Models.JogosApp;
-using Controle_de_execoesApp;
-using Confirmacao_de_saida;
+using Utils.Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
 
 namespace Views_Campos
 {
@@ -29,7 +27,7 @@ namespace Views_Campos
                 Console.Clear();
 
                 Console.WriteLine($"Vamos lá, {contaLogada.Nome}!\n");
-                Console.WriteLine(".______________________________________.");
+                Console.WriteLine(".______________________________________."); //Verificar Oque Vai Fazer com isso....
                 Console.WriteLine("|  -=- Selecione o Tipo da Quadra -=-  |");
                 Console.WriteLine("|======================================|");
                 Console.WriteLine("|Campo Oficial . . . . . . . . . |  1  |");
@@ -48,6 +46,8 @@ namespace Views_Campos
 
                 var HouveErro = ControleDeExecoes.ExecutarComTratamento(async () =>
                 {
+                    await Task.Delay(0);
+                    
                     int opcao = int.Parse(escolha ?? "");
 
                     switch (opcao)
@@ -87,27 +87,8 @@ namespace Views_Campos
                     }
 
                 }, escolha ?? "", contador_de_erros);
-
-            
-
-                if (sair)
-                    break; // Sai do while se escolheu 0
-
-                if (int.TryParse(escolha, out int escolhaInt) && validos.Contains(escolhaInt))
-                {
-                    Jogo jogo = new Jogo(
-                        DateOnly.FromDateTime(DateTime.Today),
-                        TimeOnly.FromDateTime(DateTime.Now),
-                        "Campo a Definir",
-                        tipo_quadra,
-                        quantidade_jogadores);
-
-                    Console.WriteLine($"\nJogo Criado: {jogo.TipoDeCampo}, {jogo.QuantidadeDeJogadores} jogadores.");
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
-                }
             }
         }
     }
 }
-
+*/

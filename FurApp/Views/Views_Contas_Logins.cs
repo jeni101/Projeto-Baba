@@ -1,21 +1,22 @@
-using System;
-using Models;
-using Models.ContaApp;
-using Models.ContaApp.Usuario;
-using Models.ContaApp.Usuario.Jogador;
-using Models.ContaApp.Usuario.Tecnico;
-using Models.JogosApp;
 using Services.Autenticacao;
 using Services.Register;
 using Views.OpcoesMascara;
-using Confirmacao_de_saida;
-using System.Threading.Tasks;
-using Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
+using Utils.Controle_de_execoesApp;
 
 namespace Views.Contas
 {
     public class Views_De_Contas
     {
+        private readonly Autenticador _autenticador;
+        private readonly Registro _registro;
+
+        public Views_De_Contas(Autenticador autenticador, Registro registro)
+        {
+            _autenticador = autenticador;
+            _registro = registro;
+        }
+
         public async Task DisplayMenu_LoginInicial()
         {
             int[] validos = { 1, 2 };
@@ -51,11 +52,11 @@ namespace Views.Contas
                     switch (opcao)
                     {
                         case 1:
-                            await Registro.Instancia.RegistrarAsync();
+                            await _registro.RegistrarAsync();
                             break;
 
                         case 2:
-                            await Autenticador.Instancia.LoginAsync();
+                            await _autenticador.LoginAsync();
                             break;
 
                         case 0:

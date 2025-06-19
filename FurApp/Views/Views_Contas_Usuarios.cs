@@ -1,20 +1,30 @@
-using System;
-using Models;
 using Models.ContaApp;
 using Models.ContaApp.Usuario;
-using Models.ContaApp.Usuario.Jogador;
-using Models.ContaApp.Usuario.Tecnico;
-using Models.JogosApp;
 using Views.OpcoesAdministrador;
 using Services.Autenticacao;
 using Views.OpcoesMascara;
-using Confirmacao_de_saida;
-using Controle_de_execoesApp;
+using Utils.Confirmacao_de_saida;
+using Utils.Controle_de_execoesApp;
+using Utils.Mappers.Usuario;
+using DTO.Perfil.Usuario;
+using Presentation.Perfil;
+using Views.OpcoesUsuarios;
 
 namespace Views.OpcoesContas
 {
     public class Views_De_OpcoesContas
     {
+        private readonly Autenticador _autenticador;
+        private readonly Views_Administrador _viewsAdministrador;
+        private readonly Views_Usuarios _viewsUsuarios;
+
+        public Views_De_OpcoesContas(Autenticador autenticador, Views_Administrador viewsAdministrador, Views_Usuarios viewsUsuarios)
+        {
+            _autenticador = autenticador;
+            _viewsAdministrador = viewsAdministrador;
+            _viewsUsuarios = viewsUsuarios;
+        }
+
         public async Task Display_MenuAdministrador()
         {
             int[] validos = { 1, 2, 3, 4, 5, 6 };
@@ -25,7 +35,7 @@ namespace Views.OpcoesContas
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine($"• Olá, {_autenticador.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.    .      ▄▀▀▄▄         ▄▄▀▀▄       .    ");
                 Console.WriteLine(" |  -=-          Menu Administrador          -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌           ");
                 Console.WriteLine(" |================================================|        . ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -49,27 +59,27 @@ namespace Views.OpcoesContas
                     switch (opcao)
                     {
                         case 1:
-                            await Views_Administrador.Display_Adm_Contas();
+                            await _viewsAdministrador.Display_Adm_Contas();
                             break;
 
                         case 2:
-                            await Views_Administrador.Display_Adm_Jogador();
+                            await _viewsAdministrador.Display_Adm_Jogador();
                             break;
 
                         case 3:
-                            await Views_Administrador.Display_Adm_Tecnico();
+                            await _viewsAdministrador.Display_Adm_Tecnico();
                             break;
 
                         case 4:
-                            await Views_Administrador.Display_Adm_Times();
+                            await _viewsAdministrador.Display_Adm_Times();
                             break;
 
                         case 5:
-                            await Views_Administrador.Display_Adm_Jogos();
+                            await _viewsAdministrador.Display_Adm_Jogos();
                             break;
 
                         case 6:
-                            await Views_Administrador.Display_Adm_Partidas();
+                            await _viewsAdministrador.Display_Adm_Partidas();
                             break;
 
                         case 0:
@@ -95,7 +105,7 @@ namespace Views.OpcoesContas
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine($"• Olá, {_autenticador.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.   .       ▄▀▀▄▄         ▄▄▀▀▄    .       ");
                 Console.WriteLine(" |  -=-             Menu Jogador             -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌       .   ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -112,37 +122,47 @@ namespace Views.OpcoesContas
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
 
-                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
+                Conta? contaLogada = _autenticador.PegarContaLogada();
+
+                if (contaLogada is Conta_Usuario usuarioLogado)
                 {
-                    int opcao = int.Parse(escolha ?? "");
-                    switch (opcao)
+                    var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                     {
-                        case 1:
-                            //linkar Função de ExibirPerfil do Jogador
-                            break;
+                        await Task.Delay(0);
 
-                        case 2:
-                            // linkar Função de Entrar em um time
-                            break;
+                        int opcao = int.Parse(escolha ?? "");
+                        switch (opcao)
+                        {
+                            case 1:
+                                PerfilUsuarioDTO perfilDTO = MapperUsuario.ToPerfilUsuarioDTO(usuarioLogado);
+                                PresenterPerfil.ExibirPerfil(perfilDTO);
+                                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                                Console.ReadKey();
+                                break;
 
-                        case 3:
-                            // Vou linkar MENU de Informações de Partidas
-                            break;
+                            case 2:
+                                // linkar Função de Entrar em um time
+                                break;
 
-                        case 4:
-                            // Vou linkar MENU de Opções Adicionais
-                            break;
+                            case 3:
+                                await _viewsUsuarios.Display_User_Partidas();
+                                break;
 
-                        case 0:
-                            Confirmacao.ExibirMensagemSaida(ref opcao);
-                            sair = true;
-                            break;
+                            case 4:
+                                await _viewsUsuarios.Display_User_Adicionais();
+                                break;
 
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }, escolha ?? "", contador_de_erros);
-                if (sair) break;
+                            case 0:
+                                Confirmacao.ExibirMensagemSaida(ref opcao);
+                                sair = true;
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }, escolha ?? "", contador_de_erros);
+                    if (sair) break;
+                }
             }
         }
         public async Task Display_MenuTecnico()
@@ -155,7 +175,7 @@ namespace Views.OpcoesContas
             {
                 Console.Clear();
                 View_Inicial.Display_Mascara01();
-                Console.WriteLine($"• Olá, {Autenticador.Instancia.PegarNomeConta()}!");
+                Console.WriteLine($"• Olá, {_autenticador.PegarNomeConta()}!");
                 Console.WriteLine(" .________________________________________________.     .     ▄▀▀▄▄         ▄▄▀▀▄         .  ");
                 Console.WriteLine(" |  -=-             Menu Tecnico             -=-  |          ▐   ▄▄▀▄▄▀▀▀▄▄▀▄▄   ▌    .      ");
                 Console.WriteLine(" |================================================|          ▐  ▄▀ ▄       ▄ ▀▄  ▌           ");
@@ -171,38 +191,48 @@ namespace Views.OpcoesContas
                 Console.WriteLine("       .            .             .          .            .            .           .         ");
                 Console.WriteLine(" • Digite a Opção Desejada: ");
                 string? escolha = Console.ReadLine();
-                
-                var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
+
+                Conta? contaLogada = _autenticador.PegarContaLogada();
+
+                if (contaLogada is Conta_Usuario usuarioLogado)
                 {
-                    int opcao = int.Parse(escolha ?? "");
-                    switch (opcao)
+                    var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                     {
-                        case 1:
-                            //Linkar Função de ExibirPerfil do tecnico
-                            break;
+                        await Task.Delay(0);
 
-                        case 2:
-                            //Linkar Função de Gerenciamento/Criação de Time
-                            break;
+                        int opcao = int.Parse(escolha ?? "");
+                        switch (opcao)
+                        {
+                            case 1:
+                                PerfilUsuarioDTO perfilDTO = MapperUsuario.ToPerfilUsuarioDTO(usuarioLogado);
+                                PresenterPerfil.ExibirPerfil(perfilDTO);
+                                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                                Console.ReadKey();
+                                break;
 
-                        case 3:
-                            //Linkar Função de Criação/Entrada em Jogos
-                            break;
+                            case 2:
+                                //Linkar Função de Gerenciamento/Criação de Time
+                                break;
 
-                        case 4:
-                            //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
-                            break;
+                            case 3:
+                                //Linkar Função de Criação/Entrada em Jogos
+                                break;
 
-                        case 0:
-                            Confirmacao.ExibirMensagemSaida(ref opcao);
-                            sair = true;
-                            break;
+                            case 4:
+                                //Linkar Função de Pesquisa de Perfil de Jogador (Mostrar Informações)
+                                break;
 
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }, escolha ?? "", contador_de_erros);
-                if (sair) break;
+                            case 0:
+                                Confirmacao.ExibirMensagemSaida(ref opcao);
+                                sair = true;
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }, escolha ?? "", contador_de_erros);
+                    if (sair) break;
+                }
             }
         }
     }

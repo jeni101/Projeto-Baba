@@ -11,8 +11,12 @@ namespace Repository.PersistenciaApp.Tecnico
 {
     public class RepositoryTecnico : ARepository<Conta_Tecnico>
     {
-        private readonly DatabaseTecnicos _dbSchema = new DatabaseTecnicos();
-        public RepositoryTecnico() : base() { }
+        private readonly DatabaseTecnicos _dbSchema;
+        private readonly LeitorDeTecnico _leitorDeTecnico;
+        public RepositoryTecnico(string connStr, LeitorDeTecnico leitorDeTecnico) : base(connStr)
+        {
+            _leitorDeTecnico = leitorDeTecnico;
+        }
 
         //Salvar tecnico
         public async Task<bool> SalvarTecnico(Conta_Tecnico tecnico)
@@ -29,17 +33,15 @@ namespace Repository.PersistenciaApp.Tecnico
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO tecnicos (
-                        Id, Nome, SenhaHash, Idade, Saldo, Interesses, Amistosos, Time
+                        Id, Nome, SenhaHash, Idade, Interesses, Time
                     ) VALUES (
-                        @id, @nome, @senhaHash, @idade, @saldo, @interesses, @amistosos, @time
+                        @id, @nome, @senhaHash, @idade, @interesses, @time
                     )
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         SenhaHash = @senhaHash,
                         Idade = @idade,
-                        Saldo = @saldo,
                         Interesses = @interesses,
-                        Amistosos = @amistosos,
                         Time = @time", conn);
 
                 ArgumentosTecnico.PreencherParametros(cmd, tecnico);
@@ -67,7 +69,7 @@ namespace Repository.PersistenciaApp.Tecnico
 
                 while (await reader.ReadAsync())
                 {
-                    tecnicosLista.Add(LeitorDeTecnico.LerTecnico(reader));
+                    tecnicosLista.Add(await _leitorDeTecnico.LerTecnico(reader));
                 }
             }
             catch (MySqlException ex)
@@ -116,7 +118,7 @@ namespace Repository.PersistenciaApp.Tecnico
                 using var reader = await cmd.ExecuteReaderAsync();
 
                 return await reader.ReadAsync()
-                    ? LeitorDeTecnico.LerTecnico(reader)
+                    ? await _leitorDeTecnico.LerTecnico(reader)
                     : null;
             }
             catch (MySqlException ex)

@@ -1,111 +1,93 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
 using Interfaces.IJogador;
 using Interfaces.ITecnico;
 using Models.ContaApp;
-
-
-
-using Repository.PersistenciaApp;
-
 
 namespace Models.ContaApp.Usuario
 {
     public class Conta_Usuario : Conta
     {
         //Atributos
-        public float Saldo { get; private set; }
         public List<string> Interesses { get; set; }
-        public List<string> Amistosos { get; set; }
         public bool TornouSeJogador { get; private set; }
-        public bool TornouSeTecnico { get; private set;}
+        public bool TornouSeTecnico { get; private set; }
         public DateTime DataCriacao { get; private set; }
+        public bool Deletado { get; private set; }
+        public DateTime? DataDelecao { get; private set; }
+        public string? QuemDeletou { get; set; }
 
         //Construtor
-        public Conta_Usuario(string nome, 
-                            string senha, 
-                            int idade, 
+        public Conta_Usuario(string nome,
+                            string senha,
+                            int idade,
                             bool querSerJogador = true,
-                            bool querSerTecnico = false) 
-                    : base (nome, senha, idade)
+                            bool querSerTecnico = false)
+                    : base(nome, senha, idade)
         {
-            Saldo = 10f;
             Interesses = new List<string>();
-            Amistosos = new List<string>();
             TornouSeJogador = querSerJogador;
             TornouSeTecnico = querSerTecnico;
             DataCriacao = DateTime.Now;
+            Deletado = false;
+            DataDelecao = null;
+            QuemDeletou = null;
         }
 
-        //Senha
-        private string Definir_Senha(int maxTentativas = 3)
+        //Construtor db
+        public Conta_Usuario(Guid id, string nome, string senhaHash, int idade, List<string> interesses, bool tornouSeJogador, bool tornouSeTecnico, DateTime dataCriacao, bool deletado, DateTime? dataDelecao, string? quemDeletou)
+            : base(id, nome, senhaHash, idade)
         {
-            for (int i = 0; i < maxTentativas; i++)
-            {
-                Console.WriteLine("Defina sua senha (min. 6 char.): "); //LUIS VERIFICA O OUTPUT
-                string senha = Console.ReadLine() ?? "";
-
-                if (senha.Length < 6)
-                {
-                    Console.WriteLine("Senha muito curta"); //LUIS VERIFICA O OUTPUT
-                    continue;
-                }
-
-                Console.WriteLine("Confirme sua senha: "); //LUIS VERIFICA O OUTPUT
-                string confirmacaoSenha = Console.ReadLine() ?? "";
-
-                if (senha == confirmacaoSenha)
-                {
-                    return senha;
-                }
-
-                Console.WriteLine("Senhas não coicidem"); //LUIS VERIFICA O OUTPUT
-            }
-            throw new InvalidOperationException("Número máximo de tentativas atingido"); //LUIS VERIFICA O OUTPUT
-        }
-
-        //amistoso
-        public void CriarAmistosos() { }
-
-        //grana
-        public void ExibirSaldo() 
-        {
-            Console.WriteLine($"Saldo: {Saldo:F2}");
-        }
-        public void Apostar(float valor) 
-        {
-            if (valor > Saldo)
-            {
-                Console.WriteLine("Saldo insuficiente para essa aposta"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-            Saldo -= valor;
-            Console.WriteLine($"Aposta de R$ {valor:F2} realizada com sucesso"); //LUIS VERIFICA O OUTPUT
+            Interesses = interesses;
+            TornouSeJogador = tornouSeJogador;
+            TornouSeTecnico = tornouSeTecnico;
+            DataCriacao = dataCriacao;
+            Deletado = deletado;
+            DataDelecao = dataDelecao;
+            QuemDeletou = quemDeletou;
         }
 
         //perfil
-        public void Exibir_Perfil() 
+        public void Editar_Perfil(string escolha)
         {
-            string tiposConta = "";
-            if (TornouSeJogador) tiposConta += "Jogador";
-            if (TornouSeTecnico) tiposConta += (tiposConta != "" ? " e " : "") + "Tecnico";
-            if (tiposConta == "") tiposConta = "Nenhu tipo definido";
-
-            Console.WriteLine($"""
-            === Perfil De {Nome} ===
-            ID: {Id}
-            Tipo: {tiposConta}
-            Idade: {Idade}
-            Saldo: {Saldo:F2}
-            Data de criação: {DataCriacao:dd/MM/yyyy}
-            Interesses: {Interesses}
-            Amistosos: {Amistosos}
+            // tipo de conta: 1- jogador 
+            Console.WriteLine(""" 
+            -=-=-=- opcoes de edicao  conta jogador -=-=-=-=-
+            1. Nome/Nick
+            2. Interesses
+            3. time 
+            0. voltar
             """); //LUIS VERIFICA O OUTPUT
         }
-        protected void DefinirId(Guid id)
+
+        public void Editar_Perfil_Nome()
         {
-            this.Id = Guid.NewGuid();
+            string novoNome;
+            while (true)
+            {
+                Console.WriteLine("Digite o novo Nome: ");
+                novoNome = Console.ReadLine() ?? "";
+
+                if (string.IsNullOrWhiteSpace(novoNome) || novoNome.Length < 3)
+                {
+                    Console.WriteLine("Nome inválido. Deve ter pelo menos 3 caracteres.");
+                    continue;
+                }
+
+                base.Nome = novoNome;
+                Console.WriteLine("Nome alterado com sucesso!");
+                break;
+            }
         }
-        public void Editar_Perfil() { }
-        public void Deletar_Conta() { }
+
+        public void Deletar_Conta(string quemDeletou)
+        {
+            Deletado = true;
+            DataDelecao = DateTime.Now;
+            QuemDeletou = quemDeletou;
+        }
+
         public void Exibir_Interesses() { }
         public void Deletar_Interesses() { }
 

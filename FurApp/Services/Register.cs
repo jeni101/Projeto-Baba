@@ -10,17 +10,26 @@ using Services.Senha;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
 using Views.OpcoesMascara;
+using Utils.Pelase.Leitor.Jogador;
+using Utils.Pelase.Leitor.Tecnico;
 
 namespace Services.Register
 {
     public class Registro
     {
-        //Instanciador
-        public static Registro Instancia { get; } = new Registro();
-
         //Atributos
-        private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
-        private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
+        private readonly RepositoryJogador _repoJogador;
+        private readonly RepositoryTecnico _repoTecnico;
+        private readonly LeitorDeJogador _leitorDeJogador;
+        private readonly LeitorDeTecnico _leitorDeTecnico;
+
+        public Registro(string connStr, LeitorDeJogador leitorDeJogador, LeitorDeTecnico leitorDeTecnico)
+        {
+            _leitorDeJogador = leitorDeJogador;
+            _leitorDeTecnico = leitorDeTecnico;
+            _repoJogador = new RepositoryJogador(connStr, _leitorDeJogador);
+            _repoTecnico = new RepositoryTecnico(connStr, _leitorDeTecnico);
+        }
 
         //Registro geral
         public async Task RegistrarAsync()
@@ -82,34 +91,10 @@ namespace Services.Register
                 Console.WriteLine(" • Digite a Opção Desejada: ");
             }
             while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > 3);
-            string opcao = " ";
-            switch (escolha) //Pequeno switch que define oque é cada coisa
-            {
-                case 1:
-                    opcao = "Jogador";
-                    break;
-                case 2:
-                    opcao = "Técnico";
-                    break;
-                case 3:
-                    opcao = "Ambos";
-                    break;        
-            }
             string senha;
             try
             {
                 Console.Clear();
-                View_Inicial.Display_Mascara01();
-                Console.WriteLine(" • Agora Vamos Definir uma senha!");
-                Console.WriteLine(" .____________________________________.   .__________."); //view Com Tudo menos a Senha
-                Console.WriteLine(" |  -=-     Criação de Conta     -=-  |   |=- Tipo -=|");
-                Console.WriteLine(" |====================================|   |==========|");
-                Console.WriteLine($" |- Nome: {nome.PadRight(27)} |   |- {opcao,-7} |");
-                Console.WriteLine(" |____________________________________|   |__________|");
-                Console.WriteLine($" |- Idade: {idade,-26} |");
-                Console.WriteLine(" |                                    |");
-                Console.WriteLine(" |====================================|");
-
                 senha = ObtencaoSenha.DefinirSenha();
             }
             catch (InvalidOperationException ex)
@@ -163,8 +148,7 @@ namespace Services.Register
             var tecnico = new Conta_Tecnico(
                 nome,
                 senha,
-                idade,
-                "Sem time"
+                idade
             );
 
             await _repoTecnico.SalvarTecnico(tecnico);

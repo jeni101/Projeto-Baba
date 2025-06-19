@@ -1,67 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Models.ContaApp.Usuario;
 using Models.ContaApp.Usuario.Jogador;
 using Models.ContaApp.Usuario.Tecnico;
+using Models.JogosApp;
+using Models.JogosApp.Partidas;
 
-namespace TimesApp
+namespace Models.TimesApp
 {
-    public class Times
+    public class Time
     {
-        public string NomeTime { get; set; }
-        public Conta_Tecnico Criador { get; set; }
-        //Lista dos times
-        private static readonly List<Times> listaDeTimes = new List<Times>();
-        //Construtor privado
-        public Times(string nomeTime, Conta_Tecnico criador)
-        {
-            if (string.IsNullOrWhiteSpace(nomeTime))
-                throw new ArgumentException("Nome não pode ser vazio", nameof(nomeTime)); //LUIS VERIFICA O OUTPUT
-            
-            if (criador == null)
-                throw new ArgumentNullException(nameof(criador));
+        public Guid Id { get; protected set; }
+        public string Nome { get; set; }
+        public string Abreviacao { get; set; }
+        public string Tecnico { get; set; }
+        public List<Conta_Jogador> Jogadores { get; set; }
+        public List<string> Jogos { get; set; }
+        public List<string> Partidas { get; set; }
 
-            NomeTime = nomeTime;
-            Criador = criador;
+        //Construtor privado
+        public Time(string nome, string abreviacao, string tecnico)
+        {
+            Id = Guid.NewGuid();
+            Nome = nome;
+            Abreviacao = abreviacao;
+            Tecnico = tecnico;
+            Jogadores = new List<Conta_Jogador>();
+            Jogos = new List<string>();
+            Partidas = new List<string>();
         }
         
-        //construtor
-        public static void CriarTime(string nomeTime, Conta_Tecnico tecnico)
+        //pesquisador de times
+        public Time(Guid id, string nome, string abreviacao, string tecnico, List<Conta_Jogador> jogadores, string jogosStr, string partidasStr)
         {
-            if (tecnico == null)
-            {
-                Console.WriteLine("Criador invalido"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(nomeTime))
-            {
-                Console.WriteLine("Nome não pode zer vazio"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-
-            if (listaDeTimes.Any(t => t.NomeTime.Equals(nomeTime, StringComparison.OrdinalIgnoreCase)))
-            {
-                Console.WriteLine("Nome já existe"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-
-            var novoTime = new Times(nomeTime, tecnico);
-            listaDeTimes.Add(novoTime);
-            Console.WriteLine($"Time '{nomeTime}' criado por tecnico '{tecnico.Nome}'"); //LUIS VERIFICA O OUTPUT
-        }
-
-        public static void VerificarTimes()
-        {
-            if (listaDeTimes.Count == 0)
-            {
-                Console.WriteLine("Nenhum time"); //LUIS VERIFICA O OUTPUT
-                return;
-            }
-
-            Console.WriteLine("Times disponíveis"); //LUIS VERIFICA O OUTPUT
-            foreach (var time in listaDeTimes)
-            {
-                Console.WriteLine($"-{time.NomeTime} (criado por: {time.Criador.Nome})"); //LUIS VERIFICA O OUTPUT
-            }
+            Id = id;
+            Nome = nome;
+            Abreviacao = abreviacao;
+            Tecnico = tecnico;
+            Jogadores = jogadores;
+            Jogos = string.IsNullOrEmpty(jogosStr) ? new List<string>() : jogosStr.Split(',').ToList();
+            Partidas = string.IsNullOrEmpty(partidasStr) ? new List<string>() : partidasStr.Split(',').ToList();
         }
     }
 }

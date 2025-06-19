@@ -3,18 +3,30 @@ using Models.ContaApp;
 using Models.ContaApp.Usuario;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
+using Repository.PersistenciaApp.ADM;
+using Utils.Pelase.Leitor.Jogador;
+using Utils.Pelase.Leitor.Tecnico;
 
 namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
-        //Instaciador
-        public static Autenticador Instancia { get; } = new Autenticador();
-
         //Atributos
-        private readonly RepositoryJogador _repoJogador = new RepositoryJogador();
-        private readonly RepositoryTecnico _repoTecnico = new RepositoryTecnico();
+        private readonly LeitorDeJogador _leitorDeJogador;
+        private readonly LeitorDeTecnico _leitorDeTecnico;
+        private readonly RepositoryJogador _repoJogador;
+        private readonly RepositoryTecnico _repoTecnico;
+        private readonly RepositoryADM _repoADM;
         private Conta? _contaLogada;
+
+        public Autenticador(string connStr, LeitorDeJogador leitorDeJogador, LeitorDeTecnico leitorDeTecnico)
+        {
+            _leitorDeJogador = leitorDeJogador;
+            _leitorDeTecnico = leitorDeTecnico;
+            _repoJogador = new RepositoryJogador(connStr, _leitorDeJogador);
+            _repoTecnico = new RepositoryTecnico(connStr, _leitorDeTecnico);
+            _repoADM = new RepositoryADM(connStr);
+        }
 
         //Login
         public async Task<bool> LoginAsync()
@@ -40,12 +52,25 @@ namespace Services.Autenticacao
 
                 var jogador = await _repoJogador.GetByNameAsync(nome);
                 var tecnico = await _repoTecnico.GetByNameAsync(nome);
+                var adm = await _repoADM.GetByNameAsync(nome);
 
-                var conta = jogador ?? tecnico as Conta;
+                Conta? conta = null;
+                if (adm != null)
+                {
+                    conta = adm;
+                }
+                else if (jogador != null)
+                {
+                    conta = jogador;
+                }
+                else if (tecnico != null)
+                {
+                    conta = tecnico;
+                }
 
                 if (conta == null || !conta.Autenticar(senha))
                 {
-                    Console.WriteLine("Credenciais inválidas");
+                    Console.WriteLine(" ! Credenciais inválidas ! ");
                     return false;
                 }
 

@@ -34,17 +34,21 @@ namespace Repository.PersistenciaApp.Jogos
 
                 var cmd = new MySqlCommand(@"
                     INSERT INTO jogos (
-                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Data, Hora, Local, TipoDeCampo, Interessados, QuantidadeDeJogadores)
+                        Id, Nome, AbreviacaoTimeA, AbreviacaoTimeB, Aberto, Data, Hora, 
+                        CampoId, LocalDisplay, TipoDeCampoDisplay, Interessados, QuantidadeDeJogadores)
                     VALUES (
-                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @data, @hora, @local, @tipoDeCampo, @interessados, @quantidadeDeJogadores)
+                        @id, @nome, @abreviacaoTimeA, @abreviacaoTimeB, @aberto, @data, @hora, 
+                        @campoId, @localDisplay, @tipoDeCampoDisplay, @interessados, @quantidadeDeJogadores)
                     ON DUPLICATE KEY UPDATE
                         Nome = @nome,
                         AbreviacaoTimeA = @abreviacaoTimeA,
                         AbreviacaoTimeB = @abreviacaoTimeB,
+                        Aberto = @aberto,
                         Data = @data,
                         Hora = @hora,
-                        Local = @local,
-                        TipoDeCampo = @tipoDeCampo,
+                        CampoId = @campoId,
+                        LocalDisplay = @localDisplay,
+                        TipoDeCampoDisplay = @tipoDeCampoDisplay,
                         Interessados = @interessados,
                         QuantidadeDeJogadores = @quantidadeDeJogadores", conn);
 
@@ -105,6 +109,36 @@ namespace Repository.PersistenciaApp.Jogos
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
 
+        //Carrega jogos (abertos)
+        public async Task<List<Jogo>> CarregarJogosAbertos()
+        {
+            var jogosAbertos = new List<Jogo>();
+
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogos WHERE Aberto = 1 AND Deletado = 0", conn);
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    jogosAbertos.Add(LeitorDeJogos.LerJogo(reader));
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Erro MySQL ao carregar jogos abertos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro geral ao carregar jogos abertos: {ex.Message}");
+            }
+
+            return jogosAbertos;
+        }
+
         public override async Task<Jogo?> GetByNameAsync(string nome)
         {
             try
@@ -129,6 +163,36 @@ namespace Repository.PersistenciaApp.Jogos
                 Console.WriteLine(ex.Message);
                 return null;
             }
+        }
+
+        public async Task<List<Jogo>> GetJogosByDataHora(DateOnly data, TimeOnly hora)
+        {
+            var jogosNoHorario = new List<Jogo>();
+            try
+            {
+                using var conn = Conectar();
+                await conn.OpenAsync();
+
+                using var cmd = new MySqlCommand("SELECT * FROM jogos WHERE Data = @data AND Hora = @hora AND Deletado = 0", conn);
+                cmd.Parameters.AddWithValue("@data", data.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@hora", hora.ToString("HH:mm:ss")); 
+
+                using var reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    jogosNoHorario.Add(LeitorDeJogos.LerJogo(reader));
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Erro MySQL ao obter jogos por data e hora: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro inesperado ao obter jogos por data e hora: {ex.Message}");
+            }
+            return jogosNoHorario;
         }
     }
 }
