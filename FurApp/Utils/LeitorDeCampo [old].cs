@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Threading.Tasks;
 using MySqlConnector;
@@ -36,3 +37,4 @@ namespace Utils.Pelase.Leitor.Campos
         }
     }
 }
+*/

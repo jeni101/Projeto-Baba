@@ -2,42 +2,64 @@ using Interfaces.IJogador;
 using Models.JogosApp;
 using Models.PosicaoApp;
 using Models.TimesApp;
+using System; // Para Guid
+using System.Collections.Generic; // Para List
+using System.Text.Json.Serialization; // Necessário para [JsonConstructor]
 
 namespace Models.ContaApp.Usuario.Jogador
 {
     public class Conta_Jogador : Conta_Usuario, IJogador
     {
         public string Posicao { get; set; }
-        public Time? Time { get; private set; }
-        public List<string> Partidas { get; private set; }
+        public Time? Time { get; set; } // Mudado de private set para public set
+        public List<string> Partidas { get; set; } // Mudado de private set para public set
 
-        //Construtor padrão
+        // Construtor sem parâmetros (ESSENCIAL para System.Text.Json)
+        public Conta_Jogador() : base() // Chama o construtor sem parâmetros de Conta_Usuario
+        {
+            Posicao = string.Empty;
+            Time = null; // Pode ser null se o jogador não estiver em um time
+            Partidas = new List<string>();
+        }
+
+        // Construtor padrão (para criação manual de objetos)
         public Conta_Jogador(
             string nome,
             string senha,
             int idade,
             string posicao)
-            : base(nome, senha, idade)
+            : base(nome, senha, idade) // Chama o construtor de Conta_Usuario
         {
-            Time = null;
             Posicao = posicao;
-            Partidas = new List<string>();
+            Time = null;
+            Partidas = new List<string>(); // Garante que a lista é inicializada
         }
 
-        //Construtor db
+        // Construtor de desserialização (o MAIS IMPORTANTE, e marcado com [JsonConstructor])
+        // Este construtor deve ter parâmetros para TODAS as propriedades que serão desserializadas,
+        // tanto as próprias de Conta_Jogador quanto as herdadas de Conta_Usuario e Conta.
+        [JsonConstructor]
         public Conta_Jogador(
-            Guid id, string nome, string senhaHash, int idade, string posicao, Time? time,
-            List<string> interesses, List<string> partidas, bool tornouSeJogador, bool tornouSeTecnico, DateTime dataCriacao,
-            bool deletado, DateTime? dataDelecao, string? quemDeletou)
-            : base (id, nome, senhaHash, idade, interesses, tornouSeJogador, tornouSeTecnico, dataCriacao, deletado, dataDelecao, quemDeletou)
+            // Propriedades herdadas de AModel:
+            Guid id,
+            // Propriedades herdadas de Conta:
+            string nome, string senhaHash, int idade,
+            // Propriedades herdadas de Conta_Usuario:
+            List<string> interesses, bool tornouSeJogador, bool tornouSeTecnico, DateTime dataCriacao,
+            bool deletado, DateTime? dataDelecao, string? quemDeletou,
+            // Propriedades próprias de Conta_Jogador:
+            string posicao, Time? time, List<string> partidas)
+            // Chama o construtor DB da classe base Conta_Usuario com seus parâmetros
+            : base(id, nome, senhaHash, idade, interesses, tornouSeJogador, tornouSeTecnico, dataCriacao, deletado, dataDelecao, quemDeletou)
         {
+            // Atribua as propriedades próprias da Conta_Jogador
             Posicao = posicao;
             Time = time;
-            Partidas = partidas ?? new List<string>();
+            Partidas = partidas ?? new List<string>(); // Garante que a lista não é nula
         }
 
-        //Interfaces
-        void IJogador.Escolher_Posicao(List<Posicao> posicoesDisponiveis)
+        // Implementações das Interfaces (IJogador)
+        void IJogador.Escolher_Posicao(List<PosicaoApp.Posicao> posicoesDisponiveis)
         {
             if (posicoesDisponiveis == null || posicoesDisponiveis.Count == 0)
             {
@@ -67,7 +89,7 @@ namespace Models.ContaApp.Usuario.Jogador
         {
             if (Time != null)
             {
-                Console.WriteLine($"Time: {Time} - {Time.Abreviacao}");
+                Console.WriteLine($"Time: {Time.Nome} - {Time.Abreviacao}");
             }
             else
             {
@@ -78,7 +100,8 @@ namespace Models.ContaApp.Usuario.Jogador
         public void SairDoTime()
         {
             this.Time = null;
-        } 
+        }
+
         void IJogador.Exibir_Jogos()
         {
             if (Interesses.Count > 0)
@@ -116,7 +139,7 @@ namespace Models.ContaApp.Usuario.Jogador
             // Implementação futura
         }
 
-        //Interesses
+        // Métodos de Interesses
         public void EntrarComoInteressado(Jogo interesse)
         {
             if (interesse == null)
@@ -171,6 +194,5 @@ namespace Models.ContaApp.Usuario.Jogador
                 Console.WriteLine("Não foi possível remover o interesse neste jogo (provavelmente não estava interessado ou erro no Jogo).");
             }
         }
-
     }
 }

@@ -1,5 +1,5 @@
 using MySqlConnector;
-namespace Interfaces.IDatabase;
+namespace Interfaces.old.IDatabase;
 
 interface IDatabase
 {

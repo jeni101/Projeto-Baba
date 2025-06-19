@@ -189,3 +189,7 @@ Versions:
         -00.6.0.0.0.0.0.034.1 (ip changes)
         -00.6.0.0.0.0.0.035 (Total errors)
         -00.6.0.0.0.0.0.036 (Total errors 2)
+
+    -1.000.01
+    -1.000.02 (death time - old)
+    -1.000.03 (json all the way)

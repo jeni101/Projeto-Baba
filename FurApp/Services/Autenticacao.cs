@@ -1,91 +1,80 @@
 using Interfaces.IAutenticacao;
-using Models.ContaApp;
-using Models.ContaApp.Usuario;
+using Models.ContaApp; 
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
 using Repository.PersistenciaApp.ADM;
-using Utils.Pelase.Leitor.Jogador;
-using Utils.Pelase.Leitor.Tecnico;
+using System.Threading.Tasks; 
+using System;
 
 namespace Services.Autenticacao
 {
     public class Autenticador : IAutenticacao
     {
-        //Atributos
-        private readonly LeitorDeJogador _leitorDeJogador;
-        private readonly LeitorDeTecnico _leitorDeTecnico;
+        // Atributos
         private readonly RepositoryJogador _repoJogador;
         private readonly RepositoryTecnico _repoTecnico;
         private readonly RepositoryADM _repoADM;
         private Conta? _contaLogada;
 
-        public Autenticador(string connStr, LeitorDeJogador leitorDeJogador, LeitorDeTecnico leitorDeTecnico)
+        public Autenticador(RepositoryJogador repoJogador, RepositoryTecnico repoTecnico, RepositoryADM repoADM)
         {
-            _leitorDeJogador = leitorDeJogador;
-            _leitorDeTecnico = leitorDeTecnico;
-            _repoJogador = new RepositoryJogador(connStr, _leitorDeJogador);
-            _repoTecnico = new RepositoryTecnico(connStr, _leitorDeTecnico);
-            _repoADM = new RepositoryADM(connStr);
+            _repoJogador = repoJogador ?? throw new ArgumentNullException(nameof(repoJogador));
+            _repoTecnico = repoTecnico ?? throw new ArgumentNullException(nameof(repoTecnico));
+            _repoADM = repoADM ?? throw new ArgumentNullException(nameof(repoADM));
         }
 
-        //Login
-        public async Task<bool> LoginAsync()
+        // Login
+        public async Task<Conta?> LoginAsync()
         {
-            Console.Write("Digite seu nome: ");
-            string nome = Console.ReadLine()?.Trim() ?? "";
-    
-            Console.Write("Digite sua senha: ");
-            string senha = Console.ReadLine()?.Trim() ?? "";
-    
-            return await LoginAsync(nome, senha);
-        }
-        
-        public async Task<bool> LoginAsync(string nome, string senha)
-        {
-            try
+            Console.Clear();
+            Console.WriteLine("--- Login ---");
+            Console.Write("Nome de usuário: ");
+            string? nome = Console.ReadLine();
+            Console.Write("Senha: ");
+            string? senha = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(senha))
             {
-                if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(senha))
-                {
-                    Console.WriteLine("Nome e senha são obrigatórios");
-                    return false;
-                }
-
-                var jogador = await _repoJogador.GetByNameAsync(nome);
-                var tecnico = await _repoTecnico.GetByNameAsync(nome);
-                var adm = await _repoADM.GetByNameAsync(nome);
-
-                Conta? conta = null;
-                if (adm != null)
-                {
-                    conta = adm;
-                }
-                else if (jogador != null)
-                {
-                    conta = jogador;
-                }
-                else if (tecnico != null)
-                {
-                    conta = tecnico;
-                }
-
-                if (conta == null || !conta.Autenticar(senha))
-                {
-                    Console.WriteLine(" ! Credenciais inválidas ! ");
-                    return false;
-                }
-
-                _contaLogada = conta;
-                Console.WriteLine($"Bem-vindo, {conta.Nome}!");
-                return true;
+                Console.WriteLine("Nome de usuário ou senha não podem ser vazios.");
+                await Task.Delay(1500);
+                return null;
             }
-            catch (Exception ex)
+
+            // As chamadas para os repositórios permanecem as mesmas
+            var adm = await _repoADM.GetByNomeAsync(nome);
+            if (adm != null && adm.Autenticar(senha))
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                _contaLogada = adm;
+                Console.WriteLine("Login de ADM bem-sucedido!");
+                await Task.Delay(1000);
+                return adm;
             }
+
+            var jogador = await _repoJogador.GetByNomeAsync(nome);
+            if (jogador != null && jogador.Autenticar(senha))
+            {
+                _contaLogada = jogador;
+                Console.WriteLine("Login de Jogador bem-sucedido!");
+                await Task.Delay(1000);
+                return jogador;
+            }
+
+            var tecnico = await _repoTecnico.GetByNomeAsync(nome);
+            if (tecnico != null && tecnico.Autenticar(senha))
+            {
+                _contaLogada = tecnico;
+                Console.WriteLine("Login de Técnico bem-sucedido!");
+                await Task.Delay(1000);
+                return tecnico;
+            }
+
+            Console.WriteLine("Usuário ou senha inválidos.");
+            await Task.Delay(1500);
+            _contaLogada = null;
+            return null;
         }
 
-        //Logout
+        // Logout
         public void Logout()
         {
             if (_contaLogada == null)
@@ -98,7 +87,7 @@ namespace Services.Autenticacao
             _contaLogada = null;
         }
 
-        //Pegar nome
+        // Pegar nome
         public string? PegarNomeConta() => _contaLogada?.Nome ?? "Nenhum usuário logado";
         public Conta? PegarContaLogada() => _contaLogada;
     }

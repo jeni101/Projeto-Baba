@@ -1,52 +1,87 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MySqlConnector;
 using Models.CamposApp;
+using Models.CamposApp.Tipo;
 using Repository.PersistenciaApp.Campos;
-using Repository.PersistenciaApp.CamposTipo;
-using Repository.Database.Initializer.Campos.Tipo;
+using Repository.PersistenciaApp.Campos.Tipo;
+using Services.Json;
 
 namespace Repository.Database.Initializer.Campos
 {
-    public static class InitializerCampos
+    public class InitializerCampos
     {
-        public static async Task Inicializar(RepositoryCampos repoCampo, RepositoryCamposTipos repoTipoCampo)
+        private readonly RepositoryCampos _repoCampos;
+        private readonly RepositoryCamposTipo _repoCamposTipo;
+        private readonly JsonServices _jsonServices;
+
+        public InitializerCampos(RepositoryCampos repoCampos, RepositoryCamposTipo repoCamposTipo, JsonServices jsonServices)
         {
-            var camposExistentes = await repoCampo.CarregarTodos();
-            if (camposExistentes.Count > 0) return;
+            _repoCampos = repoCampos;
+            _repoCamposTipo = repoCamposTipo;
+            _jsonServices = jsonServices;
+        }
 
-            var tiposDeCampo = await repoTipoCampo.CarregarTodos();
-            if (tiposDeCampo.Count == 0)
-                throw new Exception("Não inicializado");
+        public async Task InitializeAsync()
+        {
+            string filePath = Path.Combine("FurApp", "Database", "campos.json");
 
-            var tipoClassico = tiposDeCampo.FirstOrDefault(t => t.Tipo == "Clássico");
-            var tipoSociety = tiposDeCampo.FirstOrDefault(t => t.Tipo == "Society");
-            var tipoQuadra = tiposDeCampo.FirstOrDefault(t => t.Tipo == "Quadra");
-            var tipoAreia = tiposDeCampo.FirstOrDefault(t => t.Tipo == "Areia");
-
-            if (tipoClassico == null || tipoSociety == null || tipoQuadra == null || tipoAreia == null)
+            // Verifica se o arquivo já existe e tem conteúdo.
+            if (_jsonServices.FileExists(filePath) && (await _jsonServices.ReadFileAsync(filePath))?.Length > 2)
             {
-                throw new Exception(" !  Erro: Nem todos os campos padrão foram encontrados ! ");
+                Console.WriteLine("Campos já inicializados no JSON. Pulando a inicialização.");
+                return;
             }
 
-            var camposUnasp = new List<Campo>
-            {
-                new Campo("Campão", "Ao lado do complexo esportivo", 22, tipoClassico),
-                new Campo("Quadra A", "Quadra interna, à esquerda, complexo esportivo", 10, tipoQuadra),
-                new Campo("Quadra B", "Quadra interna, à direita, complexo esportivo", 10, tipoQuadra),
-                new Campo("Quadra C", "Quadra externa, à esquerda, complexo esportivo", 10, tipoQuadra),
-                new Campo("Quadra D", "Quadra externa, à esquerda, complexo esportivo", 10, tipoQuadra),
-                new Campo("Quadra da Portaria", "Quadra próxima a portaria", 10, tipoQuadra),
-                new Campo("Quadra de Areia", "Campo de areia próximo ao complexo esportivo", 10, tipoAreia),
-                new Campo("Pista de Atletismo", "Campinho no meio da pista de atletismo", 22, tipoClassico),
-            };
+            Console.WriteLine("Inicializando Campos no JSON...");
 
-            foreach (var campo in camposUnasp)
+            var tiposDeCampo = await _repoCamposTipo.GetAll();
+            if (!tiposDeCampo.Any())
             {
-                await repoCampo.SalvarCampo(campo);
+                Console.WriteLine("Aviso: Nenhum Tipo de Campo encontrado. Inicialize os tipos de campo primeiro.");
+                return;
             }
+
+            var classico = tiposDeCampo.FirstOrDefault(t => t.Tipo.Equals("Clássico", StringComparison.OrdinalIgnoreCase));
+            var areia = tiposDeCampo.FirstOrDefault(t => t.Tipo.Equals("Areia", StringComparison.OrdinalIgnoreCase));
+            var quadra = tiposDeCampo.FirstOrDefault(t => t.Tipo.Equals("Quadra", StringComparison.OrdinalIgnoreCase));
+
+
+            var campos = new List<Campo>();
+
+            if (classico != null)
+            {
+                campos.Add(new Campo("Campão", "Ao lado do complexo esportivo", 22, classico));
+                campos.Add(new Campo("Pista de Atletismo", "No meio da pista de atletismo", 22, classico));
+            }
+            if (areia != null)
+            {
+                campos.Add(new Campo("Quadra de Areia 1", "Campo de areia próximo ao complexo esportivo", 10, areia));
+            }
+            if (quadra != null)
+            {
+                campos.Add(new Campo("Quadra A", "Quadra interna, à esquerda, complexo esportivo", 10, quadra));
+                campos.Add(new Campo("Quadra B", "Quadra interna, à direita, complexo esportivo", 10, quadra));
+                campos.Add(new Campo("Quadra C", "Quadra externa, à esquerda, complexo esportivo", 10, quadra));
+                campos.Add(new Campo("Quadra D", "Quadra externa, à direita, complexo esportivo", 10, quadra));
+                campos.Add(new Campo("Quadra Portaria", "Quadra perto da portaria", 10, quadra));
+            }
+
+            foreach (var campo in campos)
+            {
+                if (await _repoCampos.SalvarAsync(campo))
+                {
+                    Console.WriteLine($"Campo '{campo.Nome}' inicializado com sucesso.");
+                }
+                else
+                {
+                    Console.WriteLine($"Erro ao inicializar Campo '{campo.Nome}'.");
+                }
+            }
+
+            Console.WriteLine("Inicialização de Campos concluída.");
         }
     }
 }

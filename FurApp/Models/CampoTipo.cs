@@ -1,16 +1,28 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace Models.CamposApp.Tipo
 {
-    public class TipoDeCampo
+    public class TipoDeCampo : AModel
     {
-        public Guid Id { get; set; }
         public string Tipo { get; set; }
         public int CapacidadePadrao { get; set; }
 
-        public TipoDeCampo(string tipo, int capacidadePadrao)
+        public TipoDeCampo()
         {
-            Id = Guid.NewGuid();
+            Tipo = string.Empty;
+            CapacidadePadrao = 0;
+        }
+
+        public TipoDeCampo(string tipo, int capacidadePadrao) : this()
+        {
+            Tipo = tipo;
+            CapacidadePadrao = capacidadePadrao;
+        }
+
+        public TipoDeCampo(Guid id, string tipo, int capacidadePadrao)
+        {
+            Id = id;
             Tipo = tipo;
             CapacidadePadrao = capacidadePadrao;
         }

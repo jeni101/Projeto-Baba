@@ -6,9 +6,8 @@ using Models.JogosApp.PlacarJogo;
 namespace Models.JogosApp.Partidas
 {
 
-    public class Partida
+    public class Partida : AModel
     {
-        public Guid Id { get; protected set; }
         public string Nome { get; private set; }
         public Guid JogoId { get; private set; }
         public string TimeA { get; private set; }

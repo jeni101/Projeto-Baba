@@ -1,50 +1,98 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Services.Autenticacao;
-using Services.Register;
+using System;
+using System.Threading.Tasks;
+using System.IO;
+using Services.Json;
+using Repository.Database.Initializer.ADM;
+using Repository.Database.Initializer.Campos;
+using Repository.Database.Initializer.Campos.Tipo;
+using Repository.Database.Initializer.Posicoes;
+using Repository.PersistenciaApp.ADM;
 using Repository.PersistenciaApp.Jogador;
 using Repository.PersistenciaApp.Tecnico;
-using Repository.PersistenciaApp.ADM;
-using Repository.Database.Initializer.ADM;
-using Utils.Pelase.Leitor.Jogador;
-using Utils.Pelase.Leitor.Tecnico;
 using Repository.PersistenciaApp.Times;
-using Utils.Pelase.Leitor.Times;
+using Repository.PersistenciaApp.Campos;
+using Repository.PersistenciaApp.Campos.Tipo;
+using Repository.PersistenciaApp.Posicoes;
+using Repository.PersistenciaApp.Jogos;
+using Services.Autenticacao;
+using Services.Register;
+using Services.Jogos;
+using Utils.Pelase.Leitor.DataHora;
+using Views.Contas;
+using Views.OpcoesContas;
+using Views.OpcoesUsuarios;
+using Views.OpcoesAdministrador;
 
 class Program
 {
     static async Task Main(string[] args)
     {
+        // 1. Configuração (ainda pode ler appsettings.json se precisar de outras configs)
         var builder = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         IConfiguration configuration = builder.Build();
 
-        string mariaDbConnStr = configuration.GetConnectionString("MariaDB");
+        // 2. Configuração da Injeção de Dependências
+        var serviceProvider = new ServiceCollection()
+            // Configurar o JsonServices (Singleton para manter uma única instância e estado do diretório base)
+            .AddSingleton<JsonServices>(sp =>
+                new JsonServices(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FurApp", "Database")))
 
-        // 1. Instanciar RepositoryTimes primeiro, pois LeitorDeJogador e LeitorDeTecnico dependem dele.
-        var repoTimes = new RepositoryTimes(mariaDbConnStr, new LeitorDeTimes()); // LeitorDeTimes agora não precisa de repositório no construtor
+            // Registrar Repositórios JSON
+            .AddSingleton<RepositoryADM>()
+            .AddSingleton<RepositoryJogador>()
+            .AddSingleton<RepositoryTecnico>()
+            .AddSingleton<RepositoryTimes>()
+            .AddSingleton<RepositoryCamposTipo>() // Certifique-se de ter essa classe
+            .AddSingleton<RepositoryCampos>()
+            .AddSingleton<RepositoryPosicao>()
+            .AddSingleton<RepositoryJogos>()
+            // .AddSingleton<JsonRepositoryPartida>() // Se você tiver um repositório de Partida
 
-        // 2. Instanciar LeitorDeJogador e LeitorDeTecnico passando a dependência de RepositoryTimes.
-        var leitorDeJogador = new LeitorDeJogador(repoTimes);
-        var leitorDeTecnico = new LeitorDeTecnico(repoTimes);
+            // Registrar os Initializers (Transient, pois são usados uma vez na inicialização)
+            // Eles receberão seus repositórios por injeção
+            .AddTransient<InitializerAdministrador>()
+            .AddTransient<InitializerPosicoes>()
+            .AddTransient<InitializerTipoCampos>()
+            .AddTransient<InitializerCampos>()
 
-        // 3. Instanciar os Repositórios de Jogador, Técnico e ADM, passando seus respectivos leitores.
-        var repoJogador = new RepositoryJogador(mariaDbConnStr, leitorDeJogador);
-        var repoTecnico = new RepositoryTecnico(mariaDbConnStr, leitorDeTecnico);
-        var repoADM = new RepositoryADM(mariaDbConnStr); // LeitorDeADM é estático, não precisa ser passado aqui.
+            // Registrar Serviços de Autenticação e Registro
+            .AddSingleton<Autenticador>() // Estes serviços recebem os repositórios por DI
+            .AddSingleton<Registro>()
+            // .AddSingleton<GerenciadorDePartidasService>() // Exemplo de outro serviço
 
-        // 4. Inicializar o ADM.
-        await InitializerADM.Inicializar(repoADM);
-        Console.WriteLine(":D");
+            // Registrar Views
+            .AddSingleton<Views_Administrador>()
+            .AddSingleton<Views_Usuarios>()
+            .AddSingleton<Views_De_OpcoesContas>()
+            .AddSingleton<Views_De_Contas>()
+            .BuildServiceProvider(); // Constrói o ServiceProvider
 
-        // 5. Instanciar Autenticador e Registro, passando todas as suas dependências.
-        var autenticador = new Autenticador(mariaDbConnStr, leitorDeJogador, leitorDeTecnico);
-        var registro = new Registro(mariaDbConnStr, leitorDeJogador, leitorDeTecnico);
+        // 3. Executar Initializers para popular os JSONs, se necessário
+        Console.WriteLine("Iniciando a inicialização de dados (se arquivos JSON vazios)...");
+        try
+        {
+            // A ordem é crucial devido a dependências entre os dados
+            await serviceProvider.GetRequiredService<InitializerPosicoes>().InitializeAsync();
+            await serviceProvider.GetRequiredService<InitializerTipoCampos>().InitializeAsync();
+            await serviceProvider.GetRequiredService<InitializerCampos>().InitializeAsync();
+            await serviceProvider.GetRequiredService<InitializerAdministrador>().InitializeAsync();
 
-        // 6. Instanciar Views_De_Contas com os serviços corretos.
-        var viewsContas = new Views.Contas.Views_De_Contas(autenticador, registro);
+            Console.WriteLine("Inicialização de dados concluída.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro durante a inicialização de dados: {ex.Message}");
+            return;
+        }
+
+
+        // 4. Iniciar a aplicação principal (Views_De_Contas)
+        Console.WriteLine("\nIniciando o sistema FurApp...");
+        var viewsContas = serviceProvider.GetRequiredService<Views_De_Contas>();
         await viewsContas.DisplayMenu_LoginInicial();
 
         Console.WriteLine("Fim do programa. Pressione uma tecla para sair...");

@@ -16,14 +16,14 @@ namespace Services.Jogos
     {
         // Repositórios injetados via construtor (melhor prática)
         private readonly RepositoryCampos _campoRepository;
-        private readonly RepositoryJogo _jogoRepository; // Renomeado para seguir o padrão de nome
+        private readonly RepositoryJogos _jogoRepository; // Renomeado para seguir o padrão de nome
         private readonly RepositoryPartidas _partidaRepository;
 
         // Construtor: Ideal para injeção de dependência.
         // Se você não usa um container de DI, pode instanciá-los aqui, mas a injeção é mais flexível.
         public JogosServices(
             RepositoryCampos campoRepository,
-            RepositoryJogo jogoRepository,
+            RepositoryJogos jogoRepository,
             RepositoryPartidas partidaRepository)
         {
             _campoRepository = campoRepository ?? throw new ArgumentNullException(nameof(campoRepository));
@@ -102,7 +102,7 @@ namespace Services.Jogos
                         novoJogo.LocalDisplay
                     );
 
-                    bool partidaSalva = await _partidaRepository.SalvarPartidas(novaPartida);
+                    bool partidaSalva = await _partidaRepository.SalvarAsync(novaPartida);
 
                     if (partidaSalva)
                     {
@@ -145,9 +145,9 @@ namespace Services.Jogos
                 Console.Write("Digite parte do tipo de campo: ");
                 filtroTipo = Console.ReadLine() ?? "";
 
-                var camposFiltrados = await _campoRepository.FiltrarCampo(filtroNome, filtroTipo);
+                var camposFiltrados = await _campoRepository.GetCamposFiltradosAsync(filtroNome, filtroTipo);
 
-                var jogosExistentesNoHorario = await _jogoRepository.GetJogosByDataHora(data, hora);
+                var jogosExistentesNoHorario = await _jogoRepository.GetJogosByDataHoraAsync(data, hora);
                 var camposOcupadosIds = jogosExistentesNoHorario.Select(j => j.CampoId).ToHashSet();
 
                 camposLivres = camposFiltrados
@@ -243,7 +243,7 @@ namespace Services.Jogos
                     Console.WriteLine("Erro: O objeto Jogo a ser persistido não pode ser nulo.");
                     return false;
                 }
-                return await _jogoRepository.SalvarJogos(jogo);
+                return await _jogoRepository.SalvarAsync(jogo);
             }
             catch (Exception ex)
             {

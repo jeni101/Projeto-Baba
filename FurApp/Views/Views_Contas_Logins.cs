@@ -1,8 +1,13 @@
 using Services.Autenticacao;
 using Services.Register;
 using Views.OpcoesMascara;
+using Views.OpcoesContas;
 using Utils.Confirmacao_de_saida;
 using Utils.Controle_de_execoesApp;
+using Models.ContaApp;
+using Models.ContaApp.ADM;
+using Models.ContaApp.Usuario.Jogador;
+using Models.ContaApp.Usuario.Tecnico;
 
 namespace Views.Contas
 {
@@ -10,11 +15,13 @@ namespace Views.Contas
     {
         private readonly Autenticador _autenticador;
         private readonly Registro _registro;
+        private readonly Views_De_OpcoesContas _menuContas;
 
-        public Views_De_Contas(Autenticador autenticador, Registro registro)
+        public Views_De_Contas(Autenticador autenticador, Registro registro, Views_De_OpcoesContas menuContas)
         {
             _autenticador = autenticador;
             _registro = registro;
+            _menuContas = menuContas;
         }
 
         public async Task DisplayMenu_LoginInicial()
@@ -56,7 +63,26 @@ namespace Views.Contas
                             break;
 
                         case 2:
-                            await _autenticador.LoginAsync();
+                            Conta? contaLogada = await _autenticador.LoginAsync();
+
+                            if (contaLogada != null)
+                            {
+                                if (contaLogada is Conta_Administrador adm)
+                                {
+                                    Console.WriteLine("Redirecionando para o menu do Administrador...");
+                                    await _menuContas.Display_MenuAdministrador();
+                                }
+                                else if (contaLogada is Conta_Jogador jogador)
+                                {
+                                    Console.WriteLine("Redirecionando para o menu do Jogador...");
+                                    await _menuContas.Display_MenuJogador();
+                                }
+                                else if (contaLogada is Conta_Tecnico tecnico)
+                                {
+                                    Console.WriteLine("Redirecionando para o menu do Técnico...");
+                                    await _menuContas.Display_MenuTecnico();
+                                }
+                            }
                             break;
 
                         case 0:

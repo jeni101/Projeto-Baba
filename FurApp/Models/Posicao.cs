@@ -1,19 +1,31 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace Models.PosicaoApp
 {
-    public class Posicao
+    public class Posicao : AModel
     {
-        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Categoria { get; set; }
         public string Abreviacao { get; set; }
 
-        public Posicao(string nome, string categoria, string abreviacao)
+        public Posicao()
+        {
+            Nome = string.Empty;
+            Categoria = string.Empty;
+            Abreviacao = string.Empty;
+        }
+
+        public Posicao(string nome, string categoria, string abreviacao) : this()
         {
             Nome = nome;
             Categoria = categoria;
             Abreviacao = abreviacao;
+        }
+
+        public Posicao(Guid id, string nome, string categoria, string abreviacao) : this(nome, categoria, abreviacao)
+        {
+            Id = id;
         }
     }
 }

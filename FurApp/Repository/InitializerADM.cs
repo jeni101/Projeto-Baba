@@ -1,30 +1,49 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
-using MySqlConnector;
-using Models.ContaApp;
 using Models.ContaApp.ADM;
 using Repository.PersistenciaApp.ADM;
+using Services.Json;
+using Utils.Pelase.CensuradorDeSenha;
 
 namespace Repository.Database.Initializer.ADM
 {
-    public class InitializerADM
+    public class InitializerAdministrador
     {
-        public static async Task Inicializar(RepositoryADM repoADM)
+        private readonly RepositoryADM _repoADM;
+        private readonly JsonServices _jsonService;
+
+        public InitializerAdministrador(RepositoryADM repoADM, JsonServices jsonService)
         {
-            var admPadrao = await repoADM.CarregarTodos();
-            if (admPadrao.Count > 0) return;
+            _repoADM = repoADM ?? throw new ArgumentNullException(nameof(repoADM));
+            _jsonService = jsonService ?? throw new ArgumentNullException(nameof(jsonService));
+        }
 
-            var administador = new List<Conta_Administrador>
-            {
-                new Conta_Administrador("adm", "adm", 18)
-            };
+        public async Task InitializeAsync()
+        {
+            string filePath = Path.Combine("FurApp", "Database", "adm.json");
 
-            foreach (var adm in administador)
+            if (_jsonService.FileExists(filePath) && (await _jsonService.ReadFileAsync(filePath))?.Length > 2)
             {
-                await repoADM.SalvarADM(adm);
+                Console.WriteLine("Administradores já inicializados no JSON. Pulando a inicialização.");
+                return;
             }
+
+            Console.WriteLine("Inicializando Administrador no JSON...");
+
+            var admin = new Conta_Administrador("admin", "admin", 21);
+            
+
+            if (await _repoADM.SalvarAsync(admin))
+            {
+                Console.WriteLine($"Administrador '{admin.Nome}' inicializado com sucesso. ID: {admin.Id}");
+            }
+            else
+            {
+                Console.WriteLine($"Erro ao inicializar Administrador '{admin.Nome}'.");
+            }
+
+            Console.WriteLine("Inicialização de Administrador concluída.");
         }
     }
 }

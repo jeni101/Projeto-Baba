@@ -1,3 +1,4 @@
+/*
 using System;
 using Interfaces.IDatabase;
 using MySqlConnector;
@@ -31,3 +32,4 @@ namespace Repository.Database.Gerenciamento
         }
     }
 }
+*/

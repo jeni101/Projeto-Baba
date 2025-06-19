@@ -12,9 +12,8 @@ using Services.Jogos;
 
 namespace Models.JogosApp
 {
-    public class Jogo
+    public class Jogo : AModel
     {
-        public Guid Id { get; protected set; }
         public string Nome { get; private set; }
         public string AbreviacaoTimeA { get; set; }
         public string AbreviacaoTimeB { get; set; }

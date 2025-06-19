@@ -1,11 +1,15 @@
-namespace Interfaces.IRepository;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Models;
 
-interface IRepository<T> where T : class
+namespace Interfaces.IRepository
 {
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetByIdAsync(int id);
-    Task<T?> GetByNameAsync(string nome);
-    Task DeleteAsync(int id);
-    Task<T> UpdateAsync(T entity);
-    Task<T> InsertAsync(T entity);
+    public interface IRepository<T> where T : AModel
+    {
+        Task<bool> SalvarAsync(T entity);
+        Task<T?> GetByIdAsync(Guid id);
+        Task<List<T>> GetAll();
+        Task<bool> DeleteAsync(Guid id);
+    }
 }

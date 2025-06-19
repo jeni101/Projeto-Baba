@@ -1,38 +1,64 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using MySqlConnector;
 using Models.PosicaoApp;
 using Repository.PersistenciaApp.Posicoes;
+using Services.Json; 
 
 namespace Repository.Database.Initializer.Posicoes
 {
-    public static class InitializerPosicoes
+    public class InitializerPosicoes
     {
-        private static readonly List<Posicao> PosicoesPadrao = new List<Posicao>
-        {
-            new Posicao("Goleiro", "Defesa", "GOL"),
-            new Posicao("Zagueiro", "Defesa", "ZAG"),
-            new Posicao("Lateral", "Defesa", "LAT"),
-            new Posicao("Volante", "Meio-Campo", "VOL"),
-            new Posicao("Meia Central", "Meio-Campo", "MCC"),
-            new Posicao("Meia Atacante", "Meio-Campo", "MCA"),
-            new Posicao("Ponta", "Ataque", "PON"),
-            new Posicao("Centroavante", "Ataque", "CAT"),
-            new Posicao("Segundo Atacante", "Ataque", "SA")
-        };
+        private readonly RepositoryPosicao _repoPosicao;
+        private readonly JsonServices _jsonService;
 
-        public static async Task Inicializar(RepositoryPosicao repoPosi)
+        public InitializerPosicoes(RepositoryPosicao posicaoRepository, JsonServices jsonServices)
         {
-            var posicoesExistentes = await repoPosi.CarregarTodas();
-            if (posicoesExistentes.Count == 0)
+            _repoPosicao = posicaoRepository ?? throw new ArgumentNullException(nameof(posicaoRepository));
+            _jsonService = jsonServices ?? throw new ArgumentNullException(nameof(jsonServices));
+        }
+
+        public async Task InitializeAsync()
+        {
+            string filePath = Path.Combine("FurApp", "Database", "posicoes.json");
+
+            if (_jsonService.FileExists(filePath) && (await _jsonService.ReadFileAsync(filePath))?.Length > 2)
             {
-                foreach (var posicao in PosicoesPadrao)
+                Console.WriteLine("Posições já inicializadas no JSON. Pulando a inicialização.");
+                return;
+            }
+
+            Console.WriteLine("Inicializando Posições no JSON...");
+
+            var posicoes = new List<Posicao>
+            {
+                new Posicao("Goleiro", "Goleiro", "GOL"),
+                new Posicao("Zagueiro", "Defesa", "ZAG"),
+                new Posicao("Lateral Direito", "Defesa", "LD"),
+                new Posicao("Lateral Esquerdo", "Defesa", "LE"),
+                new Posicao("Volante", "Defesa", "VOL"),
+                new Posicao("Meia Central", "Defesa", "MC"),
+                new Posicao("Meia Atacante", "Defesa", "MA"),
+                new Posicao("Ponta Direita", "Defesa", "PD"),
+                new Posicao("Ponta Esquerda", "Defesa", "PE"),
+                new Posicao("Centroavante", "Defesa", "CA")
+            };
+
+            foreach (var posicao in posicoes)
+            {
+                if (await _repoPosicao.SalvarAsync(posicao))
                 {
-                    posicao.Id = Guid.NewGuid();
-                    await repoPosi.SalvarPosicao(posicao);
+                    Console.WriteLine($"Posição '{posicao.Nome}' inicializada com sucesso.");
+                }
+                else
+                {
+                    Console.WriteLine($"Erro ao inicializar Posição '{posicao.Nome}'.");
                 }
             }
+
+            Console.WriteLine("Inicialização de Posições concluída.");
         }
     }
 }

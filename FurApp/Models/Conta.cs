@@ -1,38 +1,43 @@
 using System;
 using Utils.Pelase.CensuradorDeSenha;
+using System.Text.Json.Serialization;
 
 namespace Models.ContaApp
 {
-    public abstract class Conta
+    public abstract class Conta : AModel // AModel também precisa de construtor sem parâmetros e [JsonConstructor]
     {
-        //sistema de ID
-        public Guid Id { get; protected set; }
-        //atributos
-        public string Nome {get; protected set;}
-        public string SenhaHash {get; private set;}
-        public int Idade {get; private set;}
+        public string Nome { get; protected set; }
+        public string SenhaHash { get; set; } // Deve ser 'public set' para desserialização
+        public int Idade { get; set; }        // Deve ser 'public set' para desserialização
 
-        //Conta protegida
-        protected Conta(string nome, string senha, int idade)
+        // Construtor sem parâmetros (MUITO IMPORTANTE para desserialização padrão)
+        public Conta()
         {
-            if (string.IsNullOrWhiteSpace(nome)) 
-                throw new ArgumentException("O nome não pode ser vazio", nameof(nome)); //LUIS VERIFICA O OUTPUT
-            
-            if (string.IsNullOrWhiteSpace(senha)) 
-                throw new ArgumentException("A senha não pode ser vazia", nameof(senha)); //LUIS VERIFICA O OUTPUT
-            
-            if (idade <= 0) 
-                throw new ArgumentException("Idade não deve ser negativa", nameof(idade)); //LUIS VERIFICA O OUTPUT
+            Nome = string.Empty;
+            SenhaHash = string.Empty;
+            Idade = 0;
+            // Id é inicializado pelo AModel, se tiver um construtor padrão
+        }
 
-            //Gerando ID ao criar conta
-            Id = Guid.NewGuid();
+        // Construtor para criação de novas contas
+        protected Conta(string nome, string senha, int idade) : this()
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("O nome não pode ser vazio", nameof(nome));
+            if (string.IsNullOrWhiteSpace(senha))
+                throw new ArgumentException("A senha não pode ser vazia", nameof(senha));
+            if (idade <= 0)
+                throw new ArgumentException("Idade não deve ser negativa", nameof(idade));
+
+            // Id = Guid.NewGuid(); // AModel deve cuidar da geração do Id no construtor padrão
             Nome = nome;
             SenhaHash = CensuradorDeSenha.HashPassword(senha);
             Idade = idade;
         }
 
-        //Construtor para db
-        protected Conta(Guid id, string nome, string senhaHash, int idade)
+        // Construtor de desserialização (marcado para o JsonConstructor)
+        [JsonConstructor]
+        protected Conta(Guid id, string nome, string senhaHash, int idade) : this() // Chama o construtor padrão primeiro
         {
             Id = id;
             Nome = nome;
@@ -40,7 +45,6 @@ namespace Models.ContaApp
             Idade = idade;
         }
 
-        //Verifica a senha
         public bool Autenticar(string senha)
         {
             return CensuradorDeSenha.VerificarSenha(senha, SenhaHash);

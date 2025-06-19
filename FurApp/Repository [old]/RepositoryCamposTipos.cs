@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -132,8 +133,9 @@ namespace Repository.PersistenciaApp.CamposTipo
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
             return null;
         }
     }
 }
+*/
