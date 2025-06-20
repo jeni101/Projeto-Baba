@@ -195,3 +195,4 @@ Versions:
     -1.000.03 (json all the way)
     -1.000.04 (Conectanto as coisas, começo)
     -1.000.05 (all problems?)
+    -1.000.06 (Times Services)

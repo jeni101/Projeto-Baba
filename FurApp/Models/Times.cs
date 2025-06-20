@@ -13,33 +13,33 @@ namespace Models.TimesApp
     {
         public string Nome { get; set; }
         public string Abreviacao { get; set; }
-        public string Tecnico { get; set; }
-        public List<Conta_Jogador> Jogadores { get; set; }
-        public List<string> Jogos { get; set; }
-        public List<string> Partidas { get; set; }
+        public Guid TecnicoId { get; set; }
+        public List<Guid> JogadoresId { get; set; }
+        public List<Guid> JogosId { get; set; }
+        public List<Guid> PartidasId { get; set; }
 
         //Construtor privado
-        public Time(string nome, string abreviacao, string tecnico)
+        public Time(string nome, string abreviacao, Guid tecnico)
         {
             Id = Guid.NewGuid();
             Nome = nome;
             Abreviacao = abreviacao;
-            Tecnico = tecnico;
-            Jogadores = new List<Conta_Jogador>();
-            Jogos = new List<string>();
-            Partidas = new List<string>();
+            TecnicoId = tecnico;
+            JogadoresId = new List<Guid>();
+            JogosId = new List<Guid>();
+            PartidasId = new List<Guid>();
         }
         
         //pesquisador de times
-        public Time(Guid id, string nome, string abreviacao, string tecnico, List<Conta_Jogador> jogadores, string jogosStr, string partidasStr)
+        public Time(Guid id, string nome, string abreviacao, Guid tecnico, List<Guid> jogadores, string jogosStr, string partidasStr)
         {
             Id = id;
             Nome = nome;
             Abreviacao = abreviacao;
-            Tecnico = tecnico;
-            Jogadores = jogadores;
-            Jogos = string.IsNullOrEmpty(jogosStr) ? new List<string>() : jogosStr.Split(',').ToList();
-            Partidas = string.IsNullOrEmpty(partidasStr) ? new List<string>() : partidasStr.Split(',').ToList();
+            TecnicoId = tecnico;
+            JogadoresId = jogadores;
+            JogosId = new List<Guid>();
+            PartidasId = new List<Guid>();
         }
     }
 }
