@@ -1,7 +1,11 @@
 using Models.ContaApp;
 using Models.ContaApp.Usuario;
+using Models.ContaApp.Usuario.Tecnico;
+using Models.TimesApp;
 using Views.OpcoesAdministrador;
 using Services.Autenticacao;
+using Services.Times;
+using Services.Jogos;
 using Views.OpcoesMascara;
 using Utils.Confirmacao_de_saida;
 using Utils.Controle_de_execoesApp;
@@ -17,12 +21,16 @@ namespace Views.OpcoesContas
         private readonly Autenticador _autenticador;
         private readonly Views_Administrador _viewsAdministrador;
         private readonly Views_Usuarios _viewsUsuarios;
+        private readonly TimesServices _timeServices;
+        private readonly JogosServices _jogosServices;
 
-        public Views_De_OpcoesContas(Autenticador autenticador, Views_Administrador viewsAdministrador, Views_Usuarios viewsUsuarios)
+        public Views_De_OpcoesContas(Autenticador autenticador, Views_Administrador viewsAdministrador, Views_Usuarios viewsUsuarios, TimesServices timeServices, JogosServices jogosServices)
         {
             _autenticador = autenticador;
             _viewsAdministrador = viewsAdministrador;
             _viewsUsuarios = viewsUsuarios;
+            _timeServices = timeServices;
+            _jogosServices = jogosServices;
         }
 
         public async Task Display_MenuAdministrador()
@@ -194,7 +202,7 @@ namespace Views.OpcoesContas
 
                 Conta? contaLogada = _autenticador.PegarContaLogada();
 
-                if (contaLogada is Conta_Usuario usuarioLogado)
+                if (contaLogada is Conta_Tecnico tecnicoLogado)
                 {
                     var HouveErro = await ControleDeExecoes.ExecutarComTratamento(async () =>
                     {
@@ -204,14 +212,14 @@ namespace Views.OpcoesContas
                         switch (opcao)
                         {
                             case 1:
-                                PerfilUsuarioDTO perfilDTO = MapperUsuario.ToPerfilUsuarioDTO(usuarioLogado);
+                                PerfilUsuarioDTO perfilDTO = MapperUsuario.ToPerfilUsuarioDTO(tecnicoLogado);
                                 PresenterPerfil.ExibirPerfil(perfilDTO);
                                 Console.WriteLine("\nPressione qualquer tecla para continuar...");
                                 Console.ReadKey();
                                 break;
 
                             case 2:
-                                //Linkar Função de Gerenciamento/Criação de Time
+                                await CriarTimeParaTecnico(tecnicoLogado);
                                 break;
 
                             case 3:
@@ -234,6 +242,37 @@ namespace Views.OpcoesContas
                     if (sair) break;
                 }
             }
+        }
+
+        private async Task CriarTimeParaTecnico(Conta_Tecnico tecnicoLogado)
+        {
+            Console.Clear();
+            View_Inicial.Display_Mascara01();
+            Console.WriteLine("--- Criar Novo Time ---");
+
+            Console.Write("Digite o nome do time: ");
+            string? nomeTime = Console.ReadLine();
+
+            Console.Write("Digite a abreviação do time (ex: FLA, SAO): ");
+            string? abreviacaoTime = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(nomeTime) || string.IsNullOrWhiteSpace(abreviacaoTime))
+            {
+                Console.WriteLine("Nome e abreviação não podem ser vazios. Tente novamente.");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                return;
+            }
+
+            Time? novoTime = await _timeServices.CriarTime(nomeTime, abreviacaoTime, tecnicoLogado);
+
+            if (novoTime != null)
+            {
+                Console.WriteLine($"Time '{novoTime.Nome}' criado com sucesso!");
+            }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
         }
     }
 }

@@ -64,3 +64,12 @@ D:/codes/Projeto-Baba/FurApp/bin/Debug/net9.0/Microsoft.Extensions.DependencyInj
 /Users/jenifercandidogomes/Desktop/Projeto-Baba/FurApp/obj/Debug/net9.0/FurApp.pdb
 /Users/jenifercandidogomes/Desktop/Projeto-Baba/FurApp/obj/Debug/net9.0/FurApp.genruntimeconfig.cache
 /Users/jenifercandidogomes/Desktop/Projeto-Baba/FurApp/obj/Debug/net9.0/ref/FurApp.dll
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.csproj.AssemblyReference.cache
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.AssemblyInfoInputs.cache
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.AssemblyInfo.cs
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.csproj.CoreCompileInputs.cache
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.sourcelink.json
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.dll
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\refint\FurApp.dll
+D:\codes\Projeto-Baba\FurApp\obj\Debug\net9.0\FurApp.pdb

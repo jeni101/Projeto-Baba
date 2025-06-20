@@ -1,7 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Models.ContaApp.Usuario.Jogador;
+using Models.TimesApp;
 using Models.JogosApp;
 using Models.JogosApp.PlacarJogo;
+using Models.CamposApp;
+using Models.CamposApp.Tipo;
+using Repository.Database.Initializer.Posicoes;
+using Repository.PersistenciaApp.Posicoes;
+using Repository.PersistenciaApp.Jogos;
+using Models.PosicaoApp;
 
 namespace Models.JogosApp.Partidas
 {
@@ -17,11 +25,15 @@ namespace Models.JogosApp.Partidas
         public TimeOnly Hora { get; private set; }
         public string Local { get; private set; }
         public PartidaStatus Status { get; private set; }
+        private readonly RepositoryPosicao _repoPosicao;
+        private readonly RepositoryJogos _repoJogos;
 
         //Construtor padrão
-        public Partida(Guid jogoId, string timeA, string timeB, DateOnly data, TimeOnly hora, string local)
+        public Partida(Guid jogoId, string timeA, string timeB, DateOnly data, TimeOnly hora, string local, RepositoryPosicao repoPosicao, RepositoryJogos repoJogos)
         {
             Id = Guid.NewGuid();
+            _repoPosicao = repoPosicao;
+            _repoJogos = repoJogos;
             JogoId = jogoId;
             TimeA = timeA ?? throw new ArgumentNullException(nameof(timeA));
             TimeB = timeB ?? throw new ArgumentNullException(nameof(timeB));
@@ -123,72 +135,240 @@ namespace Models.JogosApp.Partidas
 
         public override string ToString()
         {
-            return $"{Nome} - Status: {Status} - Placar: {Placar}";            Placar = new Placar(timeA: "Time A", golsA: 0, timeB: "Time B", golsB: 0);
-            Times = new List<Time>();
+            return $"{Nome} - Status: {Status} - Placar: {Placar}";
         }
 
-        public void Entrar_jogo_com_possicao()
+        public async Task Entrar_jogo_com_possicao()
         {
-            while (true)
+            List<Jogo> jogosDisponiveis = await _repoJogos.GetAll();
+            if (!jogosDisponiveis.Any())
             {
+                Console.WriteLine("Nenhum jogo disponível para entrar. Crie um jogo primeiro.");
+                return;
+            }
 
-                List<string> Posicao = new List<string>()
+            Jogo? jogoSelecionado = null;
+            while (jogoSelecionado == null)
+            {
+                Console.WriteLine("\nEscolha um jogo para entrar digitando o número correspondente:");
+                for (int i = 0; i < jogosDisponiveis.Count; i++)
                 {
-                    "goleiro",
-                    "zagueiro",
-                    "lateral direito",
-                    "lateral esquerdo ",
-                    "volante",
-                    "meia",
-                    "atacante"
-
-                };
-                Console.WriteLine("digite a possicao q deseja jogar: ");
-                Console.WriteLine("goleiro, zagueiro, lateral direito, lateral esquerdo, volante, meia, atacante");
-                string? posicaoEscolhida = Console.ReadLine();
-                if (posicaoEscolhida != null)
-                {
-                    posicaoEscolhida = posicaoEscolhida.ToLower();
+                    Console.WriteLine($"{i + 1}. {jogosDisponiveis[i].Nome} - Local: {jogosDisponiveis[i].LocalDisplay}");
                 }
-                if (posicaoEscolhida != null && Posicao.Contains(posicaoEscolhida))
+                Console.Write("Sua escolha de jogo: ");
+
+                string? entradaJogo = Console.ReadLine();
+                if (int.TryParse(entradaJogo, out int escolhaNumericaJogo))
                 {
-                    Console.WriteLine($"Você escolheu jogar como {posicaoEscolhida}.");
-                    Console.WriteLine("entando na partida... ");
-                    var jogador = new Conta_Jogador(nome: "Jogador1", senha: "123", idade: 25, posicao: posicaoEscolhida);
-                    var jogo = new Jogo(data: DateOnly.FromDateTime(DateTime.Now),
-                                        hora: TimeOnly.FromDateTime(DateTime.Now),
-                                        local: "Estádio Central",
-                                        tipoDeCampo: "Grama",
-                                        quantidadeDeJogadores: 11)
-
-                                        ;
-                    var AdicionarInteressado = jogo.AdicionarInteressado(jogador, ref posicaoEscolhida);
-
+                    if (escolhaNumericaJogo > 0 && escolhaNumericaJogo <= jogosDisponiveis.Count)
+                    {
+                        jogoSelecionado = jogosDisponiveis[escolhaNumericaJogo - 1];
+                        Console.WriteLine($"Você escolheu o jogo: {jogoSelecionado.Nome}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Número de jogo inválido. Por favor, digite um número da lista.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Posição inválida. Por favor, escolha uma posição válida.");
+                    string entradaJogoFormatada = entradaJogo?.ToLower().Trim() ?? string.Empty;
+                    jogoSelecionado = jogosDisponiveis.FirstOrDefault(j => j.Nome.ToLower().Contains(entradaJogoFormatada));
+                    if (jogoSelecionado != null)
+                    {
+                         Console.WriteLine($"Você escolheu o jogo: {jogoSelecionado.Nome}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Entrada inválida. Por favor, digite o número do jogo ou parte do nome.");
+                    }
                 }
+            }
+
+            var jogoAtual = jogoSelecionado;
+
+            List<Posicao> posicoesExistentes = await _repoPosicao.GetAll();
+
+            if (!posicoesExistentes.Any())
+            {
+                Console.WriteLine("Nenhuma posição disponível para escolha. Verifique o repositório de posições.");
+                return; 
+            }
+
+            Posicao? posicaoSelecionada = null;
+            while (posicaoSelecionada == null)
+            {
+                Console.WriteLine("\nEscolha a posição desejada digitando o número correspondente:");
+                for (int i = 0; i < posicoesExistentes.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {posicoesExistentes[i].Nome}");
+                }
+                Console.Write("Sua escolha de posição: ");
+
+                string? entradaPosicao = Console.ReadLine();
+                if (int.TryParse(entradaPosicao, out int escolhaNumericaPosicao))
+                {
+                    if (escolhaNumericaPosicao > 0 && escolhaNumericaPosicao <= posicoesExistentes.Count)
+                    {
+                        posicaoSelecionada = posicoesExistentes[escolhaNumericaPosicao - 1];
+                    }
+                    else
+                    {
+                        Console.WriteLine("Número de posição inválido. Por favor, digite um número da lista.");
+                    }
+                }
+                else
+                {
+                    string entradaTextoFormatada = entradaPosicao?.ToLower().Trim() ?? string.Empty;
+                    posicaoSelecionada = posicoesExistentes.FirstOrDefault(p => p.Nome.ToLower() == entradaTextoFormatada);
+                    if (posicaoSelecionada == null)
+                    {
+                        Console.WriteLine("Entrada inválida. Por favor, digite o número ou o nome exato da posição.");
+                    }
+                }
+            }
+
+
+            Console.WriteLine($"Você escolheu jogar como {posicaoSelecionada.Nome} no jogo {jogoAtual.Nome}.");
+            Console.WriteLine("Entrando na partida... ");
+
+            var jogador = new Conta_Jogador(nome: "Novo Jogador Teste", senha: "senhaSegura", idade: 27, posicao: posicaoSelecionada.Nome);
+
+            if (jogoAtual.AdicionarInteressado(jogador))
+            {
+                Console.WriteLine("Jogador adicionado com sucesso ao jogo!");
+            }
+            else
+            {
+                Console.WriteLine("Não foi possível adicionar o jogador (talvez já esteja interessado ou o jogo esteja fechado).");
             }
         }
 
-        public void Entrar_jogo_sem_posicao()
+        public async Task Entrar_jogo_sem_posicao()
         {
-            List<string> PosicaoGenerica = new List<string>()
+           Console.WriteLine("\n--- Entrar em um Jogo sem Posição Definida (Escolha por Categoria) ---");
+
+            List<Jogo> jogosDisponiveis = await _repoJogos.GetAll();
+
+            if (!jogosDisponiveis.Any())
             {
-                "goleiro",
-                "defesa",
-                "atacante"
-            };
+                Console.WriteLine("Nenhum jogo disponível para entrar. Crie um jogo primeiro.");
+                return;
+            }
+
+            Jogo? jogoSelecionado = null;
+            while (jogoSelecionado == null)
+            {
+                Console.WriteLine("\nEscolha um jogo para entrar digitando o número correspondente:");
+                for (int i = 0; i < jogosDisponiveis.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {jogosDisponiveis[i].Nome} - Local: {jogosDisponiveis[i].LocalDisplay}");
+                }
+                Console.Write("Sua escolha de jogo: ");
+
+                string? entradaJogo = Console.ReadLine();
+                if (int.TryParse(entradaJogo, out int escolhaNumericaJogo))
+                {
+                    if (escolhaNumericaJogo > 0 && escolhaNumericaJogo <= jogosDisponiveis.Count)
+                    {
+                        jogoSelecionado = jogosDisponiveis[escolhaNumericaJogo - 1];
+                        Console.WriteLine($"Você escolheu o jogo: {jogoSelecionado.Nome}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Número de jogo inválido. Por favor, digite um número da lista.");
+                    }
+                }
+                else
+                {
+                    string entradaJogoFormatada = entradaJogo?.ToLower().Trim() ?? string.Empty;
+                    jogoSelecionado = jogosDisponiveis.FirstOrDefault(j => j.Nome.ToLower().Contains(entradaJogoFormatada));
+                    if (jogoSelecionado != null)
+                    {
+                         Console.WriteLine($"Você escolheu o jogo: {jogoSelecionado.Nome}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Entrada inválida. Por favor, digite o número do jogo ou parte do nome.");
+                    }
+                }
+            }
+
+            var jogoAtual = jogoSelecionado;
+
+            List<Posicao> todasAsPosicoes = await _repoPosicao.GetAll();
+
+            List<string> categoriasExistentes = todasAsPosicoes
+                .Select(p => p.Categoria)
+                .Distinct() 
+                .OrderBy(c => c)
+                .ToList();
+
+            if (!categoriasExistentes.Any())
+            {
+                Console.WriteLine("Nenhuma categoria de posição disponível. Verifique o repositório de posições e suas categorias.");
+                return;
+            }
+
+            string? categoriaSelecionadaNome = null;
+            while (categoriaSelecionadaNome == null)
+            {
+                Console.WriteLine("\nEscolha uma categoria de posição para jogar (digitando o número ou nome):");
+                for (int i = 0; i < categoriasExistentes.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {categoriasExistentes[i]}");
+                }
+                Console.Write("Sua escolha de categoria: ");
+
+                string? entradaCategoria = Console.ReadLine();
+                if (int.TryParse(entradaCategoria, out int escolhaNumericaCategoria))
+                {
+                    if (escolhaNumericaCategoria > 0 && escolhaNumericaCategoria <= categoriasExistentes.Count)
+                    {
+                        categoriaSelecionadaNome = categoriasExistentes[escolhaNumericaCategoria - 1];
+                    }
+                    else
+                    {
+                        Console.WriteLine("Número de categoria inválido. Por favor, digite um número da lista.");
+                    }
+                }
+                else
+                {
+                    string entradaTextoFormatada = entradaCategoria?.ToLower().Trim() ?? string.Empty;
+                    categoriaSelecionadaNome = categoriasExistentes.FirstOrDefault(c => c.ToLower() == entradaTextoFormatada);
+                    if (categoriaSelecionadaNome == null)
+                    {
+                        Console.WriteLine("Entrada inválida. Por favor, digite o número ou o nome exato da categoria.");
+                    }
+                }
+            }
+
+            List<Posicao> posicoesNaCategoria = todasAsPosicoes
+                .Where(p => p.Categoria.Equals(categoriaSelecionadaNome, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!posicoesNaCategoria.Any())
+            {
+                Console.WriteLine($"Erro: Nenhuma posição encontrada para a categoria '{categoriaSelecionadaNome}'.");
+                return;
+            }
+
             Random rnd = new Random();
-            string PosicaoSorteada = PosicaoGenerica[rnd.Next(PosicaoGenerica.Count)];
-            var jogador = new Conta_Jogador(nome: "Jogador2", senha: "456", idade: 22, posicao: "genérica");
-            var jogo = new Jogo(data: DateOnly.FromDateTime(DateTime.Now),
-                                hora: TimeOnly.FromDateTime(DateTime.Now),
-                                local: "Estádio Central",
-                                tipoDeCampo: "Grama",
-                                quantidadeDeJogadores: 11); // teste deve ser tirado dps
-            var AdicionarInteressado = jogo.AdicionarInteressado(jogador, ref PosicaoSorteada);
+            Posicao posicaoAtribuida = posicoesNaCategoria[rnd.Next(posicoesNaCategoria.Count)];
+
+            Console.WriteLine($"Você escolheu a categoria '{categoriaSelecionadaNome}'. Sua posição atribuída será: {posicaoAtribuida.Nome}.");
+            Console.WriteLine("Entrando na partida... ");
+
+            var jogador = new Conta_Jogador(nome: "Jogador Categoria", senha: "senhaAleatoria", idade: 25, posicao: posicaoAtribuida.Nome);
+
+            if (jogoAtual.AdicionarInteressado(jogador))
+            {
+                Console.WriteLine("Jogador adicionado com sucesso ao jogo!");
+            }
+            else
+            {
+                Console.WriteLine("Não foi possível adicionar o jogador (talvez já esteja interessado ou o jogo esteja fechado).");
+            }
         }
 
 
