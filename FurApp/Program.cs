@@ -37,45 +37,41 @@ class Program
 
         // 2. Configuração da Injeção de Dependências
         var serviceProvider = new ServiceCollection()
-            // Configurar o JsonServices (Singleton para manter uma única instância e estado do diretório base)
             .AddSingleton<JsonServices>(sp =>
-                new JsonServices(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FurApp", "Database")))
+                new JsonServices(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Database")))
+
 
             // Registrar Repositórios JSON
             .AddSingleton<RepositoryADM>()
             .AddSingleton<RepositoryJogador>()
             .AddSingleton<RepositoryTecnico>()
             .AddSingleton<RepositoryTimes>()
-            .AddSingleton<RepositoryCamposTipo>() // Certifique-se de ter essa classe
+            .AddSingleton<RepositoryCamposTipo>() 
             .AddSingleton<RepositoryCampos>()
             .AddSingleton<RepositoryPosicao>()
             .AddSingleton<RepositoryJogos>()
-            // .AddSingleton<JsonRepositoryPartida>() // Se você tiver um repositório de Partida
 
             // Registrar os Initializers (Transient, pois são usados uma vez na inicialização)
-            // Eles receberão seus repositórios por injeção
             .AddTransient<InitializerAdministrador>()
             .AddTransient<InitializerPosicoes>()
             .AddTransient<InitializerTipoCampos>()
             .AddTransient<InitializerCampos>()
 
             // Registrar Serviços de Autenticação e Registro
-            .AddSingleton<Autenticador>() // Estes serviços recebem os repositórios por DI
+            .AddSingleton<Autenticador>()
             .AddSingleton<Registro>()
-            // .AddSingleton<GerenciadorDePartidasService>() // Exemplo de outro serviço
 
             // Registrar Views
             .AddSingleton<Views_Administrador>()
             .AddSingleton<Views_Usuarios>()
             .AddSingleton<Views_De_OpcoesContas>()
             .AddSingleton<Views_De_Contas>()
-            .BuildServiceProvider(); // Constrói o ServiceProvider
+            .BuildServiceProvider();
 
         // 3. Executar Initializers para popular os JSONs, se necessário
         Console.WriteLine("Iniciando a inicialização de dados (se arquivos JSON vazios)...");
         try
         {
-            // A ordem é crucial devido a dependências entre os dados
             await serviceProvider.GetRequiredService<InitializerPosicoes>().InitializeAsync();
             await serviceProvider.GetRequiredService<InitializerTipoCampos>().InitializeAsync();
             await serviceProvider.GetRequiredService<InitializerCampos>().InitializeAsync();
