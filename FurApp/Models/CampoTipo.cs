@@ -9,6 +9,7 @@ namespace Models.CamposApp.Tipo
         public int CapacidadePadrao { get; set; }
 
         public TipoDeCampo()
+            : base ()
         {
             Tipo = string.Empty;
             CapacidadePadrao = 0;

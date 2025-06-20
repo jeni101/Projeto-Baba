@@ -196,3 +196,4 @@ Versions:
     -1.000.04 (Conectanto as coisas, começo)
     -1.000.05 (all problems?)
     -1.000.06 (Times Services)
+    -1.000.07 (Let's go)

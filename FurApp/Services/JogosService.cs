@@ -8,27 +8,28 @@ using Models.JogosApp.Partidas;
 using Repository.PersistenciaApp.Campos;
 using Repository.PersistenciaApp.Jogos;
 using Repository.PersistenciaApp.Partidas;
+using Repository.PersistenciaApp.Posicoes;
 using Utils.Pelase.Leitor.DataHora;
 
 namespace Services.Jogos
 {
     public class JogosServices
     {
-        // Repositórios injetados via construtor (melhor prática)
         private readonly RepositoryCampos _campoRepository;
-        private readonly RepositoryJogos _jogoRepository; // Renomeado para seguir o padrão de nome
+        private readonly RepositoryJogos _jogoRepository; 
         private readonly RepositoryPartidas _partidaRepository;
+        private readonly RepositoryPosicao _repoPosicao;
 
-        // Construtor: Ideal para injeção de dependência.
-        // Se você não usa um container de DI, pode instanciá-los aqui, mas a injeção é mais flexível.
         public JogosServices(
             RepositoryCampos campoRepository,
             RepositoryJogos jogoRepository,
-            RepositoryPartidas partidaRepository)
+            RepositoryPartidas partidaRepository,
+            RepositoryPosicao repoPosicao)
         {
             _campoRepository = campoRepository ?? throw new ArgumentNullException(nameof(campoRepository));
             _jogoRepository = jogoRepository ?? throw new ArgumentNullException(nameof(jogoRepository));
             _partidaRepository = partidaRepository ?? throw new ArgumentNullException(nameof(partidaRepository));
+            _repoPosicao = repoPosicao;
         }
 
         public async Task<Jogo?> CriarNovoJogo()
@@ -99,7 +100,9 @@ namespace Services.Jogos
                         novoJogo.AbreviacaoTimeB,
                         novoJogo.Data,
                         novoJogo.Hora,
-                        novoJogo.LocalDisplay
+                        novoJogo.LocalDisplay,
+                        _repoPosicao,
+                        _jogoRepository
                     );
 
                     bool partidaSalva = await _partidaRepository.SalvarAsync(novaPartida);

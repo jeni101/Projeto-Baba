@@ -30,6 +30,7 @@ namespace Models.JogosApp.Partidas
 
         //Construtor padrão
         public Partida(Guid jogoId, string timeA, string timeB, DateOnly data, TimeOnly hora, string local, RepositoryPosicao repoPosicao, RepositoryJogos repoJogos)
+                : base ()
         {
             Id = Guid.NewGuid();
             _repoPosicao = repoPosicao;

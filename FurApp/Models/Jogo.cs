@@ -31,6 +31,7 @@ namespace Models.JogosApp
                     TimeOnly hora,
                     Campo campo,
                     int quantidadeDeJogadores)
+                    : base ()
         {
             if (campo == null)
                 throw new ArgumentNullException(nameof(campo), "Campo não pode ser nulo");

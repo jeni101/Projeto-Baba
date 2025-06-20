@@ -40,5 +40,19 @@
     "DataDelecao": null,
     "QuemDeletou": null,
     "Id": "ebbd64df-357d-4542-8ed6-bcd1d60b6895"
+  },
+  {
+    "Nome": "Quadra de Areia 1",
+    "Local": "Campo de areia pr\u00F3ximo ao complexo esportivo",
+    "Capacidade": 10,
+    "TipoDeCampo": {
+      "Tipo": "Areia",
+      "CapacidadePadrao": 10,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    "Deletado": false,
+    "DataDelecao": null,
+    "QuemDeletou": null,
+    "Id": "8b80e255-12bd-49c2-92c8-a2c2884cc72f"
   }
 ]

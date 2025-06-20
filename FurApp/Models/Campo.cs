@@ -15,6 +15,7 @@ namespace Models.CamposApp
         public string? QuemDeletou { get; set; }
 
         public Campo()
+            : base ()
         {
             Nome = string.Empty;
             Local = string.Empty;

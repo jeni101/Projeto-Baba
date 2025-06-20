@@ -9,7 +9,8 @@ namespace Models.PosicaoApp
         public string Categoria { get; set; }
         public string Abreviacao { get; set; }
 
-        public Posicao()
+        public Posicao() 
+                : base ()
         {
             Nome = string.Empty;
             Categoria = string.Empty;

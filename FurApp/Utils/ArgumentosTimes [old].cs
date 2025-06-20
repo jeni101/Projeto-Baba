@@ -1,3 +1,4 @@
+/*
 using System;
 using MySqlConnector;
 using Models.TimesApp;
@@ -18,3 +19,4 @@ namespace Utils.Pelase.Argumentos.Times
         }
     }
 }
+*/

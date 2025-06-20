@@ -12,6 +12,7 @@ namespace Models.ContaApp
 
         // Construtor sem parâmetros (MUITO IMPORTANTE para desserialização padrão)
         public Conta()
+                : base ()
         {
             Nome = string.Empty;
             SenhaHash = string.Empty;

@@ -20,6 +20,7 @@ namespace Models.TimesApp
 
         //Construtor privado
         public Time(string nome, string abreviacao, Guid tecnico)
+            : base ()
         {
             Id = Guid.NewGuid();
             Nome = nome;
